@@ -15,9 +15,12 @@ namespace RealLifeFramework
         {
             U.Events.OnPlayerConnected += OnPlayerConnected;
             U.Events.OnPlayerDisconnected += OnPlayerDisconnected;
+
             DamageTool.damagePlayerRequested += onPlayerDamageRequest;
+
             ItemManager.onTakeItemRequested = onTakeItemRequested;
             BarricadeManager.onOpenStorageRequested = onOpenStorageRequested;
+
             EffectManager.onEffectButtonClicked = onEffectButtonClicked;
             EffectManager.onEffectTextCommitted = onEffectTextCommited;
 
@@ -40,7 +43,10 @@ namespace RealLifeFramework
             RealPlayerManager.HandleDisconnect(player);
         }
 
-        public static void OnInventoryItemAdded(byte page, byte index, ItemJar jar) => Logger.Log("kokot");
+        public static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)
+        {
+
+        }
 
         public static void onTakeItemRequested(Player player, byte x, byte y, uint instanceID, byte to_x, byte to_y, byte to_rot, byte to_page, ItemData itemData, ref bool shouldAllow)
         {
@@ -50,6 +56,7 @@ namespace RealLifeFramework
 
         public static void onOpenStorageRequested(CSteamID instigator, InteractableStorage storage, ref bool shouldAllow)
         {
+
         }
 
         public static void onPlayerDamageRequest(ref DamagePlayerParameters parameters, ref bool shouldAllow)
@@ -58,59 +65,57 @@ namespace RealLifeFramework
 
         public static void onEffectButtonClicked(Player player, string buttonName)
         {
-
-            /*if (RealPlayerCreation.PrePlayers.ContainsKey(((SteamPlayer)player.channel.owner).playerID.steamID))
+            if (RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
             {
-                string str = buttonName;
-                if (!(str == "g_male"))
+                switch (buttonName)
                 {
-                    if (!(str == "g_female"))
-                    {
-                        if (!(str == "createCharacterbtn"))
-                            return;
-                        RealPlayerCreation.ValidateCharacter(((SteamPlayer)player.channel.owner).playerID.steamID);
-                    }
-                    else
-                        RealPlayerCreation.SetGender(((SteamPlayer)player.channel.owner).playerID.steamID, (byte)1);
+                    case "g_male":
+                        RealPlayerCreation.SetGender(player.channel.owner.playerID.steamID, 0);
+                        break;
+                    case "g_female":
+                        RealPlayerCreation.SetGender(player.channel.owner.playerID.steamID, 1);
+                        break;
+                    case "createCharacterbtn":
+                        RealPlayerCreation.ValidateCharacter(player.channel.owner.playerID.steamID);
+                        break;
                 }
-                else
-                    RealPlayerCreation.SetGender(((SteamPlayer)player.channel.owner).playerID.steamID, (byte)0);
             }
             else
             {
-                string str = buttonName;
-                if (!(str == "joindiscord_btn"))
+                switch (buttonName)
                 {
-                    if (!(str == "joinsteam_btn"))
-                    {
-                        if (str == "continue_btn" && !RealLife.Instance.RealPlayers.ContainsKey(((SteamPlayer)player.channel.owner).playerID.steamID))
-                            RealPlayerCreation.OpenCreation(player);
-                    }
-                    else
+                    case "joindiscord_btn":
+                        player.sendBrowserRequest("Discord Invite", RealLife.Instance.Configuration.Instance.DiscordInvite);
+                        break;
+                    case "joinsteam_btn":
                         player.sendBrowserRequest("Steam Group", RealLife.Instance.Configuration.Instance.SteamGroupInvite);
+                        break;
+                    case "continue_btn":
+                        RealPlayerCreation.OpenCreation(player);
+                        break;
                 }
-                else
-                    player.sendBrowserRequest("Discord Invite", RealLife.Instance.Configuration.Instance.DiscordInvite);
-            }*/
+            }
         }
 
-        public static void onEffectTextCommited(SDG.Unturned.Player player, string inputName, string text)
+        public static void onEffectTextCommited(Player player, string inputName, string text)
         {
-            /*if (!RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
+            if (!RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
                 return;
 
-            if (!(str == "input_first"))
+            switch (inputName)
             {
-                if (!(str == "input_last"))
-                {
-                    if (str == "input_age")
-                        RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].Age = Convert.ToByte(text);
-                }
-                else
+                case "input_first":
+                    RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].FirstName = text;
+                    break;
+                case "input_last":
                     RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].LastName = text;
+                    break;
+                case "input_age":
+                    byte? age = Byte.TryParse(text, out byte result) ? (byte?)result : null;
+                    RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].Age = age;
+                    break;
+
             }
-            else
-                RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].FirstName = text;*/
         }
     }
 }

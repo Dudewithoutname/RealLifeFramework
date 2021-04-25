@@ -14,7 +14,8 @@ namespace RealLifeFramework.Players
         public static Dictionary<CSteamID, PrePlayer> PrePlayers;
 
         private static string headText = "DudeTurned | Create your dream character";
-        private const string regexPattern = @"_?<>./\u000C#-\[\]\{\}()*&^%$#@!;',+`|~";
+        private const string regexPattern = @"_?<>./\u000C#-\[\]\{\}()*&^%$#@!;',+`|~"; // kokot na co tu mas ten regex aj tak to nejde
+
         public static void Load()
         {
             PrePlayers = new Dictionary<CSteamID, PrePlayer>();
@@ -68,7 +69,7 @@ namespace RealLifeFramework.Players
                 return;
             }
             
-            RealLife.Instance.RealPlayers.Add(steamId, new RealPlayer(UnturnedPlayer.FromPlayer(player), PrePlayers[steamId].GetFullName(), PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender));
+            RealLife.Instance.RealPlayers.Add(steamId, new RealPlayer(UnturnedPlayer.FromPlayer(player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender));
             PrePlayers.Remove(steamId);
 
             player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
@@ -79,14 +80,14 @@ namespace RealLifeFramework.Players
 
         }
 
-        private static bool validateAge(byte age, ITransportConnection player)
+        private static bool validateAge(byte? age, ITransportConnection player)
         {
-            if(age < 18)
+            if(age == null)
             {
-                EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Minimal age is 18");
+                EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Bad age");
                 return false;
             }
-            else if (age == -1)
+            else if (age < 18)
             {
                 EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Minimal age is 18");
                 return false;
@@ -160,7 +161,7 @@ namespace RealLifeFramework.Players
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public byte Age { get; set; }
+        public byte? Age { get; set; }
         public byte? Gender { get; set; }
 
         public string GetFullName()
