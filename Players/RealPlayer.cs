@@ -81,8 +81,8 @@ namespace RealLifeFramework.Players
             JobUser = null;
             SkillUser = new SkillUser(this);
 
-            RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender, 0);
-            Logger.Log($"[Characters] >> New Player : {Name}, {Age}, {Gender}");
+            RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
+            Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
             // discord new player info
         }
 

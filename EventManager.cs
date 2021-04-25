@@ -27,7 +27,7 @@ namespace RealLifeFramework
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }
 
-        public static void OnPlayerConnected(UnturnedPlayer player)
+        private static void OnPlayerConnected(UnturnedPlayer player)
         {
             Logger.Log($"[Info] Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
            
@@ -36,34 +36,34 @@ namespace RealLifeFramework
             player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
         }
 
-        public static void OnPlayerDisconnected(UnturnedPlayer player)
+        private static void OnPlayerDisconnected(UnturnedPlayer player)
         {
             Logger.Log($"[Info] Player Connected : {player.SteamName} ({player.CSteamID}) ");
 
             RealPlayerManager.HandleDisconnect(player);
         }
 
-        public static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)
+        private static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)
         {
 
         }
 
-        public static void onTakeItemRequested(Player player, byte x, byte y, uint instanceID, byte to_x, byte to_y, byte to_rot, byte to_page, ItemData itemData, ref bool shouldAllow)
+        private static void onTakeItemRequested(Player player, byte x, byte y, uint instanceID, byte to_x, byte to_y, byte to_rot, byte to_page, ItemData itemData, ref bool shouldAllow)
         {
             RealPlayerManager.GetRealPlayer(player);
             shouldAllow = false;
         }
 
-        public static void onOpenStorageRequested(CSteamID instigator, InteractableStorage storage, ref bool shouldAllow)
+        private static void onOpenStorageRequested(CSteamID instigator, InteractableStorage storage, ref bool shouldAllow)
         {
 
         }
 
-        public static void onPlayerDamageRequest(ref DamagePlayerParameters parameters, ref bool shouldAllow)
+        private static void onPlayerDamageRequest(ref DamagePlayerParameters parameters, ref bool shouldAllow)
         {
         }
 
-        public static void onEffectButtonClicked(Player player, string buttonName)
+        private static void onEffectButtonClicked(Player player, string buttonName)
         {
             if (RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
             {
@@ -97,7 +97,7 @@ namespace RealLifeFramework
             }
         }
 
-        public static void onEffectTextCommited(Player player, string inputName, string text)
+        private static void onEffectTextCommited(Player player, string inputName, string text)
         {
             if (!RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
                 return;

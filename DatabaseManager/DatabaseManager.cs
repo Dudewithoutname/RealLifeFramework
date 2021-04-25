@@ -168,8 +168,8 @@ namespace RealLifeFramework
         {
             if (IsConnect())
             {
-                string queryPlayer = $"INSERT INTO {TablePlayer} (steamid, name, age, gender, money, level, exp) VALUES " +
-                    $"('{csteamid}', '{fullname}', '{age}', '{gender}', '{money}', '1', '0')";
+                string queryPlayer = $"INSERT INTO {TablePlayer} (steamid, name, age, gender, level, exp) VALUES " +
+                    $"('{csteamid}', '{fullname}', '{age}', '{gender}', '1','0')";
 
                 string queryJob = $"INSERT INTO {TablePlayerJob} (steamid, id) VALUES ('{csteamid}', '-1')";
 
@@ -203,9 +203,8 @@ namespace RealLifeFramework
                         Name = reader[1].ToString(),
                         Age = Convert.ToUInt16(reader[2].ToString()),
                         Gender = Convert.ToByte(reader[3].ToString()),
-                        Money = Convert.ToUInt64(reader[4].ToString()),
-                        Level = Convert.ToUInt16(reader[5].ToString()),
-                        Exp = Convert.ToUInt32(reader[6].ToString()),
+                        Level = Convert.ToUInt16(reader[4].ToString()),
+                        Exp = Convert.ToUInt32(reader[5].ToString()),
 
                     };
                 }

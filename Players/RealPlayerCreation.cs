@@ -13,7 +13,6 @@ namespace RealLifeFramework.Players
     {
         public static Dictionary<CSteamID, PrePlayer> PrePlayers;
 
-        private static string headText = "DudeTurned | Create your dream character";
         private const string regexPattern = @"_?<>./\u000C#-\[\]\{\}()*&^%$#@!;',+`|~"; // kokot na co tu mas ten regex aj tak to nejde
 
         public static void Load()
@@ -28,7 +27,6 @@ namespace RealLifeFramework.Players
 
             EffectManager.askEffectClearByID(UI.StartingTab, player.channel.GetOwnerTransportConnection());
             EffectManager.sendUIEffect(UI.CreationTab, 101, true, "DudeTurned | Create your dream character", ""); // 2nd is error text
-
         }
 
         public static void SetGender(CSteamID steamId, byte gender)
@@ -65,7 +63,7 @@ namespace RealLifeFramework.Players
 
             if (PrePlayers[steamId].Gender == null)
             {
-                EffectManager.sendUIEffect(UI.CreationTab, 101, playerCon, true, headText, "Error : Please select gender");
+                EffectManager.sendUIEffectText(101, playerCon, true, "errorText", "Error : Please select gender");
                 return;
             }
             
@@ -84,17 +82,17 @@ namespace RealLifeFramework.Players
         {
             if(age == null)
             {
-                EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Bad age");
+                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Invalid age");
                 return false;
             }
             else if (age < 18)
             {
-                EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Minimal age is 18");
+                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Minimal age is 18");
                 return false;
             }
             else if(age > 75)
             {
-                EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Maximal age is 75");
+                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Maximal age is 75");
                 return false;
             }
             else
@@ -114,17 +112,22 @@ namespace RealLifeFramework.Players
             {
                 if (str.All(char.IsDigit) || str.Contains(' ') || str.Contains('"') || regex.IsMatch(str))
                 {
-                    EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Firstname contains restrited characters");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname contains restrited characters");
+                    return false;
+                }
+                else if (str == String.Empty)
+                {
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname can't be empty");
                     return false;
                 }
                 else if (str.Length < 3)
                 {
-                    EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Firstname is too short");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname is too short");
                     return false;
                 }
                 else if (str.Length > 12)
                 {
-                    EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Firstname is too long");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname is too long");
                     return false;
                 }
                 else
@@ -134,19 +137,24 @@ namespace RealLifeFramework.Players
             }
             else // lastName
             {
-                if (str.All(char.IsDigit) || str.Contains(' ') || regex.IsMatch(str))
+                if (str.All(char.IsDigit) || str.Contains(' ') || str.Contains('"') || regex.IsMatch(str))
                 {
-                    EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Lastname contains restrited characters");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname contains restrited characters");
+                    return false;
+                }
+                else if(str == String.Empty)
+                {
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname can't be empty");
                     return false;
                 }
                 else if (str.Length < 3)
                 {
-                    EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Lastname is too short");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname is too short");
                     return false;
                 }
                 else if (str.Length > 15)
                 {
-                    EffectManager.sendUIEffect(UI.CreationTab, 101, player, true, headText, "Error : Lastname is too long");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname is too Long");
                     return false;
                 }
                 else

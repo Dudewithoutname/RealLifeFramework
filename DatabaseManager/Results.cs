@@ -10,7 +10,6 @@ namespace RealLifeFramework
         public string Name { get; set; }
         public ushort Age { get; set; }
         public byte Gender { get; set; }
-        public ulong Money { get; set; }
         public ushort Level { get; set; }
         public uint Exp { get; set; }
     }
