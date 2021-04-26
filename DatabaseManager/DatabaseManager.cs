@@ -285,7 +285,7 @@ namespace RealLifeFramework
         public void UpdateSkill(CSteamID player, int id, byte level, uint exp)
         {
             set(TablePlayerSkills, player.ToString(), getCbyId(id, 0, "lvl"), level.ToString());
-            set(TablePlayerSkills, player.ToString(), getCbyId(id, 0, "exp"), exp.ToString());
+            set(TablePlayerSkills, player.ToString(), getCbyId(id, 0, "xp"), exp.ToString());
         }
 
         public void UpdateEducation(CSteamID player, int id, byte level) => set(TablePlayerSkills, player.ToString(), getCbyId(id, 1, "lvl"), level.ToString());
