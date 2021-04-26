@@ -58,6 +58,7 @@ namespace RealLifeFramework.Skills
             {
                 skill.AddExp(amount);
                 RealLife.Database.UpdateSkill(RealPlayer.CSteamID, id, skill.Level, skill.Exp);
+                Logger.Log($"{skill.Name} , {skill.Level}, {skill.Exp}");
             }
         }
 

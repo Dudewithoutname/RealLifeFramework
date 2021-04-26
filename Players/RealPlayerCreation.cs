@@ -13,7 +13,7 @@ namespace RealLifeFramework.Players
     {
         public static Dictionary<CSteamID, PrePlayer> PrePlayers;
 
-        private const string regexPattern = @"_?<>./\u000C#-\[\]\{\}()*&^%$#@!;',+`|~"; // kokot na co tu mas ten regex aj tak to nejde
+        private const string disallowedCharacters = @"_?<>./\C#-\[\]\{\}()*&^%$#@!;',-=+`|~"; // kokot na co tu mas ten regex aj tak to nejde FIX TREBA
 
         public static void Load()
         {
@@ -52,15 +52,16 @@ namespace RealLifeFramework.Players
             player.GodMode = false;
             player.VanishMode = false;
 
-            PrePlayers.Remove(steamId);
             RealLife.Instance.RealPlayers.Add(steamId, new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender));
-            giveStratingItems(player.Player);
+            //giveStratingItems(player.Player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
             EffectManager.askEffectClearByID(UI.CreationTab, playerCon);
             EffectManager.askEffectClearByID(UI.CreationF, playerCon);
             EffectManager.askEffectClearByID(UI.CreationM, playerCon);
+
+            PrePlayers.Remove(steamId);
 
         }
 
@@ -115,14 +116,13 @@ namespace RealLifeFramework.Players
 
         private static bool validateName(byte type, string str, ITransportConnection player)
         {
-            Regex regex = new Regex(regexPattern);
 
             if (str == null)
                 return false;
 
             if (type == 0) // firstname
             {
-                if (str.All(char.IsDigit) || str.Contains(' ') || str.Contains('"') || regex.IsMatch(str))
+                if (containsNumber(str) || str.Contains(' ') || str.Contains('"') || containsBadChar(str))
                 {
                     EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname contains restrited characters");
                     return false;
@@ -149,7 +149,7 @@ namespace RealLifeFramework.Players
             }
             else // lastName
             {
-                if (str.All(char.IsDigit) || str.Contains(' ') || str.Contains('"') || regex.IsMatch(str))
+                if (containsNumber(str) || str.Contains(' ') || str.Contains('"') || containsBadChar(str))
                 {
                     EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname contains restrited characters");
                     return false;
@@ -175,6 +175,30 @@ namespace RealLifeFramework.Players
                 }
             }
         }
+
+        private static bool containsNumber(string str) 
+        {
+            char[] chars = str.ToCharArray();
+
+            foreach(char c in chars)
+                if (Char.IsDigit(c))
+                    return true;
+
+            return false;
+        }
+        
+        private static bool containsBadChar(string str)
+        {
+            char[] strChars = str.ToCharArray();
+            char[] disallowedChars = disallowedCharacters.ToCharArray();
+
+            foreach (char c in strChars)
+                if (disallowedChars.Contains(c))
+                    return true;
+
+            return false;
+        }
+
     }
 
     public class PrePlayer
