@@ -17,16 +17,12 @@ namespace RealLifeFramework.Skills
 
         public void AddExp(uint exp)
         {
-            if (Level >= MaxLevel)
+            Exp += exp;
+
+            if (Exp >= GetExpToNextLevel())
             {
-                Exp += exp;
-
-                if (Exp >= GetExpToNextLevel())
-                {
-                    Exp -= GetExpToNextLevel();
-                    LevelUp();
-                }
-
+                Exp -= GetExpToNextLevel();
+                LevelUp();
             }
         }
 
