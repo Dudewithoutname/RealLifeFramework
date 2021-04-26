@@ -9,7 +9,8 @@ namespace RealLifeFramework.Skills
     {
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
-            
+            var skill = player.SkillUser.GetSkillById[skillId];
+            Logger.Log($"Debug: levelUp {skill.Name} , {skill.Level} , {skill.Exp}");
         }
 
         public static void HandleStatIncremented(Player player, EPlayerStat stat)
@@ -19,13 +20,13 @@ namespace RealLifeFramework.Skills
             switch (stat)
             {
                 case EPlayerStat.FOUND_FISHES:
-                    rplayer.SkillUser.AddExp(Fishing.Id, 2);
+                    rplayer.SkillUser.AddExp(Fishing.Id, 50);
                     break;
                 case EPlayerStat.TRAVEL_FOOT:
-                    rplayer.SkillUser.AddExp(Agitily.Id, 2);
+                    rplayer.SkillUser.AddExp(Agitily.Id, 50);
                     break;
                 case EPlayerStat.FOUND_PLANTS:
-                    rplayer.SkillUser.AddExp(Farming.Id, 2);
+                    rplayer.SkillUser.AddExp(Farming.Id, 50);
                     break;
             }
         }
@@ -35,7 +36,7 @@ namespace RealLifeFramework.Skills
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
             if (MedicalItems.Ids.Contains(consumeableAsset.id))
-                rplayer.SkillUser.AddExp(Endurance.Id, 2);
+                rplayer.SkillUser.AddExp(Endurance.Id, 50);
         }
     }
 }

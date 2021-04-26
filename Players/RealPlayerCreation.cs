@@ -13,7 +13,7 @@ namespace RealLifeFramework.Players
     {
         public static Dictionary<CSteamID, PrePlayer> PrePlayers;
 
-        private const string disallowedCharacters = @"_?<>./\C#-\[\]\{\}()*&^%$#@!;',-=+`|~"; // kokot na co tu mas ten regex aj tak to nejde FIX TREBA
+        private const string disallowedCharacters = @"_?<>./\#-\[\]\{\}()*&^%$#@!;',-=+`|~"; // kokot na co tu mas ten regex aj tak to nejde FIX TREBA
 
         public static void Load()
         {
@@ -210,7 +210,7 @@ namespace RealLifeFramework.Players
 
         private static string formatName(string name)
         {
-            return Char.ToUpper(name[0]) + name.Remove(0, 1);
+            return Char.ToUpper(name[0]) + name.Remove(0, 1).ToLower();
         }
 
         public string GetFullName()
