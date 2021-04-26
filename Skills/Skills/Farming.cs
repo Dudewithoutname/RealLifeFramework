@@ -82,6 +82,7 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 7);
                     break;
             }
+            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Farming(RealPlayer playerref, byte level, uint exp)

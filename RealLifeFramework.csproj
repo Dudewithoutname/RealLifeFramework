@@ -309,13 +309,14 @@
     <Compile Include="DatabaseManager\DatabaseManager.cs" />
     <Compile Include="DatabaseManager\Results.cs" />
     <Compile Include="EventManager.cs" />
+    <Compile Include="Items\MedicalItems.cs" />
     <Compile Include="Jobs\Fisherman\Fisherman.cs" />
     <Compile Include="Jobs\Job.cs" />
     <Compile Include="Jobs\JobManager.cs" />
     <Compile Include="Jobs\JobRank.cs" />
     <Compile Include="Jobs\JobUser.cs" />
     <Compile Include="Players\RealPlayerCreation.cs" />
-    <Compile Include="Skills\SkillEventHandler.cs" />
+    <Compile Include="Skills\SkillManager.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="Ultility\Discord.cs" />
     <Compile Include="Ultility\Logger.cs" />

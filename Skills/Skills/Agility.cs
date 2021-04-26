@@ -125,6 +125,7 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Parkour[0], VanillaSkills.Parkour[1], 5);
                     break;
             }
+            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Agitily(RealPlayer playerref, byte level, uint exp)

@@ -26,7 +26,8 @@ namespace RealLifeFramework
             EffectManager.onEffectTextCommitted = onEffectTextCommited;
 
             // * Skills
-            Player.onPlayerStatIncremented += SkillEventHandler.HandleStatEvent;
+            Player.onPlayerStatIncremented += SkillManager.HandleStatIncremented;
+            UseableConsumeable.onConsumePerformed += SkillManager.HandleConsume;
 
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }
@@ -36,6 +37,7 @@ namespace RealLifeFramework
             Logger.Log($"[Info] Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
            
             RealPlayerManager.InitializePlayer(player);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
 
             player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
         }
