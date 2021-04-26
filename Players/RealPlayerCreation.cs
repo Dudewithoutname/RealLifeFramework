@@ -208,10 +208,14 @@ namespace RealLifeFramework.Players
         public byte? Age { get; set; }
         public byte? Gender { get; set; }
 
+        private static string formatName(string name)
+        {
+            return Char.ToUpper(name[0]) + name.Remove(0, 1);
+        }
+
         public string GetFullName()
         {
-            
-            return FirstName + " " + LastName;
+            return formatName(FirstName) + " " + formatName(LastName);
         }
     }
 }
