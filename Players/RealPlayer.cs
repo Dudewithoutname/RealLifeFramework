@@ -22,7 +22,7 @@ namespace RealLifeFramework.Players
         public string PhoneNumber { get; set; }
 
         // * Currency
-        public ulong Money { get; set; }
+        public uint Money { get; set; }
         ///public ulong UntCoins { get; set; }
 
         // * Roleplay
@@ -46,11 +46,12 @@ namespace RealLifeFramework.Players
             SetGender(result.Gender);
             PhoneNumber = "0"; // TODO : Mobile number
 
+            Money = player.Experience;
+
             Level = result.Level;
             Exp = result.Exp;
 
             var jobResult = RealLife.Database.GetJobInfo(CSteamID);
-
             JobUser = new JobUser()
             {
                 Job = jobResult.Job,
@@ -76,12 +77,17 @@ namespace RealLifeFramework.Players
             SetGender(gender);
             PhoneNumber = "0"; // TODO : Mobile number
 
+            Money = player.Experience;
+
             Level = 1;
             Exp = 0;
+
             JobUser = null;
             SkillUser = new SkillUser(this);
 
             RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
+
+
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
             // discord new player info
         }
@@ -98,7 +104,7 @@ namespace RealLifeFramework.Players
                     Gender = "Female";
                     break;
                 default:
-                    Logger.Log("LGBT is unsupported");
+                    Logger.Log("LGBT is unsupported"); // meme haha
                     break;
             }
         }

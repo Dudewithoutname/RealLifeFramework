@@ -88,7 +88,6 @@ namespace RealLifeFramework
                         "name VARCHAR(21)," +
                         "age VARCHAR(2)," +
                         "gender BIT(1)," +
-                        "money VARCHAR(20)," +
                         "level TINYINT," +
                         "exp INT" +
                         ")", this.Connection),
@@ -164,7 +163,7 @@ namespace RealLifeFramework
 
         #region Player Management
 
-        public void NewPlayer(string csteamid, string fullname, ushort age, byte gender, uint money)
+        public void NewPlayer(string csteamid, string fullname, ushort age, byte gender)
         {
             if (IsConnect())
             {

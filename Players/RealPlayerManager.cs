@@ -48,6 +48,8 @@ namespace RealLifeFramework.Players
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, true);
+            player.GodMode = true;
+            player.VanishMode = true;
 
             EffectManager.sendUIEffect(UI.StartingTab, 100, player.Player.channel.GetOwnerTransportConnection(), true, topScreenText, midScreenText, "Create Character");
             EffectManager.sendUIEffectImageURL(100, player.Player.channel.GetOwnerTransportConnection(), true, "steampfp", player.SteamProfile.AvatarMedium.ToString());

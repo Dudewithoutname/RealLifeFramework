@@ -29,6 +29,49 @@ namespace RealLifeFramework.Players
             EffectManager.sendUIEffect(UI.CreationTab, 101, true, "DudeTurned | Create your dream character", ""); // 2nd is error text
         }
 
+        public static void TryCreateCharacter(CSteamID steamId)
+        {
+            var playerCon = UnturnedPlayer.FromCSteamID(steamId).Player.channel.GetOwnerTransportConnection();
+            var player = UnturnedPlayer.FromCSteamID(steamId);
+
+            if (!validateName(0, PrePlayers[steamId].FirstName, playerCon))
+                return;
+
+            if (!validateName(1, PrePlayers[steamId].LastName, playerCon))
+                return;
+
+            if (!validateAge(PrePlayers[steamId].Age, playerCon))
+                return;
+
+            if (PrePlayers[steamId].Gender == null)
+            {
+                EffectManager.sendUIEffectText(101, playerCon, true, "errorText", "Error : Please select gender");
+                return;
+            }
+
+            player.GodMode = false;
+            player.VanishMode = false;
+
+            PrePlayers.Remove(steamId);
+            RealLife.Instance.RealPlayers.Add(steamId, new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender));
+            giveStratingItems(player.Player);
+
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
+            EffectManager.askEffectClearByID(UI.CreationTab, playerCon);
+            EffectManager.askEffectClearByID(UI.CreationF, playerCon);
+            EffectManager.askEffectClearByID(UI.CreationM, playerCon);
+
+        }
+
+        private static void giveStratingItems(Player player)
+        {
+            // TODO: Give Starting items
+            // Randomize Shirts
+            // Randomize pants
+            // Give some Exp as money
+        }
+
         public static void SetGender(CSteamID steamId, byte gender)
         {
             ITransportConnection player = UnturnedPlayer.FromCSteamID(steamId).Player.channel.GetOwnerTransportConnection();
@@ -45,37 +88,6 @@ namespace RealLifeFramework.Players
                 PrePlayers[steamId].Gender = 1;
                 EffectManager.sendUIEffect(UI.CreationF, 102, true);
             }
-        }
-
-        public static void ValidateCharacter(CSteamID steamId)
-        {
-            ITransportConnection playerCon = UnturnedPlayer.FromCSteamID(steamId).Player.channel.GetOwnerTransportConnection();
-            Player player = PlayerTool.getPlayer(steamId);
-
-            if (!validateName(0, PrePlayers[steamId].FirstName, playerCon))
-                return;
-
-            if (!validateName(1, PrePlayers[steamId].LastName, playerCon))
-                return;
-
-            if (!validateAge(PrePlayers[steamId].Age, playerCon))
-                return;
-
-            if (PrePlayers[steamId].Gender == null)
-            {
-                EffectManager.sendUIEffectText(101, playerCon, true, "errorText", "Error : Please select gender");
-                return;
-            }
-            
-            RealLife.Instance.RealPlayers.Add(steamId, new RealPlayer(UnturnedPlayer.FromPlayer(player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender));
-            PrePlayers.Remove(steamId);
-
-            player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
-            player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
-            EffectManager.askEffectClearByID(UI.CreationTab, playerCon);
-            EffectManager.askEffectClearByID(UI.CreationF, playerCon);
-            EffectManager.askEffectClearByID(UI.CreationM, playerCon);
-
         }
 
         private static bool validateAge(byte? age, ITransportConnection player)

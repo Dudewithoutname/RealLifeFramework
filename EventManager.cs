@@ -1,10 +1,11 @@
-﻿using RealLifeFramework.Players;
+﻿using System;
+using RealLifeFramework.Players;
+using RealLifeFramework.Skills;
 using Rocket.Unturned;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using Steamworks;
-using System;
 
 namespace RealLifeFramework
 {
@@ -23,6 +24,9 @@ namespace RealLifeFramework
 
             EffectManager.onEffectButtonClicked = onEffectButtonClicked;
             EffectManager.onEffectTextCommitted = onEffectTextCommited;
+
+            // * Skills
+            Player.onPlayerStatIncremented += SkillEventHandler.HandleStatEvent;
 
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }
@@ -76,7 +80,7 @@ namespace RealLifeFramework
                         RealPlayerCreation.SetGender(player.channel.owner.playerID.steamID, 1);
                         break;
                     case "createCharacterbtn":
-                        RealPlayerCreation.ValidateCharacter(player.channel.owner.playerID.steamID);
+                        RealPlayerCreation.TryCreateCharacter(player.channel.owner.playerID.steamID);
                         break;
                 }
             }
