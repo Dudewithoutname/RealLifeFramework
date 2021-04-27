@@ -28,6 +28,9 @@ namespace RealLifeFramework.Skills
                 case EPlayerStat.FOUND_PLANTS:
                     rplayer.SkillUser.AddExp(Farming.Id, 50);
                     break;
+                case EPlayerStat.FOUND_RESOURCES:
+                    rplayer.SkillUser.AddExp(Dexterity.Id, 50);
+                    break;
             }
         }
 
