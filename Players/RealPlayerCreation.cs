@@ -29,7 +29,7 @@ namespace RealLifeFramework.Players
             EffectManager.sendUIEffect(UI.CreationTab, 101, true, "DudeTurned | Create your dream character", ""); // 2nd is error text
         }
 
-        public static void TryCreateCharacter(CSteamID steamId)
+        public static void CreateCharacter(CSteamID steamId)
         {
             var playerCon = UnturnedPlayer.FromCSteamID(steamId).Player.channel.GetOwnerTransportConnection();
             var player = UnturnedPlayer.FromCSteamID(steamId);
@@ -52,7 +52,9 @@ namespace RealLifeFramework.Players
             player.GodMode = false;
             player.VanishMode = false;
 
-            RealLife.Instance.RealPlayers.Add(steamId, new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender));
+            var rplayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
+
+            RealLife.Instance.RealPlayers.Add(steamId, rplayer);
             //giveStratingItems(player.Player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
@@ -62,7 +64,14 @@ namespace RealLifeFramework.Players
             EffectManager.askEffectClearByID(UI.CreationM, playerCon);
 
             PrePlayers.Remove(steamId);
-
+            try
+            {
+                Discord.SendNewPlayer(rplayer);
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"[Discord API] Error when posting embed {e}");
+            }
         }
 
         private static void giveStratingItems(Player player)

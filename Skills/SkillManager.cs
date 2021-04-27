@@ -22,7 +22,7 @@ namespace RealLifeFramework.Skills
                 case EPlayerStat.FOUND_FISHES:
                     rplayer.SkillUser.AddExp(Fishing.Id, 50);
                     break;
-                case EPlayerStat.TRAVEL_FOOT:
+                case EPlayerStat.TRAVEL_FOOT: // Fix This
                     rplayer.SkillUser.AddExp(Agitily.Id, 50);
                     break;
                 case EPlayerStat.FOUND_PLANTS:

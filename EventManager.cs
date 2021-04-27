@@ -90,7 +90,7 @@ namespace RealLifeFramework
                         RealPlayerCreation.SetGender(player.channel.owner.playerID.steamID, 1);
                         break;
                     case "createCharacterbtn":
-                        RealPlayerCreation.TryCreateCharacter(player.channel.owner.playerID.steamID);
+                        RealPlayerCreation.CreateCharacter(player.channel.owner.playerID.steamID);
                         break;
                 }
             }
