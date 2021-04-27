@@ -22,7 +22,7 @@ namespace RealLifeFramework.Skills
             if (Exp >= GetExpToNextLevel())
             {
                 Exp -= GetExpToNextLevel();
-                LevelUp();
+                Upgrade();
             }
         }
 
@@ -51,7 +51,7 @@ namespace RealLifeFramework.Skills
                 return 0;
         }
 
-        public void LevelUp()
+        public void Upgrade()
         {
             switch (++Level)
             {

@@ -28,7 +28,7 @@ namespace RealLifeFramework.Commands
             Logger.Log($" F {player.SkillUser.Skills[Fishing.Id].Level}");
 
 
-            player.SkillUser.Skills[Fishing.Id].LevelUp();
+            player.SkillUser.Skills[Fishing.Id].Upgrade();
             Logger.Log($"F Upgraded {player.SkillUser.Skills[Fishing.Id].Level}");
 
         }

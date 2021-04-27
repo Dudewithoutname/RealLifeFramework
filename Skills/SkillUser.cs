@@ -57,7 +57,7 @@ namespace RealLifeFramework.Skills
 
             if (skill != null && skill.Level >= skill.MaxLevel)
             {
-                skill.LevelUp();
+                skill.Upgrade();
                 SkillManager.SendLevelUp(RealPlayer, id);
             }
 

@@ -12,8 +12,8 @@ namespace RealLifeFramework.Skills
         string Name { get; }
         byte MaxLevel { get; }
 
-        void LevelUp();
-        void AddExp(uint exp); // check for levelup
-        uint GetExpToNextLevel(); // level+1
+        void Upgrade();
+        void AddExp(uint exp); 
+        uint GetExpToNextLevel();
     }
 }

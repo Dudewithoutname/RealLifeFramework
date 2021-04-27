@@ -1,4 +1,5 @@
 ﻿using RealLifeFramework.Players;
+
 namespace RealLifeFramework.Skills
 {
     public interface IEducation
