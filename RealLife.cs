@@ -38,7 +38,7 @@ namespace RealLifeFramework
             //Discord.SendDiscord("Server Testing kokot");
                         
             RealPlayers = new Dictionary<CSteamID, RealPlayer>();
-
+            //   public static void say(CSteamID target, string text, Color color, EChatMode mode, bool isRich = false);
             EventManager.Load();
             JobManager.Load();
             RealPlayerCreation.Load();
