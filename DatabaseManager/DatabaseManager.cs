@@ -111,6 +111,8 @@ namespace RealLifeFramework
                         $"s{Fishing.Id}xp INT DEFAULT 0," +
                         $"s{Agitily.Id}lvl TINYINT DEFAULT 0," +
                         $"s{Agitily.Id}xp INT DEFAULT 0," +
+                        $"s{Dexterity.Id}lvl TINYINT DEFAULT 0," +
+                        $"s{Dexterity.Id}xp INT DEFAULT 0," +
                         // Educations
                         $"e{Engineering.Id}lvl TINYINT DEFAULT 0," +
                         $"e{Culinary.Id}lvl TINYINT DEFAULT 0," +
@@ -312,6 +314,7 @@ namespace RealLifeFramework
                             new Farming(player, Convert.ToByte(reader[getCI(Farming.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Farming.Id+1, 0)].ToString()) ),
                             new Fishing(player, Convert.ToByte(reader[getCI(Fishing.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Fishing.Id+1, 0)].ToString()) ),
                             new Agitily(player, Convert.ToByte(reader[getCI(Agitily.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Agitily.Id+1, 0)].ToString()) ),
+                            new Dexterity(player, Convert.ToByte(reader[getCI(Dexterity.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Dexterity.Id+1, 0)].ToString()) ),
                         },
 
                         Educations = new List<IEducation>()

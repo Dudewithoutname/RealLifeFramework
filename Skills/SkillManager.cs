@@ -9,7 +9,7 @@ namespace RealLifeFramework.Skills
     {
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
-            var skill = player.SkillUser.GetSkillById[skillId];
+            var skill = player.SkillUser.Skills[skillId];
             Logger.Log($"Debug: levelUp {skill.Name} , {skill.Level} , {skill.Exp}");
         }
 

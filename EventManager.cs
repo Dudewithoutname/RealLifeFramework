@@ -34,7 +34,7 @@ namespace RealLifeFramework
 
         private static void OnPlayerConnected(UnturnedPlayer player)
         {
-            Logger.Log($"[Info] Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
+            Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
            
             RealPlayerManager.InitializePlayer(player);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
@@ -44,7 +44,7 @@ namespace RealLifeFramework
 
         private static void OnPlayerDisconnected(UnturnedPlayer player)
         {
-            Logger.Log($"[Info] Player Connected : {player.SteamName} ({player.CSteamID}) ");
+            Logger.Log($"[Info] |-| Player Disconnected : {player.SteamName} ({player.CSteamID}) ");
 
             RealPlayerManager.HandleDisconnect(player);
         }

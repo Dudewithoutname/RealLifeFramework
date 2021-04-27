@@ -15,9 +15,12 @@ namespace RealLifeFramework.Players
 
             if (isNew)
             {
-                firstJoin(player);
-                // just add debug
-                //RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "cigi", 20, 0));
+
+                if(RealLife.Debugging)
+                    RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "cigi", 20, 0));
+                else
+                    firstJoin(player);
+
             }
             else
             {

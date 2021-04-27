@@ -9,7 +9,7 @@ namespace RealLifeFramework.Skills
 
         public RealPlayer Player { get; set; }
         public string Name => nameof(Agitily);
-        public byte MaxLevel => 5;
+        public byte MaxLevel => 12;
 
         public byte Level { get; set; }
         public uint Exp { get; set; }
@@ -71,55 +71,41 @@ namespace RealLifeFramework.Skills
             {
                 case 1:
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 1);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 1);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Outdoors[0], VanillaSkills.Outdoors[1], 1);
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 1);
                     break;
                 case 2:
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Exercise[0], VanillaSkills.Exercise[1], 1);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 1);
-                    break;
-                case 3:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 2);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Outdoors[0], VanillaSkills.Outdoors[1], 2);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Parkour[0], VanillaSkills.Parkour[1], 1);
                     break;
-                case 4:
+                case 3:
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 2);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 2);
                     break;
-                case 5:
+                case 4:
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Exercise[0], VanillaSkills.Exercise[1], 2);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Parkour[0], VanillaSkills.Parkour[1], 2);
                     break;
-                case 6:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 3);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Outdoors[0], VanillaSkills.Outdoors[1], 3);
-                    break;
-                case 7:
+                case 5:
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 3);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 3);
                     break;
-                case 8:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 4);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Outdoors[0], VanillaSkills.Outdoors[1], 4);
+                case 6:
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 4);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Exercise[0], VanillaSkills.Exercise[1], 3);
                     break;
-                case 9:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 4);
+                case 7:
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 4);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Parkour[0], VanillaSkills.Parkour[1], 3);
                     break;
-                case 10:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 4);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 5);
+                case 8:
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 5);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Exercise[0], VanillaSkills.Exercise[1], 4);
                     break;
-                case 11:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Outdoors[0], VanillaSkills.Outdoors[1], 5);
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Diving[0], VanillaSkills.Diving[1], 5);
+                case 9:
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 5);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Parkour[0], VanillaSkills.Parkour[1], 4);
                     break;
-                case 12:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cardio[0], VanillaSkills.Cardio[1], 5);
+                case 10:
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Exercise[0], VanillaSkills.Exercise[1], 5);
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Parkour[0], VanillaSkills.Parkour[1], 5);
                     break;
