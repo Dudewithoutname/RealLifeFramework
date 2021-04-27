@@ -3,7 +3,7 @@ using SDG.Unturned;
 using Rocket.API;
 using System.Collections.Generic;
 using RealLifeFramework.Players;
-using Rocket.Unturned.Player;
+using RealLifeFramework.Skills;
 
 namespace RealLifeFramework.Commands
 {
@@ -25,14 +25,11 @@ namespace RealLifeFramework.Commands
         {
             RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
 
-            Logger.Log($" E {player.SkillUser.Engineering.Level}");
-            Logger.Log($" F {player.SkillUser.Fishing.Level}");
+            Logger.Log($" F {player.SkillUser.Skills[Fishing.Id].Level}");
 
 
-            player.SkillUser.Engineering.Upgrade();
-            Logger.Log($"E {player.SkillUser.Engineering.Level}");
-            player.SkillUser.Fishing.LevelUp();
-            Logger.Log($"F {player.SkillUser.Fishing.Level}");
+            player.SkillUser.Skills[Fishing.Id].LevelUp();
+            Logger.Log($"F Upgraded {player.SkillUser.Skills[Fishing.Id].Level}");
 
         }
     }

@@ -51,6 +51,18 @@ namespace RealLifeFramework.Skills
             }
         }
 
+        public void ForceLevelUp(int id)
+        {
+            var skill = Skills[id];
+
+            if (skill != null && skill.Level >= skill.MaxLevel)
+            {
+                skill.LevelUp();
+                SkillManager.SendLevelUp(RealPlayer, id);
+            }
+
+        }
+
         // New
         public SkillUser(RealPlayer player)
         {

@@ -14,8 +14,10 @@ namespace RealLifeFramework
     {
         public static void Load()
         {
-            U.Events.OnPlayerConnected += OnPlayerConnected;
-            U.Events.OnPlayerDisconnected += OnPlayerDisconnected;
+            U.Events.OnPlayerConnected += onPlayerConnctec;
+            U.Events.OnPlayerDisconnected += onPlayerDisconnected;
+
+            VehicleManager.onDamageTireRequested += onDamageTireRequested;
 
             DamageTool.damagePlayerRequested += onPlayerDamageRequest;
 
@@ -32,7 +34,7 @@ namespace RealLifeFramework
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }
 
-        private static void OnPlayerConnected(UnturnedPlayer player)
+        private static void onPlayerConnctec(UnturnedPlayer player)
         {
             Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
            
@@ -42,11 +44,17 @@ namespace RealLifeFramework
             player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
         }
 
-        private static void OnPlayerDisconnected(UnturnedPlayer player)
+        private static void onPlayerDisconnected(UnturnedPlayer player)
         {
             Logger.Log($"[Info] |-| Player Disconnected : {player.SteamName} ({player.CSteamID}) ");
 
             RealPlayerManager.HandleDisconnect(player);
+        }
+
+        private static void onDamageTireRequested(CSteamID instigatorSteamID, InteractableVehicle vehicle, int tireIndex, ref bool shouldAllow, EDamageOrigin damageOrigin)
+        {
+            if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || damageOrigin == EDamageOrigin.Useable_Melee)
+                shouldAllow = false;
         }
 
         private static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)

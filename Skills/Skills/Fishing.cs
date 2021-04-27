@@ -71,7 +71,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 5);
                     break;
             }
-            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Fishing(RealPlayer playerref, byte level, uint exp)

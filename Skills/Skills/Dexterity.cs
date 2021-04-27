@@ -8,7 +8,7 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 4;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Agitily);
+        public string Name => nameof(Dexterity);
         public byte MaxLevel => 6;
 
         public byte Level { get; set; }
@@ -80,7 +80,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 5);
                     break;
             }
-            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Dexterity(RealPlayer playerref, byte level, uint exp)
