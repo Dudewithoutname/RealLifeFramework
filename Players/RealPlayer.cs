@@ -4,6 +4,7 @@ using SDG.NetTransport;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Jobs;
 using RealLifeFramework.Skills;
+using RealLifeFramework.UserInterface;
 
 namespace RealLifeFramework.Players
 {
@@ -21,17 +22,20 @@ namespace RealLifeFramework.Players
         public string Gender { get; set; }
         public string PhoneNumber { get; set; }
 
-        // * Currency
-        public uint Money { get; set; }
         ///public ulong UntCoins { get; set; }
 
         // * Roleplay
-        public ushort Level { get; set; }
-        public uint Exp { get; set; }
-
-
         public JobUser JobUser { get; set; }
         public SkillUser SkillUser { get; set; }
+
+        // * Leveling System
+        public ushort Level { get; set; }
+        public uint Exp { get; set; }
+        public uint MaxExp { get; set; }
+
+        // * Ultility | * References
+        public uint Money => Player.skills.experience;
+        public UIUser UIUser { get; set; }
 
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
@@ -45,8 +49,6 @@ namespace RealLifeFramework.Players
             Age = result.Age;
             SetGender(result.Gender);
             PhoneNumber = "0"; // TODO : Mobile number
-
-            Money = player.Experience;
 
             Level = result.Level;
             Exp = result.Exp;
@@ -77,8 +79,6 @@ namespace RealLifeFramework.Players
             SetGender(gender);
             PhoneNumber = "0"; // TODO : Mobile number
 
-            Money = player.Experience;
-
             Level = 1;
             Exp = 0;
 
@@ -108,6 +108,25 @@ namespace RealLifeFramework.Players
                     break;
             }
         }
+
+        #region Leveling System
+        // TODO: Dorobit
+        public uint GetExpForNextLevel()
+        {
+            if (Level < 10)
+                return (uint)(100 * Level);
+            else
+                if (Level < 20)
+                    return (uint)(150 * Level);
+                else if(Level < 30)
+                    return (uint)(175 * Level);
+                else if(Level < 40)
+                    return (uint)(200 * Level);
+                else
+                    return (uint)(250 * Level);
+        }
+
+        #endregion
 
     }
 }

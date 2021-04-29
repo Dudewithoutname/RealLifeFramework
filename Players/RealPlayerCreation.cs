@@ -13,7 +13,7 @@ namespace RealLifeFramework.Players
     {
         public static Dictionary<CSteamID, PrePlayer> PrePlayers;
 
-        private const string disallowedCharacters = @"_?<>./\#-\[\]\{\}()*&^%$#@!;',-=+`|~"; // kokot na co tu mas ten regex aj tak to nejde FIX TREBA
+        private const string disallowedCharacters = @"_?<>./\#-\[\]\{\}()*&^%$#@!;',-=+`|~"; 
 
         public static void Load()
         {

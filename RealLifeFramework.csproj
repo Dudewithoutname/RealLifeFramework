@@ -319,6 +319,7 @@
     <Compile Include="Skills\SkillManager.cs" />
     <Compile Include="Skills\Skills\Dexterity.cs" />
     <Compile Include="UI.cs" />
+    <Compile Include="UserInterface\UIUser.cs" />
     <Compile Include="Ultility\Discord.cs" />
     <Compile Include="Ultility\Logger.cs" />
     <Compile Include="Players\RealPlayerManager.cs" />
