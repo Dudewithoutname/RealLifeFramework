@@ -2,7 +2,7 @@
 
 namespace RealLifeFramework.Skills
 {
-    public class Crafting : IEducation
+    public sealed class Crafting : IEducation
     {
         public static readonly byte Id = 2;
 

@@ -55,7 +55,7 @@ namespace RealLifeFramework.Players
             var rplayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
 
             RealLife.Instance.RealPlayers.Add(steamId, rplayer);
-            //giveStratingItems(player.Player);
+            //giveStartingItems(player.Player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
@@ -74,7 +74,7 @@ namespace RealLifeFramework.Players
             }
         }
 
-        private static void giveStratingItems(Player player)
+        private static void giveStartingItems(Player player)
         {
             // TODO: Give Starting items
             // Randomize Shirts

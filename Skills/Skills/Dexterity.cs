@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public class Dexterity : ISkill
+    public sealed class Dexterity : ISkill
     {
         public static readonly byte Id = 4;
 

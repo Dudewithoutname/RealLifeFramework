@@ -14,7 +14,7 @@ namespace RealLifeFramework
     {
         public static void Load()
         {
-            U.Events.OnPlayerConnected += onPlayerConnctec;
+            U.Events.OnPlayerConnected += onPlayerConnected;
             U.Events.OnPlayerDisconnected += onPlayerDisconnected;
 
             VehicleManager.onDamageTireRequested += onDamageTireRequested;
@@ -34,7 +34,7 @@ namespace RealLifeFramework
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }
 
-        private static void onPlayerConnctec(UnturnedPlayer player)
+        private static void onPlayerConnected(UnturnedPlayer player)
         {
             Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
            

@@ -2,7 +2,7 @@
 
 namespace RealLifeFramework.Skills
 {
-    public class Medicine : IEducation
+    public sealed class Medicine : IEducation
     {
         public static readonly byte Id = 3;
 

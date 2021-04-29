@@ -2,7 +2,7 @@
 
 namespace RealLifeFramework.Skills
 {
-    public class Culinary : IEducation
+    public sealed class Culinary : IEducation
     {
         public static readonly byte Id = 1;
 

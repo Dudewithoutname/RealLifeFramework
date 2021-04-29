@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public class Farming : ISkill
+    public sealed class Farming : ISkill
     {
         public static readonly byte Id = 1;
 

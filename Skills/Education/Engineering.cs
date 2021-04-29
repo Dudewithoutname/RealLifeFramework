@@ -2,7 +2,7 @@
 
 namespace RealLifeFramework.Skills
 {
-    public class Engineering : IEducation
+    public sealed class Engineering : IEducation
     {
         public static readonly byte Id = 0;
 

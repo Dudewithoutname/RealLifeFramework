@@ -2,7 +2,7 @@
 
 namespace RealLifeFramework.Skills
 {
-    public class Defense : IEducation
+    public sealed class Defense : IEducation
     {
         public static readonly byte Id = 4;
 

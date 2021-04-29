@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public class Agitily : ISkill
+    public sealed class Agitily : ISkill
     {
         public static readonly byte Id = 3;
 
