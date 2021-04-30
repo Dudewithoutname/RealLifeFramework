@@ -5,7 +5,7 @@ using SDG.Unturned;
 using Steamworks;
 using SDG.NetTransport;
 using System.Linq;
-using System.Text.RegularExpressions;
+using RealLifeFramework.UserInterface;
 
 namespace RealLifeFramework.Players
 {
@@ -55,6 +55,7 @@ namespace RealLifeFramework.Players
             var rplayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
 
             RealLife.Instance.RealPlayers.Add(steamId, rplayer);
+
             //giveStartingItems(player.Player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);

@@ -1,6 +1,7 @@
 ﻿using System;
 using RealLifeFramework.Players;
 using RealLifeFramework.Skills;
+using RealLifeFramework.UserInterface;
 using Rocket.Unturned;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
@@ -9,7 +10,6 @@ using Steamworks;
 
 namespace RealLifeFramework
 {
-    // tato picovina bola zdekompilovana lebo sa mi dojebal Pc skurvenym unity enginom fixuj kokotko
     public static class EventManager
     {
         public static void Load()
@@ -31,6 +31,8 @@ namespace RealLifeFramework
             Player.onPlayerStatIncremented += SkillManager.HandleStatIncremented;
             UseableConsumeable.onConsumePerformed += SkillManager.HandleConsume;
 
+            HUDManager.HookEvents();
+
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }
 
@@ -39,9 +41,18 @@ namespace RealLifeFramework
             Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
            
             RealPlayerManager.InitializePlayer(player);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
 
-            player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowHealth, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowFood, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowWater, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStamina, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowOxygen, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowVirus, false);
+            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
+
+
+            //player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
         }
 
         private static void onPlayerDisconnected(UnturnedPlayer player)

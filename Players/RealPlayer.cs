@@ -34,8 +34,8 @@ namespace RealLifeFramework.Players
         public uint MaxExp { get; set; }
 
         // * Ultility | * References
-        public uint Money => Player.skills.experience;
-        public UIUser UIUser { get; set; }
+        public uint Money { get; set; }
+        public HUD UIUser { get; set; }
 
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
@@ -48,10 +48,12 @@ namespace RealLifeFramework.Players
             Name = result.Name;
             Age = result.Age;
             SetGender(result.Gender);
+            Money = Player.skills.experience;
             PhoneNumber = "0"; // TODO : Mobile number
 
             Level = result.Level;
             Exp = result.Exp;
+            MaxExp = GetExpForNextLevel();
 
             var jobResult = RealLife.Database.GetJobInfo(CSteamID);
             JobUser = new JobUser()
@@ -65,7 +67,7 @@ namespace RealLifeFramework.Players
             var skillResult = RealLife.Database.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
 
-            UIUser = new UIUser(this);
+            UIUser = new HUD(this);
         }
 
         // New RealPlayer
@@ -79,14 +81,16 @@ namespace RealLifeFramework.Players
             Name = name;
             Age = age;
             SetGender(gender);
+            Money = Player.skills.experience;
             PhoneNumber = "0"; // TODO : Mobile number
 
             Level = 1;
             Exp = 0;
+            MaxExp = GetExpForNextLevel();
 
             JobUser = null;
             SkillUser = new SkillUser(this);
-            UIUser = new UIUser(this);
+            UIUser = new HUD(this);
 
             RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
 

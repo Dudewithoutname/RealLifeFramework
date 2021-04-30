@@ -2,6 +2,7 @@
 using Rocket.Unturned.Player;
 using Rocket.API;
 using SDG.Unturned;
+using RealLifeFramework.UserInterface;
 
 namespace RealLifeFramework.Players
 {
@@ -16,7 +17,7 @@ namespace RealLifeFramework.Players
             if (isNew)
             {
 
-               /* if(RealLife.Debugging)
+                /*if(RealLife.Debugging)
                     RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "cigi", 20, 0));
                 else*/
                     firstJoin(player);
@@ -33,7 +34,6 @@ namespace RealLifeFramework.Players
         {
             if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
             {
-                RealLife.Instance.RealPlayers[player.CSteamID].UIUser.Destroy();
                 RealLife.Instance.RealPlayers.Remove(player.CSteamID);
             }
 
