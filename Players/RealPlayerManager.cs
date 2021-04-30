@@ -32,7 +32,10 @@ namespace RealLifeFramework.Players
         public static void HandleDisconnect(UnturnedPlayer player)
         {
             if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
+            {
+                RealLife.Instance.RealPlayers[player.CSteamID].UIUser.Destroy();
                 RealLife.Instance.RealPlayers.Remove(player.CSteamID);
+            }
 
             if (RealPlayerCreation.PrePlayers.ContainsKey(player.CSteamID))
                 RealPlayerCreation.PrePlayers.Remove(player.CSteamID);

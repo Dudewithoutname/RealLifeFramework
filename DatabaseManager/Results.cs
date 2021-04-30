@@ -24,7 +24,7 @@ namespace RealLifeFramework
     public class DBSkillsResult
     {
         public ushort EducationPoints { get; set; }
-        public List<ISkill> Skills { get; set; }
+        public List<IISkill> Skills { get; set; }
         public List<IEducation> Educations { get; set; }
     }
 }

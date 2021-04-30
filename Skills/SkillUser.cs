@@ -9,7 +9,7 @@ namespace RealLifeFramework.Skills
         public ushort EducationPoints { get; set; }
         // Note: everything should start from level 0
 
-        public List<ISkill> Skills { get; set; }
+        public List<IISkill> Skills { get; set; }
         public List<IEducation> Educations { get; set; }
 
         public void AddEducationPoints(ushort amount)
@@ -47,8 +47,8 @@ namespace RealLifeFramework.Skills
             {
                 skill.AddExp(amount);
                 RealLife.Database.UpdateSkill(RealPlayer.CSteamID, id, skill.Level, skill.Exp);
-                
-                Logger.Log($"{skill.Name} , {skill.Level}, {skill.Exp}");
+                RealPlayer.AddExp(5);
+
             }
         }
 
@@ -70,7 +70,7 @@ namespace RealLifeFramework.Skills
             RealPlayer = player;
             EducationPoints = 0;
 
-            Skills = new List<ISkill>()
+            Skills = new List<IISkill>()
             {
                 new Endurance(RealPlayer, 0, 0),
                 new Farming(RealPlayer, 0, 0),
@@ -94,7 +94,7 @@ namespace RealLifeFramework.Skills
             RealPlayer = player;
             EducationPoints = skillResult.EducationPoints;
 
-            Skills = new List<ISkill>()
+            Skills = new List<IISkill>()
             {
                 skillResult.Skills[0],
                 skillResult.Skills[1],

@@ -127,7 +127,7 @@ namespace RealLifeFramework
         }
 
         #region default
-        private void set(string table, string playerID, string key, string newValue)
+        public void set(string table, string playerID, string key, string newValue)
         {
             if (IsConnect())
             {
@@ -137,7 +137,7 @@ namespace RealLifeFramework
             }
         }
 
-        private string get(string table, int pos, string name, string value)
+        public string get(string table, int pos, string name, string value)
         {
             string x = null;
 
@@ -309,7 +309,7 @@ namespace RealLifeFramework
                     {
                         EducationPoints = Convert.ToUInt16(reader[3].ToString()),
 
-                        Skills = new List<ISkill>() { 
+                        Skills = new List<IISkill>() { 
                             new Endurance(player, Convert.ToByte(reader[getCI(Endurance.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Endurance.Id+1, 0)].ToString()) ),
                             new Farming(player, Convert.ToByte(reader[getCI(Farming.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Farming.Id+1, 0)].ToString()) ),
                             new Fishing(player, Convert.ToByte(reader[getCI(Fishing.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Fishing.Id+1, 0)].ToString()) ),

@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Endurance : ISkill
+    public sealed class Endurance : IISkill
     {
         public static readonly byte Id = 0;
 
@@ -115,6 +115,8 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Strength[0], VanillaSkills.Strength[1], 5);
                     break;
             }
+
+            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Endurance(RealPlayer playerref, byte level, uint exp)

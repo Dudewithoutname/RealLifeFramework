@@ -10,7 +10,11 @@ namespace RealLifeFramework.Skills
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
             var skill = player.SkillUser.Skills[skillId];
-            Logger.Log($"Debug: levelUp {skill.Name} , {skill.Level} , {skill.Exp}");
+            
+            player.AddExp(5);
+
+            if (RealLife.Debugging)
+                Logger.Log($"Debug: levelUp {skill.Name} , {skill.Level} , {skill.Exp}");
         }
 
         public static void HandleStatIncremented(Player player, EPlayerStat stat)

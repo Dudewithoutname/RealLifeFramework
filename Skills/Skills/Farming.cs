@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Farming : ISkill
+    public sealed class Farming : IISkill
     {
         public static readonly byte Id = 1;
 
@@ -81,6 +81,8 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 7);
                     break;
             }
+
+            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Farming(RealPlayer playerref, byte level, uint exp)

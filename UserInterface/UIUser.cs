@@ -56,7 +56,7 @@ namespace RealLifeFramework.UserInterface
         }
 
         // format money
-        public void UpdateLevel() => EffectManager.sendUIEffectText(HUDkey, Player.TransportConnection, true, "hud_money", getFormatedExp());
+        public void UpdateLevel() => EffectManager.sendUIEffectText(HUDkey, Player.TransportConnection, true, "hud_money", getFormatedLevel());
         public void UpdateExp() => EffectManager.sendUIEffectText(HUDkey, Player.TransportConnection, true, "hud_exp", getFormatedExp());
 
         private void updateMoneyUI(uint newExperience) => EffectManager.sendUIEffectText(HUDkey, Player.TransportConnection, true, "hud_money", getFormatedMoney(newExperience));

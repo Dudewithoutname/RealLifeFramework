@@ -2,7 +2,7 @@
 
 namespace RealLifeFramework.Skills
 {
-    public interface ISkill
+    public interface IISkill
     {
         RealPlayer Player { get; set; }
         byte Level { get; set; }

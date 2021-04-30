@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Dexterity : ISkill
+    public sealed class Dexterity : IISkill
     {
         public static readonly byte Id = 4;
 
@@ -80,6 +80,8 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 5);
                     break;
             }
+
+            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Dexterity(RealPlayer playerref, byte level, uint exp)

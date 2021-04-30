@@ -64,6 +64,8 @@ namespace RealLifeFramework.Players
 
             var skillResult = RealLife.Database.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
+
+            UIUser = new UIUser(this);
         }
 
         // New RealPlayer
@@ -84,12 +86,11 @@ namespace RealLifeFramework.Players
 
             JobUser = null;
             SkillUser = new SkillUser(this);
+            UIUser = new UIUser(this);
 
             RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
 
-
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
-            // discord new player info
         }
 
         
@@ -110,7 +111,33 @@ namespace RealLifeFramework.Players
         }
 
         #region Leveling System
-        // TODO: Dorobit
+        
+        public void AddExp(uint exp)
+        {
+            Exp += exp;
+
+            if (Exp >= MaxExp)
+            {
+                Exp -= MaxExp;
+                levelUp();
+            }
+
+            RealLife.Database.set(DatabaseManager.TablePlayer, CSteamID.ToString(), "exp", $"{Exp}");
+
+            UIUser.UpdateExp();
+        }
+
+        private void levelUp()
+        {
+            MaxExp = GetExpForNextLevel();
+            Level++;
+            RealLife.Database.set(DatabaseManager.TablePlayer, CSteamID.ToString(), "level", $"{Level}");
+
+            UIUser.UpdateExp();
+            UIUser.UpdateLevel();
+
+        }
+
         public uint GetExpForNextLevel()
         {
             if (Level < 10)

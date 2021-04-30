@@ -24,13 +24,7 @@ namespace RealLifeFramework.Commands
         public void Execute(IRocketPlayer caller, string[] command)
         {
             RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
-
-            Logger.Log($" F {player.SkillUser.Skills[Fishing.Id].Level}");
-
-
-            player.SkillUser.Skills[Fishing.Id].Upgrade();
-            Logger.Log($"F Upgraded {player.SkillUser.Skills[Fishing.Id].Level}");
-
+            player.AddExp(30);
         }
     }
 }

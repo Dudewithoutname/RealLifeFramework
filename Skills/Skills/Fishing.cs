@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Fishing : ISkill
+    public sealed class Fishing : IISkill
     {
         public static readonly byte Id = 2;
 
@@ -71,6 +71,8 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 5);
                     break;
             }
+
+            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Fishing(RealPlayer playerref, byte level, uint exp)

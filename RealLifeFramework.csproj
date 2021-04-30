@@ -333,7 +333,7 @@
     <Compile Include="Skills\Education\Crafting.cs" />
     <Compile Include="Skills\IEducation.cs" />
     <Compile Include="Skills\Education\Engineering.cs" />
-    <Compile Include="Skills\ISkill.cs" />
+    <Compile Include="Skills\IISkill.cs" />
     <Compile Include="Skills\Skills\Agility.cs" />
     <Compile Include="Skills\Skills\Endurance.cs" />
     <Compile Include="Skills\Skills\Farming.cs" />
