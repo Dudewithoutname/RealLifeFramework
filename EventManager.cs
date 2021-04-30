@@ -39,7 +39,7 @@ namespace RealLifeFramework
         private static void onPlayerConnected(UnturnedPlayer player)
         {
             Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
-           
+
             RealPlayerManager.InitializePlayer(player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
@@ -66,6 +66,17 @@ namespace RealLifeFramework
         {
             if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || damageOrigin == EDamageOrigin.Useable_Melee)
                 shouldAllow = false;
+        }
+        
+        // patched by Time 
+        public static void onTimeUpdated(ushort hours, ushort minutes)
+        {
+            foreach(SteamPlayer sp in Provider.clients)
+            {
+                RealPlayer player = RealPlayerManager.GetRealPlayer(sp.playerID.steamID);
+
+                player.HUD.UpdateTimeUI(hours, minutes);
+            }
         }
 
         private static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)
@@ -142,5 +153,6 @@ namespace RealLifeFramework
 
             }
         }
+
     }
 }

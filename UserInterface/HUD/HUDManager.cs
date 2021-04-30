@@ -22,35 +22,35 @@ namespace RealLifeFramework.UserInterface
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.UIUser.UpdateHealthUI(val);
+            rplayer.HUD.UpdateHealthUI(val);
         }
 
         private static void UpdateFood(UnturnedPlayer player, byte val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.UIUser.UpdateFoodUI(val);
+            rplayer.HUD.UpdateFoodUI(val);
         }
 
         private static void UpdateWater(UnturnedPlayer player, byte val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.UIUser.UpdateWaterUI(val);
+            rplayer.HUD.UpdateWaterUI(val);
         }
 
         private static void UpdateStamina(UnturnedPlayer player, byte val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.UIUser.UpdateStaminaUI(val);
+            rplayer.HUD.UpdateStaminaUI(val);
         }
 
         private static void UpdateExperience(UnturnedPlayer player, uint val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.UIUser.UpdateMoneyUI(val);
+            rplayer.HUD.UpdateMoneyUI(val);
         }
     }
 }

@@ -35,7 +35,6 @@ namespace RealLifeFramework.UserInterface
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_stamina", RPlayer.Player.life.stamina.ToString());
 
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_money", getFormatedMoney(RPlayer.Money));
-            EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_time", "12:00 AM");
 
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_lvl", getFormatedLevel());
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_exp", getFormatedExp());
@@ -46,17 +45,23 @@ namespace RealLifeFramework.UserInterface
         public void UpdateLevel() => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_lvl", getFormatedLevel());
         public void UpdateExp() => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_exp", getFormatedExp());
 
+        public void UpdateTimeUI(ushort hours, ushort minutes) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_time", getFormatedTime(hours, minutes));
         public void UpdateMoneyUI(uint newExperience) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_money", getFormatedMoney(newExperience));
         public void UpdateHealthUI(byte newHealth) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_health", newHealth.ToString());
         public void UpdateFoodUI(byte newFood) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_food", newFood.ToString());
         public void UpdateWaterUI(byte newWater) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_drink", newWater.ToString());
         public void UpdateStaminaUI(byte newStamina) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_stamina", newStamina.ToString());
 
+        private string getFormatedTime(ushort hours, ushort minutes)
+        {
+            if (minutes.ToString().Length < 2)
+                return $"{hours}:0{minutes}";
+            else
+                return $"{hours}:{minutes}";
+
+        }
         private string getFormatedLevel() => $"{RPlayer.Level} LvL";
         private string getFormatedExp() => $"{RPlayer.Exp}<color=#D164FF> / {RPlayer.MaxExp}</color>";
-
-        #region Money
-        
         private string getFormatedMoney(uint value)
         {
 
@@ -91,6 +96,5 @@ namespace RealLifeFramework.UserInterface
             }
         }
 
-        #endregion
     }
 }

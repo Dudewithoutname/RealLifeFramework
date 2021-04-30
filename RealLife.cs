@@ -8,6 +8,7 @@ using Steamworks;
 using RealLifeFramework.Players;
 using RealLifeFramework.Jobs;
 using RealLifeFramework.Items;
+using HarmonyLib;
 
 namespace RealLifeFramework
 {
@@ -17,6 +18,8 @@ namespace RealLifeFramework
         public static DatabaseManager Database = DatabaseManager.Instance();
         public Dictionary<CSteamID,RealPlayer> RealPlayers;
         public static bool Debugging = true;
+
+        private Harmony harmony;
 
         protected override void Load()
         {
@@ -32,10 +35,11 @@ namespace RealLifeFramework
             Database.IsConnect();
             Database.Setup();
 
+            harmony = new Harmony("RLFUnturned");
+            harmony.PatchAll();
+
             if (Debugging)
                 Database.Debug();
-
-            //Discord.SendDiscord("Server Testing kokot");
                         
             RealPlayers = new Dictionary<CSteamID, RealPlayer>();
             //   public static void say(CSteamID target, string text, Color color, EChatMode mode, bool isRich = false);
@@ -52,6 +56,7 @@ namespace RealLifeFramework
             Database.Close();
             Database = null;
             Instance = null;
+            harmony.UnpatchAll();
         }
 
     }

@@ -35,7 +35,7 @@ namespace RealLifeFramework.Players
 
         // * Ultility | * References
         public uint Money { get; set; }
-        public HUD UIUser { get; set; }
+        public HUD HUD { get; set; }
 
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
@@ -67,7 +67,7 @@ namespace RealLifeFramework.Players
             var skillResult = RealLife.Database.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
 
-            UIUser = new HUD(this);
+            HUD = new HUD(this);
         }
 
         // New RealPlayer
@@ -90,7 +90,7 @@ namespace RealLifeFramework.Players
 
             JobUser = null;
             SkillUser = new SkillUser(this);
-            UIUser = new HUD(this);
+            HUD = new HUD(this);
 
             RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
 
@@ -128,7 +128,7 @@ namespace RealLifeFramework.Players
 
             RealLife.Database.set(DatabaseManager.TablePlayer, CSteamID.ToString(), "exp", $"{Exp}");
 
-            UIUser.UpdateExp();
+            HUD.UpdateExp();
         }
 
         private void levelUp()
@@ -137,8 +137,8 @@ namespace RealLifeFramework.Players
             Level++;
             RealLife.Database.set(DatabaseManager.TablePlayer, CSteamID.ToString(), "level", $"{Level}");
 
-            UIUser.UpdateExp();
-            UIUser.UpdateLevel();
+            HUD.UpdateExp();
+            HUD.UpdateLevel();
 
         }
 
