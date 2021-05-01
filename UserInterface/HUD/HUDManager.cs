@@ -22,35 +22,51 @@ namespace RealLifeFramework.UserInterface
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.HUD.UpdateHealthUI(val);
+            if(rplayer != null)
+                rplayer.HUD.UpdateHealthUI(val);
         }
 
         private static void UpdateFood(UnturnedPlayer player, byte val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.HUD.UpdateFoodUI(val);
+            if (rplayer != null)
+                rplayer.HUD.UpdateFoodUI(val);
         }
 
         private static void UpdateWater(UnturnedPlayer player, byte val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.HUD.UpdateWaterUI(val);
+            if (rplayer != null)
+                rplayer.HUD.UpdateWaterUI(val);
         }
 
         private static void UpdateStamina(UnturnedPlayer player, byte val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.HUD.UpdateStaminaUI(val);
+            if (rplayer != null)
+                rplayer.HUD.UpdateStaminaUI(val);
         }
 
         private static void UpdateExperience(UnturnedPlayer player, uint val)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.HUD.UpdateMoneyUI(val);
+            if (rplayer != null)
+                rplayer.HUD.UpdateMoneyUI(val);
+        }
+
+        public static void UpdateTime(ushort hours, ushort minutes)
+        {
+            foreach (SteamPlayer sp in Provider.clients)
+            {
+                RealPlayer player = RealPlayerManager.GetRealPlayer(sp.playerID.steamID);
+
+                if (player != null)
+                    player.HUD.UpdateTimeUI(hours, minutes);
+            }
         }
     }
 }

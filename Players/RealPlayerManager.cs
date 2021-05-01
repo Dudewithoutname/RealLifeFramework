@@ -64,24 +64,39 @@ namespace RealLifeFramework.Players
         #region GetRealPlayer
         public static RealPlayer GetRealPlayer(CSteamID csteamid)
         {
-            return RealLife.Instance.RealPlayers[csteamid];
+            if (RealLife.Instance.RealPlayers.ContainsKey(csteamid))
+                return RealLife.Instance.RealPlayers[csteamid];
+            else
+                return null;
         }
 
         public static RealPlayer GetRealPlayer(UnturnedPlayer player)
         {
-            return RealLife.Instance.RealPlayers[player.CSteamID];
+            if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
+                return RealLife.Instance.RealPlayers[player.CSteamID];
+            else
+                return null;
         }
 
         public static RealPlayer GetRealPlayer(IRocketPlayer player)
         {
             var p = (UnturnedPlayer)player;
-            return RealLife.Instance.RealPlayers[p.CSteamID];
+
+            if (RealLife.Instance.RealPlayers.ContainsKey(p.CSteamID))
+                return RealLife.Instance.RealPlayers[p.CSteamID];
+            else
+                return null;
+
         }
 
         public static RealPlayer GetRealPlayer(Player player)
         {
             CSteamID p = player.channel.owner.playerID.steamID;
-            return RealLife.Instance.RealPlayers[p];
+
+            if (RealLife.Instance.RealPlayers.ContainsKey(p))
+                return RealLife.Instance.RealPlayers[p];
+            else
+                return null;
         }
         #endregion
     }

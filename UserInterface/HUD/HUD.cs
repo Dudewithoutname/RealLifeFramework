@@ -35,6 +35,7 @@ namespace RealLifeFramework.UserInterface
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_stamina", RPlayer.Player.life.stamina.ToString());
 
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_money", getFormatedMoney(RPlayer.Money));
+            EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_time", "0:00");
 
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_lvl", getFormatedLevel());
             EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_exp", getFormatedExp());
@@ -58,7 +59,6 @@ namespace RealLifeFramework.UserInterface
                 return $"{hours}:0{minutes}";
             else
                 return $"{hours}:{minutes}";
-
         }
         private string getFormatedLevel() => $"{RPlayer.Level} LvL";
         private string getFormatedExp() => $"{RPlayer.Exp}<color=#D164FF> / {RPlayer.MaxExp}</color>";

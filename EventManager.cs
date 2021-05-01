@@ -71,12 +71,7 @@ namespace RealLifeFramework
         // patched by Time 
         public static void onTimeUpdated(ushort hours, ushort minutes)
         {
-            foreach(SteamPlayer sp in Provider.clients)
-            {
-                RealPlayer player = RealPlayerManager.GetRealPlayer(sp.playerID.steamID);
-
-                player.HUD.UpdateTimeUI(hours, minutes);
-            }
+            HUDManager.UpdateTime(hours, minutes);
         }
 
         private static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)
