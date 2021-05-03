@@ -34,7 +34,7 @@ namespace RealLifeFramework
             Database.Port = Configuration.Instance.DatabasePort;
             Database.IsConnect();
             Database.Setup();
-
+            Player.instance.
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
 

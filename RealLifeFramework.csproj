@@ -310,6 +310,7 @@
     <Compile Include="DatabaseManager\Results.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="Items\MedicalItems.cs" />
+    <Compile Include="Items\StartClothes.cs" />
     <Compile Include="Jobs\Fisherman\Fisherman.cs" />
     <Compile Include="Jobs\Job.cs" />
     <Compile Include="Jobs\JobManager.cs" />

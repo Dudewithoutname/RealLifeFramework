@@ -6,6 +6,7 @@ using Steamworks;
 using SDG.NetTransport;
 using System.Linq;
 using RealLifeFramework.UserInterface;
+using RealLifeFramework.Items;
 
 namespace RealLifeFramework.Players
 {
@@ -55,16 +56,17 @@ namespace RealLifeFramework.Players
             var rplayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
 
             RealLife.Instance.RealPlayers.Add(steamId, rplayer);
-
-            //giveStartingItems(player.Player);
+            giveStartingItems(player.Player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
             EffectManager.askEffectClearByID(UI.CreationTab, playerCon);
             EffectManager.askEffectClearByID(UI.CreationF, playerCon);
             EffectManager.askEffectClearByID(UI.CreationM, playerCon);
-
+            
             PrePlayers.Remove(steamId);
+
+            //  remove tihs and add it to sendnewplayer func
             try
             {
                 Discord.SendNewPlayer(rplayer);
@@ -77,10 +79,12 @@ namespace RealLifeFramework.Players
 
         private static void giveStartingItems(Player player)
         {
-            // TODO: Give Starting items
-            // Randomize Shirts
-            // Randomize pants
-            // Give some Exp as money
+            var uplayer = UnturnedPlayer.FromPlayer(player);
+            var realplayer = RealPlayerManager.GetRealPlayer(player);
+
+            uplayer.GiveItem(StartClothes.GetRandomShirt(realplayer.Gender), 1);
+            uplayer.GiveItem(StartClothes.GetPantsu(), 1);
+            uplayer.Experience += RealLife.Instance.Configuration.Instance.StartingExp;
         }
 
         public static void SetGender(CSteamID steamId, byte gender)

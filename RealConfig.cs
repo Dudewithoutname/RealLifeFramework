@@ -14,6 +14,7 @@ namespace RealLifeFramework
 
         public string DiscordInvite;
         public string SteamGroupInvite;
+        public uint StartingExp;
 
         public void LoadDefaults()
         {
@@ -24,6 +25,7 @@ namespace RealLifeFramework
             DatabasePassword = "";
             DiscordInvite = "https://discord.com/";
             SteamGroupInvite = "https://store.steampowered.com/";
+            StartingExp = 2500;
         }
     }
 }
