@@ -7,13 +7,18 @@ using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using Steamworks;
+using System.Collections.Generic;
 
 namespace RealLifeFramework
 {
     public static class EventManager
     {
+        public static List<IEventComponent> EventComponents;
+
         public static void Load()
         {
+            EventComponents = new List<IEventComponent>();
+
             U.Events.OnPlayerConnected += onPlayerConnected;
             U.Events.OnPlayerDisconnected += onPlayerDisconnected;
 
@@ -31,7 +36,8 @@ namespace RealLifeFramework
             Player.onPlayerStatIncremented += SkillManager.HandleStatIncremented;
             UseableConsumeable.onConsumePerformed += SkillManager.HandleConsume;
 
-            HUDManager.HookEvents();
+            foreach(IEventComponent component in EventComponents)
+                component.HookEvents();
 
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
         }

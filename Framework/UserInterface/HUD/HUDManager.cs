@@ -7,9 +7,9 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.UserInterface
 {
-    public class HUDManager
+    public class HUDManager : IEventComponent
     {
-        public static void HookEvents()
+        public void HookEvents()
         {
             UnturnedPlayerEvents.OnPlayerUpdateHealth += UpdateHealth;
             UnturnedPlayerEvents.OnPlayerUpdateFood += UpdateFood;

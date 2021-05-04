@@ -18,7 +18,6 @@ namespace RealLifeFramework
         public static DatabaseManager Database = DatabaseManager.Instance();
         public Dictionary<CSteamID,RealPlayer> RealPlayers;
         public static bool Debugging = true;
-
         private Harmony harmony;
 
         protected override void Load()
@@ -32,9 +31,10 @@ namespace RealLifeFramework
             Database.UserName = Configuration.Instance.DatabaseUsername;
             Database.Password = Configuration.Instance.DatabasePassword;
             Database.Port = Configuration.Instance.DatabasePort;
+            
             Database.IsConnect();
             Database.Setup();
-            Player.instance.
+
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
 

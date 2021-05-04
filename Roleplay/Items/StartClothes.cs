@@ -10,20 +10,56 @@ namespace RealLifeFramework.Items
     {
         public static List<ushort> MaleShirts = new List<ushort>()
         {
-            1,
-            // TOOD RANDOM SHIRT IDS
+        // Start Unisex
+            179,
+            180,
+            183,
+            184,
+        // END Unisex
+            163,
+            164,
+            175,
+            176,
+            211,
         };
 
         public static List<ushort> FemaleShirts = new List<ushort>()
         {
-            1,
-            // TOOD RANDOM SHIRT IDS
+        // Start Unisex
+            179,
+            180,
+            183,
+            184,
+        // END Unisex
+            171,
+            172,
+            167,
+            168,
+            158,
+            159,
         };
 
         public static List<ushort> Pantsu = new List<ushort>()
         {
-            1,
-            //  TODO RANDOM PANTS
+            2,
+            548,
+            209,
+            212,
+            213,
+            214,
+            226,
+            227,
+            228,
+            229,
+            /* Hawai Assets
+            1454,
+            1455,
+            1456,
+            1457,
+            1458,
+            1459,
+            1460,
+            1461,*/
         };
 
         public static ushort GetRandomShirt(string gender)
