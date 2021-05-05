@@ -27,6 +27,8 @@ namespace RealLifeFramework.Chatting
                     isVisible = SendGlobalMessage(rplayer, mode, ref chatted, ref isRich, text, ref isVisible);
                     break;
                 case EChatMode.LOCAL:
+                    //var nearestNode = LevelNodes.nodes.Where(k => k is LocationNode).Cast<LocationNode>().OrderBy(k => Vector3.Distance(k.point, player.Position)).FirstOrDefault();
+                    // remake this from linq to normal faggot xd
                     break;
                 case EChatMode.GROUP:
                     break;
