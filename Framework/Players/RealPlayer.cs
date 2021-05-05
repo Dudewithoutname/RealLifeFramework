@@ -36,6 +36,11 @@ namespace RealLifeFramework.Players
         // * Ultility | * References
         public uint Money { get; set; }
         public HUD HUD { get; set; }
+        public string Avatar { get; set; }
+
+        // * Admin
+        public bool IsAdmin { get; set; }
+
 
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
@@ -55,6 +60,8 @@ namespace RealLifeFramework.Players
             Exp = result.Exp;
             MaxExp = GetExpForNextLevel();
 
+            IsAdmin = player.IsAdmin;
+
             var jobResult = RealLife.Database.GetJobInfo(CSteamID);
             JobUser = new JobUser()
             {
@@ -68,6 +75,8 @@ namespace RealLifeFramework.Players
             SkillUser = new SkillUser(this, skillResult);
 
             HUD = new HUD(this);
+
+            Avatar = UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(); // Caching avatar
         }
 
         // New RealPlayer
@@ -92,12 +101,16 @@ namespace RealLifeFramework.Players
             SkillUser = new SkillUser(this);
             HUD = new HUD(this);
 
+            IsAdmin = player.IsAdmin;
+
             RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
+
+            Avatar = UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(); // Caching avatar
         }
 
-        
+
         public void SetGender(byte gender)
         {
             switch (gender)

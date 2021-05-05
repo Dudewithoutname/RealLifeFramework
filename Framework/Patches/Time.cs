@@ -26,7 +26,7 @@ namespace RealLifeFramework.Patches
             if((ushort)minutes != prevMinutes)
             {
                 prevMinutes = (ushort)minutes;
-                EventManager.onTimeUpdated((ushort)hours, (ushort)minutes);
+                RealEvents.onTimeUpdated((ushort)hours, (ushort)minutes);
             }
 
         }
