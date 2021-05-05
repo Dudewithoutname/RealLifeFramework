@@ -17,9 +17,9 @@ namespace RealLifeFramework.Players
             if (isNew)
             {
 
-                /*if(RealLife.Debugging)
-                    RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "cigi", 20, 0));
-                else*/
+                if(RealLife.Debugging)
+                    RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
+                else
                     firstJoin(player);
 
             }

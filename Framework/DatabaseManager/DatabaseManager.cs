@@ -309,7 +309,7 @@ namespace RealLifeFramework
                     {
                         EducationPoints = Convert.ToUInt16(reader[3].ToString()),
 
-                        Skills = new List<IISkill>() { 
+                        Skills = new List<ISkill>() { 
                             new Endurance(player, Convert.ToByte(reader[getCI(Endurance.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Endurance.Id+1, 0)].ToString()) ),
                             new Farming(player, Convert.ToByte(reader[getCI(Farming.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Farming.Id+1, 0)].ToString()) ),
                             new Fishing(player, Convert.ToByte(reader[getCI(Fishing.Id, 0)].ToString()) , Convert.ToUInt32(reader[getCI(Fishing.Id+1, 0)].ToString()) ),

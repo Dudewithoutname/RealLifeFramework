@@ -307,6 +307,7 @@
   <ItemGroup>
     <Compile Include="Framework\Events\EventHandlerAttribute.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
+    <Compile Include="Framework\Events\RealEvents.cs" />
     <Compile Include="Roleplay\Chatting\Chat.cs" />
     <Compile Include="Roleplay\Commands\test.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
@@ -339,7 +340,7 @@
     <Compile Include="Roleplay\Skills\Education\Crafting.cs" />
     <Compile Include="Roleplay\Skills\IEducation.cs" />
     <Compile Include="Roleplay\Skills\Education\Engineering.cs" />
-    <Compile Include="Roleplay\Skills\IISkill.cs" />
+    <Compile Include="Roleplay\Skills\ISkill.cs" />
     <Compile Include="Roleplay\Skills\Skills\Agility.cs" />
     <Compile Include="Roleplay\Skills\Skills\Endurance.cs" />
     <Compile Include="Roleplay\Skills\Skills\Farming.cs" />

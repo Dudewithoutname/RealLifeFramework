@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Endurance : IISkill
+    public sealed class Endurance : ISkill
     {
         public static readonly byte Id = 0;
 

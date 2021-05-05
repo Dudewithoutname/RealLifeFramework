@@ -9,7 +9,7 @@ namespace RealLifeFramework.Skills
         public ushort EducationPoints { get; set; }
         // Note: everything should start from level 0
 
-        public List<IISkill> Skills { get; set; }
+        public List<ISkill> Skills { get; set; }
         public List<IEducation> Educations { get; set; }
 
         public void AddEducationPoints(ushort amount)
@@ -70,7 +70,7 @@ namespace RealLifeFramework.Skills
             RealPlayer = player;
             EducationPoints = 0;
 
-            Skills = new List<IISkill>()
+            Skills = new List<ISkill>()
             {
                 new Endurance(RealPlayer, 0, 0),
                 new Farming(RealPlayer, 0, 0),
@@ -94,7 +94,7 @@ namespace RealLifeFramework.Skills
             RealPlayer = player;
             EducationPoints = skillResult.EducationPoints;
 
-            Skills = new List<IISkill>()
+            Skills = new List<ISkill>()
             {
                 skillResult.Skills[0],
                 skillResult.Skills[1],

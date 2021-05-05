@@ -3,7 +3,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Fishing : IISkill
+    public sealed class Fishing : ISkill
     {
         public static readonly byte Id = 2;
 

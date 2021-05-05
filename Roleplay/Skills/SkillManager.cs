@@ -5,8 +5,15 @@ using RealLifeFramework.Items;
 
 namespace RealLifeFramework.Skills
 {
-    public class SkillManager
+    [EventHandler("SkillManager")]
+    public class SkillManager : IEventComponent
     {
+        public void HookEvents()
+        {
+            Player.onPlayerStatIncremented += HandleStatIncremented;
+            UseableConsumeable.onConsumePerformed += HandleConsume;
+        }
+
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
             var skill = player.SkillUser.Skills[skillId];
