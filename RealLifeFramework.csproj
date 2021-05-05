@@ -305,9 +305,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\Events\EventHandlerAttribute.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
-    <Compile Include="Roleplay\Chat\Chat.cs" />
-    <Compile Include="Framework\Commands\test.cs" />
+    <Compile Include="Roleplay\Chatting\Chat.cs" />
+    <Compile Include="Roleplay\Commands\test.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\DatabaseManager\Results.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />

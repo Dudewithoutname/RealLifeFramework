@@ -1,13 +1,15 @@
 ﻿using System;
-using RealLifeFramework.Players;
-using RealLifeFramework.Skills;
-using RealLifeFramework.UserInterface;
 using Rocket.Unturned;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using Steamworks;
 using System.Collections.Generic;
+using RealLifeFramework.Players;
+using RealLifeFramework.Skills;
+using RealLifeFramework.UserInterface;
+using RealLifeFramework.Chatting;
+using System.Reflection;
 
 namespace RealLifeFramework
 {
@@ -36,10 +38,25 @@ namespace RealLifeFramework
             Player.onPlayerStatIncremented += SkillManager.HandleStatIncremented;
             UseableConsumeable.onConsumePerformed += SkillManager.HandleConsume;
 
-            foreach(IEventComponent component in EventComponents)
+            GetEventComponents();
+
+
+            foreach (IEventComponent component in EventComponents)
                 component.HookEvents();
 
             Logger.Log("[EventManager] Succesfully added subscriptions to events");
+        }
+
+        private static void GetEventComponents()
+        {
+            foreach (Type type in RealLife.Instance.Assembly.GetTypes())
+            {
+                if (!(type.GetCustomAttributes(typeof(EventHandler), true).Length < 1))
+                {
+                    var eventComponent = (IEventComponent)Activator.CreateInstance(type);
+                    EventComponents.Add(eventComponent);
+                }
+            }
         }
 
         private static void onPlayerConnected(UnturnedPlayer player)

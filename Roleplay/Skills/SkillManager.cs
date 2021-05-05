@@ -5,7 +5,7 @@ using RealLifeFramework.Items;
 
 namespace RealLifeFramework.Skills
 {
-    public static class SkillManager
+    public class SkillManager
     {
         public static void SendLevelUp(RealPlayer player, int skillId)
         {

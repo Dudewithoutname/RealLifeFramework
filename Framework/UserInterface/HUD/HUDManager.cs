@@ -7,6 +7,7 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.UserInterface
 {
+    [EventHandler("HudManager")]
     public class HUDManager : IEventComponent
     {
         public void HookEvents()

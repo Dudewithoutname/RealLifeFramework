@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using SDG.Unturned;
 using UnityEngine;
 
-namespace RealLifeFramework.Chat
+namespace RealLifeFramework.Chatting
 {
+    [EventHandler("Chat")]
     public class Chat : IEventComponent
     {
         public void HookEvents()
@@ -14,7 +15,8 @@ namespace RealLifeFramework.Chat
 
         private static void onPlayerChatted(SteamPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
-            // TODO : Mute System , Administration system and this obviously
+            Logger.Log("test");
+            /*// TODO : Mute System , Administration system and this obviously
             switch (mode)
             {
                 case EChatMode.GLOBAL:
@@ -26,7 +28,7 @@ namespace RealLifeFramework.Chat
                     break;
                 case EChatMode.SAY:
                     break;
-            }
+            }*/
         }
 
 
