@@ -1,9 +1,0 @@
-{
-    "files.exclude": {
-        ".vs/": true,
-        ".vscode/": true,
-        "bin/": true,
-        "obj/": true,
-        "Properties/": true
-    }
-}
