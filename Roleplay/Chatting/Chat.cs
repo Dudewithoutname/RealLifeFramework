@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using SDG.Unturned;
-using UnityEngine;
-using RealLifeFramework.Players;
 using Rocket.Unturned.Events;
 using Rocket.Unturned;
 using Rocket.Unturned.Player;
+using SDG.Unturned;
+using UnityEngine;
+using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Chatting
 {
@@ -27,12 +28,31 @@ namespace RealLifeFramework.Chatting
                     isVisible = SendGlobalMessage(rplayer, mode, ref chatted, ref isRich, text, ref isVisible);
                     break;
                 case EChatMode.LOCAL:
-                    //var nearestNode = LevelNodes.nodes.Where(k => k is LocationNode).Cast<LocationNode>().OrderBy(k => Vector3.Distance(k.point, player.Position)).FirstOrDefault();
-                    // remake this from linq to normal faggot xd
+                    isVisible = SendLocalMessage(rplayer, mode, ref chatted, ref isRich, text, ref isVisible);
                     break;
                 case EChatMode.GROUP:
                     break;
             }
+        }
+
+        private static bool SendLocalMessage(RealPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
+        {
+            string message = refactorMessage(text, player.IsAdmin);
+            if(isVisible)
+            {
+                if (message.StartsWith("/")) return false;
+
+                ChatManager.serverSendMessage($"<size=11><color=#de4dff>[5]</color></size> <color=#ffffff>{player.Name} : {message}</color>", Color.white, null, null,
+                     EChatMode.LOCAL, player.Avatar, true);
+            }
+
+            return false;
+        }
+        private static string getNearestLocationName(RealPlayer player)
+        {
+            string output = "";
+            LevelNodes.nodes.Where(k => k is LocationNode).Cast<LocationNode>().OrderBy(k => Vector3.Distance(k.point, player.Player.transform.position)).FirstOrDefault();
+            return output;
         }
 
         private static bool SendGlobalMessage(RealPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
