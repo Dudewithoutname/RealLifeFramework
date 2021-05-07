@@ -4,7 +4,7 @@ using SDG.Unturned;
 using RealLifeFramework.Players;
 using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
-using RealLifeFramework.Chatting;
+using RealLifeFramework;
 using Rocket.Unturned.Events;
 using Rocket.Unturned;
 using Rocket.Unturned.Player;

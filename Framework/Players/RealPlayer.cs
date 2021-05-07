@@ -5,6 +5,7 @@ using Rocket.Unturned.Player;
 using RealLifeFramework.Jobs;
 using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
+using RealLifeFramework.Chatting;
 
 namespace RealLifeFramework.Players
 {
@@ -36,7 +37,7 @@ namespace RealLifeFramework.Players
         // * Ultility | * References
         public uint Money { get; set; }
         public HUD HUD { get; set; }
-        public string Avatar { get; set; }
+        public ChatProfile ChatProfile { get; set; }
 
         // * Admin
         public bool IsAdmin { get; set; }
@@ -75,8 +76,7 @@ namespace RealLifeFramework.Players
             SkillUser = new SkillUser(this, skillResult);
 
             HUD = new HUD(this);
-
-            Avatar = UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(); // Caching avatar
+            ChatProfile = new ChatProfile("#ffffff" ,UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString()); // Caching avatar
         }
 
         // New RealPlayer
@@ -99,7 +99,6 @@ namespace RealLifeFramework.Players
 
             JobUser = null;
             SkillUser = new SkillUser(this);
-            HUD = new HUD(this);
 
             IsAdmin = player.IsAdmin;
 
@@ -107,7 +106,8 @@ namespace RealLifeFramework.Players
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
-            Avatar = UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(); // Caching avatar
+            HUD = new HUD(this);
+            ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString());
         }
 
 

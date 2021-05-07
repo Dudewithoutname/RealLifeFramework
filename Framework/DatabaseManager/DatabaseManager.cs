@@ -120,6 +120,8 @@ namespace RealLifeFramework
                         $"e{Medicine.Id}lvl TINYINT DEFAULT 0," +
                         $"e{Defense.Id}lvl TINYINT DEFAULT 0" +
                         ")", this.Connection),
+
+                    new MySqlCommand
                 };
 
                 Tables.ForEach((table) => table.ExecuteNonQuery());
