@@ -30,7 +30,6 @@ namespace RealLifeFramework
 
             EffectManager.onEffectButtonClicked = onEffectButtonClicked;
             EffectManager.onEffectTextCommitted = onEffectTextCommited;
-
         }
 
         private static void onPlayerConnected(UnturnedPlayer player)
