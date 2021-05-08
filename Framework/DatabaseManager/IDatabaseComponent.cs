@@ -9,7 +9,7 @@ namespace RealLifeFramework
 {
     public interface IDatabaseComponent
     {
-        MySqlCommand Create;
+        //MySqlCommand Create;
         void Load();
     }
 }

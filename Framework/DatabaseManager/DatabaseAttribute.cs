@@ -4,11 +4,11 @@ using System.Reflection;
 namespace RealLifeFramework
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class EventHandler : Attribute
+    public class DatabaseComponent : Attribute
     {
         public string Name { get; set; }
 
-        public EventHandler(string name)
+        public DatabaseComponent(string name)
         {
             Name = name;
         }

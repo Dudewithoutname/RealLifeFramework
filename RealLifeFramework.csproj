@@ -306,7 +306,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
-    <Compile Include="Framework\DatabaseManager\Class1.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseAttribute.cs" />
     <Compile Include="Framework\DatabaseManager\IDatabaseComponent.cs" />
     <Compile Include="Framework\Events\EventHandlerAttribute.cs" />
