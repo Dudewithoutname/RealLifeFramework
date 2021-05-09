@@ -26,7 +26,7 @@ namespace RealLifeFramework.Skills
                     break;
             }
 
-            RealLife.Database.UpdateEducation(Player.CSteamID, Id, Level);
+            PlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
         }
 
         public Culinary(RealPlayer playerRef, byte level)

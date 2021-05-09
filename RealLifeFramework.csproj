@@ -306,6 +306,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
+    <Compile Include="Framework\DatabaseManager\ITable.cs" />
+    <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
+    <Compile Include="Framework\DatabaseManager\Tables\PlayerInfo.cs" />
+    <Compile Include="Framework\DatabaseManager\Tables\PlayerJob.cs" />
+    <Compile Include="Framework\DatabaseManager\Tables\PlayerSkills.cs" />
     <Compile Include="Framework\Events\EventHandlerAttribute.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
     <Compile Include="Framework\Events\RealEvents.cs" />

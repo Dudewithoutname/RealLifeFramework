@@ -15,7 +15,7 @@ namespace RealLifeFramework.Skills
         public void AddEducationPoints(ushort amount)
         {
             EducationPoints += amount;
-            RealLife.Database.UpdateEducationPoints(RealPlayer.CSteamID, EducationPoints);
+            PlayerSkills.UpdateEducationPoints(RealPlayer.CSteamID, EducationPoints);
         }
 
         public void UpgradeEducation(IEducation education)
@@ -46,7 +46,7 @@ namespace RealLifeFramework.Skills
             if(skill != null)
             {
                 skill.AddExp(amount);
-                RealLife.Database.UpdateSkill(RealPlayer.CSteamID, id, skill.Level, skill.Exp);
+                PlayerSkills.UpdateSkill(RealPlayer.CSteamID, id, skill.Level, skill.Exp);
                 RealPlayer.AddExp(5);
 
             }

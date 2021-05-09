@@ -63,7 +63,7 @@ namespace RealLifeFramework.Players
 
             IsAdmin = player.IsAdmin;
 
-            var jobResult = RealLife.Database.GetJobInfo(CSteamID);
+            var jobResult = PlayerJob.GetJobInfo(CSteamID);
             JobUser = new JobUser()
             {
                 Job = jobResult.Job,
@@ -72,7 +72,7 @@ namespace RealLifeFramework.Players
             };
 
 
-            var skillResult = RealLife.Database.GetSkillsInfo(this);
+            var skillResult = PlayerSkills.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
 
             HUD = new HUD(this);
@@ -102,7 +102,7 @@ namespace RealLifeFramework.Players
 
             IsAdmin = player.IsAdmin;
 
-            RealLife.Database.NewPlayer(player.CSteamID.ToString(), name, age, gender);
+            PlayerInfo.NewPlayer(player.CSteamID.ToString(), name, age, gender);
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
@@ -139,7 +139,7 @@ namespace RealLifeFramework.Players
                 levelUp();
             }
 
-            RealLife.Database.set(DatabaseManager.TablePlayer, CSteamID.ToString(), "exp", $"{Exp}");
+            RealLife.Database.set(PlayerInfo.Name, CSteamID.ToString(), "exp", $"{Exp}");
 
             HUD.UpdateExp();
         }
@@ -148,7 +148,7 @@ namespace RealLifeFramework.Players
         {
             MaxExp = GetExpForNextLevel();
             Level++;
-            RealLife.Database.set(DatabaseManager.TablePlayer, CSteamID.ToString(), "level", $"{Level}");
+            RealLife.Database.set(PlayerInfo.Name, CSteamID.ToString(), "level", $"{Level}");
 
             HUD.UpdateExp();
             HUD.UpdateLevel();
