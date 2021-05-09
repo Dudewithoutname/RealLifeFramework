@@ -7,11 +7,11 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework
 {
-    [Table(nameof(PlayerSkills))]
-    public class PlayerSkills : ITable
+    [Table(nameof(TPlayerSkills))]
+    public class TPlayerSkills : ITable
     {
-        public static PlayerSkills Instnace;
-        public static string Name => ((Table)Attribute.GetCustomAttribute(typeof(PlayerSkills), typeof(Table))).Name;
+        public static TPlayerSkills Instnace;
+        public static string Name => ((Table)Attribute.GetCustomAttribute(typeof(TPlayerSkills), typeof(Table))).Name;
 
         public MySqlCommand Create()
         {
@@ -68,13 +68,13 @@ namespace RealLifeFramework
 
         public static void UpdateSkill(CSteamID player, int id, byte level, uint exp)
         {
-            RealLife.Database.set(PlayerSkills.Name, player.ToString(), getCbyId(id, 0, "lvl"), level.ToString());
-            RealLife.Database.set(PlayerSkills.Name, player.ToString(), getCbyId(id, 0, "xp"), exp.ToString());
+            RealLife.Database.set(TPlayerSkills.Name, player.ToString(), getCbyId(id, 0, "lvl"), level.ToString());
+            RealLife.Database.set(TPlayerSkills.Name, player.ToString(), getCbyId(id, 0, "xp"), exp.ToString());
         }
 
-        public static void UpdateEducation(CSteamID player, int id, byte level) => RealLife.Database.set(PlayerSkills.Name, player.ToString(), getCbyId(id, 1, "lvl"), level.ToString());
+        public static void UpdateEducation(CSteamID player, int id, byte level) => RealLife.Database.set(TPlayerSkills.Name, player.ToString(), getCbyId(id, 1, "lvl"), level.ToString());
 
-        public static void UpdateEducationPoints(CSteamID player, ushort points) => RealLife.Database.set(PlayerSkills.Name, player.ToString(), "edupoints", points.ToString());
+        public static void UpdateEducationPoints(CSteamID player, ushort points) => RealLife.Database.set(TPlayerSkills.Name, player.ToString(), "edupoints", points.ToString());
 
         public static DBSkillsResult GetSkillsInfo(RealPlayer player)
         {
@@ -82,7 +82,7 @@ namespace RealLifeFramework
 
             if (RealLife.Database.IsConnect())
             {
-                var cmd = new MySqlCommand($" SELECT * FROM {PlayerSkills.Name} WHERE steamid = '{player.CSteamID}' ", RealLife.Database.Connection);
+                var cmd = new MySqlCommand($" SELECT * FROM {TPlayerSkills.Name} WHERE steamid = '{player.CSteamID}' ", RealLife.Database.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -119,5 +119,12 @@ namespace RealLifeFramework
                 return null;
             }
         }
+    }
+
+    public class DBSkillsResult
+    {
+        public ushort EducationPoints { get; set; }
+        public List<ISkill> Skills { get; set; }
+        public List<IEducation> Educations { get; set; }
     }
 }

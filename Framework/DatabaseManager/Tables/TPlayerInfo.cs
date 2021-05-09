@@ -6,11 +6,11 @@ using Steamworks;
 
 namespace RealLifeFramework
 {
-    [Table(nameof(PlayerInfo))]
-    public class PlayerInfo : ITable
+    [Table(nameof(TPlayerInfo))]
+    public class TPlayerInfo : ITable
     {
-        public static PlayerInfo Instnace;
-        public static string Name => ((Table)Attribute.GetCustomAttribute(typeof(PlayerInfo), typeof(Table))).Name;
+        public static TPlayerInfo Instnace;
+        public static string Name => ((Table)Attribute.GetCustomAttribute(typeof(TPlayerInfo), typeof(Table))).Name;
 
         public MySqlCommand Create()
         {
@@ -30,12 +30,12 @@ namespace RealLifeFramework
         {
             if (RealLife.Database.IsConnect())
             {
-                string queryPlayer = $"INSERT INTO {PlayerInfo.Name} (steamid, name, age, gender, level, exp) VALUES " +
+                string queryPlayer = $"INSERT INTO {TPlayerInfo.Name} (steamid, name, age, gender, level, exp) VALUES " +
                     $"('{csteamid}', '{fullname}', '{age}', '{gender}', '1','0')";
 
-                string queryJob = $"INSERT INTO {PlayerJob.Name} (steamid, id) VALUES ('{csteamid}', '-1')";
+                string queryJob = $"INSERT INTO {TPlayerJob.Name} (steamid, id) VALUES ('{csteamid}', '-1')";
 
-                string querySkill = $"INSERT INTO {PlayerSkills.Name} (steamid) VALUES ('{csteamid}')";
+                string querySkill = $"INSERT INTO {TPlayerSkills.Name} (steamid) VALUES ('{csteamid}')";
 
                 List<MySqlCommand> cmds = new List<MySqlCommand>()
                 {
@@ -55,7 +55,7 @@ namespace RealLifeFramework
 
             if (RealLife.Database.IsConnect())
             {
-                var cmd = new MySqlCommand($" SELECT * FROM {PlayerInfo.Name} WHERE steamid = '{csteamid}' ", RealLife.Database.Connection);
+                var cmd = new MySqlCommand($" SELECT * FROM {TPlayerInfo.Name} WHERE steamid = '{csteamid}' ", RealLife.Database.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -82,4 +82,14 @@ namespace RealLifeFramework
         }
 
     }
+
+    public class DBPlayerResult
+    {
+        public string Name { get; set; }
+        public ushort Age { get; set; }
+        public byte Gender { get; set; }
+        public ushort Level { get; set; }
+        public uint Exp { get; set; }
+    }
 }
+

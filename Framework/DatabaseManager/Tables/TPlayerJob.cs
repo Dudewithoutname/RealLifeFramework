@@ -6,11 +6,11 @@ using RealLifeFramework.Jobs;
 
 namespace RealLifeFramework
 {
-    [Table(nameof(PlayerJob))]
-    public class PlayerJob : ITable
+    [Table(nameof(TPlayerJob))]
+    public class TPlayerJob : ITable
     {
-        public static PlayerJob Instnace;
-        public static string Name => ((Table)Attribute.GetCustomAttribute(typeof(PlayerJob), typeof(Table))).Name;
+        public static TPlayerJob Instnace;
+        public static string Name => ((Table)Attribute.GetCustomAttribute(typeof(TPlayerJob), typeof(Table))).Name;
 
         public MySqlCommand Create()
         {
@@ -30,7 +30,7 @@ namespace RealLifeFramework
 
             if (RealLife.Database.IsConnect())
             {
-                var cmd = new MySqlCommand($" SELECT * FROM {PlayerJob.Name} WHERE steamid = '{csteamid}' ", RealLife.Database.Connection);
+                var cmd = new MySqlCommand($" SELECT * FROM {TPlayerJob.Name} WHERE steamid = '{csteamid}' ", RealLife.Database.Connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -54,4 +54,12 @@ namespace RealLifeFramework
         }
 
     }
+
+    public class DBJobInfoResult
+    {
+        public Job Job { get; set; }
+        public ushort Level { get; set; }
+        public uint Exp { get; set; }
+    }
+
 }

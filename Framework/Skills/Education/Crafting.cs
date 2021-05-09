@@ -26,7 +26,7 @@ namespace RealLifeFramework.Skills
                     break;
             }
 
-            PlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
+            TPlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
         }
 
         public Crafting(RealPlayer playerRef, byte level)

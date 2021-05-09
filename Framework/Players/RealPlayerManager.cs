@@ -11,7 +11,7 @@ namespace RealLifeFramework.Players
 
         public static void InitializePlayer(UnturnedPlayer player)
         {
-            DBPlayerResult PlayerResult = PlayerInfo.GetPlayer(player.CSteamID);
+            DBPlayerResult PlayerResult = TPlayerInfo.GetPlayer(player.CSteamID);
             bool isNew = (PlayerResult == null) ? true : false;
 
             if (isNew)

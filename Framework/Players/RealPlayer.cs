@@ -63,7 +63,7 @@ namespace RealLifeFramework.Players
 
             IsAdmin = player.IsAdmin;
 
-            var jobResult = PlayerJob.GetJobInfo(CSteamID);
+            var jobResult = TPlayerJob.GetJobInfo(CSteamID);
             JobUser = new JobUser()
             {
                 Job = jobResult.Job,
@@ -72,7 +72,7 @@ namespace RealLifeFramework.Players
             };
 
 
-            var skillResult = PlayerSkills.GetSkillsInfo(this);
+            var skillResult = TPlayerSkills.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
 
             HUD = new HUD(this);
@@ -86,6 +86,8 @@ namespace RealLifeFramework.Players
             CSteamID = player.CSteamID;
             TransportConnection = player.Player.channel.GetOwnerTransportConnection();
             IP = TransportConnection.GetAddress().ToString();
+            int ipEnd = IP.LastIndexOf(':') + 1;
+            IP = IP.Substring(ipEnd, IP.Length-ipEnd);
 
             Name = name;
             Age = age;
@@ -102,7 +104,7 @@ namespace RealLifeFramework.Players
 
             IsAdmin = player.IsAdmin;
 
-            PlayerInfo.NewPlayer(player.CSteamID.ToString(), name, age, gender);
+            TPlayerInfo.NewPlayer(player.CSteamID.ToString(), name, age, gender);
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
@@ -139,7 +141,7 @@ namespace RealLifeFramework.Players
                 levelUp();
             }
 
-            RealLife.Database.set(PlayerInfo.Name, CSteamID.ToString(), "exp", $"{Exp}");
+            RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "exp", $"{Exp}");
 
             HUD.UpdateExp();
         }
@@ -148,7 +150,7 @@ namespace RealLifeFramework.Players
         {
             MaxExp = GetExpForNextLevel();
             Level++;
-            RealLife.Database.set(PlayerInfo.Name, CSteamID.ToString(), "level", $"{Level}");
+            RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "level", $"{Level}");
 
             HUD.UpdateExp();
             HUD.UpdateLevel();

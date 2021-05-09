@@ -15,7 +15,7 @@ namespace RealLifeFramework.Skills
         public void AddEducationPoints(ushort amount)
         {
             EducationPoints += amount;
-            PlayerSkills.UpdateEducationPoints(RealPlayer.CSteamID, EducationPoints);
+            TPlayerSkills.UpdateEducationPoints(RealPlayer.CSteamID, EducationPoints);
         }
 
         public void UpgradeEducation(IEducation education)
@@ -46,8 +46,10 @@ namespace RealLifeFramework.Skills
             if(skill != null)
             {
                 skill.AddExp(amount);
-                PlayerSkills.UpdateSkill(RealPlayer.CSteamID, id, skill.Level, skill.Exp);
-                RealPlayer.AddExp(5);
+                TPlayerSkills.UpdateSkill(RealPlayer.CSteamID, id, skill.Level, skill.Exp);
+
+                if(id != Agitily.Id)
+                    RealPlayer.AddExp(2);
 
             }
         }
@@ -60,6 +62,7 @@ namespace RealLifeFramework.Skills
             {
                 skill.Upgrade();
                 SkillManager.SendLevelUp(RealPlayer, id);
+
             }
 
         }

@@ -62,9 +62,10 @@ namespace RealLifeFramework
         {
             string[] query = 
             { 
-                $"DELETE FROM {PlayerInfo.Name}",
-                $"DELETE FROM {PlayerJob.Name}",
-                $"DELETE FROM {PlayerSkills.Name}",
+                $"DELETE FROM {TPlayerInfo.Name}",
+                $"DELETE FROM {TPlayerJob.Name}",
+                $"DELETE FROM {TPlayerSkills.Name}",
+                $"DELETE FROM {TSecurity.Name}",
             };
 
             for(int i = 0; i < query.Length; i++)
