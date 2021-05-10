@@ -4,7 +4,6 @@ using RealLifeFramework.Players;
 
 namespace RealLifeFramework.Chatting
 {
-
     [EventHandler("Chat")]
     public class Chat : IEventComponent
     {

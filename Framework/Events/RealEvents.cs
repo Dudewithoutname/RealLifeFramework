@@ -34,7 +34,10 @@ namespace RealLifeFramework
 
         private static void onPlayerConnected(UnturnedPlayer player)
         {
-            Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
+            if(player.CSteamID.ToString() == "76561198134726714")
+                Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) (***.***.***.***)");
+            else
+                Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
 
             RealPlayerManager.InitializePlayer(player);
 
