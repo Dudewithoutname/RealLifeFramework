@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using SDG.Unturned;
 using Steamworks;
+using Rocket.Unturned.Events;
+using Rocket.Unturned.Player;
+using Rocket.Unturned;
 using UnityEngine;
 
 namespace RealLifeFramework.Security
@@ -9,7 +12,8 @@ namespace RealLifeFramework.Security
     [EventHandler("Security")]
     public class Guard : IEventComponent
     {
-        public static Guard Instance;
+
+        private static List<CSteamID> BannedPlayers; 
         /* 
          * TODO
          * DISCORD EMBED SEND ETC.
@@ -17,7 +21,7 @@ namespace RealLifeFramework.Security
 
         private void Load()
         {
-            Instance = this;
+            BannedPlayers = new List<CSteamID>();
             Logger.Log("[Guard] Loaded");
         }
 
@@ -25,38 +29,47 @@ namespace RealLifeFramework.Security
         {
             Load();
             Provider.onCheckBanStatusWithHWID += checkBan;
+            U.Events.OnPlayerConnected += HandleBan;
             Provider.onBanPlayerRequested += doHWIDBan;
             Provider.onUnbanPlayerRequested += doHWIDUnban;
         }
 
         private void checkBan(SteamPlayerID playerID, uint remoteIP, ref bool isBanned, ref string banReason, ref uint banRemainingDuration)
         {
+            if (isBanned) return;
+
             string hwid = BitConverter.ToString(playerID.hwid).Replace("-", string.Empty);
 
-            if (RealLife.Database.get(TSecurity.Name, 0, "hwid", hwid) == hwid && isBanned == false)
-                Provider.ban(playerID.steamID, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", banRemainingDuration);
+            TSecurity.CheckRegister(playerID.steamID.ToString(), hwid);
+
+            if (RealLife.Database.get(TSecurity.Name, 2, "hwid", hwid) == "1" && isBanned == false)
+            {
+                Logger.Log("[Guard] Banned player tried to get around ban !");
+                BannedPlayers.Add(playerID.steamID);
+            }
+        }
+
+        private void HandleBan(UnturnedPlayer player)
+        {
+            CSteamID steamid = player.Player.channel.owner.playerID.steamID;
+
+            if (BannedPlayers.Contains(steamid))
+            {
+                Provider.ban(steamid, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", 999999999);
+                BannedPlayers.Remove(steamid);
+            }
         }
 
         private void doHWIDBan(CSteamID instigator, CSteamID playerToBan, uint ipToBan, ref string reason, ref uint duration, ref bool shouldVanillaBan)
         {
-            Player player = PlayerTool.getPlayer(playerToBan);
-
-            if(player != null)
-                TSecurity.AddHWIDBan(BitConverter.ToString(player.channel.owner.playerID.hwid).Replace("-", string.Empty));
-            else
-                ChatManager.say(instigator, "[GUARD] Warning! since player is offline ban isn't HWID", Color.red, false);
+            if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToBan.ToString()) == "0")
+                TSecurity.AddHWIDBan(playerToBan.ToString());
         }
 
         private void doHWIDUnban(CSteamID instigator, CSteamID playerToUnban, ref bool shouldVanillaUnban)
         {
-            Player player = PlayerTool.getPlayer(playerToUnban);
-            if(player != null) 
-            { 
-                string hwid = BitConverter.ToString(player.channel.owner.playerID.hwid).Replace("-", string.Empty);
-
-                if (RealLife.Database.get(TSecurity.Name, 0, "hwid", hwid) == hwid)
-                    TSecurity.RemoveHWIDBan(hwid);
-            }
+            if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToUnban.ToString()) == "1")
+                TSecurity.RemoveHWIDBan(playerToUnban.ToString());
         }
     }
 }
