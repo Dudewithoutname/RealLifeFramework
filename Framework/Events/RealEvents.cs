@@ -4,7 +4,7 @@ using SDG.Unturned;
 using RealLifeFramework.Players;
 using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
-using RealLifeFramework;
+using RealLifeFramework.Patches;
 using Rocket.Unturned.Events;
 using Rocket.Unturned;
 using Rocket.Unturned.Player;
@@ -25,11 +25,11 @@ namespace RealLifeFramework
 
             DamageTool.damagePlayerRequested += onPlayerDamageRequest;
 
-            ItemManager.onTakeItemRequested = onTakeItemRequested;
-            BarricadeManager.onOpenStorageRequested = onOpenStorageRequested;
+            ItemManager.onTakeItemRequested += onTakeItemRequested;
+            BarricadeManager.onOpenStorageRequested += onOpenStorageRequested;
 
-            EffectManager.onEffectButtonClicked = onEffectButtonClicked;
-            EffectManager.onEffectTextCommitted = onEffectTextCommited;
+            EffectManager.onEffectButtonClicked += onEffectButtonClicked;
+            EffectManager.onEffectTextCommitted += onEffectTextCommited;
         }
 
         private static void onPlayerConnected(UnturnedPlayer player)
@@ -66,12 +66,6 @@ namespace RealLifeFramework
             // Player Prevention
             if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || damageOrigin == EDamageOrigin.Useable_Melee && !RealPlayerManager.GetRealPlayer(instigatorSteamID).IsAdmin)
                 shouldAllow = false;
-        }
-
-        // patched by Time 
-        public static void onTimeUpdated(ushort hours, ushort minutes)
-        {
-            HUDManager.UpdateTime(hours, minutes);
         }
 
         private static void OnInventoryItemAdded(byte page, byte index, ItemJar jar)

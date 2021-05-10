@@ -10,8 +10,9 @@ namespace RealLifeFramework.Patches
 {
     [HarmonyPatch(typeof(LightingManager))]
     [HarmonyPatch("updateLighting")]
-    public class Time
+    internal class Time
     {
+        public static onTimeUpdate onTimeUpdated;
         private static ushort prevMinutes = 0;
         [HarmonyPrefix]
         private static void TimeUpdate()
@@ -26,10 +27,11 @@ namespace RealLifeFramework.Patches
             if((ushort)minutes != prevMinutes)
             {
                 prevMinutes = (ushort)minutes;
-                RealEvents.onTimeUpdated((ushort)hours, (ushort)minutes);
+                onTimeUpdated.Invoke((ushort)hours, (ushort)minutes);
             }
 
         }
 
+        public delegate void onTimeUpdate(ushort hours, ushort minutes);
     }
 }

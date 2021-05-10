@@ -4,6 +4,7 @@ using SDG.Unturned;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Players;
+using RealLifeFramework.Patches;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -17,6 +18,7 @@ namespace RealLifeFramework.UserInterface
             UnturnedPlayerEvents.OnPlayerUpdateWater += UpdateWater;
             UnturnedPlayerEvents.OnPlayerUpdateStamina += UpdateStamina;
             UnturnedPlayerEvents.OnPlayerUpdateExperience += UpdateExperience;
+            Time.onTimeUpdated += UpdateTime;
         }
 
         private static void UpdateHealth(UnturnedPlayer player, byte val)
