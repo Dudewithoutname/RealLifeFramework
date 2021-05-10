@@ -4,7 +4,7 @@ using System.Text;
 using SDG.Unturned;
 using RealLifeFramework.Players;
 using Rocket.Unturned.Player;
-using System.Threading.Tasks;
+using RealLifeFramework.Chatting;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -45,13 +45,14 @@ namespace RealLifeFramework.UserInterface
         // format money
         public void UpdateLevel() => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_lvl", getFormatedLevel());
         public void UpdateExp() => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_exp", getFormatedExp());
+        public void UpdateVoice(EPlayerVoiceMode voicemode) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "voice", VoiceChat.GetVoiceModeName(voicemode));
 
-        public void UpdateTimeUI(ushort hours, ushort minutes) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_time", getFormatedTime(hours, minutes));
-        public void UpdateMoneyUI(uint newExperience) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_money", getFormatedMoney(newExperience));
-        public void UpdateHealthUI(byte newHealth) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_health", newHealth.ToString());
-        public void UpdateFoodUI(byte newFood) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_food", newFood.ToString());
-        public void UpdateWaterUI(byte newWater) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_drink", newWater.ToString());
-        public void UpdateStaminaUI(byte newStamina) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_stamina", newStamina.ToString());
+        public void UpdateTime(ushort hours, ushort minutes) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_time", getFormatedTime(hours, minutes));
+        public void UpdateMoney(uint newExperience) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_money", getFormatedMoney(newExperience));
+        public void UpdateHealth(byte newHealth) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_health", newHealth.ToString());
+        public void UpdateFood(byte newFood) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_food", newFood.ToString());
+        public void UpdateWater(byte newWater) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_drink", newWater.ToString());
+        public void UpdateStamina(byte newStamina) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_stamina", newStamina.ToString());
 
         private string getFormatedTime(ushort hours, ushort minutes)
         {

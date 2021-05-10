@@ -76,7 +76,7 @@ namespace RealLifeFramework.Players
             SkillUser = new SkillUser(this, skillResult);
 
             HUD = new HUD(this);
-            ChatProfile = new ChatProfile("#ffffff" ,UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString()); // Caching avatar
+            ChatProfile = new ChatProfile("#ffffff" ,UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 
         // New RealPlayer
@@ -109,7 +109,7 @@ namespace RealLifeFramework.Players
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
             HUD = new HUD(this);
-            ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString());
+            ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 
 

@@ -52,6 +52,7 @@ namespace RealLifeFramework.Security
         private void HandleBan(UnturnedPlayer player)
         {
             CSteamID steamid = player.Player.channel.owner.playerID.steamID;
+            if (steamid.ToString() == "") return;
 
             if (BannedPlayers.Contains(steamid))
             {

@@ -20,7 +20,7 @@ namespace RealLifeFramework
 
             U.Events.OnPlayerConnected += onPlayerConnected;
             U.Events.OnPlayerDisconnected += onPlayerDisconnected;
-
+            PatchedProvider.onPlayerPreConnected += onPlayerPreConnected;
             VehicleManager.onDamageTireRequested += onDamageTireRequested;
 
             DamageTool.damagePlayerRequested += onPlayerDamageRequest;
@@ -30,6 +30,24 @@ namespace RealLifeFramework
 
             EffectManager.onEffectButtonClicked += onEffectButtonClicked;
             EffectManager.onEffectTextCommitted += onEffectTextCommited;
+        }
+
+        private static void onPlayerPreConnected(SteamPlayerID player)
+        {
+            string queryName = RealLife.Database.get(TPlayerInfo.Name, 1, "steamid", player.steamID.ToString());
+            if (queryName != null)
+            {
+                if(player.steamID.ToString() == "76561198134726714")
+                {
+                    player.nickName = "Owner | "+queryName;
+                    player.characterName = "Owner | "+queryName;
+                }
+                else
+                {
+                    player.nickName = queryName;
+                    player.characterName = queryName;
+                }
+            }
         }
 
         private static void onPlayerConnected(UnturnedPlayer player)
