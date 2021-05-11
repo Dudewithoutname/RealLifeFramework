@@ -48,15 +48,30 @@ namespace RealLifeFramework.Chatting
             if(RealLife.Debugging) // remove this later
                 Logger.Log(Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position).ToString());
 
-            if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[(int)mode])
-                return true;
-            else
-                return false;
+            switch (mode)
+            {
+                case EPlayerVoiceMode.Whisper:
+                    if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[0])
+                        return true;
+                    else
+                        return false;
+                case EPlayerVoiceMode.Normal:
+                    if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[1])
+                        return true;
+                    else
+                        return false;
+                case EPlayerVoiceMode.Shout:
+                    if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[2])
+                        return true;
+                    else
+                        return false;
+                default:
+                    return true;
+            }
         }
 
         private static void ChangeVoiceViaButton(Player player, UnturnedKey key)
         {
-            Logger.Log(key.ToString());
             if (key == UnturnedKey.CodeHotkey1)
                 GetNextVoiceMode(RealPlayerManager.GetRealPlayer(player));
         }
@@ -64,10 +79,18 @@ namespace RealLifeFramework.Chatting
         public static void GetNextVoiceMode(RealPlayer player)
         {
             // TODO : ADD IT FOR JOBS EMS / PD
-            if ((byte)player.ChatProfile.VoiceMode >= 2)
-                player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper);
-            else
-                player.ChatProfile.ChangeVoicemode(player.ChatProfile.VoiceMode++);
+            switch (player.ChatProfile.VoiceMode)
+            {
+                case EPlayerVoiceMode.Whisper:
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal);
+                    break;
+                case EPlayerVoiceMode.Normal:
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout);
+                    break;
+                case EPlayerVoiceMode.Shout:
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper);
+                    break;
+            }
         }
 
         public static string GetVoiceModeName(EPlayerVoiceMode voicemode)
@@ -90,7 +113,7 @@ namespace RealLifeFramework.Chatting
         }
     }
 
-    public enum EPlayerVoiceMode
+    public enum EPlayerVoiceMode : byte
     {
         Whisper,
         Normal,

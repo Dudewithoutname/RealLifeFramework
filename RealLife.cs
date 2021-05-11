@@ -42,10 +42,11 @@ namespace RealLifeFramework
                 Database.Debug();
                         
             RealPlayers = new Dictionary<CSteamID, RealPlayer>();
-            //   public static void say(CSteamID target, string text, Color color, EChatMode mode, bool isRich = false);
+
             EventManager.Load();
             JobManager.Load();
             RealPlayerCreation.Load();
+            Level.onLevelLoaded += overrideServerStuff;
 
             Logger.Log("[Finished]- - - - - - - * RealLife * - - - - - - -");
         }
@@ -59,5 +60,16 @@ namespace RealLifeFramework
             harmony.UnpatchAll();
         }
 
+        private void overrideServerStuff(int level)
+        {
+            SteamGameServer.SetMaxPlayerCount(100);
+            SteamGameServer.SetBotPlayerCount(0);
+            SteamGameServer.SetKeyValue("rocketplugins",
+            " | * DudeTurned Roleplay," +
+            " | * Plugin: RealLifeFramework," +
+           $" | * Version: {Assembly.GetName().Version}," +
+            " | * Author: Dudewithoutname#3129" +
+            "");
+        }
     }
 }
