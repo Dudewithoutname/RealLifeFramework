@@ -46,7 +46,7 @@ namespace RealLifeFramework.UserInterface
         public void UpdateLevel() => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_lvl", getFormatedLevel());
         public void UpdateExp() => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_exp", getFormatedExp());
         public void UpdateVoice(EPlayerVoiceMode voicemode) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "voice", VoiceChat.GetVoiceModeName(voicemode));
-
+        
         public void UpdateTime(ushort hours, ushort minutes) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_time", getFormatedTime(hours, minutes));
         public void UpdateMoney(uint newExperience) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_money", getFormatedMoney(newExperience));
         public void UpdateHealth(byte newHealth) => EffectManager.sendUIEffectText(HUDkey, RPlayer.TransportConnection, true, "hud_health", newHealth.ToString());

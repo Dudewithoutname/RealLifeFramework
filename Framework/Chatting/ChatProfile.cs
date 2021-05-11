@@ -19,7 +19,6 @@ namespace RealLifeFramework.Chatting
 
         public void ChangeVoicemode(EPlayerVoiceMode voicemode)
         {
-            Logger.Log("call");
             VoiceMode = voicemode;
             RPlayer.HUD.UpdateVoice(voicemode);
         }
