@@ -10,11 +10,11 @@ namespace RealLifeFramework.Patches
         public static handle onHandle;
 
         [HarmonyPrefix]
-        private static void Handler(PlayerVoice speaker, PlayerVoice listener)
+        private static bool Handler(PlayerVoice speaker, PlayerVoice listener)
         {
-            onHandle.Invoke(speaker, listener);
+            return onHandle.Invoke(speaker, listener);
         }
 
-        public delegate void handle(PlayerVoice speaker, PlayerVoice listener);
+        public delegate bool handle(PlayerVoice speaker, PlayerVoice listener);
     }
 }

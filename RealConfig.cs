@@ -16,6 +16,10 @@ namespace RealLifeFramework
         public string SteamGroupInvite;
         public uint StartingExp;
 
+        public short Whisper;
+        public short Normal;
+        public short Shout;
+
         public void LoadDefaults()
         {
             DatabaseServer = "127.0.0.1";
@@ -26,6 +30,9 @@ namespace RealLifeFramework
             DiscordInvite = "https://discord.com/";
             SteamGroupInvite = "https://store.steampowered.com/";
             StartingExp = 2500;
+            Whisper = 50;
+            Normal = 100;
+            Shout = 150;
         }
     }
 }

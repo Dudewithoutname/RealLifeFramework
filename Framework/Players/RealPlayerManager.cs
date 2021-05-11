@@ -3,6 +3,8 @@ using Rocket.Unturned.Player;
 using Rocket.API;
 using SDG.Unturned;
 using RealLifeFramework.UserInterface;
+using System.Collections.Generic;
+using RealLifeFramework.Chatting;
 
 namespace RealLifeFramework.Players
 {
@@ -28,17 +30,18 @@ namespace RealLifeFramework.Players
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, PlayerResult));
             }
 
+            VoiceChat.Subscribe(RealLife.Instance.RealPlayers[player.CSteamID]);
         }
 
         public static void HandleDisconnect(UnturnedPlayer player)
         {
             if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
             {
+                VoiceChat.UnSubscribe(RealLife.Instance.RealPlayers[player.CSteamID]);
+                RealLife.Instance.RealPlayers[player.CSteamID].Keyboard.Stop();
                 RealLife.Instance.RealPlayers.Remove(player.CSteamID);
             }
 
-            if (RealPlayerCreation.PrePlayers.ContainsKey(player.CSteamID))
-                RealPlayerCreation.PrePlayers.Remove(player.CSteamID);
         }
 
 

@@ -9,6 +9,7 @@ using Rocket.Unturned.Events;
 using Rocket.Unturned;
 using Rocket.Unturned.Player;
 using Steamworks;
+using RealLifeFramework.Chatting;
 
 namespace RealLifeFramework
 {
@@ -67,7 +68,6 @@ namespace RealLifeFramework
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowOxygen, false);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowVirus, false);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
-
 
             //player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
         }

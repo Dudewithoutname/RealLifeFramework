@@ -6,6 +6,7 @@ using RealLifeFramework.Jobs;
 using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
+using RealLifeFramework.Patches;
 
 namespace RealLifeFramework.Players
 {
@@ -38,6 +39,7 @@ namespace RealLifeFramework.Players
         public uint Money { get; set; }
         public HUD HUD { get; set; }
         public ChatProfile ChatProfile { get; set; }
+        public UnturnedKeyWatcher Keyboard { get; set; }
 
         // * Admin
         public bool IsAdmin { get; set; }
@@ -76,6 +78,7 @@ namespace RealLifeFramework.Players
             SkillUser = new SkillUser(this, skillResult);
 
             HUD = new HUD(this);
+            Keyboard = new UnturnedKeyWatcher(player.Player);
             ChatProfile = new ChatProfile("#ffffff" ,UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 
@@ -109,6 +112,7 @@ namespace RealLifeFramework.Players
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
             HUD = new HUD(this);
+            Keyboard = new UnturnedKeyWatcher(player.Player);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 

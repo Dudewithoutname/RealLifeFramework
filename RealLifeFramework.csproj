@@ -307,6 +307,7 @@
   <ItemGroup>
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
+    <Compile Include="Framework\Commands\CVoiceChange.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
     <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
     <Compile Include="Framework\DatabaseManager\Tables\TPlayerInfo.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="Framework\Gameplay\Jobs\JobManager.cs" />
     <Compile Include="Framework\Gameplay\Jobs\JobRank.cs" />
     <Compile Include="Framework\Gameplay\Jobs\JobUser.cs" />
+    <Compile Include="Framework\Patches\KeyWatcher.cs" />
     <Compile Include="Framework\Patches\PatchedProvider.cs" />
     <Compile Include="Framework\Patches\VoiceRelay.cs" />
     <Compile Include="Framework\Players\RealPlayerCreation.cs" />
