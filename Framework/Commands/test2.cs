@@ -7,7 +7,6 @@ using RealLifeFramework.Skills;
 
 namespace RealLifeFramework.Commands
 {
-
     public class test2 : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
@@ -20,7 +19,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>();
 
-        public List<string> Permissions => new List<string>();
+        public List<string> Permissions => new List<string>() { "dude.test" };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
@@ -41,7 +40,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>();
 
-        public List<string> Permissions => new List<string>();
+        public List<string> Permissions => new List<string>() { "dude.test" };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
