@@ -307,7 +307,7 @@
   <ItemGroup>
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
-    <Compile Include="Framework\Commands\CVoiceChange.cs" />
+    <Compile Include="Framework\Commands\test2.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
     <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
     <Compile Include="Framework\DatabaseManager\Tables\TPlayerInfo.cs" />
@@ -336,6 +336,8 @@
     <Compile Include="Gameplay\Skills\SkillManager.cs" />
     <Compile Include="Gameplay\Skills\Skills\Dexterity.cs" />
     <Compile Include="Framework\Patches\Time.cs" />
+    <Compile Include="Gameplay\UserInterface\HUD\EWidgetType.cs" />
+    <Compile Include="Gameplay\UserInterface\HUD\Widget.cs" />
     <Compile Include="Gameplay\UserInterface\UI.cs" />
     <Compile Include="Gameplay\UserInterface\HUD\HUDManager.cs" />
     <Compile Include="Gameplay\UserInterface\HUD\HUD.cs" />
