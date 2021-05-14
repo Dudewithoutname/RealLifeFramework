@@ -50,23 +50,14 @@ namespace RealLifeFramework.Chatting
 
             switch (mode)
             {
-                case EPlayerVoiceMode.Whisper:
-                    if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[0])
-                        return true;
-                    else
-                        return false;
-                case EPlayerVoiceMode.Normal:
-                    if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[1])
-                        return true;
-                    else
-                        return false;
-                case EPlayerVoiceMode.Shout:
-                    if (Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[2])
-                        return true;
-                    else
-                        return false;
-                default:
+                case EPlayerVoiceMode.Whisper when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[0]:
                     return true;
+                case EPlayerVoiceMode.Normal when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[1]:
+                    return true;
+                case EPlayerVoiceMode.Shout when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[2]:
+                    return true;
+                default:
+                    return false;
             }
         }
 
@@ -113,7 +104,7 @@ namespace RealLifeFramework.Chatting
         }
     }
 
-    public enum EPlayerVoiceMode : byte
+    public enum EPlayerVoiceMode : byte // actually i don't know what byte inheritance does with it but whatever it looks cool :D
     {
         Whisper,
         Normal,
