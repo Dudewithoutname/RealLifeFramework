@@ -104,7 +104,7 @@ namespace RealLifeFramework.Chatting
         }
     }
 
-    public enum EPlayerVoiceMode : byte // actually i don't know what byte inheritance does with it but whatever it looks cool :D
+    public enum EPlayerVoiceMode : byte // actually i don't know what byte inheritance does with it but whatever it looks cool XD
     {
         Whisper,
         Normal,
