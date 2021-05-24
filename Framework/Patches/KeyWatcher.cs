@@ -24,7 +24,7 @@ namespace RealLifeFramework.Patches
             public bool CodeHotkey2Down { get { return LastMapping[(int)UnturnedKey.CodeHotkey2]; } }
             public bool CodeHotkey3Down { get { return LastMapping[(int)UnturnedKey.CodeHotkey3]; } }
             public bool CodeHotkey4Down { get { return LastMapping[(int)UnturnedKey.CodeHotkey4]; } }
-
+            //
             public UnturnedKeyWatcher(Player Player)
             {
                 this.Player = Player;
