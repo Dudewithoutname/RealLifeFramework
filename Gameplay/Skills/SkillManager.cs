@@ -27,9 +27,17 @@ namespace RealLifeFramework.Skills
             U.Events.OnPlayerConnected += AddPrevPos;
             U.Events.OnPlayerDisconnected += RemovePrevPos;
             Player.onPlayerStatIncremented += HandleStatIncremented;
+            DamageTool.damagePlayerRequested += IncrementEndurance;
             UseableConsumeable.onConsumePerformed += HandleConsume;
         }
 
+        private static void IncrementEndurance(ref DamagePlayerParameters parameters, ref bool shouldAllow)
+        {
+            if (parameters.damage >= 10)
+            {
+                RealPlayerManager.GetRealPlayer(parameters.player).SkillUser.AddExp(Endurance.Id, 1);
+            }
+        }
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
             var skill = player.SkillUser.Skills[skillId];
