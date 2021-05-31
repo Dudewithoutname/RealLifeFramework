@@ -4,11 +4,11 @@ const table = new ascii().setHeading("File", "Status").setBorder(".");
 
 
 module.exports = (client) => {
-    const commands = readdirSync('./src/commands/').filter(f => f.endsWith(".js"));
+    const commands = readdirSync('./src/discord/commands/').filter(f => f.endsWith(".js"));
 
     for (let file of commands) {
-        const pull = require(`../commands/${file}`);
-
+        const pull = require(`./commands/${file}`);
+        
         if (pull.name) {
             table.addRow(file, `OK`);
             client.commands.set(pull.name, pull);
@@ -18,5 +18,4 @@ module.exports = (client) => {
             continue;
         }
     }
-    console.log(table.toString());
 }
