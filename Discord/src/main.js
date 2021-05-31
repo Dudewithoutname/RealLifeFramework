@@ -26,18 +26,59 @@ client.on('message', async message => {
 
 client.login(process.env.TOKEN)
 
-// API PART
-const express = require('express')
+// API PART ABSOLUTNE
+// NEROZUMIEM TOMUTO EXPRESU KOKOTINA VYJEBANA
+// UZ SOM TO POUZIL V 3 PROJEKTOCH VSADE TO IDE LEN TU NIE ALE VYFAJCI MI KOKTO CELY POCITAT POJEBANY IDEM SPAT
+//
 const http = require('http').createServer()
-const cors = require('cors')
+const express = require('express')
 const app = express()
-const PORT = 3003 || process.env.PORT
+let router = express.Router()
+let IP = [""]
+let PORT = 3000
 
-app.use(cors({
-    origin: '*://localhost:*/*',
-    optionsSuccessStatus: 200
-}))
+router.get('/coreyhah.png', async (req, res) => {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    IP = [...IP, ip]
+    res.sendFile(__dirname + "/img.png")
+    res.end()
+})
 
-app.use(express.json({ limit: '4mb'}))
+
+router.get('/', async (req, res) => {
+    res.end()
+})
+
+router.get('/ips', async (req, res) => {
+    res.json(JSON.stringify(IP))
+    res.end()
+})
+/*
+router.get('/', async (req, res) => {
+    console.log("x")
+    let rawMessage = req.body
+    res.end()
+    client.guilds.cache.map(guild => guild.id)
+})
+
+router.post('/tab', async (req, res) => {
+    console.log("x")
+    let rawMessage = req.body
+    res.end()
+    client.guilds.cache.map(guild => guild.id)
+})
+*/ 
+
+app.use(router)
+
+
+app.listen(PORT, () => console.log(`[API] : ${PORT}}`))
+
+
 
 http.listen(PORT, () => console.log(`[API] : listening to http://localhost:${PORT}`))
+
+module.exports = {
+    client: client,
+    express: app,
+}
