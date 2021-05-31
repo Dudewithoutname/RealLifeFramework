@@ -62,7 +62,8 @@ namespace RealLifeFramework
 
         private void overrideServerStuff(int level)
         {
-            SteamGameServer.SetMaxPlayerCount(100);
+            Provider.maxPlayers = 60;
+            SteamGameServer.SetMaxPlayerCount(24);
             SteamGameServer.SetBotPlayerCount(0);
             SteamGameServer.SetKeyValue("rocketplugins",
             " | * DudeTurned Roleplay," +
