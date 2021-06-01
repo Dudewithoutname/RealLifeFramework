@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RealLifeFramework
 {
-    [AttributeUsage(AttributeTargets.Class |AttributeTargets.Struct)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class EventHandler : Attribute
     {
         public string Name { get; set; }
