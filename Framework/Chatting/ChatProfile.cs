@@ -1,4 +1,5 @@
 ﻿using RealLifeFramework.Players;
+using RealLifeFramework.UserInterface;
 
 namespace RealLifeFramework.Chatting
 {
@@ -13,14 +14,14 @@ namespace RealLifeFramework.Chatting
         {
             NameColor = ncolor;
             Avatar = avatar;
-            VoiceMode = voicemode;
             RPlayer = realplayer;
+            VoiceChat.SetPlayerVoiceMode(RPlayer, voicemode);
         }
 
-        public void ChangeVoicemode(EPlayerVoiceMode voicemode)
+        public void ChangeVoicemode(EPlayerVoiceMode voicemode, string icon)
         {
             VoiceMode = voicemode;
-            RPlayer.HUD.UpdateVoice(voicemode);
+            RPlayer.HUD.UpdateComponent(HUDComponent.Voice, icon);
         }
     }
 }

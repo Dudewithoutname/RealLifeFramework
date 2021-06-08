@@ -10,7 +10,6 @@ namespace RealLifeFramework.Players
 {
     public static class RealPlayerManager
     {
-
         public static void InitializePlayer(UnturnedPlayer player)
         {
             DBPlayerResult PlayerResult = TPlayerInfo.GetPlayer(player.CSteamID);
@@ -41,7 +40,6 @@ namespace RealLifeFramework.Players
                 RealLife.Instance.RealPlayers[player.CSteamID].Keyboard.Stop();
                 RealLife.Instance.RealPlayers.Remove(player.CSteamID);
             }
-
         }
 
 

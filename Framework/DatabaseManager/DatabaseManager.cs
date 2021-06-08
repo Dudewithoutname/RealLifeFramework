@@ -81,7 +81,7 @@ namespace RealLifeFramework
             {
                 List<MySqlCommand> tables = new List<MySqlCommand>();
 
-                foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+                foreach (Type type in Assembly.GetExecutingAssembly().GetTypes()) 
                     if (type.GetCustomAttributes(typeof(Table), true).Length > 0)
                         tables.Add( ((ITable)Activator.CreateInstance(type)).Create() );
 

@@ -60,15 +60,6 @@ namespace RealLifeFramework
 
             RealPlayerManager.InitializePlayer(player);
 
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowHealth, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowFood, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowWater, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStamina, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowOxygen, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowVirus, false);
-            player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
-
             //player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
         }
 

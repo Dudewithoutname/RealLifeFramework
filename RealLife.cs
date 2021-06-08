@@ -37,7 +37,6 @@ namespace RealLifeFramework
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
-
             if (Debugging)
                 Database.Debug();
                         

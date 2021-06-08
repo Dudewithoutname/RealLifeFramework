@@ -147,7 +147,7 @@ namespace RealLifeFramework.Players
 
             RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "exp", $"{Exp}");
 
-            HUD.UpdateExp();
+            HUD.UpdateComponent(HUDComponent.Exp);
         }
 
         private void levelUp()
@@ -156,8 +156,8 @@ namespace RealLifeFramework.Players
             Level++;
             RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "level", $"{Level}");
 
-            HUD.UpdateExp();
-            HUD.UpdateLevel();
+            HUD.UpdateComponent(HUDComponent.Exp);
+            HUD.UpdateComponent(HUDComponent.Level);
 
         }
 

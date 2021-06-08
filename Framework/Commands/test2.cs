@@ -24,7 +24,7 @@ namespace RealLifeFramework.Commands
         public void Execute(IRocketPlayer caller, string[] command)
         {
             RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
-            player.HUD.SendWidget("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/512px-Circle-icons-car.svg.png", UserInterface.EWidgetType.Blood);
+            player.HUD.SendWidget(UserInterface.EWidgetType.Test);
         }
     }
 
@@ -45,7 +45,7 @@ namespace RealLifeFramework.Commands
         public void Execute(IRocketPlayer caller, string[] command)
         {
             RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
-            player.HUD.RemoveWidget(Convert.ToInt32(command[0]));
+            player.HUD.RemoveWidget(UserInterface.EWidgetType.Test);
         }
     }
 }

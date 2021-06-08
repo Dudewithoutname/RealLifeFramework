@@ -8,17 +8,14 @@ namespace RealLifeFramework.UserInterface
 {
     public class Widget
     {
-        public static ushort baseId = 49130;
         public string Image { get; set; }
-        public ushort Id => (ushort)(baseId + Index);
-        public short Key => (short)(1210 + Index);
         public int Index { get; set; }
         public EWidgetType Type { get; set; }
 
-        public Widget(int activeCount, string image, EWidgetType type)
+        public Widget(int index, string image, EWidgetType type)
         {
+            Index = index;
             Image = image;
-            Index = activeCount;
             Type = type;
         }
     }

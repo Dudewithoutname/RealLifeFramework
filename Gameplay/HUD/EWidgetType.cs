@@ -10,7 +10,7 @@ namespace RealLifeFramework.UserInterface
     {
         Test = -1,
         BrokenBone,
-        Blood,
+        Bleeding,
         DoubleExp,
     }
 }

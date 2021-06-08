@@ -11,10 +11,16 @@ namespace RealLifeFramework.Chatting
     [EventHandler("VoiceChat")]
     public class VoiceChat : IEventComponent
     {
-        private static short[] Distance = { 
+        public static readonly short[] Distance = { 
             RealLife.Instance.Configuration.Instance.Whisper,
             RealLife.Instance.Configuration.Instance.Normal,
             RealLife.Instance.Configuration.Instance.Shout,
+        };
+
+        public static readonly string[] Icons = {
+            "https://i.ytimg.com/vi/0lgr9NSVvA4/hqdefault.jpg",
+            "",
+            "",
         };
 
         public void HookEvents() => VoiceRelay.onHandle += HandleVoiceRelay;
@@ -43,18 +49,13 @@ namespace RealLifeFramework.Chatting
 
         private static bool VoiceDistanceHandler(EPlayerVoiceMode mode, PlayerVoice speaker, PlayerVoice listener)
         {
-            if ((byte)mode >= 2) return false;
-
-            if(RealLife.Debugging) // remove this later
-                Logger.Log(Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position).ToString());
-
             switch (mode)
             {
-                case EPlayerVoiceMode.Whisper when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[0]:
+                case EPlayerVoiceMode.Whisper when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[(int)EPlayerVoiceMode.Whisper]:
                     return true;
-                case EPlayerVoiceMode.Normal when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[1]:
+                case EPlayerVoiceMode.Normal when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[(int)EPlayerVoiceMode.Normal]:
                     return true;
-                case EPlayerVoiceMode.Shout when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[2]:
+                case EPlayerVoiceMode.Shout when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[(int)EPlayerVoiceMode.Shout]:
                     return true;
                 default:
                     return false;
@@ -73,43 +74,42 @@ namespace RealLifeFramework.Chatting
             switch (player.ChatProfile.VoiceMode)
             {
                 case EPlayerVoiceMode.Whisper:
-                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal);
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[(int)EPlayerVoiceMode.Normal]);
                     break;
                 case EPlayerVoiceMode.Normal:
-                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout);
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout, Icons[(int)EPlayerVoiceMode.Shout]);
                     break;
                 case EPlayerVoiceMode.Shout:
-                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper);
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper, Icons[(int)EPlayerVoiceMode.Whisper]);
                     break;
             }
         }
 
-        public static string GetVoiceModeName(EPlayerVoiceMode voicemode)
+        public static void SetPlayerVoiceMode(RealPlayer player, EPlayerVoiceMode voice)
         {
-            switch (voicemode)
+            // TODO : ADD IT FOR JOBS EMS / PD
+            switch (voice)
             {
                 case EPlayerVoiceMode.Whisper:
-                    return "Whisper";
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper, Icons[(int)EPlayerVoiceMode.Whisper]);
+                    break;
                 case EPlayerVoiceMode.Normal:
-                    return "Normal";
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[(int)EPlayerVoiceMode.Normal]);
+                    break;
                 case EPlayerVoiceMode.Shout:
-                    return "Shout";
-                case EPlayerVoiceMode.PoliceChannel:
-                    return "Police";
-                case EPlayerVoiceMode.EMSChannel:
-                    return "EMS";
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout, Icons[(int)EPlayerVoiceMode.Shout]);
+                    break;
             }
-
-            return "";
         }
+
     }
 
-    public enum EPlayerVoiceMode : byte // actually i don't know what byte inheritance does with it but whatever it looks cool XD
+    public enum EPlayerVoiceMode : int // actually i don't know what byte inheritance does with it but whatever it looks cool XD
     {
-        Whisper,
-        Normal,
-        Shout,
-        PoliceChannel,
-        EMSChannel
+        Whisper = 0,
+        Normal = 1,
+        Shout = 2,
+        PoliceChannel = 3,
+        EMSChannel = 4
     }
 }
