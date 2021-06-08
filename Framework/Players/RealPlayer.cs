@@ -79,7 +79,7 @@ namespace RealLifeFramework.Players
 
             HUD = new HUD(this);
             Keyboard = new UnturnedKeyWatcher(player.Player);
-            ChatProfile = new ChatProfile("#ffffff" ,UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+            ChatProfile = new ChatProfile("#ffffff",UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 
         // New RealPlayer

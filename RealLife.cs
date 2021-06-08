@@ -17,7 +17,7 @@ namespace RealLifeFramework
         public static RealLife Instance;
         public static DatabaseManager Database = DatabaseManager.Instance();
         public Dictionary<CSteamID,RealPlayer> RealPlayers;
-        public static bool Debugging = true;
+        public static bool Debugging = false;
         private Harmony harmony;
 
         protected override void Load()

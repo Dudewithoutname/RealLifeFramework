@@ -25,12 +25,12 @@ namespace RealLifeFramework.UserInterface
         }
         private static void subscribe(SteamPlayer player)
         {
-            player.player.movement.onVehicleUpdated += onVehicleUpdate;
+           // player.player.movement.onVehicleUpdated += onVehicleUpdate;
         }
 
         private static void unSubscribe(SteamPlayer player)
         {
-            player.player.movement.onVehicleUpdated -= onVehicleUpdate;
+            //player.player.movement.onVehicleUpdated -= onVehicleUpdate;
         }
 
         private static void onVehicleUpdate(bool isDriveable, ushort newFuel, ushort maxFuel, float newSpeed, float minSpeed, float maxSpeed, ushort newHeath, ushort maxHealth, ushort newBatteryCharge)

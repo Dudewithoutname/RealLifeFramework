@@ -15,7 +15,8 @@ namespace RealLifeFramework.Chatting
             NameColor = ncolor;
             Avatar = avatar;
             RPlayer = realplayer;
-            VoiceChat.SetPlayerVoiceMode(RPlayer, voicemode);
+            VoiceMode = EPlayerVoiceMode.Normal;
+            RPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)voicemode]);
         }
 
         public void ChangeVoicemode(EPlayerVoiceMode voicemode, string icon)

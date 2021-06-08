@@ -19,7 +19,7 @@ namespace RealLifeFramework.Chatting
 
         public static readonly string[] Icons = {
             "https://i.ytimg.com/vi/0lgr9NSVvA4/hqdefault.jpg",
-            "",
+            "https://i.ytimg.com/vi/0lgr9NSVvA4/hqdefault.jpg",
             "",
         };
 
@@ -94,7 +94,7 @@ namespace RealLifeFramework.Chatting
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper, Icons[(int)EPlayerVoiceMode.Whisper]);
                     break;
                 case EPlayerVoiceMode.Normal:
-                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[(int)EPlayerVoiceMode.Normal]);
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[1]);
                     break;
                 case EPlayerVoiceMode.Shout:
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout, Icons[(int)EPlayerVoiceMode.Shout]);
