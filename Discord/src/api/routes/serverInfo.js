@@ -1,10 +1,15 @@
 const express = require('express')
-const app = express()
 const main = require('../../main.js')
 
-app.post('/tab', async (req, res) => {
-    let rawMessage = req.body
+let router = express.Router()
+
+const tabCathegoryID = "849002618793885717"
+router.post('/tab', async (req, res) => {
+    const obj = req.body
     res.end()
-    main.client.guilds.cache.map(guild => guild.id)
+    // time , players. weather, temperature
+    const tab = await main.disClient.guilds.cache.get(main.guild).channels.cache.get(tabCathegoryID)
+    await tab.setName(`| ${obj.players} 👥 | ${obj.time} ⌚| 23℃ | ⛈ |`)
 })
 
+module.exports = router

@@ -2,6 +2,10 @@ const Discord = require('discord.js')
 const fs = require('fs');
 const { Client, RichEmbed,  Collection } = require('discord.js')
 const { config } = require('dotenv')
+const express = require('express')
+const app = express()
+const PORT = 3003
+
 const chat = require('./discord/chat.js');
 
 config({ path: `${__dirname}/.env` })
@@ -14,9 +18,15 @@ client.commands = new Collection();
     require(`./discord/${handler}`)(client)
 })
 
+app.use(express.json())
+
+app.get('/', async (req, res) => res.end() )
+
+
 client.on('ready', () =>{
     client.user.setActivity('Dudeturned (^.^)', {type:'WATCHING'})
-    console.log('[Bot] is m8 :) ')
+    console.log('[Bot] is ready m8 :) ')
+    setupRoutes()
 })
 
 client.on('message', async message => {
@@ -25,60 +35,15 @@ client.on('message', async message => {
 })
 
 client.login(process.env.TOKEN)
-
-// API PART ABSOLUTNE
-// NEROZUMIEM TOMUTO EXPRESU KOKOTINA VYJEBANA
-// UZ SOM TO POUZIL V 3 PROJEKTOCH VSADE TO IDE LEN TU NIE ALE VYFAJCI MI KOKTO CELY POCITAT POJEBANY IDEM SPAT 
-//
-const http = require('http').createServer()
-const express = require('express')
-const app = express()
-let router = express.Router()
-let IP = [""]
-let PORT = 3000
-
-router.get('/coreyhah.png', async (req, res) => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-    IP = [...IP, ip]
-    res.sendFile(__dirname + "/img.png")
-    res.end()
-})
+app.listen(PORT, () => console.log(`[API] : ${PORT}`))
 
 
-router.get('/', async (req, res) => {
-    res.end()
-})
-
-router.get('/ips', async (req, res) => {
-    res.json(JSON.stringify(IP))
-    res.end()
-})
-/*
-router.get('/', async (req, res) => {
-    console.log("x")
-    let rawMessage = req.body
-    res.end()
-    client.guilds.cache.map(guild => guild.id)
-})
-
-router.post('/tab', async (req, res) => {
-    console.log("x")
-    let rawMessage = req.body
-    res.end()
-    client.guilds.cache.map(guild => guild.id)
-})
-*/ 
-
-app.use(router)
-
-
-app.listen(PORT, () => console.log(`[API] : ${PORT}}`))
-
-
-
-http.listen(PORT, () => console.log(`[API] : listening to http://localhost:${PORT}`))
+function setupRoutes(){
+    const serverInfo = require('./api/routes/serverInfo')
+    app.use(serverInfo)
+}
 
 module.exports = {
-    client: client,
-    express: app,
+    disClient: client,
+    guild: "830839683549757511",
 }
