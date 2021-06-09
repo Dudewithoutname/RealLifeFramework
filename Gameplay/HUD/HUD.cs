@@ -26,7 +26,7 @@ namespace RealLifeFramework.UserInterface
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowLifeMeters, false);
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
-            RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowVehicleStatus, false);
+            //RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowVehicleStatus, false);
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus, false);
 
             EffectManager.sendUIEffect(UI.HudID, HudKey, true);
