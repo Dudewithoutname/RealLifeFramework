@@ -48,13 +48,18 @@ namespace RealLifeFramework.UserInterface
                     break;
 
                 case HUDComponent.Time:
-                    EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, component, value);
+                    EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, value);
                     break;
 
                 default:
                     EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, value);
                     break;
             }
+        }
+
+        public void UpdateComponent(string component, bool value)
+        {
+            EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, component, value);
         }
 
         public void UpdateComponent(string component)
@@ -79,6 +84,8 @@ namespace RealLifeFramework.UserInterface
             }
         }
 
+       
+
         #region widgets
         public void SendWidget(EWidgetType type)
         {
@@ -98,9 +105,8 @@ namespace RealLifeFramework.UserInterface
             {
                 Widget widget = new Widget(Widgets.Count, image, type);
                 Widgets.Add(widget);
-
-                EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, $"widget{widget}", true);
-                EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}", widget.Image);
+                EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}", true);
+                EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}Icon", widget.Image);
             }
         }
 
@@ -177,7 +183,7 @@ namespace RealLifeFramework.UserInterface
                 return $"{hours}:{minutes}";
         }
 
-        private string formatLevel() => $"{RPlayer.Level} LvL";
+        private string formatLevel() => $"<color=#FC3A8C>LVL</color> <color=#FC8EBD>{RPlayer.Level}</color>";
         private string formatExp() => $"<color=#FC8EBD>0{formatBigNums(RPlayer.Exp)} / {formatBigNums(RPlayer.MaxExp)}</color> <color=#FC3A8C>XP</color>";
         
         private string formatBigNums(uint value)
@@ -191,7 +197,7 @@ namespace RealLifeFramework.UserInterface
             }
             else
             {
-                return value.ToString();
+                return ((int)value).ToString();
             }
 
             return output;

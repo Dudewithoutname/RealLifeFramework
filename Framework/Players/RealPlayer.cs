@@ -7,10 +7,11 @@ using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
+using System;
 
 namespace RealLifeFramework.Players
 {
-    public class RealPlayer
+    public class RealPlayer 
     {
         // * Global
         public Player Player { get; set; }
@@ -79,7 +80,7 @@ namespace RealLifeFramework.Players
 
             HUD = new HUD(this);
             Keyboard = new UnturnedKeyWatcher(player.Player);
-            ChatProfile = new ChatProfile("#ffffff",UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+            ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 
         // New RealPlayer
@@ -90,7 +91,7 @@ namespace RealLifeFramework.Players
             TransportConnection = player.Player.channel.GetOwnerTransportConnection();
             IP = TransportConnection.GetAddress().ToString();
             int ipEnd = IP.LastIndexOf(':') + 1;
-            IP = IP.Substring(ipEnd, IP.Length-ipEnd);
+            IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
             Name = name;
             Age = age;
@@ -115,7 +116,6 @@ namespace RealLifeFramework.Players
             Keyboard = new UnturnedKeyWatcher(player.Player);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
-
 
         public void SetGender(byte gender)
         {

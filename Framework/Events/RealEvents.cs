@@ -38,10 +38,10 @@ namespace RealLifeFramework
             string queryName = RealLife.Database.get(TPlayerInfo.Name, 1, "steamid", player.steamID.ToString());
             if (queryName != null)
             {
-                if(player.steamID.ToString() == "76561198134726714")
+                if (player.steamID.ToString() == "76561198134726714")
                 {
-                    player.nickName = "Owner | "+queryName;
-                    player.characterName = "Owner | "+queryName;
+                    player.nickName = "Owner | " + queryName;
+                    player.characterName = "Owner | " + queryName;
                 }
                 else
                 {
@@ -53,7 +53,7 @@ namespace RealLifeFramework
 
         private static void onPlayerConnected(UnturnedPlayer player)
         {
-            if(player.CSteamID.ToString() == "76561198134726714")
+            if (player.CSteamID.ToString() == "76561198134726714")
                 Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) (***.***.***.***)");
             else
                 Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
@@ -61,6 +61,8 @@ namespace RealLifeFramework
             RealPlayerManager.InitializePlayer(player);
 
             //player.Player.inventory.onInventoryAdded = OnInventoryItemAdded;
+            player.Player.movement.onVehicleUpdated += (isDriveable, newFuel, maxFuel, newSpeed, minSpeed, maxSpeed, newHeath, maxHealth, newBatteryCharge) => CommandWindow.Log($"{newFuel} dopice 5 h mi trvalo toto");
+            player.Player.movement.onSeated += (isDriver, inVehicle, wasVehicle, oldVehicle, newVehicle) => CommandWindow.Log("seated");
         }
 
         private static void onPlayerDisconnected(UnturnedPlayer player)

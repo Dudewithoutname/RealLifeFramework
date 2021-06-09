@@ -18,9 +18,9 @@ namespace RealLifeFramework.Chatting
         };
 
         public static readonly string[] Icons = {
-            "https://i.ytimg.com/vi/0lgr9NSVvA4/hqdefault.jpg",
-            "https://i.ytimg.com/vi/0lgr9NSVvA4/hqdefault.jpg",
-            "",
+            "https://i.ibb.co/fdZt7dG/silent.png",
+            "https://i.ibb.co/HXncLTs/normal.png",
+            "https://i.ibb.co/g3dbHP7/shout.png",
         };
 
         public void HookEvents() => VoiceRelay.onHandle += HandleVoiceRelay;

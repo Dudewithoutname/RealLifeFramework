@@ -23,11 +23,10 @@ namespace RealLifeFramework.UserInterface
 
         // * Vehicle Stats
         public const string VehicleStats = "vehicleContainer";
-        public const string Speed = "speedValue";
-        public const string Battery = "batteryValue";
-        public const string Fuel = "fuelValue";
+
         public static readonly string[] Lights = { "offLights", "onLights" };
         public static readonly string[] Seatbelt = { "offBelt", "onBelt" };
+        public static readonly string[] Lock = { "unlocked", "locked" };
 
         // * Left Stats
         public const string LeftStats = "leftContainer";

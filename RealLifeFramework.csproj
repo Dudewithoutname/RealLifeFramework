@@ -126,7 +126,7 @@
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
-    <Compile Include="Gameplay\HUD\HUDComponent.cs" />
+    <Compile Include="Gameplay\HUD\api\HUDComponent.cs" />
     <Compile Include="Gameplay\Items\MedicalItems.cs" />
     <Compile Include="Gameplay\Items\StartClothes.cs" />
     <Compile Include="Gameplay\[]Jobs\Fisherman\Fisherman.cs" />
@@ -142,8 +142,8 @@
     <Compile Include="Framework\Skills\SkillManager.cs" />
     <Compile Include="Gameplay\Skills\Skills\Dexterity.cs" />
     <Compile Include="Framework\Patches\Time.cs" />
-    <Compile Include="Gameplay\HUD\EWidgetType.cs" />
-    <Compile Include="Gameplay\HUD\Widget.cs" />
+    <Compile Include="Gameplay\HUD\api\EWidgetType.cs" />
+    <Compile Include="Gameplay\HUD\api\Widget.cs" />
     <Compile Include="Framework\UserInterface\UI.cs" />
     <Compile Include="Gameplay\HUD\HUDManager.cs" />
     <Compile Include="Gameplay\HUD\HUD.cs" />

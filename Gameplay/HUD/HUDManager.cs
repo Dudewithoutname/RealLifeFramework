@@ -5,6 +5,9 @@ using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Players;
 using RealLifeFramework.Patches;
+using Steamworks;
+using System.Linq;
+using Rocket.API.Extensions;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -19,30 +22,64 @@ namespace RealLifeFramework.UserInterface
             UnturnedPlayerEvents.OnPlayerUpdateStamina += updateStamina;
             UnturnedPlayerEvents.OnPlayerUpdateBroken += updateBroken;
             UnturnedPlayerEvents.OnPlayerUpdateBleeding += updateBleeding;
-            Provider.onEnemyConnected += subscribe;
-            Provider.onEnemyDisconnected += unSubscribe;
+            UnturnedPlayerEvents.OnPlayerUpdateVirus += checkVirus;
+            UnturnedPlayerEvents.OnPlayerDeath += onPlayerDeath;
             Time.onTimeUpdated += updateTime;
-        }
-        private static void subscribe(SteamPlayer player)
-        {
-           // player.player.movement.onVehicleUpdated += onVehicleUpdate;
+            InteractableVehicle.OnPassengerAdded_Global += (vehicle, seat) => onVehicleEnter(vehicle, seat);
+            InteractableVehicle.OnPassengerRemoved_Global += (vehicle, seat, player) => onVehicleExit(vehicle, seat, player);
         }
 
-        private static void unSubscribe(SteamPlayer player)
+        private static void onVehicleEnter(InteractableVehicle vehicle, int seat)
         {
-            //player.player.movement.onVehicleUpdated -= onVehicleUpdate;
+            var rplayer = RealPlayerManager.GetRealPlayer(vehicle.passengers[seat].player.player);
+
+            rplayer.HUD.UpdateComponent(HUDComponent.VehicleStats, true);
+            rplayer.HUD.UpdateComponent(HUDComponent.Lock[Convert.ToInt32(vehicle.isLocked)], true);
+            rplayer.HUD.UpdateComponent(HUDComponent.Lights[Convert.ToInt32(vehicle.headlightsOn)], true);
+            rplayer.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(vehicle.isLocked)], true); // TODO FIX SEABELT;
+
         }
 
-        private static void onVehicleUpdate(bool isDriveable, ushort newFuel, ushort maxFuel, float newSpeed, float minSpeed, float maxSpeed, ushort newHeath, ushort maxHealth, ushort newBatteryCharge)
+        private static void onVehicleExit(InteractableVehicle vehicle, int seat, Player player)
         {
-            CommandWindow.Log($"update {isDriveable}");
+            var rplayer = RealPlayerManager.GetRealPlayer(player);
+
+            rplayer.HUD.UpdateComponent(HUDComponent.Lock[Convert.ToInt32(vehicle.isLocked)], false);
+            rplayer.HUD.UpdateComponent(HUDComponent.Lights[Convert.ToInt32(vehicle.headlightsOn)], false);
+            rplayer.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(vehicle.isLocked)], false); // TODO FIX SEABELT;
+            rplayer.HUD.UpdateComponent(HUDComponent.VehicleStats, false);
+        }
+
+        private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)
+        {
+            var rplayer = RealPlayerManager.GetRealPlayer(player);
+
+            if (rplayer == null)
+                return;
+
+            rplayer.HUD.RemoveWidget(EWidgetType.Bleeding);
+            rplayer.HUD.RemoveWidget(EWidgetType.BrokenBone);
+            rplayer.HUD.RemoveWidget(EWidgetType.LowVirus);
+        }
+        private static void checkVirus(UnturnedPlayer player, byte virus)
+        {
+            var rplayer = RealPlayerManager.GetRealPlayer(player);
+
+            if (rplayer == null)
+                return;
+
+            if (virus < 40)
+                rplayer.HUD.SendWidget(EWidgetType.LowVirus);
+            else
+                rplayer.HUD.RemoveWidget(EWidgetType.LowVirus);
+
         }
 
         private static void updateBleeding(UnturnedPlayer player, bool isBleeding)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            if (rplayer != null)
+            if (rplayer == null)
                 return;
 
             if (isBleeding)
@@ -56,7 +93,7 @@ namespace RealLifeFramework.UserInterface
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            if (rplayer != null)
+            if (rplayer == null)
                 return;
 
             if (isBroken)

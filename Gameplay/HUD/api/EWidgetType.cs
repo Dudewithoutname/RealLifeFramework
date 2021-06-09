@@ -11,6 +11,7 @@ namespace RealLifeFramework.UserInterface
         Test = -1,
         BrokenBone,
         Bleeding,
+        LowVirus,
         DoubleExp,
     }
 }
