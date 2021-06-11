@@ -29,8 +29,103 @@ namespace RealLifeFramework.UserInterface
             InteractableVehicle.OnPassengerAdded_Global += (vehicle, seat) => onVehicleEnter(vehicle, seat);
             InteractableVehicle.OnPassengerRemoved_Global += (vehicle, seat, player) => onVehicleExit(vehicle, seat, player);
             VehicleManager.onExitVehicleRequested += onVehicleExitRequested;
+            PlayerEquipment.OnUseableChanged_Global += (equipment) => onUsebleChanged(equipment);
+            UseableGun.onChangeMagazineRequested += changeMagazine;
+            UseableGun.onBulletSpawned += onShooted;
+            ChangeFiremode.OnFiremodeChanged += onFiremodeChanged;
         }
 
+        private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)
+        {
+            var rplayer = RealPlayerManager.GetRealPlayer(player);
+
+            if (rplayer == null)
+                return;
+
+            rplayer.HUD.RemoveWidget(EWidgetType.Bleeding);
+            rplayer.HUD.RemoveWidget(EWidgetType.BrokenBone);
+            rplayer.HUD.RemoveWidget(EWidgetType.LowVirus);
+        }
+
+        #region Weapon
+        private static void onUsebleChanged(PlayerEquipment equipment)
+        {
+            var player = RealPlayerManager.GetRealPlayer(equipment.player);
+
+            if (equipment.asset != null && equipment.asset.type == EItemType.GUN)
+            {
+                ushort magId = BitConverter.ToUInt16(new byte[] { equipment.state[8], equipment.state[9] }, 0);
+                var maxAmmo = new Item(magId, true).amount;
+
+                player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
+                player.HUD.UpdateComponent(HUDComponent.Ammo, equipment.state[10].ToString());
+                player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
+                player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(equipment.state[11]));
+            }
+            else
+            {
+                player.HUD.UpdateComponent(HUDComponent.WeaponStats, false);
+            }
+        }
+
+        private static void onFiremodeChanged(Player rawPlayer, EFiremode firemode)
+        {
+            var player = RealPlayerManager.GetRealPlayer(rawPlayer);
+            player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(firemode));
+        }
+
+        private static void changeMagazine(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
+        {
+            var player = RealPlayerManager.GetRealPlayer(equipment.player);
+            var maxAmmo = new Item(newItem.item.id, true).amount;
+
+            player.HUD.UpdateComponent(HUDComponent.Ammo, equipment.state[10].ToString());
+            player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
+        }
+
+        private static void onShooted(UseableGun gun, BulletInfo bullet)
+        {
+            var player = RealPlayerManager.GetRealPlayer(gun.player);
+            player.HUD.UpdateComponent(HUDComponent.Ammo, gun.player.equipment.state[10].ToString());
+        }
+
+        private static string getFiremode(EFiremode firemode)
+        {
+            switch (firemode)
+            {
+                case EFiremode.SAFETY:
+                    return "SAFE";
+                case EFiremode.SEMI:
+                    return "SEMI";
+                case EFiremode.AUTO:
+                    return "AUTO";
+                case EFiremode.BURST:
+                    return "BURST";
+            }
+
+            return "NEVIEM";
+        }
+
+        private static string getFiremode(byte firemode)
+        {
+            switch (firemode)
+            {
+                case 0:
+                    return "SAFE";
+                case 1:
+                    return "SEMI";
+                case 2:
+                    return "AUTO";
+                case 3:
+                    return "BURST";
+            }
+
+            return "NEVIEM";
+        }
+
+        #endregion
+
+        #region Seatbelt
         private static void onVehicleExitRequested(Player player, InteractableVehicle vehicle, ref bool shouldAllow, ref Vector3 pendingLocation, ref float pendingYaw)
         {
             if (vehicle.asset.engine == EEngine.CAR)
@@ -67,18 +162,10 @@ namespace RealLifeFramework.UserInterface
                 }
             }
         }
+        #endregion
 
-        private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)
-        {
-            var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            if (rplayer == null)
-                return;
-
-            rplayer.HUD.RemoveWidget(EWidgetType.Bleeding);
-            rplayer.HUD.RemoveWidget(EWidgetType.BrokenBone);
-            rplayer.HUD.RemoveWidget(EWidgetType.LowVirus);
-        }
+        #region Life
         private static void checkVirus(UnturnedPlayer player, byte virus)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
@@ -162,5 +249,6 @@ namespace RealLifeFramework.UserInterface
                     player.HUD.UpdateComponent(HUDComponent.Time, HUD.FormatTime(hours, minutes));
             }
         }
+        #endregion
     }
 }

@@ -23,8 +23,8 @@ namespace RealLifeFramework.UserInterface
 
         // * Vehicle Stats
         public const string SeatBeltStats = "seatbelt";
-        public const ushort UseBelt = 0;
-        public const ushort RemoveBelt = 0;
+        public const ushort UseBelt = 41827;
+        public const ushort RemoveBelt = 41826;
         public static readonly string[] Seatbelt = { "offBelt", "onBelt" };
 
         // * Left Stats

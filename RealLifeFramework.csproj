@@ -128,6 +128,7 @@
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
+    <Compile Include="Framework\Patches\ChangeFiremode.cs" />
     <Compile Include="Framework\UserInterface\HUD\other\HUDComponent.cs" />
     <Compile Include="Gameplay\Items\MedicalItems.cs" />
     <Compile Include="Gameplay\Items\StartClothes.cs" />

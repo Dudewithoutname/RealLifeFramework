@@ -1,12 +1,8 @@
 ﻿using Rocket.Unturned.Player;
 using SDG.Unturned;
 using Steamworks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using RealLifeFramework.Players;
+using UnityEngine;
 namespace RealLifeFramework.Realism
 {
     [EventHandler(nameof(VehicleCrash))]
@@ -17,10 +13,9 @@ namespace RealLifeFramework.Realism
             VehicleManager.onDamageVehicleRequested += onDamageVehicle;
         }
 
-        // original code by TH3AL3X
         private void onDamageVehicle(CSteamID instigatorSteamID, InteractableVehicle vehicle, ref ushort pendingTotalDamage, ref bool canRepair, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {
-            UnturnedPlayer player = UnturnedPlayer.FromCSteamID(instigatorSteamID);
+            var player = RealPlayerManager.GetRealPlayer(instigatorSteamID);
 
             if (pendingTotalDamage <= 2)
                 return;
@@ -30,15 +25,36 @@ namespace RealLifeFramework.Realism
 
             if (damageOrigin == EDamageOrigin.Vehicle_Collision_Self_Damage)
             {
-                if (player.CurrentVehicle.asset.engine == EEngine.CAR)
-                {
-                    foreach (var passenger in vehicle.passengers)
-                    {
 
-                        if (jugador != null && !jugador.GetComponent<PlayerComponent>().niggagetwork)
-                            StartCoroutine(crash(jugador));
-                        // break; my cucumber idk, for prevent bugs
-                        break;
+                if (player.Player.movement.getVehicle().asset.engine == EEngine.CAR)
+                {
+                    if (!player.HUD.HasSeatBelt)
+                    {
+                        if(player.Player.life.health > 20)
+                        {
+                            player.Player.life.askDamage( 19, new Vector3(player.Player.transform.position.x, player.Player.transform.position.y, player.Player.transform.position.z),
+                                EDeathCause.VEHICLE, ELimb.SPINE, CSteamID.Nil, out EPlayerKill kill);
+                        }
+                        else
+                        {
+                            player.Player.life.askDamage( (byte)(player.Player.life.health-1) , new Vector3(player.Player.transform.position.x, player.Player.transform.position.y, player.Player.transform.position.z),
+                                EDeathCause.VEHICLE, ELimb.SPINE, CSteamID.Nil, out EPlayerKill kill);
+
+                            player.Player.stance.stance = EPlayerStance.PRONE;
+                            player.Player.stance.checkStance(EPlayerStance.PRONE);
+                            player.Player.life.serverModifyHallucination(5f);
+                            player.Player.life.breakLegs();
+
+                        }
+
+                        if (Random.Range(0, 2) == 1) // 33 %
+                        {
+                            VehicleManager.forceRemovePlayer(vehicle, instigatorSteamID);
+                            player.Player.stance.stance = EPlayerStance.PRONE;
+                            player.Player.stance.checkStance(EPlayerStance.PRONE);
+                            player.Player.life.serverModifyHallucination(5f);
+                            player.Player.life.breakLegs();
+                        }
                     }
                 }
             }

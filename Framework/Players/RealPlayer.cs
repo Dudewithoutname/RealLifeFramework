@@ -78,8 +78,8 @@ namespace RealLifeFramework.Players
             var skillResult = TPlayerSkills.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
 
-            HUD = new HUD(this);
             Keyboard = new UnturnedKeyWatcher(player.Player);
+            HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 
@@ -112,8 +112,8 @@ namespace RealLifeFramework.Players
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
-            HUD = new HUD(this);
             Keyboard = new UnturnedKeyWatcher(player.Player);
+            HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
         }
 

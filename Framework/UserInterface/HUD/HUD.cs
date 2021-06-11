@@ -34,12 +34,14 @@ namespace RealLifeFramework.UserInterface
                 {
                     if (HasSeatBelt)
                     {
+                        HasSeatBelt = false;
                         EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, RPlayer.TransportConnection, false);
                         UpdateComponent(HUDComponent.Seatbelt[1], false);
                         UpdateComponent(HUDComponent.Seatbelt[0], true);
                     }
                     else
                     {
+                        HasSeatBelt = false;
                         EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, RPlayer.TransportConnection, false);
                         UpdateComponent(HUDComponent.Seatbelt[0], false);
                         UpdateComponent(HUDComponent.Seatbelt[1], true);
@@ -61,8 +63,19 @@ namespace RealLifeFramework.UserInterface
             UpdateComponent(HUDComponent.Food, RPlayer.Player.life.food.ToString());
             UpdateComponent(HUDComponent.Water, RPlayer.Player.life.water.ToString());
             UpdateComponent(HUDComponent.Stamina, RPlayer.Player.life.stamina.ToString());
+            if (RPlayer.Player.life.isBroken)
+            {
+                SendWidget(EWidgetType.BrokenBone);
+            }
+
+            if (RPlayer.Player.life.isBleeding)
+            {
+                SendWidget(EWidgetType.Bleeding);
+            }
+
             UpdateComponent(HUDComponent.Level);
             UpdateComponent(HUDComponent.Exp);
+            // ADD MONEY
         }
 
         public void UpdateComponent(string component, string value)
