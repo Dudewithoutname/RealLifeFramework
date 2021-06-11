@@ -79,7 +79,7 @@ namespace RealLifeFramework.UserInterface
             var player = RealPlayerManager.GetRealPlayer(equipment.player);
             var maxAmmo = new Item(newItem.item.id, true).amount;
 
-            player.HUD.UpdateComponent(HUDComponent.Ammo, equipment.state[10].ToString());
+            player.HUD.UpdateComponent(HUDComponent.Ammo, newItem.item.amount.ToString());
             player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
         }
 

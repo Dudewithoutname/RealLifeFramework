@@ -41,7 +41,7 @@ namespace RealLifeFramework.UserInterface
                     }
                     else
                     {
-                        HasSeatBelt = false;
+                        HasSeatBelt = true;
                         EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, RPlayer.TransportConnection, false);
                         UpdateComponent(HUDComponent.Seatbelt[0], false);
                         UpdateComponent(HUDComponent.Seatbelt[1], true);

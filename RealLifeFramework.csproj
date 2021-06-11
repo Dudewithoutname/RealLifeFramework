@@ -129,6 +129,8 @@
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Patches\ChangeFiremode.cs" />
+    <Compile Include="Framework\UserInterface\HUD\HUD.cs" />
+    <Compile Include="Framework\UserInterface\HUD\HUDManager.cs" />
     <Compile Include="Framework\UserInterface\HUD\other\HUDComponent.cs" />
     <Compile Include="Gameplay\Items\MedicalItems.cs" />
     <Compile Include="Gameplay\Items\StartClothes.cs" />
@@ -149,8 +151,6 @@
     <Compile Include="Framework\UserInterface\HUD\other\EWidgetType.cs" />
     <Compile Include="Framework\UserInterface\HUD\other\Widget.cs" />
     <Compile Include="Framework\UserInterface\UI.cs" />
-    <Compile Include="Framework\UserInterface\HUD\HUDManager.cs" />
-    <Compile Include="Framework\UserInterface\HUD\HUD.cs" />
     <Compile Include="Framework\Ultility\Discord.cs" />
     <Compile Include="Framework\Ultility\Logger.cs" />
     <Compile Include="Framework\Players\RealPlayerManager.cs" />
@@ -179,6 +179,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Framework\Admin\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
