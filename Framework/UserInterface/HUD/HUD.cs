@@ -223,7 +223,7 @@ namespace RealLifeFramework.UserInterface
         }
 
         private string formatLevel() => $"<color=#FC3A8C>LVL</color> <color=#FC8EBD>{RPlayer.Level}</color>";
-        private string formatExp() => $"<color=#FC8EBD>0{formatBigNums(RPlayer.Exp)} / {formatBigNums(RPlayer.MaxExp)}</color> <color=#FC3A8C>XP</color>";
+        private string formatExp() => $"<color=#FC8EBD>{formatBigNums(RPlayer.Exp)} / {formatBigNums(RPlayer.MaxExp)}</color> <color=#FC3A8C>XP</color>";
         
         private string formatBigNums(uint value)
         {
