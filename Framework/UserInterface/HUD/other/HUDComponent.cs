@@ -22,11 +22,10 @@ namespace RealLifeFramework.UserInterface
         public const string Firemode = "fireMode";
 
         // * Vehicle Stats
-        public const string VehicleStats = "vehicleContainer";
-
-        public static readonly string[] Lights = { "offLights", "onLights" };
+        public const string SeatBeltStats = "seatbelt";
+        public const ushort UseBelt = 0;
+        public const ushort RemoveBelt = 0;
         public static readonly string[] Seatbelt = { "offBelt", "onBelt" };
-        public static readonly string[] Lock = { "unlocked", "locked" };
 
         // * Left Stats
         public const string LeftStats = "leftContainer";

@@ -8,18 +8,18 @@ namespace RealLifeFramework.Patches
     public class UnturnedKeyWatcher
     {
         public Player Player;
-        public int UpdateRate = 200;
+        public int UpdateRate = 150;
 
         private bool IsRunning = false;
         private Dictionary<int, bool> LastMapping = new Dictionary<int, bool>();
 
-        public delegate void UKeyDown(Player Player, UnturnedKey Key);
+        public delegate void UKeyEvent(Player Player, UnturnedKey Key);
 
-        public event UKeyDown KeyChanged;
+        public event UKeyEvent KeyChanged;
 
-        public event UKeyDown KeyUp;
+        public event UKeyEvent KeyUp;
 
-        public event UKeyDown KeyDown;
+        public event UKeyEvent KeyDown;
 
         public bool CodeHotkey1Down { get { return LastMapping[(int)UnturnedKey.CodeHotkey1]; } }
         public bool CodeHotkey2Down { get { return LastMapping[(int)UnturnedKey.CodeHotkey2]; } }

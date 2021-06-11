@@ -5,6 +5,7 @@ using SDG.Unturned;
 using RealLifeFramework.Players;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
+using RealLifeFramework.Patches;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -12,13 +13,39 @@ namespace RealLifeFramework.UserInterface
     {
         public RealPlayer RPlayer { get; set; }
         public short HudKey => 1205;
+
         public List<Widget> Widgets;
+        public bool HasSeatBelt { get; set; }
 
         public HUD(RealPlayer player)
         {
             RPlayer = player;
             Widgets = new List<Widget>();
+            HasSeatBelt = false;
             CreatePlayerUI();
+            player.Keyboard.KeyDown += seatBeltAction;
+        }
+
+        private void seatBeltAction(Player player, UnturnedKey key)
+        {
+            if(key == UnturnedKey.CodeHotkey1 && ((Object)player.movement.getVehicle()) != null)
+            {
+                if(player.movement.getVehicle().asset.engine == EEngine.CAR)
+                {
+                    if (HasSeatBelt)
+                    {
+                        EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, RPlayer.TransportConnection, false);
+                        UpdateComponent(HUDComponent.Seatbelt[1], false);
+                        UpdateComponent(HUDComponent.Seatbelt[0], true);
+                    }
+                    else
+                    {
+                        EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, RPlayer.TransportConnection, false);
+                        UpdateComponent(HUDComponent.Seatbelt[0], false);
+                        UpdateComponent(HUDComponent.Seatbelt[1], true);
+                    }
+                }
+            }
         }
 
         public void CreatePlayerUI()
@@ -26,7 +53,6 @@ namespace RealLifeFramework.UserInterface
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowLifeMeters, false);
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
-            //RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowVehicleStatus, false);
             RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus, false);
 
             EffectManager.sendUIEffect(UI.HudID, HudKey, true);

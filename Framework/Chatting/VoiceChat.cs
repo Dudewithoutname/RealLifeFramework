@@ -64,8 +64,10 @@ namespace RealLifeFramework.Chatting
 
         private static void ChangeVoiceViaButton(Player player, UnturnedKey key)
         {
-            if (key == UnturnedKey.CodeHotkey1)
+            if (key == UnturnedKey.CodeHotkey1 && ((System.Object)player.movement.getVehicle()) == null)
+            {
                 GetNextVoiceMode(RealPlayerManager.GetRealPlayer(player));
+            }
         }
 
         public static void GetNextVoiceMode(RealPlayer player)

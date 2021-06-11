@@ -8,6 +8,7 @@ using RealLifeFramework.Patches;
 using Steamworks;
 using System.Linq;
 using Rocket.API.Extensions;
+using UnityEngine;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -24,30 +25,47 @@ namespace RealLifeFramework.UserInterface
             UnturnedPlayerEvents.OnPlayerUpdateBleeding += updateBleeding;
             UnturnedPlayerEvents.OnPlayerUpdateVirus += checkVirus;
             UnturnedPlayerEvents.OnPlayerDeath += onPlayerDeath;
-            Time.onTimeUpdated += updateTime;
+            Patches.Time.onTimeUpdated += updateTime;
             InteractableVehicle.OnPassengerAdded_Global += (vehicle, seat) => onVehicleEnter(vehicle, seat);
             InteractableVehicle.OnPassengerRemoved_Global += (vehicle, seat, player) => onVehicleExit(vehicle, seat, player);
+            VehicleManager.onExitVehicleRequested += onVehicleExitRequested;
+        }
+
+        private static void onVehicleExitRequested(Player player, InteractableVehicle vehicle, ref bool shouldAllow, ref Vector3 pendingLocation, ref float pendingYaw)
+        {
+            if (vehicle.asset.engine == EEngine.CAR)
+            {
+                var rplayer = RealPlayerManager.GetRealPlayer(player);
+
+                if (rplayer.HUD.HasSeatBelt)
+                {
+                    shouldAllow = false;
+                }
+            }
         }
 
         private static void onVehicleEnter(InteractableVehicle vehicle, int seat)
         {
-            var rplayer = RealPlayerManager.GetRealPlayer(vehicle.passengers[seat].player.player);
+            if (vehicle.asset.engine == EEngine.CAR)
+            {
+                var rplayer = RealPlayerManager.GetRealPlayer(vehicle.passengers[seat].player.player);
 
-            rplayer.HUD.UpdateComponent(HUDComponent.VehicleStats, true);
-            rplayer.HUD.UpdateComponent(HUDComponent.Lock[Convert.ToInt32(vehicle.isLocked)], true);
-            rplayer.HUD.UpdateComponent(HUDComponent.Lights[Convert.ToInt32(vehicle.headlightsOn)], true);
-            rplayer.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(vehicle.isLocked)], true); // TODO FIX SEABELT;
-
+                rplayer.HUD.HasSeatBelt = false;
+                rplayer.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(rplayer.HUD.HasSeatBelt)], true);
+            }
         }
 
         private static void onVehicleExit(InteractableVehicle vehicle, int seat, Player player)
         {
-            var rplayer = RealPlayerManager.GetRealPlayer(player);
+            if (vehicle.asset.engine == EEngine.CAR)
+            {
+                var rplayer = RealPlayerManager.GetRealPlayer(player);
 
-            rplayer.HUD.UpdateComponent(HUDComponent.Lock[Convert.ToInt32(vehicle.isLocked)], false);
-            rplayer.HUD.UpdateComponent(HUDComponent.Lights[Convert.ToInt32(vehicle.headlightsOn)], false);
-            rplayer.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(vehicle.isLocked)], false); // TODO FIX SEABELT;
-            rplayer.HUD.UpdateComponent(HUDComponent.VehicleStats, false);
+                for (int i = 0; i < 2; i++)
+                {
+                    rplayer.HUD.UpdateComponent(HUDComponent.Seatbelt[i], false); 
+                }
+            }
         }
 
         private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)
