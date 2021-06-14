@@ -78,7 +78,6 @@ namespace RealLifeFramework.RealPlayers
             Name = result.Name;
             Age = result.Age;
             SetGender(result.Gender);
-            CreditCardMoney = Player.skills.experience;
 
             Level = result.Level;
             Exp = result.Exp;
@@ -116,7 +115,6 @@ namespace RealLifeFramework.RealPlayers
             Name = name;
             Age = age;
             SetGender(gender);
-            CreditCardMoney = Player.skills.experience;
 
             Level = 1;
             Exp = 0;

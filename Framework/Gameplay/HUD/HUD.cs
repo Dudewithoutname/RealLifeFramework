@@ -126,7 +126,8 @@ namespace RealLifeFramework.UserInterface
 
             UpdateComponent(HUDComponent.Level);
             UpdateComponent(HUDComponent.Exp);
-            // ADD MONEY
+            UpdateComponent(HUDComponent.Wallet);
+            UpdateComponent(HUDComponent.Credit);
         }
 
         #region Car
