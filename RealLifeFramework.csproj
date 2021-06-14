@@ -121,7 +121,7 @@
     <Compile Include="Framework\DatabaseManager\Tables\TPlayerSkills.cs" />
     <Compile Include="Framework\DatabaseManager\Tables\TSecurity.cs" />
     <Compile Include="Framework\Economy\EconomyUser.cs" />
-    <Compile Include="Framework\Events\EventHandlerAttribute.cs" />
+    <Compile Include="Framework\Events\EventHandler.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
     <Compile Include="Framework\Events\RealEvents.cs" />
     <Compile Include="Framework\Chatting\Chat.cs" />

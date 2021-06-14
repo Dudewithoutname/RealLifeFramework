@@ -9,11 +9,14 @@ namespace RealLifeFramework
     [AttributeUsage(AttributeTargets.Class)]
     public class EventHandler : Attribute
     {
-        public string Name { get; set; }
 
+        [Obsolete]
         public EventHandler(string name)
         {
-            Name = name;
+        }
+
+        public EventHandler()
+        {
         }
     }
 

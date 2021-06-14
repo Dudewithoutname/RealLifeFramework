@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RealLifeFramework.Chatting
 {
-    [EventHandler("VoiceChat")]
+    [EventHandler]
     public class VoiceChat : IEventComponent
     {
         public static readonly short[] Distance = { 

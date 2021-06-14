@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace RealLifeFramework.UserInterface
 {
-    [EventHandler("HudManager")]
+    [EventHandler]
     public class HUDManager : IEventComponent
     {
         public void HookEvents()

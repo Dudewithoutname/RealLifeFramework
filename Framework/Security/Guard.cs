@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RealLifeFramework.Security
 {
-    [EventHandler("Security")]
+    [EventHandler]
     public class Guard : IEventComponent
     {
 

@@ -12,7 +12,7 @@ using System;
 
 namespace RealLifeFramework.Skills
 {
-    [EventHandler("SkillManager")]
+    [EventHandler]
     public class SkillManager : IEventComponent
     {
 

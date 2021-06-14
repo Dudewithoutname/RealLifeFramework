@@ -13,7 +13,7 @@ using RealLifeFramework.Chatting;
 
 namespace RealLifeFramework
 {
-    [EventHandler("MainEvents")]
+    [EventHandler]
     public class RealEvents : IEventComponent
     {
         public void HookEvents()

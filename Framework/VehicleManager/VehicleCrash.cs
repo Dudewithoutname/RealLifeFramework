@@ -7,7 +7,7 @@ using System;
 
 namespace RealLifeFramework.Realism
 {
-    [EventHandler(nameof(VehicleCrash))]
+    [EventHandler]
     public class VehicleCrash : IEventComponent
     {
         public void HookEvents()
