@@ -1,6 +1,6 @@
 ﻿using SDG.Unturned;
 using UnityEngine;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 
 namespace RealLifeFramework.Chatting
 {
@@ -14,7 +14,7 @@ namespace RealLifeFramework.Chatting
 
         private static void onPlayerChatted(SteamPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
-            RealPlayer rplayer = RealPlayerManager.GetRealPlayer(player.player);
+            RealPlayer RealPlayer = RealPlayerManager.GetRealPlayer(player.player);
             // TODO : Mute System , Administration system and this obviously
             if (text.StartsWith("/")) 
             {
@@ -25,13 +25,13 @@ namespace RealLifeFramework.Chatting
             switch (mode)
             {
                 case EChatMode.GLOBAL:
-                    isVisible = SendGlobalMessage(rplayer, mode, ref chatted, ref isRich, text, ref isVisible);
+                    isVisible = SendGlobalMessage(RealPlayer, mode, ref chatted, ref isRich, text, ref isVisible);
                     break;
                 case EChatMode.LOCAL:
-                    isVisible = SendLocalMessage(rplayer, mode, ref chatted, ref isRich, text, ref isVisible);
+                    isVisible = SendLocalMessage(RealPlayer, mode, ref chatted, ref isRich, text, ref isVisible);
                     break;
                 case EChatMode.GROUP:
-                    isVisible = SendGroupMessage(rplayer, mode, ref chatted, ref isRich, text, ref isVisible);
+                    isVisible = SendGroupMessage(RealPlayer, mode, ref chatted, ref isRich, text, ref isVisible);
                     break;
             }
         }

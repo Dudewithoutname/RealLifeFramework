@@ -4,7 +4,7 @@ using Steamworks;
 using MySql.Data.MySqlClient;
 using RealLifeFramework.Jobs;
 using RealLifeFramework.Skills;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using System.Reflection;
 
 namespace RealLifeFramework

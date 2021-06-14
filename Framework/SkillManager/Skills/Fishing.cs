@@ -1,5 +1,5 @@
 ﻿using System;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 
 namespace RealLifeFramework.Skills
 {

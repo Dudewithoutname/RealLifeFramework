@@ -1,7 +1,7 @@
 ﻿using SDG.Unturned;
 using Rocket.Unturned.Player;
 using Rocket.Unturned.Events;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
 using RealLifeFramework.Items;
 using System.Collections.Generic;
@@ -50,28 +50,28 @@ namespace RealLifeFramework.Skills
 
         public static void HandleStatIncremented(Player player, EPlayerStat stat)
         {
-            var rplayer = RealPlayerManager.GetRealPlayer(player);
+            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
 
             switch (stat)
             {
                 case EPlayerStat.FOUND_FISHES:
-                    rplayer.SkillUser.AddExp(Fishing.Id, 3);
+                    RealPlayer.SkillUser.AddExp(Fishing.Id, 3);
                     break;
                 case EPlayerStat.FOUND_PLANTS:
-                    rplayer.SkillUser.AddExp(Farming.Id, 3);
+                    RealPlayer.SkillUser.AddExp(Farming.Id, 3);
                     break;
                 case EPlayerStat.FOUND_RESOURCES:
-                    rplayer.SkillUser.AddExp(Dexterity.Id, 3);
+                    RealPlayer.SkillUser.AddExp(Dexterity.Id, 3);
                     break;
             }
         }
 
         public static void HandleConsume(Player player, ItemConsumeableAsset consumeableAsset)
         {
-            var rplayer = RealPlayerManager.GetRealPlayer(player);
+            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
 
             if (MedicalItems.Ids.Contains(consumeableAsset.id))
-                rplayer.SkillUser.AddExp(Endurance.Id, 3);
+                RealPlayer.SkillUser.AddExp(Endurance.Id, 3);
         }
 
 
@@ -88,7 +88,7 @@ namespace RealLifeFramework.Skills
                 {
                     wasSprinting[player.CSteamID] = false;
 
-                    var rplayer = RealPlayerManager.GetRealPlayer(player);
+                    var RealPlayer = RealPlayerManager.GetRealPlayer(player);
 
                     var distance = (int)Math.Round(Vector3.Distance(prevPos[player.CSteamID], player.Position));
                     uint exp;
@@ -96,12 +96,12 @@ namespace RealLifeFramework.Skills
                     if (distance > 500)
                     {
                         exp = 50;
-                        rplayer.SkillUser.AddExp(Agitily.Id, exp);
+                        RealPlayer.SkillUser.AddExp(Agitily.Id, exp);
                     }
                     if (distance > 30 && distance < 500)
                     {
                         exp = (uint)Math.Floor((decimal)(distance / 10));
-                        rplayer.SkillUser.AddExp(Agitily.Id, exp);
+                        RealPlayer.SkillUser.AddExp(Agitily.Id, exp);
                     }
 
                 }

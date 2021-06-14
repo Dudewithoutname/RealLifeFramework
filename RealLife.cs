@@ -5,7 +5,7 @@ using Rocket.Core.Plugins;
 using Rocket.Unturned;
 using Rocket.Unturned.Events;
 using Steamworks;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Jobs;
 using RealLifeFramework.Items;
 using HarmonyLib;

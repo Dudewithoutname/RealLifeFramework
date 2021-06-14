@@ -2,7 +2,7 @@
 using SDG.Unturned;
 using Rocket.API;
 using System.Collections.Generic;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
 
 namespace RealLifeFramework.Commands

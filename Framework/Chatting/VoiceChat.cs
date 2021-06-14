@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SDG.Unturned;
 using RealLifeFramework.Patches;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using Steamworks;
 using UnityEngine;
 

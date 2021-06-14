@@ -6,7 +6,7 @@ using RealLifeFramework.UserInterface;
 using System.Collections.Generic;
 using RealLifeFramework.Chatting;
 
-namespace RealLifeFramework.Players
+namespace RealLifeFramework.RealPlayers
 {
     public static class RealPlayerManager
     {

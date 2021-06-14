@@ -1,4 +1,4 @@
-﻿using RealLifeFramework.Players;
+﻿using RealLifeFramework.RealPlayers;
 using System.Collections.Generic;
 
 namespace RealLifeFramework.Skills

@@ -9,7 +9,7 @@ using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
 using UnityEngine;
 
-namespace RealLifeFramework.Players
+namespace RealLifeFramework.RealPlayers
 {
     public class RealPlayer
     {

@@ -111,6 +111,9 @@
   <ItemGroup>
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
+    <Compile Include="Framework\Citizens\Management\RealPlayerCreation.cs" />
+    <Compile Include="Framework\Citizens\Management\RealPlayerManager.cs" />
+    <Compile Include="Framework\Citizens\RealPlayer.cs" />
     <Compile Include="Framework\Commands\test2.cs" />
     <Compile Include="Framework\Commands\Ultilities\CSeatBelt.cs" />
     <Compile Include="Framework\Commands\Ultilities\CVoice.cs" />
@@ -143,7 +146,6 @@
     <Compile Include="Framework\Patches\KeyWatcher.cs" />
     <Compile Include="Framework\Patches\PatchedProvider.cs" />
     <Compile Include="Framework\Patches\VoiceRelay.cs" />
-    <Compile Include="Framework\Players\RealPlayerCreation.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
     <Compile Include="Framework\SkillManager\SkillManager.cs" />
     <Compile Include="Framework\SkillManager\Skills\Dexterity.cs" />
@@ -153,9 +155,7 @@
     <Compile Include="Framework\UserInterface\UI.cs" />
     <Compile Include="Framework\Ultility\Discord.cs" />
     <Compile Include="Framework\Ultility\Logger.cs" />
-    <Compile Include="Framework\Players\RealPlayerManager.cs" />
     <Compile Include="RealConfig.cs" />
-    <Compile Include="Framework\Players\RealPlayer.cs" />
     <Compile Include="RealLife.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\SkillManager\Education\Defense.cs" />
@@ -171,6 +171,7 @@
     <Compile Include="Framework\SkillManager\Skills\Fishing.cs" />
     <Compile Include="Framework\SkillManager\SkillUser.cs" />
     <Compile Include="Framework\SkillManager\VanillaSkills.cs" />
+    <Compile Include="Translations\Translations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aLibs\0Harmony.dll" />

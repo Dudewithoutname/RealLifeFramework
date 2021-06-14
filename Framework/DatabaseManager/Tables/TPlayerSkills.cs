@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 using RealLifeFramework.Skills;
 using System.Collections.Generic;
 using Steamworks;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 
 namespace RealLifeFramework
 {

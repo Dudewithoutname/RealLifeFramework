@@ -8,7 +8,7 @@ using System.Linq;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Items;
 
-namespace RealLifeFramework.Players
+namespace RealLifeFramework.RealPlayers
 {
     public static class RealPlayerCreation
     {
@@ -53,9 +53,9 @@ namespace RealLifeFramework.Players
             player.GodMode = false;
             player.VanishMode = false;
 
-            var rplayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
+            var RealPlayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
 
-            RealLife.Instance.RealPlayers.Add(steamId, rplayer);
+            RealLife.Instance.RealPlayers.Add(steamId, RealPlayer);
             giveStartingItems(player.Player);
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
@@ -69,7 +69,7 @@ namespace RealLifeFramework.Players
             //  remove tihs and add it to sendnewplayer func
             try
             {
-                Discord.SendNewPlayer(rplayer);
+                Discord.SendNewPlayer(RealPlayer);
             }
             catch (Exception e)
             {

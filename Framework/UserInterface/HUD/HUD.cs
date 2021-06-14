@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SDG.Unturned;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
@@ -11,7 +11,7 @@ namespace RealLifeFramework.UserInterface
 {
     public class HUD
     {
-        public RealPlayer RPlayer { get; set; }
+        public RealPlayer RealPlayer { get; set; }
         public short HudKey => 1205;
 
         public List<Widget> Widgets;
@@ -19,7 +19,7 @@ namespace RealLifeFramework.UserInterface
 
         public HUD(RealPlayer player)
         {
-            RPlayer = player;
+            RealPlayer = player;
             Widgets = new List<Widget>();
             HasSeatBelt = false;
             CreatePlayerUI();
@@ -35,14 +35,14 @@ namespace RealLifeFramework.UserInterface
                     if (HasSeatBelt)
                     {
                         HasSeatBelt = false;
-                        EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, RPlayer.TransportConnection, false);
+                        EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, RealPlayer.TransportConnection, false);
                         UpdateComponent(HUDComponent.Seatbelt[1], false);
                         UpdateComponent(HUDComponent.Seatbelt[0], true);
                     }
                     else
                     {
                         HasSeatBelt = true;
-                        EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, RPlayer.TransportConnection, false);
+                        EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, RealPlayer.TransportConnection, false);
                         UpdateComponent(HUDComponent.Seatbelt[0], false);
                         UpdateComponent(HUDComponent.Seatbelt[1], true);
                     }
@@ -52,23 +52,23 @@ namespace RealLifeFramework.UserInterface
 
         public void CreatePlayerUI()
         {
-            RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
-            RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowLifeMeters, false);
-            RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
-            RPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus, false);
+            RealPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowInteractWithEnemy, false);
+            RealPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowLifeMeters, false);
+            RealPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
+            RealPlayer.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus, false);
 
             EffectManager.sendUIEffect(UI.HudID, HudKey, true);
 
-            UpdateComponent(HUDComponent.Health, RPlayer.Player.life.health.ToString());
-            UpdateComponent(HUDComponent.Food, RPlayer.Player.life.food.ToString());
-            UpdateComponent(HUDComponent.Water, RPlayer.Player.life.water.ToString());
-            UpdateComponent(HUDComponent.Stamina, RPlayer.Player.life.stamina.ToString());
-            if (RPlayer.Player.life.isBroken)
+            UpdateComponent(HUDComponent.Health, RealPlayer.Player.life.health.ToString());
+            UpdateComponent(HUDComponent.Food, RealPlayer.Player.life.food.ToString());
+            UpdateComponent(HUDComponent.Water, RealPlayer.Player.life.water.ToString());
+            UpdateComponent(HUDComponent.Stamina, RealPlayer.Player.life.stamina.ToString());
+            if (RealPlayer.Player.life.isBroken)
             {
                 SendWidget(EWidgetType.BrokenBone);
             }
 
-            if (RPlayer.Player.life.isBleeding)
+            if (RealPlayer.Player.life.isBleeding)
             {
                 SendWidget(EWidgetType.Bleeding);
             }
@@ -83,22 +83,22 @@ namespace RealLifeFramework.UserInterface
             switch (component)
             {
                 case HUDComponent.Voice:
-                    EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, component, value);
+                    EffectManager.sendUIEffectImageURL(HudKey, RealPlayer.TransportConnection, true, component, value);
                     break;
 
                 case HUDComponent.Time:
-                    EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, value);
+                    EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, value);
                     break;
 
                 default:
-                    EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, value);
+                    EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, value);
                     break;
             }
         }
 
         public void UpdateComponent(string component, bool value)
         {
-            EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, component, value);
+            EffectManager.sendUIEffectVisibility(HudKey, RealPlayer.TransportConnection, true, component, value);
         }
 
         public void UpdateComponent(string component)
@@ -106,19 +106,19 @@ namespace RealLifeFramework.UserInterface
             switch (component)
             {
                 case HUDComponent.Level:
-                    EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, formatLevel());
+                    EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, formatLevel());
                     break;
 
                 case HUDComponent.Exp:
-                    EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, formatExp());
+                    EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, formatExp());
                     break;
 
                 case HUDComponent.Wallet:
-                    //EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, ""); // tODO getFormatedMoney()
+                    //EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, ""); // tODO getFormatedMoney()
                     break;
 
                 case HUDComponent.Credit:
-                    //EffectManager.sendUIEffectText(HudKey, RPlayer.TransportConnection, true, component, ""); // tODO getFormatedMoney()
+                    //EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, ""); // tODO getFormatedMoney()
                     break;
             }
         }
@@ -144,8 +144,8 @@ namespace RealLifeFramework.UserInterface
             {
                 Widget widget = new Widget(Widgets.Count, image, type);
                 Widgets.Add(widget);
-                EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}", true);
-                EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}Icon", widget.Image);
+                EffectManager.sendUIEffectVisibility(HudKey, RealPlayer.TransportConnection, true, $"widget{widget.Index}", true);
+                EffectManager.sendUIEffectImageURL(HudKey, RealPlayer.TransportConnection, true, $"widget{widget.Index}Icon", widget.Image);
             }
         }
 
@@ -167,7 +167,7 @@ namespace RealLifeFramework.UserInterface
                 if((widget.Index + 1) != Widgets.Count)
                 {
                     for (ushort i = 0; i < Widgets.Count; i++)
-                        EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, $"widget{i}", false);
+                        EffectManager.sendUIEffectVisibility(HudKey, RealPlayer.TransportConnection, true, $"widget{i}", false);
 
                     Widgets.ForEach((wg) =>
                     {
@@ -179,14 +179,14 @@ namespace RealLifeFramework.UserInterface
 
                     for (int i = 0; i < Widgets.Count; i++)
                     {
-                        EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, $"widget{i}", true);
-                        EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, $"widget{i}Icon", Widgets[i].Image);
+                        EffectManager.sendUIEffectVisibility(HudKey, RealPlayer.TransportConnection, true, $"widget{i}", true);
+                        EffectManager.sendUIEffectImageURL(HudKey, RealPlayer.TransportConnection, true, $"widget{i}Icon", Widgets[i].Image);
                     }
                 }
                 else
                 {
-                    EffectManager.sendUIEffectImageURL(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}Icon", Widgets[widget.Index].Image);
-                    EffectManager.sendUIEffectVisibility(HudKey, RPlayer.TransportConnection, true, $"widget{widget.Index}", false);
+                    EffectManager.sendUIEffectImageURL(HudKey, RealPlayer.TransportConnection, true, $"widget{widget.Index}Icon", Widgets[widget.Index].Image);
+                    EffectManager.sendUIEffectVisibility(HudKey, RealPlayer.TransportConnection, true, $"widget{widget.Index}", false);
      
                     Widgets.RemoveAt(widget.Index);
                 }
@@ -205,8 +205,8 @@ namespace RealLifeFramework.UserInterface
                 return $"{hours}:{minutes}";
         }
 
-        private string formatLevel() => $"<color=#FC3A8C>LVL</color> <color=#FC8EBD>{RPlayer.Level}</color>";
-        private string formatExp() => $"<color=#FC8EBD>{formatBigNums(RPlayer.Exp)} / {formatBigNums(RPlayer.MaxExp)}</color> <color=#FC3A8C>XP</color>";
+        private string formatLevel() => $"<color=#FC3A8C>LVL</color> <color=#FC8EBD>{RealPlayer.Level}</color>";
+        private string formatExp() => $"<color=#FC8EBD>{formatBigNums(RealPlayer.Exp)} / {formatBigNums(RealPlayer.MaxExp)}</color> <color=#FC3A8C>XP</color>";
         
         private string formatBigNums(uint value)
         {

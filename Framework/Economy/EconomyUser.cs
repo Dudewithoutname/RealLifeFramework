@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 
 namespace RealLifeFramework.Economy
 {

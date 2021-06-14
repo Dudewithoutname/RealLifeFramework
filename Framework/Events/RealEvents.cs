@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SDG.Unturned;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Patches;

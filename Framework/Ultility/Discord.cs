@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.IO;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using Steamworks;
 

@@ -1,7 +1,7 @@
 ﻿using Rocket.Unturned.Player;
 using SDG.Unturned;
 using Steamworks;
-using RealLifeFramework.Players;
+using RealLifeFramework.RealPlayers;
 using UnityEngine;
 using System;
 
