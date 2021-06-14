@@ -28,8 +28,6 @@ namespace RealLifeFramework.RealPlayers
             {
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, PlayerResult));
             }
-
-            VoiceChat.Subscribe(RealLife.Instance.RealPlayers[player.CSteamID]);
         }
 
         public static void HandleDisconnect(UnturnedPlayer player)
@@ -45,23 +43,24 @@ namespace RealLifeFramework.RealPlayers
 
         private static void firstJoin(UnturnedPlayer player)
         {
-            string topScreenText = $"Welcome <color=#FFA92A>{player.SteamName}</color> to the Dudeturned roleplay";
-            string midScreenText = "\n" +
-                "Welcome and thanks for joining our server,\n" +
-                "Before you start it's necessary to join our discord for rules, essential information and better experience overall.\n" +
-                "\n" +
-                "Also for more starting tips and late-game information\n" +
-                "visit #wiki channel that you can find on our discord aswell.\n";
+            string topScreenText = $"<color=#FFA92A>{player.SteamName}</color>, vitaj na Dudeturned Roleplayi";
+            /*
+             "\n" +
+                    "Welcome and thanks for joining our server,\n" +
+                    "Before you start it's necessary to join our discord for rules, essential information and better experience overall.\n" +
+                    "\n" +
+                    "Also for more starting tips and late-game information\n" +
+                    "visit #wiki channel that you can find on our discord aswell.\n";
+            */
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, true);
             player.GodMode = true;
             player.VanishMode = true;
 
-            EffectManager.sendUIEffect(UI.StartingTab, 100, player.Player.channel.GetOwnerTransportConnection(), true, topScreenText, midScreenText, "Create Character");
+            EffectManager.sendUIEffect(UI.StartingTab, 100, player.Player.channel.GetOwnerTransportConnection(), true, topScreenText, "", "Vytvorit postavu");
             EffectManager.sendUIEffectImageURL(100, player.Player.channel.GetOwnerTransportConnection(), true, "steampfp", player.SteamProfile.AvatarMedium.ToString());
         }
-
         #region GetRealPlayer
         public static RealPlayer GetRealPlayer(CSteamID csteamid)
         {

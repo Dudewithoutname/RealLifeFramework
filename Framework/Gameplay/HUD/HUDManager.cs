@@ -37,20 +37,20 @@ namespace RealLifeFramework.UserInterface
 
         private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer == null)
+            if (rp == null)
                 return;
 
-            RealPlayer.HUD.RemoveWidget(EWidgetType.Bleeding);
-            RealPlayer.HUD.RemoveWidget(EWidgetType.BrokenBone);
-            RealPlayer.HUD.RemoveWidget(EWidgetType.LowVirus);
+            rp.HUD.RemoveWidget(EWidgetType.Bleeding);
+            rp.HUD.RemoveWidget(EWidgetType.BrokenBone);
+            rp.HUD.RemoveWidget(EWidgetType.LowVirus);
         }
 
         #region Weapon
         private static void onUsebleChanged(PlayerEquipment equipment)
         {
-            var player = RealPlayerManager.GetRealPlayer(equipment.player);
+            var player = RealPlayer.From(equipment.player);
 
             if (equipment.asset != null && equipment.asset.type == EItemType.GUN)
             {
@@ -59,15 +59,19 @@ namespace RealLifeFramework.UserInterface
                 if (magId != 0)
                 {
                     var maxAmmo = new Item(magId, true).amount;
+                    
+                    if(!player.HUD.isHidden)
+                        player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
 
-                    player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
                     player.HUD.UpdateComponent(HUDComponent.Ammo, equipment.state[10].ToString());
                     player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
                     player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(equipment.state[11]));
                 }
                 else
                 {
-                    player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
+                    if (!player.HUD.isHidden)
+                        player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
+
                     player.HUD.UpdateComponent(HUDComponent.Ammo, "0");
                     player.HUD.UpdateComponent(HUDComponent.FullAmmo, "0");
                     player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(equipment.state[11]));
@@ -81,13 +85,13 @@ namespace RealLifeFramework.UserInterface
 
         private static void onFiremodeChanged(Player rawPlayer, EFiremode firemode)
         {
-            var player = RealPlayerManager.GetRealPlayer(rawPlayer);
+            var player = RealPlayer.From(rawPlayer);
             player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(firemode));
         }
 
         private static void changeMagazine(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
         {
-            var player = RealPlayerManager.GetRealPlayer(equipment.player);
+            var player = RealPlayer.From(equipment.player);
             
             if (player == null)
                 return;
@@ -108,7 +112,7 @@ namespace RealLifeFramework.UserInterface
 
         private static void onShooted(UseableGun gun, BulletInfo bullet)
         {
-            var player = RealPlayerManager.GetRealPlayer(gun.player);
+            var player = RealPlayer.From(gun.player);
             player.HUD.UpdateComponent(HUDComponent.Ammo, gun.player.equipment.state[10].ToString());
         }
 
@@ -153,9 +157,9 @@ namespace RealLifeFramework.UserInterface
         {
             if (vehicle.asset.engine == EEngine.CAR)
             {
-                var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+                var rp = RealPlayer.From(player);
 
-                if (RealPlayer.HUD.HasSeatBelt)
+                if (rp.HUD.HasSeatBelt)
                 {
                     shouldAllow = false;
                 }
@@ -166,10 +170,11 @@ namespace RealLifeFramework.UserInterface
         {
             if (vehicle.asset.engine == EEngine.CAR)
             {
-                var RealPlayer = RealPlayerManager.GetRealPlayer(vehicle.passengers[seat].player.player);
+                var rp = RealPlayer.From(vehicle.passengers[seat].player.player);
 
-                RealPlayer.HUD.HasSeatBelt = false;
-                RealPlayer.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(RealPlayer.HUD.HasSeatBelt)], true);
+                rp.HUD.HasSeatBelt = false;
+                if (!rp.HUD.isHidden)
+                    rp.HUD.UpdateComponent(HUDComponent.Seatbelt[Convert.ToInt32(rp.HUD.HasSeatBelt)], true);
             }
         }
 
@@ -177,11 +182,11 @@ namespace RealLifeFramework.UserInterface
         {
             if (vehicle.asset.engine == EEngine.CAR)
             {
-                var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+                var rp = RealPlayer.From(player);
 
                 for (int i = 0; i < 2; i++)
                 {
-                    RealPlayer.HUD.UpdateComponent(HUDComponent.Seatbelt[i], false); 
+                    rp.HUD.UpdateComponent(HUDComponent.Seatbelt[i], false); 
                 }
             }
         }
@@ -191,82 +196,82 @@ namespace RealLifeFramework.UserInterface
         #region Life
         private static void updateVirus(UnturnedPlayer player, byte virus)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer == null)
+            if (rp == null)
                 return;
 
             if (virus <= 45)
-                RealPlayer.HUD.SendWidget(EWidgetType.LowVirus);
+                rp.HUD.SendWidget(EWidgetType.LowVirus);
             else
-                RealPlayer.HUD.RemoveWidget(EWidgetType.LowVirus);
+                rp.HUD.RemoveWidget(EWidgetType.LowVirus);
 
         }
 
         private static void updateBleeding(UnturnedPlayer player, bool isBleeding)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer == null)
+            if (rp == null)
                 return;
 
             if (isBleeding)
-                RealPlayer.HUD.SendWidget(EWidgetType.Bleeding);
+                rp.HUD.SendWidget(EWidgetType.Bleeding);
             else
-                RealPlayer.HUD.RemoveWidget(EWidgetType.Bleeding);
+                rp.HUD.RemoveWidget(EWidgetType.Bleeding);
         }
 
 
         private static void updateBroken(UnturnedPlayer player, bool isBroken)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer == null)
+            if (rp == null)
                 return;
 
             if (isBroken)
-                RealPlayer.HUD.SendWidget(EWidgetType.BrokenBone);
+                rp.HUD.SendWidget(EWidgetType.BrokenBone);
             else
-                RealPlayer.HUD.RemoveWidget(EWidgetType.BrokenBone);
+                rp.HUD.RemoveWidget(EWidgetType.BrokenBone);
         }
 
         private static void updateHealth(UnturnedPlayer player, byte val)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if(RealPlayer != null)
-                RealPlayer.HUD.UpdateComponent(HUDComponent.Health, val.ToString());
+            if(rp != null)
+                rp.HUD.UpdateComponent(HUDComponent.Health, val.ToString());
         }
 
         private static void updateFood(UnturnedPlayer player, byte val)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer != null)
-                RealPlayer.HUD.UpdateComponent(HUDComponent.Food, val.ToString());
+            if (rp != null)
+                rp.HUD.UpdateComponent(HUDComponent.Food, val.ToString());
         }
 
         private static void updateWater(UnturnedPlayer player, byte val)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer != null)
-                RealPlayer.HUD.UpdateComponent(HUDComponent.Water, val.ToString());
+            if (rp != null)
+                rp.HUD.UpdateComponent(HUDComponent.Water, val.ToString());
         }
 
         private static void updateStamina(UnturnedPlayer player, byte val)
         {
-            var RealPlayer = RealPlayerManager.GetRealPlayer(player);
+            var rp = RealPlayer.From(player);
 
-            if (RealPlayer != null)
-                RealPlayer.HUD.UpdateComponent(HUDComponent.Stamina, val.ToString());
+            if (rp != null)
+                rp.HUD.UpdateComponent(HUDComponent.Stamina, val.ToString());
         }
 
         private static void updateTime(ushort hours, ushort minutes)
         {
             foreach (SteamPlayer sp in Provider.clients)
             {
-                RealPlayer player = RealPlayerManager.GetRealPlayer(sp.playerID.steamID);
+                RealPlayer player = RealPlayer.From(sp.playerID.steamID);
 
                 if (player != null)
                     player.HUD.UpdateComponent(HUDComponent.Time, HUD.FormatTime(hours, minutes));

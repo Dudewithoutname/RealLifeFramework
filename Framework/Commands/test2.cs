@@ -23,7 +23,7 @@ namespace RealLifeFramework.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
+            RealPlayer player = RealPlayer.From(caller);
         }
     }
 }

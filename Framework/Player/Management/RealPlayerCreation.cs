@@ -27,7 +27,7 @@ namespace RealLifeFramework.RealPlayers
             PrePlayers.Add(player.channel.owner.playerID.steamID, new PrePlayer());
 
             EffectManager.askEffectClearByID(UI.StartingTab, player.channel.GetOwnerTransportConnection());
-            EffectManager.sendUIEffect(UI.CreationTab, 101, true, "DudeTurned | Create your dream character", ""); // 2nd is error text
+            EffectManager.sendUIEffect(UI.CreationTab, 101, true, "DudeTurned | Vytvor si svoju postavu", ""); // 2nd is error text
         }
 
         public static void CreateCharacter(CSteamID steamId)
@@ -46,7 +46,7 @@ namespace RealLifeFramework.RealPlayers
 
             if (PrePlayers[steamId].Gender == null)
             {
-                EffectManager.sendUIEffectText(101, playerCon, true, "errorText", "Error : Please select gender");
+                EffectManager.sendUIEffectText(101, playerCon, true, "errorText", "Error : Prosim vyber pohlavie");
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace RealLifeFramework.RealPlayers
         private static void giveStartingItems(Player player)
         {
             var uplayer = UnturnedPlayer.FromPlayer(player);
-            var realplayer = RealPlayerManager.GetRealPlayer(player);
+            var realplayer = RealPlayer.From(player);
 
             uplayer.GiveItem(StartClothes.GetRandomShirt(realplayer.Gender), 1);
             uplayer.GiveItem(StartClothes.GetPantsu(), 1);
@@ -109,17 +109,17 @@ namespace RealLifeFramework.RealPlayers
         {
             if(age == null)
             {
-                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Invalid age");
+                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Nespravny vek");
                 return false;
             }
             else if (age < 18)
             {
-                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Minimal age is 18");
+                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Minimalny vek je 18");
                 return false;
             }
             else if(age > 75)
             {
-                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Maximal age is 75");
+                EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Maximalny vek je 75");
                 return false;
             }
             else
@@ -138,22 +138,22 @@ namespace RealLifeFramework.RealPlayers
             {
                 if (containsNumber(str) || str.Contains(' ') || str.Contains('"') || containsBadChar(str))
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname contains restrited characters");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Meno obsahuje nepovolene znaky");
                     return false;
                 }
                 else if (str == String.Empty)
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname can't be empty");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Meno nemoze byt prazdne");
                     return false;
                 }
                 else if (str.Length < 3)
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname is too short");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Meno je moc kratke");
                     return false;
                 }
                 else if (str.Length > 12)
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Firstname is too long");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Meno je moc dlhe");
                     return false;
                 }
                 else
@@ -165,22 +165,22 @@ namespace RealLifeFramework.RealPlayers
             {
                 if (containsNumber(str) || str.Contains(' ') || str.Contains('"') || containsBadChar(str))
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname contains restrited characters");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Priezvisko obsahuje nepovolene znaky");
                     return false;
                 }
                 else if(str == String.Empty)
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname can't be empty");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Priezvisko nemoze byt prazdne");
                     return false;
                 }
                 else if (str.Length < 3)
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname is too short");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Priezvisko je moc kratke");
                     return false;
                 }
                 else if (str.Length > 15)
                 {
-                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Lastname is too Long");
+                    EffectManager.sendUIEffectText(101, player, true, "errorText", "Error : Priezvisko je moc dlhe");
                     return false;
                 }
                 else

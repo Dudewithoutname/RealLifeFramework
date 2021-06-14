@@ -109,11 +109,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Framework\Chatting\ChatProfile.cs" />
-    <Compile Include="Framework\Chatting\VoiceChat.cs" />
-    <Compile Include="Framework\Citizens\Management\RealPlayerCreation.cs" />
-    <Compile Include="Framework\Citizens\Management\RealPlayerManager.cs" />
-    <Compile Include="Framework\Citizens\RealPlayer.cs" />
+    <Compile Include="Framework\Gameplay\Chatting\ChatProfile.cs" />
+    <Compile Include="Framework\Gameplay\Chatting\VoiceChat.cs" />
+    <Compile Include="Framework\Gameplay\HUD\CHideHud.cs" />
+    <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
+    <Compile Include="Framework\Player\Management\RealPlayerManager.cs" />
+    <Compile Include="Framework\Player\RealPlayer.cs" />
     <Compile Include="Framework\Commands\test2.cs" />
     <Compile Include="Framework\Commands\Ultilities\CSeatBelt.cs" />
     <Compile Include="Framework\Commands\Ultilities\CVoice.cs" />
@@ -127,14 +128,14 @@
     <Compile Include="Framework\Events\EventHandler.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
     <Compile Include="Framework\Events\RealEvents.cs" />
-    <Compile Include="Framework\Chatting\Chat.cs" />
+    <Compile Include="Framework\Gameplay\Chatting\Chat.cs" />
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
-    <Compile Include="Framework\Patches\ChangeFiremode.cs" />
-    <Compile Include="Framework\UserInterface\HUD\HUD.cs" />
-    <Compile Include="Framework\UserInterface\HUD\HUDManager.cs" />
-    <Compile Include="Framework\UserInterface\HUD\other\HUDComponent.cs" />
+    <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
+    <Compile Include="Framework\Gameplay\HUD\HUD.cs" />
+    <Compile Include="Framework\Gameplay\HUD\HUDManager.cs" />
+    <Compile Include="Framework\Gameplay\HUD\other\HUDComponent.cs" />
     <Compile Include="Framework\Items\MedicalItems.cs" />
     <Compile Include="Framework\Items\StartClothes.cs" />
     <Compile Include="Framework\VehicleManager\VehicleCrash.cs" />
@@ -143,16 +144,16 @@
     <Compile Include="archive\[]Jobs\JobManager.cs" />
     <Compile Include="archive\[]Jobs\JobRank.cs" />
     <Compile Include="archive\[]Jobs\JobUser.cs" />
-    <Compile Include="Framework\Patches\KeyWatcher.cs" />
-    <Compile Include="Framework\Patches\PatchedProvider.cs" />
-    <Compile Include="Framework\Patches\VoiceRelay.cs" />
+    <Compile Include="Framework\Ultility\Patches\KeyWatcher.cs" />
+    <Compile Include="Framework\Ultility\Patches\PatchedProvider.cs" />
+    <Compile Include="Framework\Ultility\Patches\VoiceRelay.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
     <Compile Include="Framework\SkillManager\SkillManager.cs" />
     <Compile Include="Framework\SkillManager\Skills\Dexterity.cs" />
-    <Compile Include="Framework\Patches\Time.cs" />
-    <Compile Include="Framework\UserInterface\HUD\other\WidgetInfo.cs" />
-    <Compile Include="Framework\UserInterface\HUD\other\Widget.cs" />
-    <Compile Include="Framework\UserInterface\UI.cs" />
+    <Compile Include="Framework\Ultility\Patches\Time.cs" />
+    <Compile Include="Framework\Gameplay\HUD\other\WidgetInfo.cs" />
+    <Compile Include="Framework\Gameplay\HUD\other\Widget.cs" />
+    <Compile Include="Framework\Ultility\UI.cs" />
     <Compile Include="Framework\Ultility\Discord.cs" />
     <Compile Include="Framework\Ultility\Logger.cs" />
     <Compile Include="RealConfig.cs" />

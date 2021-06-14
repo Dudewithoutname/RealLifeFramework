@@ -25,7 +25,7 @@ namespace RealLifeFramework.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            var player = RealPlayerManager.GetRealPlayer(((UnturnedPlayer)caller).CSteamID);
+            var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
 
             if (player.Player.movement.getVehicle().asset.engine == EEngine.CAR)
             {

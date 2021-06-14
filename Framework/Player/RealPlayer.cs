@@ -8,6 +8,7 @@ using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
 using UnityEngine;
+using Rocket.API;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -55,7 +56,8 @@ namespace RealLifeFramework.RealPlayers
         public UnturnedKeyWatcher Keyboard { get; set; }
 
         // * Economy
-        public uint Money
+        public uint WalletMoney { get; set; } = 0;
+        public uint CreditCardMoney
         {
             get => Player.skills.experience;
             set => Player.skills.ServerSetExperience(value);
@@ -63,7 +65,6 @@ namespace RealLifeFramework.RealPlayers
 
         // * Admin
         public bool IsAdmin { get; set; }
-
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
         {
@@ -77,7 +78,7 @@ namespace RealLifeFramework.RealPlayers
             Name = result.Name;
             Age = result.Age;
             SetGender(result.Gender);
-            Money = Player.skills.experience;
+            CreditCardMoney = Player.skills.experience;
 
             Level = result.Level;
             Exp = result.Exp;
@@ -99,6 +100,7 @@ namespace RealLifeFramework.RealPlayers
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+            VoiceChat.Subscribe(this);
         }
 
         // New RealPlayer
@@ -114,7 +116,7 @@ namespace RealLifeFramework.RealPlayers
             Name = name;
             Age = age;
             SetGender(gender);
-            Money = Player.skills.experience;
+            CreditCardMoney = Player.skills.experience;
 
             Level = 1;
             Exp = 0;
@@ -131,6 +133,8 @@ namespace RealLifeFramework.RealPlayers
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+            VoiceChat.Subscribe(this);
+
         }
 
         public void SetGender(byte gender)
@@ -177,5 +181,45 @@ namespace RealLifeFramework.RealPlayers
         }
         #endregion
 
+        #region GetRealPlayer
+
+        public static RealPlayer From(CSteamID csteamid)
+        {
+            if (RealLife.Instance.RealPlayers.ContainsKey(csteamid))
+                return RealLife.Instance.RealPlayers[csteamid];
+            else
+                return null;
+        }
+
+        public static RealPlayer From(UnturnedPlayer player)
+        {
+            if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
+                return RealLife.Instance.RealPlayers[player.CSteamID];
+            else
+                return null;
+        }
+
+        public static RealPlayer From(IRocketPlayer player)
+        {
+            var p = (UnturnedPlayer)player;
+
+            if (RealLife.Instance.RealPlayers.ContainsKey(p.CSteamID))
+                return RealLife.Instance.RealPlayers[p.CSteamID];
+            else
+                return null;
+
+        }
+
+        public static RealPlayer From(Player player)
+        {
+            CSteamID p = player.channel.owner.playerID.steamID;
+
+            if (RealLife.Instance.RealPlayers.ContainsKey(p))
+                return RealLife.Instance.RealPlayers[p];
+            else
+                return null;
+        }
+
+        #endregion
     }
 }

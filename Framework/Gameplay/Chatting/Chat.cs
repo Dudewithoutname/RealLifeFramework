@@ -14,7 +14,7 @@ namespace RealLifeFramework.Chatting
 
         private static void onPlayerChatted(SteamPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
-            RealPlayer RealPlayer = RealPlayerManager.GetRealPlayer(player.player);
+            RealPlayer RealPlayer = RealPlayer.From(player.player);
             // TODO : Mute System , Administration system and this obviously
             if (text.StartsWith("/")) 
             {

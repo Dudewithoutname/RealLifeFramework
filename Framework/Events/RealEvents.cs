@@ -75,7 +75,7 @@ namespace RealLifeFramework
         private static void onDamageTireRequested(CSteamID instigatorSteamID, InteractableVehicle vehicle, int tireIndex, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {
             // Player Prevention
-            if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || damageOrigin == EDamageOrigin.Useable_Melee && !RealPlayerManager.GetRealPlayer(instigatorSteamID).IsAdmin)
+            if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || damageOrigin == EDamageOrigin.Useable_Melee && !RealPlayer.From(instigatorSteamID).IsAdmin)
                 shouldAllow = false;
         }
 
@@ -86,7 +86,7 @@ namespace RealLifeFramework
 
         private static void onTakeItemRequested(Player player, byte x, byte y, uint instanceID, byte to_x, byte to_y, byte to_rot, byte to_page, ItemData itemData, ref bool shouldAllow)
         {
-            RealPlayerManager.GetRealPlayer(player);
+            RealPlayer.From(player);
             shouldAllow = false;
         }
 
