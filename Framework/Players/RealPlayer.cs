@@ -7,11 +7,11 @@ using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
-using System;
+using UnityEngine;
 
 namespace RealLifeFramework.Players
 {
-    public class RealPlayer 
+    public class RealPlayer
     {
         // * Global
         public Player Player { get; set; }
@@ -23,9 +23,6 @@ namespace RealLifeFramework.Players
         public string Name { get; set; }
         public ushort Age { get; set; }
         public string Gender { get; set; }
-        public string PhoneNumber { get; set; }
-
-        ///public ulong UntCoins { get; set; }
 
         // * Roleplay
         public JobUser JobUser { get; set; }
@@ -34,17 +31,38 @@ namespace RealLifeFramework.Players
         // * Leveling System
         public ushort Level { get; set; }
         public uint Exp { get; set; }
-        public uint MaxExp { get; set; }
+        
+        public uint MaxExp 
+        { 
+            get 
+            {
+                if (Level < 10)
+                    return (uint)(100 * Level);
+                else if (Level < 20)
+                    return (uint)(150 * Level);
+                else if(Level < 30)
+                    return (uint)(175 * Level);
+                else if(Level < 40)
+                    return (uint)(200 * Level);
+                else
+                    return (uint)(250 * Level);
+            } 
+        }
 
         // * Ultility | * References
-        public uint Money { get; set; }
         public HUD HUD { get; set; }
         public ChatProfile ChatProfile { get; set; }
         public UnturnedKeyWatcher Keyboard { get; set; }
 
+        // * Economy
+        public uint Money
+        {
+            get => Player.skills.experience;
+            set => Player.skills.ServerSetExperience(value);
+        }
+
         // * Admin
         public bool IsAdmin { get; set; }
-
 
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
@@ -53,16 +71,16 @@ namespace RealLifeFramework.Players
             CSteamID = player.CSteamID;
             TransportConnection = player.Player.channel.GetOwnerTransportConnection();
             IP = TransportConnection.GetAddress().ToString();
+            int ipEnd = IP.LastIndexOf(':') + 1;
+            IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
             Name = result.Name;
             Age = result.Age;
             SetGender(result.Gender);
             Money = Player.skills.experience;
-            PhoneNumber = "0"; // TODO : Mobile number
 
             Level = result.Level;
             Exp = result.Exp;
-            MaxExp = GetExpForNextLevel();
 
             IsAdmin = player.IsAdmin;
 
@@ -97,11 +115,9 @@ namespace RealLifeFramework.Players
             Age = age;
             SetGender(gender);
             Money = Player.skills.experience;
-            PhoneNumber = "0"; // TODO : Mobile number
 
             Level = 1;
             Exp = 0;
-            MaxExp = GetExpForNextLevel();
 
             JobUser = null;
             SkillUser = new SkillUser(this);
@@ -152,7 +168,6 @@ namespace RealLifeFramework.Players
 
         private void levelUp()
         {
-            MaxExp = GetExpForNextLevel();
             Level++;
             RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "level", $"{Level}");
 
@@ -160,22 +175,6 @@ namespace RealLifeFramework.Players
             HUD.UpdateComponent(HUDComponent.Level);
 
         }
-
-        public uint GetExpForNextLevel()
-        {
-            if (Level < 10)
-                return (uint)(100 * Level);
-            else
-                if (Level < 20)
-                    return (uint)(150 * Level);
-                else if(Level < 30)
-                    return (uint)(175 * Level);
-                else if(Level < 40)
-                    return (uint)(200 * Level);
-                else
-                    return (uint)(250 * Level);
-        }
-
         #endregion
 
     }

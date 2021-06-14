@@ -129,7 +129,7 @@ namespace RealLifeFramework.UserInterface
         public void SendWidget(EWidgetType type)
         {
             bool isAlreadyActive = false;
-            string image = GetImage(type);
+            string image = WidgetInfo.GetImage(type);
 
             for (int i = 0; i < Widgets.Count; i++)
             {
@@ -191,23 +191,6 @@ namespace RealLifeFramework.UserInterface
                     Widgets.RemoveAt(widget.Index);
                 }
             }
-        }
-
-        public string GetImage(EWidgetType type)
-        {
-            switch (type)
-            {
-                case EWidgetType.Bleeding:
-                    return "";
-                case EWidgetType.BrokenBone:
-                    return "";
-                case EWidgetType.DoubleExp:
-                    return "";
-                case EWidgetType.Test:
-                    return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Circle-icons-car.svg/512px-Circle-icons-car.svg.png";
-            }
-
-            return null;
         }
 
         #endregion

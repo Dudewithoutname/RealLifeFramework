@@ -24,28 +24,6 @@ namespace RealLifeFramework.Commands
         public void Execute(IRocketPlayer caller, string[] command)
         {
             RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
-            player.HUD.SendWidget(UserInterface.EWidgetType.Test);
-        }
-    }
-
-    public class test3 : IRocketCommand
-    {
-        public AllowedCaller AllowedCaller => AllowedCaller.Player;
-
-        public string Name => "test3";
-
-        public string Help => "change voice mode";
-
-        public string Syntax => "/test3 (name)";
-
-        public List<string> Aliases => new List<string>();
-
-        public List<string> Permissions => new List<string>() { "dude.test" };
-
-        public void Execute(IRocketPlayer caller, string[] command)
-        {
-            RealPlayer player = RealPlayerManager.GetRealPlayer(caller);
-            player.HUD.RemoveWidget(UserInterface.EWidgetType.Test);
         }
     }
 }

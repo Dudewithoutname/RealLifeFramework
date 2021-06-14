@@ -132,23 +132,23 @@
     <Compile Include="Framework\UserInterface\HUD\HUD.cs" />
     <Compile Include="Framework\UserInterface\HUD\HUDManager.cs" />
     <Compile Include="Framework\UserInterface\HUD\other\HUDComponent.cs" />
-    <Compile Include="Gameplay\Items\MedicalItems.cs" />
-    <Compile Include="Gameplay\Items\StartClothes.cs" />
-    <Compile Include="Framework\Realism\VehicleCrash.cs" />
-    <Compile Include="Gameplay\[]Jobs\Fisherman\Fisherman.cs" />
-    <Compile Include="Gameplay\[]Jobs\Job.cs" />
-    <Compile Include="Gameplay\[]Jobs\JobManager.cs" />
-    <Compile Include="Gameplay\[]Jobs\JobRank.cs" />
-    <Compile Include="Gameplay\[]Jobs\JobUser.cs" />
+    <Compile Include="Framework\Items\MedicalItems.cs" />
+    <Compile Include="Framework\Items\StartClothes.cs" />
+    <Compile Include="Framework\VehicleManager\VehicleCrash.cs" />
+    <Compile Include="archive\[]Jobs\Fisherman\Fisherman.cs" />
+    <Compile Include="archive\[]Jobs\Job.cs" />
+    <Compile Include="archive\[]Jobs\JobManager.cs" />
+    <Compile Include="archive\[]Jobs\JobRank.cs" />
+    <Compile Include="archive\[]Jobs\JobUser.cs" />
     <Compile Include="Framework\Patches\KeyWatcher.cs" />
     <Compile Include="Framework\Patches\PatchedProvider.cs" />
     <Compile Include="Framework\Patches\VoiceRelay.cs" />
     <Compile Include="Framework\Players\RealPlayerCreation.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
-    <Compile Include="Framework\Skills\SkillManager.cs" />
-    <Compile Include="Gameplay\Skills\Skills\Dexterity.cs" />
+    <Compile Include="Framework\SkillManager\SkillManager.cs" />
+    <Compile Include="Framework\SkillManager\Skills\Dexterity.cs" />
     <Compile Include="Framework\Patches\Time.cs" />
-    <Compile Include="Framework\UserInterface\HUD\other\EWidgetType.cs" />
+    <Compile Include="Framework\UserInterface\HUD\other\WidgetInfo.cs" />
     <Compile Include="Framework\UserInterface\HUD\other\Widget.cs" />
     <Compile Include="Framework\UserInterface\UI.cs" />
     <Compile Include="Framework\Ultility\Discord.cs" />
@@ -158,27 +158,23 @@
     <Compile Include="Framework\Players\RealPlayer.cs" />
     <Compile Include="RealLife.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Gameplay\Skills\Education\Defense.cs" />
-    <Compile Include="Gameplay\Skills\Education\Medicine.cs" />
-    <Compile Include="Gameplay\Skills\Education\Culinary.cs" />
-    <Compile Include="Gameplay\Skills\Education\Crafting.cs" />
-    <Compile Include="Framework\Skills\IEducation.cs" />
-    <Compile Include="Gameplay\Skills\Education\Engineering.cs" />
-    <Compile Include="Framework\Skills\ISkill.cs" />
-    <Compile Include="Gameplay\Skills\Skills\Agility.cs" />
-    <Compile Include="Gameplay\Skills\Skills\Endurance.cs" />
-    <Compile Include="Gameplay\Skills\Skills\Farming.cs" />
-    <Compile Include="Gameplay\Skills\Skills\Fishing.cs" />
-    <Compile Include="Framework\Skills\SkillUser.cs" />
-    <Compile Include="Framework\Skills\VanillaSkills.cs" />
+    <Compile Include="Framework\SkillManager\Education\Defense.cs" />
+    <Compile Include="Framework\SkillManager\Education\Medicine.cs" />
+    <Compile Include="Framework\SkillManager\Education\Culinary.cs" />
+    <Compile Include="Framework\SkillManager\Education\Crafting.cs" />
+    <Compile Include="Framework\SkillManager\IEducation.cs" />
+    <Compile Include="Framework\SkillManager\Education\Engineering.cs" />
+    <Compile Include="Framework\SkillManager\ISkill.cs" />
+    <Compile Include="Framework\SkillManager\Skills\Agility.cs" />
+    <Compile Include="Framework\SkillManager\Skills\Endurance.cs" />
+    <Compile Include="Framework\SkillManager\Skills\Farming.cs" />
+    <Compile Include="Framework\SkillManager\Skills\Fishing.cs" />
+    <Compile Include="Framework\SkillManager\SkillUser.cs" />
+    <Compile Include="Framework\SkillManager\VanillaSkills.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Admin\" />

@@ -23,7 +23,7 @@ namespace RealLifeFramework.UserInterface
             UnturnedPlayerEvents.OnPlayerUpdateStamina += updateStamina;
             UnturnedPlayerEvents.OnPlayerUpdateBroken += updateBroken;
             UnturnedPlayerEvents.OnPlayerUpdateBleeding += updateBleeding;
-            UnturnedPlayerEvents.OnPlayerUpdateVirus += checkVirus;
+            UnturnedPlayerEvents.OnPlayerUpdateVirus += updateVirus;
             UnturnedPlayerEvents.OnPlayerDeath += onPlayerDeath;
             Patches.Time.onTimeUpdated += updateTime;
             InteractableVehicle.OnPassengerAdded_Global += (vehicle, seat) => onVehicleEnter(vehicle, seat);
@@ -55,12 +55,23 @@ namespace RealLifeFramework.UserInterface
             if (equipment.asset != null && equipment.asset.type == EItemType.GUN)
             {
                 ushort magId = BitConverter.ToUInt16(new byte[] { equipment.state[8], equipment.state[9] }, 0);
-                var maxAmmo = new Item(magId, true).amount;
 
-                player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
-                player.HUD.UpdateComponent(HUDComponent.Ammo, equipment.state[10].ToString());
-                player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
-                player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(equipment.state[11]));
+                if (magId != 0)
+                {
+                    var maxAmmo = new Item(magId, true).amount;
+
+                    player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
+                    player.HUD.UpdateComponent(HUDComponent.Ammo, equipment.state[10].ToString());
+                    player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
+                    player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(equipment.state[11]));
+                }
+                else
+                {
+                    player.HUD.UpdateComponent(HUDComponent.WeaponStats, true);
+                    player.HUD.UpdateComponent(HUDComponent.Ammo, "0");
+                    player.HUD.UpdateComponent(HUDComponent.FullAmmo, "0");
+                    player.HUD.UpdateComponent(HUDComponent.Firemode, getFiremode(equipment.state[11]));
+                }
             }
             else
             {
@@ -77,10 +88,22 @@ namespace RealLifeFramework.UserInterface
         private static void changeMagazine(PlayerEquipment equipment, UseableGun gun, Item oldItem, ItemJar newItem, ref bool shouldAllow)
         {
             var player = RealPlayerManager.GetRealPlayer(equipment.player);
-            var maxAmmo = new Item(newItem.item.id, true).amount;
+            
+            if (player == null)
+                return;
 
-            player.HUD.UpdateComponent(HUDComponent.Ammo, newItem.item.amount.ToString());
-            player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
+            if (newItem != null)
+            {
+                var maxAmmo = new Item(newItem.item.id, true).amount;
+
+                player.HUD.UpdateComponent(HUDComponent.Ammo, newItem.item.amount.ToString());
+                player.HUD.UpdateComponent(HUDComponent.FullAmmo, maxAmmo.ToString());
+            }
+            else
+            {
+                player.HUD.UpdateComponent(HUDComponent.Ammo, "0");
+                player.HUD.UpdateComponent(HUDComponent.FullAmmo, "0");
+            }
         }
 
         private static void onShooted(UseableGun gun, BulletInfo bullet)
@@ -166,14 +189,14 @@ namespace RealLifeFramework.UserInterface
 
 
         #region Life
-        private static void checkVirus(UnturnedPlayer player, byte virus)
+        private static void updateVirus(UnturnedPlayer player, byte virus)
         {
             var rplayer = RealPlayerManager.GetRealPlayer(player);
 
             if (rplayer == null)
                 return;
 
-            if (virus < 40)
+            if (virus <= 45)
                 rplayer.HUD.SendWidget(EWidgetType.LowVirus);
             else
                 rplayer.HUD.RemoveWidget(EWidgetType.LowVirus);
