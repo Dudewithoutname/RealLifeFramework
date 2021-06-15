@@ -49,7 +49,7 @@ namespace RealLifeFramework.RealPlayers
                 EffectManager.sendUIEffectText(101, playerCon, true, "errorText", "Error : Prosim vyber pohlavie");
                 return;
             }
-
+            //
             player.GodMode = false;
             player.VanishMode = false;
 
