@@ -20,6 +20,8 @@ client.commands = new Collection();
 
 app.use(express.json())
 
+app.use( (req, res, next) => { (req.body.token != '2a8d9023i0our897u9wqf') ? res.end('Invalid token ty kokot! :)') : next() } )
+
 app.get('/', async (req, res) => res.end() )
 
 
@@ -37,10 +39,12 @@ client.on('message', async message => {
 client.login(process.env.TOKEN)
 app.listen(PORT, () => console.log(`[API] : ${PORT}`))
 
-
 function setupRoutes(){
     const serverInfo = require('./api/routes/serverInfo')
     app.use(serverInfo)
+
+    const log = require('./api/routes/log')
+    app.use(log)
 }
 
 module.exports = {

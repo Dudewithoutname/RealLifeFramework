@@ -27,7 +27,7 @@ namespace RealLifeFramework.Realism
                     if (passenger == null)
                         continue;
 
-                    var player = RealPlayerManager.GetRealPlayer(passenger.player.playerID.steamID);
+                    var player = RealPlayer.From(passenger.player.playerID.steamID);
 
                     if (vehicle.asset.engine == EEngine.CAR && player != null)
                     {

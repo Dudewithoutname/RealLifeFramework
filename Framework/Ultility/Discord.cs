@@ -4,6 +4,7 @@ using System.IO;
 using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using Steamworks;
+using SDG.Unturned;
 
 namespace RealLifeFramework
 {
@@ -12,27 +13,6 @@ namespace RealLifeFramework
         public static readonly string WebHookName = "DudeTurned";
         public static readonly string WebHookImage = "https://dennikpolitika.sk/wp-content/uploads/2015/12/cigan.png";
         public static string WebHookURL = "https://discord.com/api/webhooks/835275783986610196/vfqWbSAyxj0glwF51CCEuRhItuSkZELM6S8Q-Sz2ipMxk1GYY9wEcAxp38fvHKIjVvVS";
-
-        // TODO: better send message
-        public static void SendDiscord(string message)
-        {
-            string json =
-                ("{  " +
-               $"'username': '{WebHookName}',  " +
-               $"'avatar_url': '{WebHookImage}',  " +
-                "'embeds': [ {    " +
-               $"       'title': '{message}',    " +
-                "       'color': 15258703,  " +
-                "       'footer': { " +
-               $"           'text': 'Dudeturned | {DateTime.Now.ToString("HH:mm:ss dd.MM.yyyy")}'   " +
-                "        }    " +
-                "} ]" +
-                "}").Replace('\'','"');
-
-            sendToAPI(json);
-
-        }
-
         public static void SendNewPlayer(RealPlayer player)
         {
             var untPlayer = UnturnedPlayer.FromCSteamID(player.CSteamID);
@@ -72,11 +52,12 @@ namespace RealLifeFramework
                 " ]" +
                 "}").Replace('\'', '"');
 
-            sendToAPI(json);
+            sendToDiscord(json);
         }
 
-        private static void sendToAPI(string req)
+        private static void sendToDiscord(string req)
         {
+            try { 
             var webRequest = WebRequest.Create(WebHookURL);
             webRequest.ContentType = "application/json";
             webRequest.Method = "POST";
@@ -85,7 +66,30 @@ namespace RealLifeFramework
                 sw.Write(req);
 
             var x = webRequest.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                CommandWindow.Log($"Discord Error : {ex}");
+            }
+        }
 
+        private static void sendToAPI(string req)
+        {
+            try
+            {
+                var webRequest = WebRequest.Create(WebHookURL);
+                webRequest.ContentType = "application/json";
+                webRequest.Method = "POST";
+
+                using (var sw = new StreamWriter(webRequest.GetRequestStream()))
+                    sw.Write(req);
+
+                var x = webRequest.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                CommandWindow.Log($"Discord Error : {ex}");
+            }
         }
     }
 }

@@ -66,15 +66,7 @@ namespace RealLifeFramework.RealPlayers
             
             PrePlayers.Remove(steamId);
 
-            //  remove tihs and add it to sendnewplayer func
-            try
-            {
-                Discord.SendNewPlayer(RealPlayer);
-            }
-            catch (Exception e)
-            {
-                Logger.Log($"[Discord API] Error when posting embed {e}");
-            }
+            Discord.SendNewPlayer(RealPlayer);
         }
 
         private static void giveStartingItems(Player player)

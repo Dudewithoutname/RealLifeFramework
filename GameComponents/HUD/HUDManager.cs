@@ -33,6 +33,14 @@ namespace RealLifeFramework.UserInterface
             UseableGun.onChangeMagazineRequested += changeMagazine;
             UseableGun.onBulletSpawned += onShooted;
             ChangeFiremode.OnFiremodeChanged += onFiremodeChanged;
+            PlayerSkills.OnExperienceChanged_Global += (instance, exp) => onExpUpdate(instance, exp);
+        }
+
+        private static void onExpUpdate(PlayerSkills skills, uint exp)
+        {
+            var rp = RealPlayer.From(skills.player);
+
+            rp.HUD.UpdateComponent(HUDComponent.Credit);
         }
 
         private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)

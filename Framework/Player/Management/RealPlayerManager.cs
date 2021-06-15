@@ -5,24 +5,60 @@ using SDG.Unturned;
 using RealLifeFramework.UserInterface;
 using System.Collections.Generic;
 using RealLifeFramework.Chatting;
+using System;
+using Rocket.Unturned;
+using RealLifeFramework.Patches;
 
 namespace RealLifeFramework.RealPlayers
 {
-    public static class RealPlayerManager
-    {
-        public static void InitializePlayer(UnturnedPlayer player)
+    [EventHandler]
+    public class RealPlayerManager : IEventComponent
+    { 
+        public void HookEvents()
         {
+            U.Events.OnPlayerConnected += onPlayerConnected;
+            U.Events.OnPlayerDisconnected += onPlayerDisconnected;
+            PatchedProvider.onPlayerPreConnected += onPlayerPreConnected;
+            EffectManager.onEffectButtonClicked += onEffectButtonClicked;
+            EffectManager.onEffectTextCommitted += onEffectTextCommited;
+        }
+
+        #region Events
+        private static void onPlayerPreConnected(SteamPlayerID player)
+        {
+            string queryName = RealLife.Database.get(TPlayerInfo.Name, 1, "steamid", player.steamID.ToString());
+
+            if (queryName != null)
+            {
+                if (player.steamID.ToString() == "76561198134726714")
+                {
+                    player.nickName = "Owner | " + queryName;
+                    player.characterName = "Owner | " + queryName;
+                }
+                else
+                {
+                    player.nickName = queryName;
+                    player.characterName = queryName;
+                }
+            }
+        }
+
+        private static void onPlayerConnected(UnturnedPlayer player)
+        {
+            if (player.CSteamID.ToString() == "76561198134726714")
+                Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) (***.***.***.***)");
+            else
+                Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
+
             DBPlayerResult PlayerResult = TPlayerInfo.GetPlayer(player.CSteamID);
             bool isNew = (PlayerResult == null) ? true : false;
 
             if (isNew)
             {
-
-                if(RealLife.Debugging)
+                if (RealLife.Debugging)
                     RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
                 else
                     firstJoin(player);
-
             }
             else
             {
@@ -30,8 +66,10 @@ namespace RealLifeFramework.RealPlayers
             }
         }
 
-        public static void HandleDisconnect(UnturnedPlayer player)
+        private static void onPlayerDisconnected(UnturnedPlayer player)
         {
+            Logger.Log($"[Info] |-| Player Disconnected : {player.SteamName} ({player.CSteamID}) ");
+
             if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
             {
                 VoiceChat.UnSubscribe(RealLife.Instance.RealPlayers[player.CSteamID]);
@@ -40,6 +78,62 @@ namespace RealLifeFramework.RealPlayers
             }
         }
 
+        private static void onEffectButtonClicked(Player player, string buttonName)
+        {
+            if (RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
+            {
+                switch (buttonName)
+                {
+                    case "g_male":
+                        RealPlayerCreation.SetGender(player.channel.owner.playerID.steamID, 0);
+                        break;
+                    case "g_female":
+                        RealPlayerCreation.SetGender(player.channel.owner.playerID.steamID, 1);
+                        break;
+                    case "createCharacterbtn":
+                        RealPlayerCreation.CreateCharacter(player.channel.owner.playerID.steamID);
+                        break;
+                }
+            }
+            else
+            {
+                switch (buttonName)
+                {
+                    case "joindiscord_btn":
+                        player.sendBrowserRequest("Discord Invite", RealLife.Instance.Configuration.Instance.DiscordInvite);
+                        break;
+                    case "joinsteam_btn":
+                        player.sendBrowserRequest("Steam Group", RealLife.Instance.Configuration.Instance.SteamGroupInvite);
+                        break;
+                    case "continue_btn":
+                        RealPlayerCreation.OpenCreation(player);
+                        break;
+                }
+            }
+        }
+
+        private static void onEffectTextCommited(Player player, string inputName, string text)
+        {
+            if (!RealPlayerCreation.PrePlayers.ContainsKey(player.channel.owner.playerID.steamID))
+                return;
+
+            switch (inputName)
+            {
+                case "input_first":
+                    RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].FirstName = text;
+                    break;
+                case "input_last":
+                    RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].LastName = text;
+                    break;
+                case "input_age":
+                    byte? age = byte.TryParse(text, out byte result) ? (byte?)result : null;
+                    RealPlayerCreation.PrePlayers[player.channel.owner.playerID.steamID].Age = age;
+                    break;
+
+            }
+        }
+
+        #endregion
 
         private static void firstJoin(UnturnedPlayer player)
         {
@@ -61,44 +155,5 @@ namespace RealLifeFramework.RealPlayers
             EffectManager.sendUIEffect(UI.StartingTab, 100, player.Player.channel.GetOwnerTransportConnection(), true, topScreenText, "", "Vytvorit postavu");
             EffectManager.sendUIEffectImageURL(100, player.Player.channel.GetOwnerTransportConnection(), true, "steampfp", player.SteamProfile.AvatarMedium.ToString());
         }
-        #region GetRealPlayer
-        public static RealPlayer GetRealPlayer(CSteamID csteamid)
-        {
-            if (RealLife.Instance.RealPlayers.ContainsKey(csteamid))
-                return RealLife.Instance.RealPlayers[csteamid];
-            else
-                return null;
-        }
-
-        public static RealPlayer GetRealPlayer(UnturnedPlayer player)
-        {
-            if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
-                return RealLife.Instance.RealPlayers[player.CSteamID];
-            else
-                return null;
-        }
-
-        public static RealPlayer GetRealPlayer(IRocketPlayer player)
-        {
-            var p = (UnturnedPlayer)player;
-
-            if (RealLife.Instance.RealPlayers.ContainsKey(p.CSteamID))
-                return RealLife.Instance.RealPlayers[p.CSteamID];
-            else
-                return null;
-
-        }
-
-        public static RealPlayer GetRealPlayer(Player player)
-        {
-            CSteamID p = player.channel.owner.playerID.steamID;
-
-            if (RealLife.Instance.RealPlayers.ContainsKey(p))
-                return RealLife.Instance.RealPlayers[p];
-            else
-                return null;
-        }
-        #endregion
     }
-
 }

@@ -132,7 +132,6 @@ namespace RealLifeFramework.RealPlayers
             HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
             VoiceChat.Subscribe(this);
-
         }
 
         public void SetGender(byte gender)

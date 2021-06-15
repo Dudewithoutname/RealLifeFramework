@@ -31,7 +31,7 @@ namespace RealLifeFramework.Chatting
 
         private static bool HandleVoiceRelay(PlayerVoice speaker, PlayerVoice listener)
         {
-            RealPlayer rplayer = RealPlayerManager.GetRealPlayer(speaker.player);
+            var rplayer = RealPlayer.From(speaker.player);
             
             switch (rplayer.ChatProfile.VoiceMode)
             {
@@ -66,7 +66,7 @@ namespace RealLifeFramework.Chatting
         {
             if (key == UnturnedKey.CodeHotkey1 && ((System.Object)player.movement.getVehicle()) == null)
             {
-                GetNextVoiceMode(RealPlayerManager.GetRealPlayer(player));
+                GetNextVoiceMode(RealPlayer.From(player));
             }
         }
 
