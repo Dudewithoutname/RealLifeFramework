@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Steamworks;
 using MySql.Data.MySqlClient;
-using RealLifeFramework.Jobs;
 using RealLifeFramework.Skills;
 using RealLifeFramework.RealPlayers;
 using System.Reflection;
@@ -63,7 +62,6 @@ namespace RealLifeFramework
             string[] query = 
             { 
                 $"DELETE FROM {TPlayerInfo.Name}",
-                $"DELETE FROM {TPlayerJob.Name}",
                 $"DELETE FROM {TPlayerSkills.Name}",
                 $"DELETE FROM {TSecurity.Name}",
             };

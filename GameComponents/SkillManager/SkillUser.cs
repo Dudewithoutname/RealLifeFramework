@@ -1,10 +1,12 @@
-﻿using RealLifeFramework.RealPlayers;
+﻿using Newtonsoft.Json;
+using RealLifeFramework.RealPlayers;
 using System.Collections.Generic;
 
 namespace RealLifeFramework.Skills
 {
     public class SkillUser
     {
+        [JsonIgnore]
         public RealPlayer RealPlayer { get; set; }
         public ushort EducationPoints { get; set; }
         // Note: everything should start from level 0

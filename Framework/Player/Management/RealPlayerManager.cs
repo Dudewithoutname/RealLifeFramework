@@ -63,6 +63,7 @@ namespace RealLifeFramework.RealPlayers
             else
             {
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, PlayerResult));
+                RealPlayer.From(player.CSteamID).SaveToJson();
             }
         }
 

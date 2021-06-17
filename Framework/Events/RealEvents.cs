@@ -19,18 +19,12 @@ namespace RealLifeFramework
         public void HookEvents()
         {
 
-            U.Events.OnPlayerConnected += onPlayerConnected;
-            U.Events.OnPlayerDisconnected += onPlayerDisconnected;
-            PatchedProvider.onPlayerPreConnected += onPlayerPreConnected;
             VehicleManager.onDamageTireRequested += onDamageTireRequested;
 
            /* DamageTool.damagePlayerRequested += onPlayerDamageRequest;
 
             ItemManager.onTakeItemRequested += onTakeItemRequested;
             BarricadeManager.onOpenStorageRequested += onOpenStorageRequested;*/
-
-            EffectManager.onEffectButtonClicked += onEffectButtonClicked;
-            EffectManager.onEffectTextCommitted += onEffectTextCommited;
         }
         private static void onDamageTireRequested(CSteamID instigatorSteamID, InteractableVehicle vehicle, int tireIndex, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {

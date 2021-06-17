@@ -2,22 +2,28 @@
 using SDG.Unturned;
 using SDG.NetTransport;
 using Rocket.Unturned.Player;
-using RealLifeFramework.Jobs;
 using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
 using UnityEngine;
 using Rocket.API;
+using Newtonsoft.Json;
+using System.IO;
+using RealLifeFramework.Data;
 
 namespace RealLifeFramework.RealPlayers
 {
     public class RealPlayer
     {
         // * Global
+        [JsonIgnore]
         public Player Player { get; set; }
+        [JsonIgnore]
         public CSteamID CSteamID { get; set; }
+        [JsonIgnore]
         public string IP { get; set; }
+        [JsonIgnore]
         public ITransportConnection TransportConnection { get; set; }
 
         // * Character
@@ -26,13 +32,13 @@ namespace RealLifeFramework.RealPlayers
         public string Gender { get; set; }
 
         // * Roleplay
-        public JobUser JobUser { get; set; }
         public SkillUser SkillUser { get; set; }
 
         // * Leveling System
         public ushort Level { get; set; }
         public uint Exp { get; set; }
         
+        [JsonIgnore]
         public uint MaxExp 
         { 
             get 
@@ -40,7 +46,7 @@ namespace RealLifeFramework.RealPlayers
                 if (Level < 10)
                     return (uint)(100 * Level);
                 else if (Level < 20)
-                    return (uint)(150 * Level);
+                    return (uint)(150 * Level); 
                 else if(Level < 30)
                     return (uint)(175 * Level);
                 else if(Level < 40)
@@ -51,8 +57,11 @@ namespace RealLifeFramework.RealPlayers
         }
 
         // * Ultility | * References
+        [JsonIgnore]
         public HUD HUD { get; set; }
+        [JsonIgnore]
         public ChatProfile ChatProfile { get; set; }
+        [JsonIgnore]
         public UnturnedKeyWatcher Keyboard { get; set; }
 
         // * Economy
@@ -65,6 +74,15 @@ namespace RealLifeFramework.RealPlayers
 
         // * Admin
         public bool IsAdmin { get; set; }
+
+        public void SaveToJson()
+        {
+            var json = JsonConvert.SerializeObject(this);
+            using (var writer = new StreamWriter("D:\\SteamLibrary\\steamapps\\common\\U3DS\\Servers\\Default\\Rocket\\DudeTurned_Data\\cigi.json")) 
+            {
+                writer.Write(json);
+            }
+        }
 
         public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
         {
@@ -83,15 +101,6 @@ namespace RealLifeFramework.RealPlayers
             Exp = result.Exp;
 
             IsAdmin = player.IsAdmin;
-
-            var jobResult = TPlayerJob.GetJobInfo(CSteamID);
-            JobUser = new JobUser()
-            {
-                Job = jobResult.Job,
-                Level = jobResult.Level,
-                Exp = jobResult.Exp,
-            };
-
 
             var skillResult = TPlayerSkills.GetSkillsInfo(this);
             SkillUser = new SkillUser(this, skillResult);
@@ -119,7 +128,6 @@ namespace RealLifeFramework.RealPlayers
             Level = 1;
             Exp = 0;
 
-            JobUser = null;
             SkillUser = new SkillUser(this);
 
             IsAdmin = player.IsAdmin;

@@ -33,14 +33,11 @@ namespace RealLifeFramework
                 string queryPlayer = $"INSERT INTO {TPlayerInfo.Name} (steamid, name, age, gender, level, exp) VALUES " +
                     $"('{csteamid}', '{fullname}', '{age}', '{gender}', '1','0')";
 
-                string queryJob = $"INSERT INTO {TPlayerJob.Name} (steamid, id) VALUES ('{csteamid}', '-1')";
-
                 string querySkill = $"INSERT INTO {TPlayerSkills.Name} (steamid) VALUES ('{csteamid}')";
 
                 List<MySqlCommand> cmds = new List<MySqlCommand>()
                 {
                     new MySqlCommand(queryPlayer, RealLife.Database.Connection),
-                    new MySqlCommand(queryJob, RealLife.Database.Connection),
                     new MySqlCommand(querySkill, RealLife.Database.Connection),
                 };
 
