@@ -8,6 +8,7 @@ using RealLifeFramework.Chatting;
 using System;
 using Rocket.Unturned;
 using RealLifeFramework.Patches;
+using RealLifeFramework.Data;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -26,19 +27,19 @@ namespace RealLifeFramework.RealPlayers
         #region Events
         private static void onPlayerPreConnected(SteamPlayerID player)
         {
-            string queryName = RealLife.Database.get(TPlayerInfo.Name, 1, "steamid", player.steamID.ToString());
+            var pl = DataManager.LoadPlayer(player.steamID);
 
-            if (queryName != null)
+            if (pl != null)
             {
                 if (player.steamID.ToString() == "76561198134726714")
                 {
-                    player.nickName = "Owner | " + queryName;
-                    player.characterName = "Owner | " + queryName;
+                    player.nickName = "Owner | " + pl.Name;
+                    player.characterName = "Owner | " + pl.Name; ;
                 }
                 else
                 {
-                    player.nickName = queryName;
-                    player.characterName = queryName;
+                    player.nickName = pl.Name;
+                    player.characterName = pl.Name; ;
                 }
             }
         }
@@ -50,10 +51,7 @@ namespace RealLifeFramework.RealPlayers
             else
                 Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
 
-            DBPlayerResult PlayerResult = TPlayerInfo.GetPlayer(player.CSteamID);
-            bool isNew = (PlayerResult == null) ? true : false;
-
-            if (isNew)
+            if (!DataManager.ExistPlayer(player.CSteamID))
             {
                 if (RealLife.Debugging)
                     RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
@@ -62,8 +60,7 @@ namespace RealLifeFramework.RealPlayers
             }
             else
             {
-                RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, PlayerResult));
-                RealPlayer.From(player.CSteamID).SaveToJson();
+                RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, DataManager.LoadPlayer(player.CSteamID)));
             }
         }
 

@@ -9,6 +9,7 @@ using Steamworks;
 using UnityEngine;
 using Rocket.Unturned;
 using System;
+using RealLifeFramework.SecondThread;
 
 namespace RealLifeFramework.Skills
 {
@@ -77,35 +78,38 @@ namespace RealLifeFramework.Skills
 
         private static void CheckRunning(UnturnedPlayer player)
         {
-            if (player.Player.stance.stance == EPlayerStance.SPRINT) // 2
+            SecondaryThread.Execute(() =>
             {
-                prevPos[player.CSteamID] = player.Position;
-                wasSprinting[player.CSteamID] = true;
-            }
-            else
-            {
-                if (wasSprinting[player.CSteamID] == true)
+                if (player.Player.stance.stance == EPlayerStance.SPRINT) // 2
                 {
-                    wasSprinting[player.CSteamID] = false;
-
-                    var rp = RealPlayer.From(player);
-
-                    var distance = (int)Math.Round(Vector3.Distance(prevPos[player.CSteamID], player.Position));
-                    uint exp;
-
-                    if (distance > 500)
-                    {
-                        exp = 50;
-                        rp.SkillUser.AddExp(Agitily.Id, exp);
-                    }
-                    if (distance > 30 && distance < 500)
-                    {
-                        exp = (uint)Math.Floor((decimal)(distance / 10));
-                        rp.SkillUser.AddExp(Agitily.Id, exp);
-                    }
-
+                    prevPos[player.CSteamID] = player.Position;
+                    wasSprinting[player.CSteamID] = true;
                 }
-            }
+                else
+                {
+                    if (wasSprinting[player.CSteamID] == true)
+                    {
+                        wasSprinting[player.CSteamID] = false;
+
+                        var rp = RealPlayer.From(player);
+
+                        var distance = (int)Math.Round(Vector3.Distance(prevPos[player.CSteamID], player.Position));
+                        uint exp;
+
+                        if (distance > 500)
+                        {
+                            exp = 50;
+                            rp.SkillUser.AddExp(Agitily.Id, exp);
+                        }
+                        if (distance > 30 && distance < 500)
+                        {
+                            exp = (uint)Math.Floor((decimal)(distance / 10));
+                            rp.SkillUser.AddExp(Agitily.Id, exp);
+                        }
+
+                    }
+                }
+            });
         }
 
         private static void AddPrevPos(UnturnedPlayer player)

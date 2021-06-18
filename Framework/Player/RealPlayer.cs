@@ -17,23 +17,21 @@ namespace RealLifeFramework.RealPlayers
     public class RealPlayer
     {
         // * Global
-        public Player Player { get; set; }
-        public CSteamID CSteamID { get; set; }
-        public string IP { get; set; }
-        public ITransportConnection TransportConnection { get; set; }
+        [JsonIgnore] public Player Player { get; set; }
+        [JsonIgnore] public CSteamID CSteamID { get; set; }
+        [JsonIgnore] public string IP { get; set; }
+        [JsonIgnore] public ITransportConnection TransportConnection { get; set; }
 
         // * Character
         public string Name { get; set; }
         public ushort Age { get; set; }
         public string Gender { get; set; }
 
-        // * Roleplay
-        public SkillUser SkillUser { get; set; }
-
         // * Leveling System
         public ushort Level { get; set; }
         public uint Exp { get; set; }
         
+        [JsonIgnore]
         public uint MaxExp 
         { 
             get 
@@ -51,10 +49,9 @@ namespace RealLifeFramework.RealPlayers
             } 
         }
 
-        // * Ultility | * References
-        public HUD HUD { get; set; }
-        public ChatProfile ChatProfile { get; set; }
-        public UnturnedKeyWatcher Keyboard { get; set; }
+        // * Roleplay
+        public SkillUser SkillUser { get; set; }
+        public bool IsAdmin { get; set; }
 
         // * Economy
         public uint WalletMoney { get; set; } = 0;
@@ -64,19 +61,12 @@ namespace RealLifeFramework.RealPlayers
             set => Player.skills.ServerSetExperience(value);
         }
 
-        // * Admin
-        public bool IsAdmin { get; set; }
+        // * Ultility
+        [JsonIgnore] public HUD HUD { get; set; }
+        [JsonIgnore] public ChatProfile ChatProfile { get; set; }
+        [JsonIgnore] public UnturnedKeyWatcher Keyboard { get; set; }
 
-        public void SaveToJson()
-        {
-            var json = JsonConvert.SerializeObject(this);
-            using (var writer = new StreamWriter("D:\\SteamLibrary\\steamapps\\common\\U3DS\\Servers\\Default\\Rocket\\DudeTurned_Data\\cigi.json")) 
-            {
-                writer.Write(json);
-            }
-        }
-
-        public RealPlayer(UnturnedPlayer player, DBPlayerResult result)
+        public RealPlayer(UnturnedPlayer player, RealPlayer data)
         {
             Player = player.Player;
             CSteamID = player.CSteamID;
@@ -85,17 +75,16 @@ namespace RealLifeFramework.RealPlayers
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
-            Name = result.Name;
-            Age = result.Age;
-            SetGender(result.Gender);
+            Name = data.Name;
+            Age = data.Age;
+            Gender = data.Gender;
 
-            Level = result.Level;
-            Exp = result.Exp;
+            Level = data.Level;
+            Exp = data.Exp;
 
             IsAdmin = player.IsAdmin;
 
-            var skillResult = TPlayerSkills.GetSkillsInfo(this);
-            SkillUser = new SkillUser(this, skillResult);
+            SkillUser = new SkillUser(this, data);
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
@@ -124,14 +113,13 @@ namespace RealLifeFramework.RealPlayers
 
             IsAdmin = player.IsAdmin;
 
-            TPlayerInfo.NewPlayer(player.CSteamID.ToString(), name, age, gender);
-
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
             VoiceChat.Subscribe(this);
+            DataManager.CreatePlayer(this);
         }
 
         public void SetGender(byte gender)

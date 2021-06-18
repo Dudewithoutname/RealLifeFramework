@@ -94,28 +94,14 @@ namespace RealLifeFramework.Skills
             };
         }
 
-        public SkillUser(RealPlayer player, DBSkillsResult skillResult)
+        public SkillUser(RealPlayer player, RealPlayer data)
         {
             RealPlayer = player;
-            EducationPoints = skillResult.EducationPoints;
+            EducationPoints = data.SkillUser.EducationPoints;
 
-            Skills = new List<ISkill>()
-            {
-                skillResult.Skills[0],
-                skillResult.Skills[1],
-                skillResult.Skills[2],
-                skillResult.Skills[3],
-                skillResult.Skills[4],
-            };
+            Skills = new List<ISkill>(data.SkillUser.Skills);
 
-            Educations = new List<IEducation>()
-            {
-                skillResult.Educations[0],
-                skillResult.Educations[1],
-                skillResult.Educations[2],
-                skillResult.Educations[3],
-                skillResult.Educations[4],
-            };
+            Educations = new List<IEducation>(data.SkillUser.Educations);
         }
     }
 }

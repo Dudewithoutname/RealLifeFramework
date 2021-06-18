@@ -109,12 +109,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\API\IDataProvider.cs" />
-    <Compile Include="Data\DataManager.cs" />
-    <Compile Include="Data\Models\Player\RealPlayerData.cs" />
-    <Compile Include="Data\Models\Player\SkillUserData.cs" />
+    <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
+    <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerManager.cs" />
@@ -151,7 +149,7 @@
     <Compile Include="GameComponents\HUD\other\WidgetInfo.cs" />
     <Compile Include="GameComponents\HUD\other\Widget.cs" />
     <Compile Include="Framework\Ultility\UI.cs" />
-    <Compile Include="Framework\Ultility\Discord.cs" />
+    <Compile Include="Framework\Ultility\Discord\Discord.cs" />
     <Compile Include="Framework\Ultility\Logger.cs" />
     <Compile Include="RealConfig.cs" />
     <Compile Include="RealLife.cs" />
@@ -174,6 +172,9 @@
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

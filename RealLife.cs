@@ -9,6 +9,7 @@ using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Items;
 using HarmonyLib;
 using RealLifeFramework.Data;
+using RealLifeFramework.SecondThread;
 
 namespace RealLifeFramework
 {
@@ -20,7 +21,7 @@ namespace RealLifeFramework
         public static bool Debugging = false;
         private Harmony harmony;
         /*
-                     new JobRank("Novice", 1, 0),
+            new JobRank("Novice", 1, 0),
             new JobRank("Beginner", 2, 100),
             new JobRank("Regular", 3, 300),
             new JobRank("Intermediate", 4, 500),
@@ -32,9 +33,12 @@ namespace RealLifeFramework
          */
         protected override void Load()
         {
-            Instance = this;
             Logger.Log("[Starting]- - - - - - - * RealLife * - - - - - - -");
             Logger.Log("[Author] : Dudewithoutname#3129");
+            
+            Instance = this;
+            SecondaryThread.Start();
+
 
             Database.Server = Configuration.Instance.DatabaseServer;
             Database.DatabaseName = Configuration.Instance.DatabaseName;
