@@ -111,7 +111,8 @@
   <ItemGroup>
     <Compile Include="Data\API\IDataProvider.cs" />
     <Compile Include="Data\DataManager.cs" />
-    <Compile Include="Data\Models\RealPlayerData.cs" />
+    <Compile Include="Data\Models\Player\RealPlayerData.cs" />
+    <Compile Include="Data\Models\Player\SkillUserData.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />

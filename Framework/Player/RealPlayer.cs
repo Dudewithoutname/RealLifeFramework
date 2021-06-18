@@ -17,13 +17,9 @@ namespace RealLifeFramework.RealPlayers
     public class RealPlayer
     {
         // * Global
-        [JsonIgnore]
         public Player Player { get; set; }
-        [JsonIgnore]
         public CSteamID CSteamID { get; set; }
-        [JsonIgnore]
         public string IP { get; set; }
-        [JsonIgnore]
         public ITransportConnection TransportConnection { get; set; }
 
         // * Character
@@ -38,7 +34,6 @@ namespace RealLifeFramework.RealPlayers
         public ushort Level { get; set; }
         public uint Exp { get; set; }
         
-        [JsonIgnore]
         public uint MaxExp 
         { 
             get 
@@ -57,11 +52,8 @@ namespace RealLifeFramework.RealPlayers
         }
 
         // * Ultility | * References
-        [JsonIgnore]
         public HUD HUD { get; set; }
-        [JsonIgnore]
         public ChatProfile ChatProfile { get; set; }
-        [JsonIgnore]
         public UnturnedKeyWatcher Keyboard { get; set; }
 
         // * Economy

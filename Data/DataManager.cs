@@ -1,7 +1,9 @@
-﻿using System;
+﻿using RealLifeFramework.Data.API;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,9 +22,11 @@ namespace RealLifeFramework.Data
             }
         }
 
-        /*public static T GetData<T>()
+        public static IDataProvider GetData<IDataProvider>()
         {
-            return null;
-        }*/
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+                if (type.GetInterfaces().Contains(typeof(IDataProvider)))
+                    
+        }
     }
 }
