@@ -28,10 +28,10 @@ namespace RealLifeFramework.Security
         public void HookEvents()
         {
             Load();
-            Provider.onCheckBanStatusWithHWID += checkBan;
+            /*Provider.onCheckBanStatusWithHWID += checkBan;
             U.Events.OnPlayerConnected += HandleBan;
             Provider.onBanPlayerRequested += doHWIDBan;
-            Provider.onUnbanPlayerRequested += doHWIDUnban;
+            Provider.onUnbanPlayerRequested += doHWIDUnban;*/
         }
 
         private void checkBan(SteamPlayerID playerID, uint remoteIP, ref bool isBanned, ref string banReason, ref uint banRemainingDuration)

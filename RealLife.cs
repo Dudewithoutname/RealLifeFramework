@@ -48,8 +48,8 @@ namespace RealLifeFramework
 
             DataManager.Settup();
 
-            Database.IsConnect();
-            Database.Setup();
+            //Database.IsConnect();
+            //Database.Setup();
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
@@ -62,16 +62,33 @@ namespace RealLifeFramework
             RealPlayerCreation.Load();
             Level.onLevelLoaded += overrideServerStuff;
 
+            Provider.onCommenceShutdown += () => saveData();
+            InvokeRepeating(nameof(saveData), 1800f, 1800f);
             Logger.Log("[Finished]- - - - - - - * RealLife * - - - - - - -");
         }
 
         protected override void Unload()
         {
-            Logger.Log("[Unloading] - - - [RealLife Framework]");
+            Logger.Log("Unloading is unsupported!");
             Database.Close();
+            harmony.UnpatchAll();
             Database = null;
             Instance = null;
-            harmony.UnpatchAll();
+        }
+
+        private void saveData()
+        {
+            SecondaryThread.Execute(() =>
+            {
+                Logger.Log("[Datamanager] Performing saving");
+
+                foreach(var player in RealPlayers.Values)
+                {
+                    DataManager.SavePlayer(player);
+                }
+
+                Logger.Log("[Datamanager] Autosave finished");
+            });
         }
 
         private void overrideServerStuff(int level)

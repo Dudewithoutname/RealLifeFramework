@@ -19,7 +19,7 @@ namespace RealLifeFramework.Commands
 
         public string Syntax => "/seatbelt";
 
-        public List<string> Aliases => new List<string>();
+        public List<string> Aliases => new List<string>() { "zapasat", "belt" };
 
         public List<string> Permissions => new List<string> { "dude.basic" };
 

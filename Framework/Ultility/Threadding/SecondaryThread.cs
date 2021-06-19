@@ -9,14 +9,17 @@ namespace RealLifeFramework.SecondThread
 {
     public class SecondaryThread
     {
-        private static readonly List<Action> queue = new List<Action>();
-        private static readonly List<Action> copiedQueue = new List<Action>();
+        private static List<Action> queue = new List<Action>();
+        private static List<Action> copiedQueue = new List<Action>();
         private static bool hasAction = false;
-        private static Thread secondaryThread;
+        private static Thread thread;
 
         public static void Start()
         {
-            secondaryThread = new Thread(UpdateThread);
+            thread = new Thread(UpdateThread);
+            thread.Start();
+            Logger.Log("[SecondaryThread] : Started!");
+
         }
 
         public static void Execute(Action action)
@@ -34,22 +37,26 @@ namespace RealLifeFramework.SecondThread
             }
         }
 
-        public static void UpdateThread()
+        private static void UpdateThread()
         {
-            if (hasAction)
+            while (true)
             {
-                copiedQueue.Clear();
-
-                lock (queue)
+                if (hasAction)
                 {
-                    copiedQueue.AddRange(queue);
-                    queue.Clear();
-                    hasAction = false;
-                }
+                    copiedQueue.Clear();
 
-                for (int i = 0; i < copiedQueue.Count; i++)
-                {
-                    copiedQueue[i]();
+                    lock (queue)
+                    {
+                        copiedQueue.AddRange(queue);
+                        queue.Clear();
+                        hasAction = false;
+                    }
+
+                    for (int i = 0; i < copiedQueue.Count; i++)
+                    {
+                        copiedQueue[i]();
+                    }
+
                 }
 
                 Thread.Sleep(0);

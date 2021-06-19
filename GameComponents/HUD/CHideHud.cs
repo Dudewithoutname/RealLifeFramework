@@ -20,7 +20,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>() { "hideui", "hudhide", "uihide", "skrytui", "skrythud"};
 
-        public List<string> Permissions => new List<string> { "dude.base" };
+        public List<string> Permissions => new List<string> { "dude.basic" };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {

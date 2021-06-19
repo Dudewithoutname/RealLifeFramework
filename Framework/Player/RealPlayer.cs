@@ -11,16 +11,17 @@ using Rocket.API;
 using Newtonsoft.Json;
 using System.IO;
 using RealLifeFramework.Data;
+using RealLifeFramework.Data.Models;
 
 namespace RealLifeFramework.RealPlayers
 {
     public class RealPlayer
     {
         // * Global
-        [JsonIgnore] public Player Player { get; set; }
-        [JsonIgnore] public CSteamID CSteamID { get; set; }
-        [JsonIgnore] public string IP { get; set; }
-        [JsonIgnore] public ITransportConnection TransportConnection { get; set; }
+        public Player Player { get; set; }
+        public CSteamID CSteamID { get; set; }
+        public string IP { get; set; }
+        public ITransportConnection TransportConnection { get; set; }
 
         // * Character
         public string Name { get; set; }
@@ -31,7 +32,6 @@ namespace RealLifeFramework.RealPlayers
         public ushort Level { get; set; }
         public uint Exp { get; set; }
         
-        [JsonIgnore]
         public uint MaxExp 
         { 
             get 
@@ -62,11 +62,11 @@ namespace RealLifeFramework.RealPlayers
         }
 
         // * Ultility
-        [JsonIgnore] public HUD HUD { get; set; }
-        [JsonIgnore] public ChatProfile ChatProfile { get; set; }
-        [JsonIgnore] public UnturnedKeyWatcher Keyboard { get; set; }
+        public HUD HUD { get; set; }
+        public ChatProfile ChatProfile { get; set; }
+        public UnturnedKeyWatcher Keyboard { get; set; }
 
-        public RealPlayer(UnturnedPlayer player, RealPlayer data)
+        public RealPlayer(UnturnedPlayer player, RealPlayerData data)
         {
             Player = player.Player;
             CSteamID = player.CSteamID;
@@ -84,7 +84,7 @@ namespace RealLifeFramework.RealPlayers
 
             IsAdmin = player.IsAdmin;
 
-            SkillUser = new SkillUser(this, data);
+            SkillUser = new SkillUser(this, data.SkillUser);
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);

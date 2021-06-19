@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
+using RealLifeFramework.Data;
+using RealLifeFramework.Data.Models;
 using RealLifeFramework.RealPlayers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RealLifeFramework.Skills
 {
@@ -94,14 +97,29 @@ namespace RealLifeFramework.Skills
             };
         }
 
-        public SkillUser(RealPlayer player, RealPlayer data)
+        public SkillUser(RealPlayer player, SkillUserData data)
         {
             RealPlayer = player;
-            EducationPoints = data.SkillUser.EducationPoints;
+            EducationPoints = data.EducationPoints;
 
-            Skills = new List<ISkill>(data.SkillUser.Skills);
+            Skills = new List<ISkill>()
+            {
+                new Endurance(RealPlayer, data.Skills),
+                new Farming(RealPlayer,   ),
+                new Fishing(RealPlayer,   ),
+                new Agitily(RealPlayer,   ),
+                new Dexterity(RealPlayer, ),
+            };
 
-            Educations = new List<IEducation>(data.SkillUser.Educations);
+            Educations = new List<IEducation>()
+            {
+                new Engineering(RealPlayer, ),
+                new Culinary(RealPlayer,    ),
+                new Crafting(RealPlayer,    ),
+                new Medicine(RealPlayer,    ),
+                new Defense(RealPlayer,     ),
+            };
         }
+
     }
 }

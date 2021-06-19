@@ -27,7 +27,7 @@ namespace RealLifeFramework.RealPlayers
         #region Events
         private static void onPlayerPreConnected(SteamPlayerID player)
         {
-            var pl = DataManager.LoadPlayer(player.steamID);
+            RealPlayer pl = null; //DataManager.LoadPlayer(player.steamID);
 
             if (pl != null)
             {
@@ -53,10 +53,10 @@ namespace RealLifeFramework.RealPlayers
 
             if (!DataManager.ExistPlayer(player.CSteamID))
             {
-                if (RealLife.Debugging)
+                /*if (RealLife.Debugging)*/
                     RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
-                else
-                    firstJoin(player);
+                /*else
+                    firstJoin(player);*/
             }
             else
             {
@@ -64,14 +64,17 @@ namespace RealLifeFramework.RealPlayers
             }
         }
 
-        private static void onPlayerDisconnected(UnturnedPlayer player)
+        private static void onPlayerDisconnected(UnturnedPlayer uplayer)
         {
-            Logger.Log($"[Info] |-| Player Disconnected : {player.SteamName} ({player.CSteamID}) ");
+            Logger.Log($"[Info] |-| Player Disconnected : {uplayer.SteamName} ({uplayer.CSteamID}) ");
 
-            if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
+            if (RealLife.Instance.RealPlayers.ContainsKey(uplayer.CSteamID))
             {
-                VoiceChat.UnSubscribe(RealLife.Instance.RealPlayers[player.CSteamID]);
-                RealLife.Instance.RealPlayers[player.CSteamID].Keyboard.Stop();
+                var player = RealLife.Instance.RealPlayers[uplayer.CSteamID];
+
+                VoiceChat.UnSubscribe(player);
+                player.Keyboard.Stop();
+                DataManager.SavePlayer(player);
                 RealLife.Instance.RealPlayers.Remove(player.CSteamID);
             }
         }
