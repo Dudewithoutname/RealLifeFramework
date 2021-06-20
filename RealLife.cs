@@ -16,7 +16,6 @@ namespace RealLifeFramework
     public class RealLife : RocketPlugin<RealConfig>
     {
         public static RealLife Instance;
-        public static DatabaseManager Database = DatabaseManager.Instance();
         public Dictionary<CSteamID,RealPlayer> RealPlayers;
         public static bool Debugging = false;
         private Harmony harmony;
@@ -39,13 +38,6 @@ namespace RealLifeFramework
             Instance = this;
             SecondaryThread.Start();
 
-
-            Database.Server = Configuration.Instance.DatabaseServer;
-            Database.DatabaseName = Configuration.Instance.DatabaseName;
-            Database.UserName = Configuration.Instance.DatabaseUsername;
-            Database.Password = Configuration.Instance.DatabasePassword;
-            Database.Port = Configuration.Instance.DatabasePort;
-
             DataManager.Settup();
 
             //Database.IsConnect();
@@ -53,8 +45,6 @@ namespace RealLifeFramework
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
-            if (Debugging)
-                Database.Debug();
                         
             RealPlayers = new Dictionary<CSteamID, RealPlayer>();
 
@@ -70,9 +60,7 @@ namespace RealLifeFramework
         protected override void Unload()
         {
             Logger.Log("Unloading is unsupported!");
-            Database.Close();
             harmony.UnpatchAll();
-            Database = null;
             Instance = null;
         }
 

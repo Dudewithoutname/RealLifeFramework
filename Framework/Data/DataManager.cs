@@ -16,20 +16,60 @@ namespace RealLifeFramework.Data
 {
     public class DataManager 
     {
-        public static string DataPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\U3DS\\Servers\\Default\\DudeTurned";
-        public static string PlayerPath = $"{DataPath}\\Players";
+        private static readonly string dataPath = @"D:\SteamLibrary\steamapps\common\U3DS\Servers\Default\Dudeturned";
+        private static readonly string[] storages = {"Players", "Security"};
 
         public static void Settup()
         {
-            if (!Directory.Exists(DataPath)) 
+            if (!Directory.Exists(dataPath)) 
             {
                 Logger.Log("[DataManager] : Data not existing creating folders");
-                Directory.CreateDirectory(DataPath);
-                Directory.CreateDirectory(PlayerPath);
+                Directory.CreateDirectory(dataPath);
+                foreach(string storage in storages) { Directory.CreateDirectory($@"{dataPath}\{storage}"); };
             }
         }
 
-        public static bool ExistPlayer(CSteamID steamId) => File.Exists($"{PlayerPath}\\{steamId}.json");
+        #region Data
+        public static bool ExistData(string storage, string key) => File.Exists($@"{dataPath}\{storage}\{key}.json");
+
+        public static void CreateData(string storage, string key, object data)
+        {
+            SecondaryThread.Execute(() =>
+            {
+                if (!ExistData(storage, key))
+                {
+                    var path = $@"{dataPath}\{storage}\{key}.json";
+                    File.Create(path).Close();
+                    writeJson(path, data);
+                }
+            });
+        }
+
+        public static T LoadData<T>(string storage, string key)
+        {
+            if (ExistData(storage, key))
+            {
+                return JsonConvert.DeserializeObject<T>(File.ReadAllText($@"{dataPath}\{storage}\{key}.json"));
+            }
+
+            return default(T);
+        }
+
+        public static void SaveData(string storage, string key, object data)
+        {
+            SecondaryThread.Execute(() =>
+            {
+                if (ExistData(storage, key))
+                {
+                    var path = $@"{dataPath}\{storage}\{data}.json";
+                    writeJson(path, data);
+                }
+            });
+        }
+        #endregion
+
+        #region player Data | am just lazy to rewrite code to normal data :P maybe in laaaaate future :D
+        public static bool ExistPlayer(CSteamID steamId) => File.Exists($@"{dataPath}\Players\{steamId}.json");
 
         public static void CreatePlayer(RealPlayer player)
         {
@@ -37,9 +77,21 @@ namespace RealLifeFramework.Data
             {
                 if (!ExistPlayer(player.CSteamID))
                 {
-                    var path = $"{PlayerPath}\\{player.CSteamID}.json";
+                    var path = $@"{dataPath}\Players\{player.CSteamID}.json";
                     File.Create(path).Close();
                     writeJson(path, (RealPlayerData)player);
+                }
+            });
+        }
+
+        public static void DeletePlayer(CSteamID steamId)
+        {
+            SecondaryThread.Execute(() =>
+            {
+                if (!ExistPlayer(steamId))
+                {
+                    var path = $@"{dataPath}\Players\{steamId}.json";
+                    File.Delete(path);
                 }
             });
         }
@@ -47,13 +99,12 @@ namespace RealLifeFramework.Data
         public static RealPlayerData LoadPlayer(CSteamID steamId)
         {
             RealPlayerData player = null;
-            SecondaryThread.Execute(() =>
+            
+            if (ExistPlayer(steamId))
             {
-                if (ExistPlayer(steamId))
-                {
-                    player = JsonConvert.DeserializeObject<RealPlayerData>(File.ReadAllText($"{PlayerPath}\\{steamId}.json"));
-                }
-            });
+                player = JsonConvert.DeserializeObject<RealPlayerData>(File.ReadAllText($@"{dataPath}\Players\{steamId}.json"));
+            }
+
             return player;
         }
 
@@ -63,16 +114,13 @@ namespace RealLifeFramework.Data
             {
                 if (ExistPlayer(player.CSteamID))
                 {
-                    var path = $"{PlayerPath}\\{player.CSteamID}.json";
+                    var path = $@"{dataPath}\Players\{player.CSteamID}.json";
                     writeJson(path, (RealPlayerData)player);
                 }
             });
         }
+        #endregion
 
-        private static void writeJson(string path, object value)
-        {
-            var json = JsonConvert.SerializeObject(value, Formatting.Indented);
-            File.WriteAllText(path, json);
-        }
+        private static void writeJson(string path, object value) => File.WriteAllText(path, JsonConvert.SerializeObject(value, Formatting.Indented));
     }
 }

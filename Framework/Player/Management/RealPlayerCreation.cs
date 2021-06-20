@@ -7,6 +7,7 @@ using SDG.NetTransport;
 using System.Linq;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Items;
+using RealLifeFramework.SecondThread;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -50,7 +51,6 @@ namespace RealLifeFramework.RealPlayers
                 return;
             }
             //
-            player.GodMode = false;
             player.VanishMode = false;
 
             var RealPlayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
@@ -71,12 +71,15 @@ namespace RealLifeFramework.RealPlayers
 
         private static void giveStartingItems(Player player)
         {
-            var uplayer = UnturnedPlayer.FromPlayer(player);
-            var realplayer = RealPlayer.From(player);
+            SecondaryThread.Execute(() =>
+            {
+                var uplayer = UnturnedPlayer.FromPlayer(player);
+                var realplayer = RealPlayer.From(player);
 
-            uplayer.GiveItem(StartClothes.GetRandomShirt(realplayer.Gender), 1);
-            uplayer.GiveItem(StartClothes.GetPantsu(), 1);
-            uplayer.Experience += RealLife.Instance.Configuration.Instance.StartingExp;
+                uplayer.GiveItem(StartClothes.GetRandomShirt(realplayer.Gender), 1);
+                uplayer.GiveItem(StartClothes.GetPantsu(), 1);
+                uplayer.Experience += RealLife.Instance.Configuration.Instance.StartingExp;
+            });
         }
 
         public static void SetGender(CSteamID steamId, byte gender)

@@ -6,12 +6,6 @@ namespace RealLifeFramework
 {
     public class RealConfig : IRocketPluginConfiguration
     {
-        public string DatabaseServer;
-        public string DatabaseName;
-        public string DatabaseUsername;
-        public string DatabasePassword;
-        public string DatabasePort;
-
         public string DiscordInvite;
         public string SteamGroupInvite;
         public uint StartingExp;
@@ -22,11 +16,6 @@ namespace RealLifeFramework
 
         public void LoadDefaults()
         {
-            DatabaseServer = "127.0.0.1";
-            DatabasePort = "3306";
-            DatabaseName = "unturned";
-            DatabaseUsername = "root";
-            DatabasePassword = "";
             DiscordInvite = "https://discord.com/";
             SteamGroupInvite = "https://store.steampowered.com/";
             StartingExp = 2500;

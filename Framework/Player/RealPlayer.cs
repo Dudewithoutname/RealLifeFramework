@@ -150,15 +150,12 @@ namespace RealLifeFramework.RealPlayers
                 levelUp();
             }
 
-            RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "exp", $"{Exp}");
-
             HUD.UpdateComponent(HUDComponent.Exp);
         }
 
         private void levelUp()
         {
             Level++;
-            RealLife.Database.set(TPlayerInfo.Name, CSteamID.ToString(), "level", $"{Level}");
 
             HUD.UpdateComponent(HUDComponent.Exp);
             HUD.UpdateComponent(HUDComponent.Level);

@@ -36,7 +36,7 @@ namespace RealLifeFramework.Security
 
         private void checkBan(SteamPlayerID playerID, uint remoteIP, ref bool isBanned, ref string banReason, ref uint banRemainingDuration)
         {
-            if (isBanned) return;
+ /*           if (isBanned) return;
 
             string hwid = BitConverter.ToString(playerID.hwid).Replace("-", string.Empty);
 
@@ -46,7 +46,7 @@ namespace RealLifeFramework.Security
             {
                 Logger.Log("[Guard] Banned player tried to get around ban !");
                 BannedPlayers.Add(playerID.steamID);
-            }
+            }*/
         }
 
         private void HandleBan(UnturnedPlayer player)
@@ -63,14 +63,14 @@ namespace RealLifeFramework.Security
 
         private void doHWIDBan(CSteamID instigator, CSteamID playerToBan, uint ipToBan, ref string reason, ref uint duration, ref bool shouldVanillaBan)
         {
-            if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToBan.ToString()) == "0")
-                TSecurity.AddHWIDBan(playerToBan.ToString());
+         //   if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToBan.ToString()) == "0")
+           //     TSecurity.AddHWIDBan(playerToBan.ToString());
         }
 
         private void doHWIDUnban(CSteamID instigator, CSteamID playerToUnban, ref bool shouldVanillaUnban)
         {
-            if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToUnban.ToString()) == "1")
-                TSecurity.RemoveHWIDBan(playerToUnban.ToString());
+        //    if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToUnban.ToString()) == "1")
+         //       TSecurity.RemoveHWIDBan(playerToUnban.ToString());
         }
     }
 }

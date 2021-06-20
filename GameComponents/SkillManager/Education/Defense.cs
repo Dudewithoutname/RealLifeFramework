@@ -52,8 +52,6 @@ namespace RealLifeFramework.Skills
                     break;
             }
 
-            TPlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
-
         }
 
         public Defense(RealPlayer playerRef, byte level)

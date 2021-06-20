@@ -25,8 +25,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Cooking[0], VanillaSkills.Cooking[1], 3);
                     break;
             }
-
-            TPlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
         }
 
         public Culinary(RealPlayer playerRef, byte level)

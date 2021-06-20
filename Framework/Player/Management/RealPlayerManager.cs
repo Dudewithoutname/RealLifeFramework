@@ -53,15 +53,16 @@ namespace RealLifeFramework.RealPlayers
 
             if (!DataManager.ExistPlayer(player.CSteamID))
             {
-                /*if (RealLife.Debugging)*/
-                    RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
-                /*else
-                    firstJoin(player);*/
+                RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
             }
             else
             {
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, DataManager.LoadPlayer(player.CSteamID)));
             }
+            player.Player.inventory.ReceiveSize(0, 1, 1); // LATER CHANGE
+            player.Player.inventory.ReceiveSize(1, 1, 1); // LATER CHANGE
+            player.Player.inventory.ReceiveSize(2, 1, 1); // LATER CHANGE
+
         }
 
         private static void onPlayerDisconnected(UnturnedPlayer uplayer)
@@ -150,7 +151,6 @@ namespace RealLifeFramework.RealPlayers
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, true);
-            player.GodMode = true;
             player.VanishMode = true;
 
             EffectManager.sendUIEffect(UI.StartingTab, 100, player.Player.channel.GetOwnerTransportConnection(), true, topScreenText, "", "Vytvorit postavu");

@@ -37,9 +37,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Healing[0], VanillaSkills.Healing[1], 7);
                     break;
             }
-
-            TPlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
-
         }
 
         public Medicine(RealPlayer playerRef, byte level)

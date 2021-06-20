@@ -36,20 +36,20 @@
       <HintPath>aLibs\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="AstarPathfindingProject">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\AstarPathfindingProject.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\AstarPathfindingProject.dll</HintPath>
     </Reference>
     <Reference Include="HighlightingSystem">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\HighlightingSystem.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\HighlightingSystem.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Mono.Security.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -59,31 +59,31 @@
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.API">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Extras\Rocket.Unturned\Rocket.API.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Extras\Rocket.Unturned\Rocket.API.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Core">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Extras\Rocket.Unturned\Rocket.Core.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Extras\Rocket.Unturned\Rocket.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Unturned">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Extras\Rocket.Unturned\Rocket.Unturned.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Extras\Rocket.Unturned\Rocket.Unturned.dll</HintPath>
     </Reference>
     <Reference Include="SDG.Glazier.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\SDG.Glazier.Runtime.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\SDG.Glazier.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="SDG.HostBans.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\SDG.HostBans.Runtime.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\Unturned\Unturned_Data\Managed\SDG.HostBans.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="SDG.NetPak.Runtime">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\SDG.NetPak.Runtime.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\SDG.NetPak.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="SDG.NetTransport">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\SDG.NetTransport.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\SDG.NetTransport.dll</HintPath>
     </Reference>
     <Reference Include="StandardAssets">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\StandardAssets.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\StandardAssets.dll</HintPath>
     </Reference>
     <Reference Include="Steamworks.NET">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\Steamworks.NET.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\Steamworks.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -96,25 +96,26 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Unturned\Unturned_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\U3DS\Unturned_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\Currency\Wallet.cs" />
     <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
-    <Compile Include="Framework\Data\Models\RealPlayerData.cs" />
-    <Compile Include="Framework\Data\Models\Skills\SkillData.cs" />
-    <Compile Include="Framework\Data\Models\Skills\SkillUserData.cs" />
+    <Compile Include="Framework\Data\Models\Player\RealPlayerData.cs" />
+    <Compile Include="Framework\Data\Models\Player\SkillData.cs" />
+    <Compile Include="Framework\Data\Models\Player\SkillUserData.cs" />
     <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
@@ -123,17 +124,11 @@
     <Compile Include="GameComponents\Commands\test2.cs" />
     <Compile Include="GameComponents\Commands\Ultilities\CSeatBelt.cs" />
     <Compile Include="GameComponents\Commands\Ultilities\CVoice.cs" />
-    <Compile Include="Framework\DatabaseManager\ITable.cs" />
-    <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
-    <Compile Include="Framework\DatabaseManager\Tables\TPlayerInfo.cs" />
-    <Compile Include="Framework\DatabaseManager\Tables\TPlayerSkills.cs" />
-    <Compile Include="Framework\DatabaseManager\Tables\TSecurity.cs" />
     <Compile Include="Framework\Events\EventHandler.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
     <Compile Include="Framework\Events\RealEvents.cs" />
     <Compile Include="Framework\Chatting\Chat.cs" />
     <Compile Include="GameComponents\Commands\test.cs" />
-    <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
     <Compile Include="GameComponents\HUD\HUD.cs" />
@@ -175,9 +170,6 @@
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

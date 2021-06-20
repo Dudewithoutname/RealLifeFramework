@@ -25,8 +25,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Crafting[0], VanillaSkills.Crafting[1], 3);
                     break;
             }
-
-            TPlayerSkills.UpdateEducation(Player.CSteamID, Id, Level);
         }
 
         public Crafting(RealPlayer playerRef, byte level)
