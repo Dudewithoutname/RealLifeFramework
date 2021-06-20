@@ -104,20 +104,20 @@ namespace RealLifeFramework.Skills
 
             Skills = new List<ISkill>()
             {
-                new Endurance(RealPlayer, data.Skills),
-                new Farming(RealPlayer,   ),
-                new Fishing(RealPlayer,   ),
-                new Agitily(RealPlayer,   ),
-                new Dexterity(RealPlayer, ),
+                new Endurance(RealPlayer, data.Skills[0].Level, data.Skills[0].Exp),
+                new Farming(RealPlayer,   data.Skills[1].Level, data.Skills[1].Exp),
+                new Fishing(RealPlayer,   data.Skills[2].Level, data.Skills[2].Exp),
+                new Agitily(RealPlayer,   data.Skills[3].Level, data.Skills[3].Exp),
+                new Dexterity(RealPlayer, data.Skills[4].Level, data.Skills[4].Exp),
             };
 
             Educations = new List<IEducation>()
             {
-                new Engineering(RealPlayer, ),
-                new Culinary(RealPlayer,    ),
-                new Crafting(RealPlayer,    ),
-                new Medicine(RealPlayer,    ),
-                new Defense(RealPlayer,     ),
+                new Engineering(RealPlayer, (byte)data.Educations[0]),
+                new Culinary(RealPlayer,    (byte)data.Educations[1]),
+                new Crafting(RealPlayer,    (byte)data.Educations[2]),
+                new Medicine(RealPlayer,    (byte)data.Educations[3]),
+                new Defense(RealPlayer,     (byte)data.Educations[4]),
             };
         }
 

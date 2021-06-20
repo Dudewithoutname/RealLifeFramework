@@ -61,7 +61,7 @@ namespace RealLifeFramework.Data
         {
             SecondaryThread.Execute(() =>
             {
-                if (!ExistPlayer(player.CSteamID))
+                if (ExistPlayer(player.CSteamID))
                 {
                     var path = $"{PlayerPath}\\{player.CSteamID}.json";
                     writeJson(path, (RealPlayerData)player);
@@ -71,12 +71,8 @@ namespace RealLifeFramework.Data
 
         private static void writeJson(string path, object value)
         {
-            var json = JsonConvert.SerializeObject(value);
-
-            using (var writer = new StreamWriter(path))
-            {
-                writer.Write(json);
-            }
+            var json = JsonConvert.SerializeObject(value, Formatting.Indented);
+            File.WriteAllText(path, json);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HarmonyLib;
+using Newtonsoft.Json;
 using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
 using System;
@@ -33,32 +34,11 @@ namespace RealLifeFramework.Data.Models
                 Gender = player.Gender,
                 Level = player.Level,
                 Exp = player.Exp,
-                SkillUser = new SkillUserData() 
-                { 
-                    EducationPoints = player.SkillUser.EducationPoints,
-                    Skills = player.SkillUser.Skills.ToArray(),
-                    Educations = player.SkillUser.Educations.ToArray(),
-                },
+                SkillUser = (SkillUserData)player,
                 IsAdmin = player.IsAdmin,
                 WalletMoney = player.WalletMoney,
                 CreditCardMoney = player.CreditCardMoney,
             };
         }
-
-        [JsonConstructor]
-        public RealPlayerData(string name, ushort age, string gender, ushort level, uint exp, SkillUserData skillUser, bool isAdmin, uint walletMoney, uint creditCardMoney)
-        {
-            Name = name;
-            Age = age;
-            Gender = gender;
-            Level = level;
-            Exp = exp;
-            SkillUser = skillUser;
-            IsAdmin = isAdmin;
-            WalletMoney = walletMoney;
-            CreditCardMoney = creditCardMoney;
-        }
-
-        public RealPlayerData() { }
     }
 }

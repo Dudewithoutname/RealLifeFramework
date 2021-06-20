@@ -113,6 +113,7 @@
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
     <Compile Include="Framework\Data\Models\RealPlayerData.cs" />
+    <Compile Include="Framework\Data\Models\Skills\SkillData.cs" />
     <Compile Include="Framework\Data\Models\Skills\SkillUserData.cs" />
     <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />
