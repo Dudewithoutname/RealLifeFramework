@@ -116,6 +116,7 @@
     <Compile Include="Framework\Data\Models\Player\RealPlayerData.cs" />
     <Compile Include="Framework\Data\Models\Player\SkillData.cs" />
     <Compile Include="Framework\Data\Models\Player\SkillUserData.cs" />
+    <Compile Include="Framework\Security\Data\SecurityData.cs" />
     <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />

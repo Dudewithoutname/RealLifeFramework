@@ -8,7 +8,7 @@ namespace RealLifeFramework.Items
 {
     public static class StartClothes
     {
-        public static List<ushort> MaleShirts = new List<ushort>()
+        public static readonly List<ushort> MaleShirts = new List<ushort>()
         {
         // Start Unisex
             179,
@@ -23,7 +23,7 @@ namespace RealLifeFramework.Items
             211,
         };
 
-        public static List<ushort> FemaleShirts = new List<ushort>()
+        public static readonly List<ushort> FemaleShirts = new List<ushort>()
         {
         // Start Unisex
             179,
@@ -39,7 +39,7 @@ namespace RealLifeFramework.Items
             159,
         };
 
-        public static List<ushort> Pantsu = new List<ushort>()
+        public static readonly List<ushort> Pantsu = new List<ushort>()
         {
             2,
             548,

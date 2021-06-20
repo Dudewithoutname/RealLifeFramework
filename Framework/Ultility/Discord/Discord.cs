@@ -5,6 +5,7 @@ using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using Steamworks;
 using SDG.Unturned;
+using RealLifeFramework.SecondThread;
 
 namespace RealLifeFramework
 {
@@ -57,39 +58,46 @@ namespace RealLifeFramework
 
         private static void sendToDiscord(string req)
         {
-            try { 
-            var webRequest = WebRequest.Create(WebHookURL);
-            webRequest.ContentType = "application/json";
-            webRequest.Method = "POST";
-
-            using (var sw = new StreamWriter(webRequest.GetRequestStream()))
-                sw.Write(req);
-
-            var x = webRequest.GetResponse();
-            }
-            catch (Exception ex)
+            SecondaryThread.Execute(() =>
             {
-                CommandWindow.Log($"Discord Error : {ex}");
-            }
+                try
+                {
+                    var webRequest = WebRequest.Create(WebHookURL);
+                    webRequest.ContentType = "application/json";
+                    webRequest.Method = "POST";
+
+                    using (var sw = new StreamWriter(webRequest.GetRequestStream()))
+                        sw.Write(req);
+
+                    var x = webRequest.GetResponse();
+                }
+                catch (Exception ex)
+                {
+                    CommandWindow.Log($"Discord Error : {ex}");
+                }
+            });
         }
 
         private static void sendToAPI(string req)
         {
-            try
+            SecondaryThread.Execute(() =>
             {
-                var webRequest = WebRequest.Create(WebHookURL);
-                webRequest.ContentType = "application/json";
-                webRequest.Method = "POST";
+                try
+                {
+                    var webRequest = WebRequest.Create(WebHookURL);
+                    webRequest.ContentType = "application/json";
+                    webRequest.Method = "POST";
 
-                using (var sw = new StreamWriter(webRequest.GetRequestStream()))
-                    sw.Write(req);
+                    using (var sw = new StreamWriter(webRequest.GetRequestStream()))
+                        sw.Write(req);
 
-                var x = webRequest.GetResponse();
-            }
-            catch (Exception ex)
-            {
-                CommandWindow.Log($"Discord Error : {ex}");
-            }
+                    var x = webRequest.GetResponse();
+                }
+                catch (Exception ex)
+                {
+                    CommandWindow.Log($"Discord Error : {ex}");
+                }
+            });
         }
     }
 }

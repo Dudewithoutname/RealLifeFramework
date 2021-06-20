@@ -53,15 +53,13 @@ namespace RealLifeFramework.RealPlayers
 
             if (!DataManager.ExistPlayer(player.CSteamID))
             {
-                RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, "Matthew Creampie", 20, 0));
+                firstJoin(player);
             }
             else
             {
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, DataManager.LoadPlayer(player.CSteamID)));
             }
             player.Player.inventory.ReceiveSize(0, 1, 1); // LATER CHANGE
-            player.Player.inventory.ReceiveSize(1, 1, 1); // LATER CHANGE
-            player.Player.inventory.ReceiveSize(2, 1, 1); // LATER CHANGE
 
         }
 
