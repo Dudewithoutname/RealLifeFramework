@@ -21,8 +21,6 @@ namespace RealLifeFramework.Data.Models
 
         public SkillUserData skillUser { get; set; }
         public bool isAdmin { get; set; }
-        public bool isBanned { get; set; }
-        public string HWID{ get; set; }
 
         public uint walletMoney { get; set; }
         public uint creditcardMoney { get; set; }
@@ -38,7 +36,6 @@ namespace RealLifeFramework.Data.Models
                 exp = player.Exp,
                 skillUser = (SkillUserData)player,
                 isAdmin = player.IsAdmin,
-                HWID = BitConverter.ToString(player.Player.channel.owner.playerID.hwid).Replace("-", string.Empty),
                 walletMoney = player.WalletMoney,
                 creditcardMoney = player.CreditCardMoney,
             };

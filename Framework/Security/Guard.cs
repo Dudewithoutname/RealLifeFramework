@@ -7,6 +7,8 @@ using Rocket.Unturned.Player;
 using Rocket.Unturned;
 using UnityEngine;
 using RealLifeFramework.Data;
+using RealLifeFramework.Framework.Data;
+using RealLifeFramework.SecondThread;
 
 namespace RealLifeFramework.Security
 {
@@ -51,40 +53,55 @@ namespace RealLifeFramework.Security
         }
         private void checkBan(SteamPlayerID playerID, uint remoteIP, ref bool isBanned, ref string banReason, ref uint banRemainingDuration)
         {
-            if (isBanned) return;
-
-            string hwid = BitConverter.ToString(playerID.hwid).Replace("-", string.Empty);
-            SecurityData data = null;
-
-            if (data.IsBanned && isBanned == false)
+            SecondaryThread.Execute(() =>
             {
-                Logger.Log("[Guard] Banned player tried to get around ban !");
-                bannedPlayers.Add(playerID.steamID);
-            }
+                if (isBanned) return;
+
+                string hwid = BitConverter.ToString(playerID.hwid).Replace("-", string.Empty);
+
+                if (data.IsBanned && isBanned == false)
+                {
+                    Logger.Log("[Guard] Banned player tried to get around ban !");
+                    bannedPlayers.Add(playerID.steamID);
+                }
+            });
         }
 
         private void handleBans(UnturnedPlayer player)
         {
-            CSteamID steamid = player.Player.channel.owner.playerID.steamID;
-            if (steamid.ToString() == "") return;
-
-            if (bannedPlayers.Contains(steamid))
+            SecondaryThread.Execute(() =>
             {
-                Provider.ban(steamid, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", 999999999);
-                bannedPlayers.Remove(steamid);
-            }
+                CSteamID steamid = player.Player.channel.owner.playerID.steamID;
+                if (steamid.ToString() == "") return;
+
+                if (bannedPlayers.Contains(steamid))
+                {
+                    Provider.ban(steamid, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", 999999999);
+                    bannedPlayers.Remove(steamid);
+                }
+            });
         }
 
         private void doHWIDBan(CSteamID instigator, CSteamID playerToBan, uint ipToBan, ref string reason, ref uint duration, ref bool shouldVanillaBan)
         {
-            // DO Foreach data etc find
-            DataManager.SaveData("Storage", , new SecurityData() { })
+            SecondaryThread.Execute(() =>
+            {
+                if (Database.Instance.get("security", 2, "steamid", playerToBan.ToString()) == "0")
+                {
+                    Database.Instance.set("security", "steamid", playerToBan.ToString(), "ban", "1");
+                }
+            });
         }
 
         private void doHWIDUnban(CSteamID instigator, CSteamID playerToUnban, ref bool shouldVanillaUnban)
         {
-            if (RealLife.Database.get(TSecurity.Name, 2, "steamid", playerToUnban.ToString()) == "1")
-                TSecurity.RemoveHWIDBan(playerToUnban.ToString());
+            SecondaryThread.Execute(() =>
+            {
+                if (Database.Instance.get("security", 2, "steamid", playerToUnban.ToString()) == "1")
+                {
+                    Database.Instance.set("security", "steamid", playerToUnban.ToString(), "ban", "0");
+                }
+            });
         }
     }
 }

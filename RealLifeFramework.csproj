@@ -118,8 +118,6 @@
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillUserData.cs" />
-    <Compile Include="Framework\Security\Data\SecurityData.cs" />
-    <Compile Include="Framework\Security\Data\SecurityUserData.cs" />
     <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />

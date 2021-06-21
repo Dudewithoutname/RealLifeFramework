@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using RealLifeFramework.SecondThread;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,14 +75,17 @@ namespace RealLifeFramework.Framework.Data
         }
 
         #region Default
-        public void set(string table, string playerID, string key, string newValue)
+        public void set(string table, string param, string paramValue, string key, string newValue)
         {
-            if (IsConnect())
+            SecondaryThread.Execute(() =>
             {
-                string query = $" UPDATE {table} SET {key} = '{newValue}' WHERE steamid = {playerID} ";
-                var cmd = new MySqlCommand(query, this.Connection);
-                cmd.ExecuteNonQuery();
-            }
+                if (IsConnect())
+                {
+                    string query = $" UPDATE {table} SET {key} = '{newValue}' WHERE {param} = {paramValue} ";
+                    var cmd = new MySqlCommand(query, Connection);
+                    cmd.ExecuteNonQuery();
+                }
+            });
         }
 
         public string get(string table, int pos, string name, string value)
