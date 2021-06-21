@@ -14,7 +14,8 @@ namespace RealLifeFramework.Security
     public class Guard : IEventComponent
     {
 
-        private static List<CSteamID> BannedPlayers; 
+        private static List<CSteamID> bannedPlayers;
+        private static SecurityData data;
         /* 
          * TODO
          * DISCORD EMBED SEND ETC.
@@ -22,7 +23,16 @@ namespace RealLifeFramework.Security
 
         private void Load()
         {
-            BannedPlayers = new List<CSteamID>();
+            bannedPlayers = new List<CSteamID>();
+            if (DataManager.ExistData("Server", "hwidBans"))
+            {
+                data = DataManager.LoadData<SecurityData>("Server", "hwidBans");
+            }
+            else
+            {
+                DataManager.CreateData("Server", "hwidBans", new SecurityData());
+                data = new SecurityData();
+            }
             Logger.Log("[Guard] Loaded");
         }
 
@@ -30,11 +40,15 @@ namespace RealLifeFramework.Security
         {
             Load();
             Provider.onCheckBanStatusWithHWID += checkBan;
-            U.Events.OnPlayerConnected += HandleBan;
+            U.Events.OnPlayerConnected += handleBans;
             Provider.onBanPlayerRequested += doHWIDBan;
             Provider.onUnbanPlayerRequested += doHWIDUnban;
+            Provider.onCommenceShutdown += () => saveBans();
         }
+        private void saveBans()
+        {
 
+        }
         private void checkBan(SteamPlayerID playerID, uint remoteIP, ref bool isBanned, ref string banReason, ref uint banRemainingDuration)
         {
             if (isBanned) return;
@@ -42,37 +56,22 @@ namespace RealLifeFramework.Security
             string hwid = BitConverter.ToString(playerID.hwid).Replace("-", string.Empty);
             SecurityData data = null;
 
-            if (!DataManager.ExistData("Security", hwid))
-            {
-                DataManager.CreateData("Security", $"{playerID.steamID}",
-                    new SecurityData()
-                    {
-                        IsBanned = false,
-                        SteamID = playerID.steamID.ToString()
-                    }
-                );
-            }
-            else
-            {
-                data = DataManager.LoadData<SecurityData>("Security", playerID.steamID.ToString());
-            }
-
             if (data.IsBanned && isBanned == false)
             {
                 Logger.Log("[Guard] Banned player tried to get around ban !");
-                BannedPlayers.Add(playerID.steamID);
+                bannedPlayers.Add(playerID.steamID);
             }
         }
 
-        private void HandleBan(UnturnedPlayer player)
+        private void handleBans(UnturnedPlayer player)
         {
             CSteamID steamid = player.Player.channel.owner.playerID.steamID;
             if (steamid.ToString() == "") return;
 
-            if (BannedPlayers.Contains(steamid))
+            if (bannedPlayers.Contains(steamid))
             {
                 Provider.ban(steamid, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", 999999999);
-                BannedPlayers.Remove(steamid);
+                bannedPlayers.Remove(steamid);
             }
         }
 

@@ -18,10 +18,10 @@ namespace RealLifeFramework.RealPlayers
     public class RealPlayer
     {
         // * Global
-        public Player Player { get; set; }
-        public CSteamID CSteamID { get; set; }
-        public string IP { get; set; }
-        public ITransportConnection TransportConnection { get; set; }
+        public Player Player { get; private set; }
+        public CSteamID CSteamID { get; private set; }
+        public string IP { get; private set; }
+        public ITransportConnection TransportConnection { get; private set; }
 
         // * Character
         public string Name { get; set; }
@@ -75,16 +75,16 @@ namespace RealLifeFramework.RealPlayers
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
-            Name = data.Name;
-            Age = data.Age;
-            Gender = data.Gender;
+            Name = data.name;
+            Age = data.age;
+            Gender = data.gender;
 
-            Level = data.Level;
-            Exp = data.Exp;
+            Level = data.level;
+            Exp = data.exp;
 
             IsAdmin = player.IsAdmin;
 
-            SkillUser = new SkillUser(this, data.SkillUser);
+            SkillUser = new SkillUser(this, data.skillUser);
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);

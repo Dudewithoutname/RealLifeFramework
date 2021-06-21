@@ -10,6 +10,7 @@ using RealLifeFramework.Items;
 using HarmonyLib;
 using RealLifeFramework.Data;
 using RealLifeFramework.SecondThread;
+using RealLifeFramework.Framework.Data;
 
 namespace RealLifeFramework
 {
@@ -39,6 +40,7 @@ namespace RealLifeFramework
             SecondaryThread.Start();
 
             DataManager.Settup();
+            Database.Load();
 
             //Database.IsConnect();
             //Database.Setup();

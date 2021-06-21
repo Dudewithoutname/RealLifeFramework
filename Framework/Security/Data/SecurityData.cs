@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealLifeFramework.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace RealLifeFramework.Security
 {
-    public class SecurityData
+    public class SecurityData : ISaveable
     {
-        public string SteamID { get; set; }
-        public bool IsBanned { get; set; }
+        public List<SecurityUserData> players { get; set; }
     }
 }

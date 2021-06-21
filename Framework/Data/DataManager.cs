@@ -17,7 +17,7 @@ namespace RealLifeFramework.Data
     public class DataManager 
     {
         private static readonly string dataPath = @"D:\SteamLibrary\steamapps\common\U3DS\Servers\Default\Dudeturned";
-        private static readonly string[] storages = {"Players", "Security"};
+        private static readonly string[] storages = {"Players", "Server"};
 
         public static void Settup()
         {
@@ -45,14 +45,14 @@ namespace RealLifeFramework.Data
             });
         }
 
-        public static T LoadData<T>(string storage, string key)
+        public static ISaveable LoadData<ISaveable>(string storage, string key)
         {
             if (ExistData(storage, key))
             {
-                return JsonConvert.DeserializeObject<T>(File.ReadAllText($@"{dataPath}\{storage}\{key}.json"));
+                return JsonConvert.DeserializeObject<ISaveable>(File.ReadAllText($@"{dataPath}\{storage}\{key}.json"));
             }
 
-            return default(T);
+            return default(ISaveable);
         }
 
         public static void SaveData(string storage, string key, object data)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealLifeFramework.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace RealLifeFramework.SecondThread
 {
     public class SecondaryThread
     {
+        public static Dictionary<string, ISaveable> Values = new Dictionary<string, ISaveable>();
+
         private static List<Action> queue = new List<Action>();
         private static List<Action> copiedQueue = new List<Action>();
         private static bool hasAction = false;
@@ -20,6 +23,18 @@ namespace RealLifeFramework.SecondThread
             thread.Start();
             Logger.Log("[SecondaryThread] : Started!");
 
+        }
+
+        public static ISaveable Fetch(string key)
+        {
+            if (Values.ContainsKey(key))
+            {
+                return Values[key];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static void Execute(Action action)
