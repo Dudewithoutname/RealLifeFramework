@@ -9,6 +9,7 @@ using UnityEngine;
 using RealLifeFramework.Data;
 using RealLifeFramework.Framework.Data;
 using RealLifeFramework.SecondThread;
+using MySql.Data.MySqlClient;
 
 namespace RealLifeFramework.Security
 {
@@ -17,52 +18,41 @@ namespace RealLifeFramework.Security
     {
 
         private static List<CSteamID> bannedPlayers;
-        private static SecurityData data;
         /* 
          * TODO
          * DISCORD EMBED SEND ETC.
         */
-
-        private void Load()
-        {
-            bannedPlayers = new List<CSteamID>();
-            if (DataManager.ExistData("Server", "hwidBans"))
-            {
-                data = DataManager.LoadData<SecurityData>("Server", "hwidBans");
-            }
-            else
-            {
-                DataManager.CreateData("Server", "hwidBans", new SecurityData());
-                data = new SecurityData();
-            }
-            Logger.Log("[Guard] Loaded");
-        }
-
         public void HookEvents()
         {
-            Load();
+            bannedPlayers = new List<CSteamID>();
             Provider.onCheckBanStatusWithHWID += checkBan;
             U.Events.OnPlayerConnected += handleBans;
             Provider.onBanPlayerRequested += doHWIDBan;
             Provider.onUnbanPlayerRequested += doHWIDUnban;
-            Provider.onCommenceShutdown += () => saveBans();
+            Logger.Log("[Guard] Loaded");
         }
-        private void saveBans()
-        {
 
-        }
         private void checkBan(SteamPlayerID playerID, uint remoteIP, ref bool isBanned, ref string banReason, ref uint banRemainingDuration)
         {
+            bool banned = isBanned;
+
             SecondaryThread.Execute(() =>
             {
-                if (isBanned) return;
+                if (banned) return;
 
                 string hwid = BitConverter.ToString(playerID.hwid).Replace("-", string.Empty);
+                var get = Database.Instance.get("security", 2, "hwid", hwid);
 
-                if (data.IsBanned && isBanned == false)
+                if (get == "1" && !banned)
                 {
                     Logger.Log("[Guard] Banned player tried to get around ban !");
                     bannedPlayers.Add(playerID.steamID);
+                    return;
+                }
+
+                if(get == null && !banned)
+                {
+                    new MySqlCommand($"INSERT INTO security (hwid, steamid) VALUES ('{hwid}','{playerID.steamID}')", Database.Instance.Connection).ExecuteNonQuery();
                 }
             });
         }
@@ -72,7 +62,6 @@ namespace RealLifeFramework.Security
             SecondaryThread.Execute(() =>
             {
                 CSteamID steamid = player.Player.channel.owner.playerID.steamID;
-                if (steamid.ToString() == "") return;
 
                 if (bannedPlayers.Contains(steamid))
                 {

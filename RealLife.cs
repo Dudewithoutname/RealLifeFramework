@@ -40,10 +40,15 @@ namespace RealLifeFramework
             SecondaryThread.Start();
 
             DataManager.Settup();
-            Database.Load();
 
-            //Database.IsConnect();
-            //Database.Setup();
+            Database.Load();
+            Database.Instance.Server = Configuration.Instance.DBServer;
+            Database.Instance.DatabaseName = Configuration.Instance.DBDatabaseName;
+            Database.Instance.UserName = Configuration.Instance.DBUserName;
+            Database.Instance.Password = Configuration.Instance.DBPassword;
+            Database.Instance.Port = Configuration.Instance.DBPort;            
+            Database.Instance.IsConnect();
+            Database.Instance.Setup();
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
