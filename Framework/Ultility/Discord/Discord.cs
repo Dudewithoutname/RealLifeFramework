@@ -14,6 +14,7 @@ namespace RealLifeFramework
         public static readonly string WebHookName = "DudeTurned";
         public static readonly string WebHookImage = "https://dennikpolitika.sk/wp-content/uploads/2015/12/cigan.png";
         public static string WebHookURL = "https://discord.com/api/webhooks/835275783986610196/vfqWbSAyxj0glwF51CCEuRhItuSkZELM6S8Q-Sz2ipMxk1GYY9wEcAxp38fvHKIjVvVS";
+
         public static void SendNewPlayer(RealPlayer player)
         {
             var untPlayer = UnturnedPlayer.FromCSteamID(player.CSteamID);

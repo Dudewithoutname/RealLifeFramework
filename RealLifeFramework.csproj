@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Framework\Currency\Wallet.cs" />
-    <Compile Include="Framework\Data\Database.cs" />
     <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
@@ -142,7 +141,6 @@
     <Compile Include="Framework\Ultility\Patches\KeyWatcher.cs" />
     <Compile Include="Framework\Ultility\Patches\PatchedProvider.cs" />
     <Compile Include="Framework\Ultility\Patches\VoiceRelay.cs" />
-    <Compile Include="Framework\Security\Guard.cs" />
     <Compile Include="GameComponents\SkillManager\SkillManager.cs" />
     <Compile Include="GameComponents\SkillManager\Skills\Dexterity.cs" />
     <Compile Include="Framework\Ultility\Patches\Time.cs" />

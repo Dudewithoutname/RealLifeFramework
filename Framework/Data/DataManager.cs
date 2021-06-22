@@ -27,6 +27,7 @@ namespace RealLifeFramework.Data
                 Directory.CreateDirectory(dataPath);
                 foreach(string storage in storages) { Directory.CreateDirectory($@"{dataPath}\{storage}"); };
             }
+            Logger.Log("[DataManager] : Loaded");
         }
 
         #region Data

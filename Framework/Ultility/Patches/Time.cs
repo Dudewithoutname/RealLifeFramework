@@ -14,6 +14,7 @@ namespace RealLifeFramework.Patches
     {
         public static onTimeUpdate onTimeUpdated;
         private static ushort prevMinutes = 0;
+
         [HarmonyPrefix]
         private static void TimeUpdate()
         {
@@ -24,6 +25,7 @@ namespace RealLifeFramework.Patches
 
             var hours = (defaultUTime / uhours + 5) % 24;
             var minutes = (defaultUTime % uhours / uminutes + 60) % 60;
+
             if((ushort)minutes != prevMinutes)
             {
                 prevMinutes = (ushort)minutes;
