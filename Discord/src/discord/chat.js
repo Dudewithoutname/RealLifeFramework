@@ -7,7 +7,7 @@ async function errorMessage (text, isChannel, message) {
     .setTitle(":x: Error")
     .setDescription("**"+text+"**")
 
-    (isChannel) ? message.channel.send(mess) : message.author.send(mess)    
+    (isChannel) ? await message.channel.send(mess) : await message.author.send(mess)    
 }
 
 module.exports = {

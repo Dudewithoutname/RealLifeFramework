@@ -7,10 +7,10 @@ module.exports = {
 
         var dlzka = Math.floor((Math.random() * 35) + 1);
 
-            let cicinaMSG = new MessageEmbed()
+        let cicinaMSG = new MessageEmbed()
             .setColor("#ffffff")
-            .setAuthor("Tvoja cicina meria "+ dlzka+ " cm");            
-            message.channel.send(cicinaMSG);
-
+            .setAuthor(`Tvoja cicina meria ${dlzka} cm`);
+                        
+        message.channel.send(cicinaMSG);
     }
 }

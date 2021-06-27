@@ -20,11 +20,11 @@ client.commands = new Collection();
 
 app.use(express.json())
 
-app.use( (req, res, next) => { (req.body.token != '2a8d9023i0our897u9wqf') ? res.end('Invalid token ty kokot! :)') : next() } )
+app.use( (req, res, next) => { (req.body.token != '2a8d#9023!i0ou.r897%u9wqf') ? res.end('Invalid token ty kokot! :)') : next() } )
 
 app.get('/', async (req, res) => res.end() )
 
-
+     
 client.on('ready', () =>{
     client.user.setActivity('Dudeturned (^.^)', {type:'WATCHING'})
     console.log('[Bot] is ready m8 :) ')
