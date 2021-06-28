@@ -9,5 +9,7 @@ module.exports = {
             .setAuthor("debug")
 
         message.channel.send(emb)
+
+        console.log(cicinaMSG)
     }
 }
