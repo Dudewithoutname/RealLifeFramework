@@ -3,6 +3,7 @@ const fs = require('fs');
 const { Client, RichEmbed,  Collection } = require('discord.js')
 const { config } = require('dotenv')
 const express = require('express')
+
 const app = express()
 const PORT = 3003
 
@@ -18,13 +19,12 @@ client.commands = new Collection();
     require(`./discord/${handler}`)(client)
 })
 
+// express 
 app.use(express.json())
-
-app.use( (req, res, next) => { (req.body.token != '2a8d9023i0our897u9wqf') ? res.end('Invalid token ty kokot! :)') : next() } )
-
+app.use( (req, res, next) => { (req.body.token != process.env.APITOKEN) ? res.end('Invalid token ty kokot! :)') : next() } )
 app.get('/', async (req, res) => res.end() )
 
-
+// discord
 client.on('ready', () =>{
     client.user.setActivity('Dudeturned (^.^)', {type:'WATCHING'})
     console.log('[Bot] is ready m8 :) ')
@@ -40,14 +40,15 @@ client.login(process.env.TOKEN)
 app.listen(PORT, () => console.log(`[API] : ${PORT}`))
 
 function setupRoutes(){
-    const serverInfo = require('./api/routes/serverInfo')
+    const serverInfo = require('./routes/serverInfo')
     app.use(serverInfo)
 
-    const log = require('./api/routes/log')
+    const log = require('./routes/log')
     app.use(log)
 }
 
 module.exports = {
     disClient: client,
-    guild: "830839683549757511",
+    steamAPIKey: process.env.STEAMAPI,
+    guild: '830839683549757511',
 }

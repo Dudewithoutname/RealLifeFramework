@@ -32,7 +32,7 @@ namespace RealLifeFramework
                 "        }," +
                 "       'fields': [" +
                 "           {   " +
-                "               'name': '**Name**', " +
+                "               'name': '**Name**',  " +
                $"               'value': '{player.Name}'," +
                 "               'inline': 'true'     " +
                 "           },  " +

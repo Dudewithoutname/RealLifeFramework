@@ -4,12 +4,10 @@ module.exports = {
     name: "embed",
     type: "server",
     run: async (client, message, args) => {
-        const dlzka = Math.floor((Math.random() * 35) + 1);
+        let emb = new MessageEmbed()
+            .setColor("#fb9d8f")
+            .setAuthor("debug")
 
-        let cicinaMSG = new MessageEmbed()
-            .setColor("#ffffff")
-            .setAuthor("Tvoja cicina meria "+ dlzka+ " cm")
-
-        console.log(cicinaMSG)
+        message.channel.send(emb)
     }
 }
