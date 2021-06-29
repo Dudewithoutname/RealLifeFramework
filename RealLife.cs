@@ -43,13 +43,15 @@ namespace RealLifeFramework
 
             DataManager.Settup();
 
+            Database = new DatabaseManager();
             Database.Server = Configuration.Instance.DatabaseServer;
             Database.DatabaseName = Configuration.Instance.DatabaseName;
             Database.UserName = Configuration.Instance.DatabaseUsername;
             Database.Password = Configuration.Instance.DatabasePassword;
             Database.Port = Configuration.Instance.DatabasePort;
             Database.IsConnected();
-            Database.Debug();
+            Database.Setup();
+
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();

@@ -41,12 +41,9 @@ namespace RealLifeFramework.Security
         {
             var player = DataManager.LoadPlayer(playerToBan);
             var admin = UnturnedPlayer.FromCSteamID(instigator);
-            string name = "Console";
+            string name = (admin != null)? admin.DisplayName : "Console";
 
-            if (admin != null)
-                name = admin.SteamName;
-
-            Api.Send("/stats/bans", JsonConvert.SerializeObject(
+            Api.Send("/info/bans", JsonConvert.SerializeObject(
                 new Ban() 
                 {
                      characterName = (player != null)? player.name : string.Empty,
