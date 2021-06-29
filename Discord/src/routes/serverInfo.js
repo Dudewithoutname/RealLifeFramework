@@ -19,8 +19,10 @@ router.post('/info/tab', async (req, res) => {
     res.end()
 
     if(obj.time == "offline")
-        await main.disClient.user.setActivity('Dudeturned (^.^)', {type:'WATCHING'})
-
+    {
+        await main.disClient.user.setActivity('Dudeturned (^.^) | Server Offline', {type:'WATCHING'})
+        return
+    }
 
     if (!obj.night)
         await main.disClient.user.setActivity(`| ${obj.players} 👥 | ${obj.time} 🌞 |`).catch(console.error);

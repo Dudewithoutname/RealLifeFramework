@@ -1,12 +1,8 @@
 ﻿using Newtonsoft.Json;
 using RealLifeFramework.API.Models;
 using RealLifeFramework.Patches;
-using RealLifeFramework.SecondThread;
 using RealLifeFramework.UserInterface;
 using SDG.Unturned;
-using System.Threading;
-using System.Timers;
-using UnityEngine;
 
 namespace RealLifeFramework
 {
@@ -28,7 +24,7 @@ namespace RealLifeFramework
             {
                 playerCount++;
             }
-            Logger.Log($"{playerCount}");
+
             // message
             Api.Send("/info/stats", JsonConvert.SerializeObject(
                 new Stats()
@@ -47,8 +43,8 @@ namespace RealLifeFramework
                 new Tab()
                 {
                     players = playerCount,
-                    time = $"{HUD.FormatTime(Patches.Time.Current[0], Patches.Time.Current[1])}",
-                    night = (Patches.Time.Current[0] < 5 || Patches.Time.Current[0] > 22),
+                    time = $"{HUD.FormatTime(Time.Current[0], Time.Current[1])}",
+                    night = getNight(),
                 }
             ));
         }
@@ -71,6 +67,16 @@ namespace RealLifeFramework
                     time = "offline",
                 }
             ));
+        }
+
+        private static bool getNight()
+        {
+            if (Time.Current[0] > 22)
+                return true;
+            if (Time.Current[0] < 5)
+                return true;
+
+            return false;
         }
     }
 }
