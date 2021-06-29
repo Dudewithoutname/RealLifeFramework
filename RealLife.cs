@@ -19,7 +19,9 @@ namespace RealLifeFramework
         public static RealLife Instance;
         public Dictionary<CSteamID,RealPlayer> RealPlayers;
         public static bool Debugging = false;
+        public static DatabaseManager Database;
         private Harmony harmony;
+
         /*
             new JobRank("Novice", 1, 0),
             new JobRank("Beginner", 2, 100),
@@ -40,6 +42,14 @@ namespace RealLifeFramework
             SecondaryThread.Start();
 
             DataManager.Settup();
+
+            Database.Server = Configuration.Instance.DatabaseServer;
+            Database.DatabaseName = Configuration.Instance.DatabaseName;
+            Database.UserName = Configuration.Instance.DatabaseUsername;
+            Database.Password = Configuration.Instance.DatabasePassword;
+            Database.Port = Configuration.Instance.DatabasePort;
+            Database.IsConnected();
+            Database.Debug();
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();

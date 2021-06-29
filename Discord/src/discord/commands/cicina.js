@@ -5,9 +5,9 @@ module.exports = {
     type: "server",
     run: async (client, message, args) => {
 
-        var dlzka = Math.floor((Math.random() * 35) + 1);
+        const dlzka = Math.floor((Math.random() * 35)+ 1);
 
-        let cicinaMSG = new MessageEmbed()
+        const cicinaMSG = new MessageEmbed()
             .setColor("#fb9d8f")
             .setAuthor(`Tvoja cicina meria ${dlzka} cm`);
                         

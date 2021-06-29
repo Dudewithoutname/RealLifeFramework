@@ -12,6 +12,6 @@ namespace RealLifeFramework.API.Models
         public string characterName { get; set; }
         public string provider { get; set; }
         public string reason { get; set; }
-        public string time { get; set; }
+        public int time { get; set; }
     }
 }

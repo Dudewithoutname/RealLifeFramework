@@ -47,11 +47,12 @@ router.post('/info/bans', async (req, res) => {
     const channel = await main.disClient.guilds.cache.get(main.guild).channels.cache.get(bansChannelId)
     const player = await getSteamUser(obj.steamId)
     const time = (parseInt(obj.time) <= 78800000)? formatTime(obj.time) : 'Permanentný'
-    const date = new Date().toJSON().slice(0,10).replace(/-/g,'.');
+    const date = new Date().toJSON().slice(0,10).replace(/-/g,'.')
+    const charName = (obj.characterName != "")? charName : obj.characterName
 
     const embed = new MessageEmbed()
         .setColor("#ff1717")
-        .setAuthor(`Ban | ${obj.characterName}`, player.avatar, `https://steamcommunity.com/profiles/${obj.steamId}`)
+        .setAuthor(`Ban | ${charName}`, player.avatar, `https://steamcommunity.com/profiles/${obj.steamId}`)
         .addField('🤵 Admin ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍', obj.provider, true)
         .addField('🕐 Dĺžka banu ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍', time, true)
         .addField('📖 Dvôvod', obj.reason, false)

@@ -16,7 +16,7 @@ module.exports = {
         const cmd = args.shift().toLowerCase()
         const command = client.commands.get(cmd)
 
-        if (!message.content.startsWith(prefix)) return
+        if (!message.content.startsWith(prefix) || command == null) return
         
         if (!message.guild){  
             if(command.type === "private" && command)              
