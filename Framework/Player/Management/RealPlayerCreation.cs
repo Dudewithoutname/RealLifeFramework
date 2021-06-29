@@ -8,6 +8,8 @@ using System.Linq;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Items;
 using RealLifeFramework.SecondThread;
+using Newtonsoft.Json;
+using RealLifeFramework.API.Models;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -53,7 +55,7 @@ namespace RealLifeFramework.RealPlayers
             //
             player.VanishMode = false;
 
-            var RealPlayer = new RealPlayer(UnturnedPlayer.FromPlayer(player.Player), PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
+            var RealPlayer = new RealPlayer(player, PrePlayers[steamId].GetFullName(), (ushort)PrePlayers[steamId].Age, (byte)PrePlayers[steamId].Gender);
 
             RealLife.Instance.RealPlayers.Add(steamId, RealPlayer);
             giveStartingItems(player.Player);
@@ -66,7 +68,16 @@ namespace RealLifeFramework.RealPlayers
             
             PrePlayers.Remove(steamId);
 
-            //Discord.SendNewPlayer(RealPlayer);
+            Api.Send("/logs/character", JsonConvert.SerializeObject(
+                new RealLifeFramework.API.Models.Character()
+                {
+                    steamId = RealPlayer.CSteamID.ToString(),
+                    name = RealPlayer.Name,
+                    gender = RealPlayer.Gender,
+                    age = RealPlayer.Age,
+                    label = $"Dudeturned | {DateTime.Now.ToString("HH:mm:ss dd.MM.yyyy")}",
+                }
+            ));
         }
 
         private static void giveStartingItems(Player player)
@@ -78,6 +89,7 @@ namespace RealLifeFramework.RealPlayers
 
                 uplayer.GiveItem(StartClothes.GetRandomShirt(realplayer.Gender), 1);
                 uplayer.GiveItem(StartClothes.GetPantsu(), 1);
+                uplayer.GiveItem(43888, 1);
                 uplayer.Experience += RealLife.Instance.Configuration.Instance.StartingExp;
             });
         }
