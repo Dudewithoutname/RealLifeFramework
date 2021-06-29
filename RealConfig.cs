@@ -13,6 +13,7 @@ namespace RealLifeFramework
         public short Whisper;
         public short Normal;
         public short Shout;
+        public string IP;
 
         public void LoadDefaults()
         {
@@ -22,6 +23,7 @@ namespace RealLifeFramework
             Whisper = 5;
             Normal = 30;
             Shout = 60;
+            IP = "127.0.0.1";
         }
     }
 }

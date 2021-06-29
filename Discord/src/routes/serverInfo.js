@@ -6,23 +6,26 @@ const fetch = require("node-fetch")
 let router = express.Router()
 
 
-const tabCathegoryID = '849002618793885717'
+
+const tabId = '859447328004243516'
 
 /*
-    players - string
+    players - int
     time - string
-    raining - bool
+    night - bool
 */
-router.post('info/tab', async (req, res) => {
+router.post('/info/tab', async (req, res) => {
     const obj = req.body
     res.end()
 
-    const tab = await main.disClient.guilds.cache.get(main.guild).channels.cache.get(tabCathegoryID)
+    if(obj.time == "offline")
+        await main.disClient.user.setActivity('Dudeturned (^.^)', {type:'WATCHING'})
 
-    if (!obj.raining)
-        await tab.setName(`| ${obj.players} 👥 | ${obj.time} ⌚| 🌞 |`)
+
+    if (!obj.night)
+        await main.disClient.user.setActivity(`| ${obj.players} 👥 | ${obj.time} 🌞 |`).catch(console.error);
     else
-        await tab.setName(`| ${obj.players} 👥 | ${obj.time} ⌚| ☔ |`)   
+        await main.disClient.user.setActivity(`| ${obj.players} 👥 | ${obj.time} 🌙 |`).catch(console.error);
 })
 
 
@@ -45,12 +48,12 @@ router.post('/info/bans', async (req, res) => {
     const date = new Date().toJSON().slice(0,10).replace(/-/g,'.');
 
     const embed = new MessageEmbed()
-    .setColor("#ff1717")
-    .setAuthor(obj.characterName, player.avatar, `https://steamcommunity.com/profiles/${obj.steamId}`)
-    .addField('🤵 Admin ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍', obj.provider, true)
-    .addField('🕐 Dĺžka banu ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍', time, true)
-    .addField('📖 Dvôvod', obj.reason, false)
-    .setFooter(`Dátum • ${date}`, 'https://cdn.discordapp.com/avatars/843181656025333800/f636cdac55d0c5404ec8e614c30a7635.png?size=64')
+        .setColor("#ff1717")
+        .setAuthor(`Ban | ${obj.characterName}`, player.avatar, `https://steamcommunity.com/profiles/${obj.steamId}`)
+        .addField('🤵 Admin ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍', obj.provider, true)
+        .addField('🕐 Dĺžka banu ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍‍‍‍‍‍‍‍‍‍ ‍‍ ‍‍‍‍‍‍‍‍‍‍‍', time, true)
+        .addField('📖 Dvôvod', obj.reason, false)
+        .setFooter(`Dátum • ${date}`, 'https://cdn.discordapp.com/avatars/843181656025333800/f636cdac55d0c5404ec8e614c30a7635.png?size=64')
 
     channel.send(embed)
 })
@@ -62,8 +65,7 @@ let IP = '69.420.69.420'
 let port = '27015'
 
 /*
-    online - bool
-    -
+    online - bool*
     players - int
     ems - int
     pd - int

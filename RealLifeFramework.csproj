@@ -109,6 +109,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\DiscordBotManager.cs" />
+    <Compile Include="API\Models\Ban.cs" />
+    <Compile Include="API\Models\Character.cs" />
+    <Compile Include="API\Models\ChatMessage.cs" />
+    <Compile Include="API\Models\Stats.cs" />
+    <Compile Include="API\Models\Tab.cs" />
     <Compile Include="Framework\Currency\Wallet.cs" />
     <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
@@ -147,7 +153,7 @@
     <Compile Include="GameComponents\HUD\other\WidgetInfo.cs" />
     <Compile Include="GameComponents\HUD\other\Widget.cs" />
     <Compile Include="Framework\Ultility\UI.cs" />
-    <Compile Include="Framework\Ultility\Discord\Discord.cs" />
+    <Compile Include="API\Api.cs" />
     <Compile Include="Framework\Ultility\Logger.cs" />
     <Compile Include="RealConfig.cs" />
     <Compile Include="RealLife.cs" />

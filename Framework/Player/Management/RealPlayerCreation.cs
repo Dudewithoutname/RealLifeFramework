@@ -66,7 +66,7 @@ namespace RealLifeFramework.RealPlayers
             
             PrePlayers.Remove(steamId);
 
-            Discord.SendNewPlayer(RealPlayer);
+            //Discord.SendNewPlayer(RealPlayer);
         }
 
         private static void giveStartingItems(Player player)

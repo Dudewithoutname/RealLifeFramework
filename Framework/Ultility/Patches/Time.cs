@@ -12,6 +12,7 @@ namespace RealLifeFramework.Patches
     [HarmonyPatch("updateLighting")]
     internal class Time
     {
+        public static ushort[] Current = new ushort[2];
         public static onTimeUpdate onTimeUpdated;
         private static ushort prevMinutes = 0;
 
@@ -28,6 +29,9 @@ namespace RealLifeFramework.Patches
 
             if((ushort)minutes != prevMinutes)
             {
+                Current[0] = (ushort)hours;
+                Current[1] = (ushort)minutes;
+
                 prevMinutes = (ushort)minutes;
                 onTimeUpdated.Invoke((ushort)hours, (ushort)minutes);
             }

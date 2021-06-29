@@ -10,6 +10,7 @@ using RealLifeFramework.Items;
 using HarmonyLib;
 using RealLifeFramework.Data;
 using RealLifeFramework.SecondThread;
+using UnityEngine;
 
 namespace RealLifeFramework
 {
@@ -47,10 +48,10 @@ namespace RealLifeFramework
 
             EventManager.Load();
             RealPlayerCreation.Load();
-            Level.onLevelLoaded += overrideServerStuff;
-
+            Level.onLevelLoaded += onServerLoaded;
             Provider.onCommenceShutdown += () => saveData();
             InvokeRepeating(nameof(saveData), 1800f, 1800f);
+            
             Logger.Log("[Finished]- - - - - - - * RealLife * - - - - - - -");
         }
 
@@ -76,9 +77,10 @@ namespace RealLifeFramework
             });
         }
 
-        private void overrideServerStuff(int level)
+        private void onServerLoaded(int level)
         {
             Provider.maxPlayers = 60;
+            SteamGameServer.SetServerName("CZ/SK | DudeTurned Roleplay");
             SteamGameServer.SetMaxPlayerCount(24);
             SteamGameServer.SetBotPlayerCount(0);
             SteamGameServer.SetKeyValue("rocketplugins",
@@ -87,6 +89,11 @@ namespace RealLifeFramework
            $" | * Version: {Assembly.GetName().Version}," +
             " | * Author: Dudewithoutname#3129" +
             "");
+
+            DiscordBotManager.Load();
+            InvokeRepeating(nameof(trashMethod), 20f, 20f);
         }
+
+        private void trashMethod() => DiscordBotManager.UpdateServerStats();
     }
 }
