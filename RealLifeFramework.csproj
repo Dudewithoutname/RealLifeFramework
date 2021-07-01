@@ -115,6 +115,7 @@
     <Compile Include="API\Models\ChatMessage.cs" />
     <Compile Include="API\Models\Stats.cs" />
     <Compile Include="API\Models\Tab.cs" />
+    <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
     <Compile Include="Framework\Currency\Wallet.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
@@ -123,10 +124,14 @@
     <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
-    <Compile Include="Framework\Data\Models\ISaveable.cs" />
+    <Compile Include="Framework\Data\ISaveable.cs" />
+    <Compile Include="Framework\Privileges\EPrivilege.cs" />
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillUserData.cs" />
+    <Compile Include="Framework\Jobs\PrivilegeUser.cs" />
+    <Compile Include="Framework\Privileges\PriviledgeManager.cs" />
+    <Compile Include="Framework\Privileges\PrivilegeEx.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
     <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
     <Compile Include="GameComponents\HUD\CHideHud.cs" />

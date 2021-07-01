@@ -19,6 +19,15 @@ namespace RealLifeFramework.Chatting
             RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)voicemode]);
         }
 
+        public ChatProfile(RealPlayer realplayer, ProfileData data)
+        {
+            NameColor = data.NameColor;
+            Avatar = data.Avatar;
+            RealPlayer = realplayer;
+            VoiceMode = EPlayerVoiceMode.Normal;
+            RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)VoiceMode]);
+        }
+
         public void ChangeVoicemode(EPlayerVoiceMode voicemode, string icon)
         {
             VoiceMode = voicemode;

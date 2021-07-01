@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Newtonsoft.Json;
+using RealLifeFramework.Chatting;
 using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
 using System;
@@ -20,6 +21,7 @@ namespace RealLifeFramework.Data.Models
         public uint exp { get; set; }
 
         public SkillUserData skillUser { get; set; }
+        public ProfileData profileData { get; set; }
         public bool isAdmin { get; set; }
 
         public uint walletMoney { get; set; }
@@ -35,6 +37,7 @@ namespace RealLifeFramework.Data.Models
                 level = player.Level,
                 exp = player.Exp,
                 skillUser = (SkillUserData)player,
+                profileData = (ProfileData)player.ChatProfile,
                 isAdmin = player.IsAdmin,
                 walletMoney = player.WalletMoney,
                 creditcardMoney = player.CreditCardMoney,

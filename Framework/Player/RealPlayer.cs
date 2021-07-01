@@ -88,7 +88,9 @@ namespace RealLifeFramework.RealPlayers
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
-            ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+
+            ChatProfile = new ChatProfile(this, data.profileData);
+
             VoiceChat.Subscribe(this);
         }
 
@@ -110,15 +112,16 @@ namespace RealLifeFramework.RealPlayers
             Exp = 0;
 
             SkillUser = new SkillUser(this);
-
-            IsAdmin = player.IsAdmin;
+            
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+
             VoiceChat.Subscribe(this);
+            
             DataManager.CreatePlayer(this);
         }
 
