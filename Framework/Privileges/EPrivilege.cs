@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RealLifeFramework.Privileges
+namespace RealLifeFramework
 {
     public enum EPrivilege : byte
     {
@@ -13,6 +13,6 @@ namespace RealLifeFramework.Privileges
         HELPER,
         MOD,
         ADMIN,
-        OWNER,
+        OWNER = 255,
     }
 }

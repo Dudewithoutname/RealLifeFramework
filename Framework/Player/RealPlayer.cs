@@ -6,12 +6,10 @@ using RealLifeFramework.Skills;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
-using UnityEngine;
 using Rocket.API;
-using Newtonsoft.Json;
-using System.IO;
 using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
+using System.Collections.Generic;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -23,6 +21,7 @@ namespace RealLifeFramework.RealPlayers
         public string IP { get; private set; }
         public ITransportConnection TransportConnection { get; private set; }
         public RealPlayerComponent Component { get; private set; }
+        public List<EPrivilege> Privileges { get; set; }
 
         // * Character
         public string Name { get; set; }
@@ -75,7 +74,9 @@ namespace RealLifeFramework.RealPlayers
             IP = TransportConnection.GetAddress().ToString();
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
-            
+
+            PrivilegeManager.InitialiazePrivileges(this);
+
             Name = data.name;
             Age = data.age;
             Gender = data.gender;
@@ -108,6 +109,8 @@ namespace RealLifeFramework.RealPlayers
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
+            PrivilegeManager.InitialiazePrivileges(this);
+
             Name = name;
             Age = age;
             SetGender(gender);
@@ -115,8 +118,10 @@ namespace RealLifeFramework.RealPlayers
             Level = 1;
             Exp = 0;
 
+            Component = player.Player.gameObject.AddComponent<RealPlayerComponent>();
+            Component.Player = this;
+
             SkillUser = new SkillUser(this);
-            
 
             Logger.Log($"[Characters] New Player : {Name}, {Age}, {Gender}");
 
@@ -171,6 +176,14 @@ namespace RealLifeFramework.RealPlayers
         #endregion
 
         #region GetRealPlayer
+
+        public static RealPlayer From(SteamPlayer player)
+        {
+            if (RealLife.Instance.RealPlayers.ContainsKey(player.playerID.steamID))
+                return RealLife.Instance.RealPlayers[player.playerID.steamID];
+            else
+                return null;
+        }
 
         public static RealPlayer From(CSteamID csteamid)
         {

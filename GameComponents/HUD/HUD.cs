@@ -17,10 +17,12 @@ namespace RealLifeFramework.UserInterface
         public List<Widget> Widgets;
         public bool HasSeatBelt { get; set; }
         public bool isHidden { get; set; }
+        public uint WalletMoney { get; set; }
 
         public HUD(RealPlayer player)
         {
             Player = player;
+            WalletMoney = 0;
             Widgets = new List<Widget>();
             HasSeatBelt = false;
             createPlayerUI();

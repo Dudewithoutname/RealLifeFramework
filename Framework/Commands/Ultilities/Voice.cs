@@ -22,7 +22,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>() { "vc", "changevoice" };
 
-        public List<string> Permissions => new List<string> { "dude.basic" };
+        public List<string> Permissions => new List<string> { EPrivilege.PLAYER.ToPermission() };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {

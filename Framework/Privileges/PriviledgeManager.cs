@@ -1,23 +1,22 @@
-﻿using Rocket.API;
-using Rocket.Unturned;
+﻿using RealLifeFramework.RealPlayers;
+using Rocket.API;
 using Rocket.Unturned.Player;
 using System;
 
-namespace RealLifeFramework.Privileges
+namespace RealLifeFramework
 {
-    [EventHandler]
-    public class PrivilegeManager : IEventComponent
+    public class PrivilegeManager
     {
-        public void HookEvents()
+        public static void InitialiazePrivileges(RealPlayer player)
         {
-            U.Events.OnPlayerConnected += initialiazePrivileges;
-        }
-
-        private void initialiazePrivileges(UnturnedPlayer player)
-        {
-            if (player.HasPermission(EPrivilege.ADMIN.ToPermission()))
+            foreach (string name in Enum.GetNames(typeof(EPrivilege)))
             {
-                return; // dokonci
+                var perm = name.ToPermission();
+
+                if (UnturnedPlayer.FromPlayer(player.Player).HasPermission(perm))
+                {
+                    player.Privileges.Add((EPrivilege)Enum.Parse(typeof(EPrivilege), name, true));
+                }
             }
         }
     }

@@ -109,14 +109,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\DiscordBotManager.cs" />
+    <Compile Include="API\ServerStats.cs" />
     <Compile Include="API\Models\Ban.cs" />
     <Compile Include="API\Models\Character.cs" />
     <Compile Include="API\Models\ChatMessage.cs" />
     <Compile Include="API\Models\Stats.cs" />
     <Compile Include="API\Models\Tab.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
-    <Compile Include="Framework\Currency\Wallet.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
     <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
@@ -135,20 +134,21 @@
     <Compile Include="Framework\Privileges\PrivilegeEx.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
     <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
-    <Compile Include="GameComponents\HUD\CHideHud.cs" />
+    <Compile Include="Framework\Commands\Ultilities\HideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerManager.cs" />
     <Compile Include="Framework\Player\RealPlayer.cs" />
-    <Compile Include="GameComponents\Commands\test2.cs" />
-    <Compile Include="GameComponents\Commands\Ultilities\CSeatBelt.cs" />
-    <Compile Include="GameComponents\Commands\Ultilities\CVoice.cs" />
+    <Compile Include="Framework\Commands\test2.cs" />
+    <Compile Include="Framework\Commands\Ultilities\SeatBelt.cs" />
+    <Compile Include="Framework\Commands\Ultilities\Voice.cs" />
     <Compile Include="Framework\Events\EventHandler.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
     <Compile Include="Framework\Events\RealEvents.cs" />
     <Compile Include="Framework\Chatting\Chat.cs" />
-    <Compile Include="GameComponents\Commands\test.cs" />
+    <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
+    <Compile Include="GameComponents\HUD\Currency.cs" />
     <Compile Include="GameComponents\HUD\HUD.cs" />
     <Compile Include="GameComponents\HUD\HUDManager.cs" />
     <Compile Include="GameComponents\HUD\other\HUDComponent.cs" />

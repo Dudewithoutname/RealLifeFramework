@@ -9,6 +9,7 @@ using Steamworks;
 using System.Linq;
 using Rocket.API.Extensions;
 using UnityEngine;
+using Rocket.Unturned.Enumerations;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -34,6 +35,41 @@ namespace RealLifeFramework.UserInterface
             RealPlayerManager.OnAmmoLowered += onShooted;
             ChangeFiremode.OnFiremodeChanged += onFiremodeChanged;
             PlayerSkills.OnExperienceChanged_Global += (instance, exp) => onExpUpdate(instance, exp);
+            Provider.onEnemyConnected += onPlayerConnected;
+            Provider.onEnemyDisconnected += onPlayerDisconnected;
+        }
+
+
+        private static void onPlayerConnected(SteamPlayer player)
+        {
+            player.player.inventory.onInventoryAdded += (byte page, byte index, ItemJar jar) => onInventoryAdded(player, page, index, jar);
+            player.player.inventory.onInventoryRemoved += (byte page, byte index, ItemJar jar) => onInventoryRemoved(player, page, index, jar);
+        }
+
+        private static void onPlayerDisconnected(SteamPlayer player)
+        {
+            player.player.inventory.onInventoryAdded -= (byte page, byte index, ItemJar jar) => onInventoryAdded(player, page, index, jar);
+            player.player.inventory.onInventoryRemoved -= (byte page, byte index, ItemJar jar) => onInventoryRemoved(player, page, index, jar);
+        }
+
+        private static void onInventoryAdded(SteamPlayer player, byte page, byte index, ItemJar jar)
+        {
+            if (Currency.Money[jar.item.id] > 0)
+            {
+                var rp = RealPlayer.From(player);
+                rp.HUD.WalletMoney += Currency.Money[jar.item.id];
+                rp.HUD.UpdateComponent(HUDComponent.Wallet, rp.HUD.WalletMoney.ToString());
+            }
+        }
+
+        private static void onInventoryRemoved(SteamPlayer player, byte page, byte index, ItemJar jar)
+        {
+            if (Currency.Money[jar.item.id] > 0)
+            {
+                var rp = RealPlayer.From(player);
+                rp.HUD.WalletMoney -= Currency.Money[jar.item.id];
+                rp.HUD.UpdateComponent(HUDComponent.Wallet, rp.HUD.WalletMoney.ToString());
+            }
         }
 
         private static void onExpUpdate(PlayerSkills skills, uint exp)
@@ -198,7 +234,6 @@ namespace RealLifeFramework.UserInterface
             }
         }
         #endregion
-
 
         #region Life
         private static void updateVirus(UnturnedPlayer player, byte virus)

@@ -6,7 +6,6 @@ namespace RealLifeFramework.RealPlayers
     public class RealPlayerComponent : MonoBehaviour
     {
         public RealPlayer Player;
-
         private byte oldAmmo;
 
         private void FixedUpdate()

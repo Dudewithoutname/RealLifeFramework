@@ -19,7 +19,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>();
 
-        public List<string> Permissions => new List<string>() { "dude.test" };
+        public List<string> Permissions => new List<string>() { EPrivilege.OWNER.ToPermission() };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
