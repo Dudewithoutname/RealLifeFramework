@@ -6,6 +6,7 @@ using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
+using RealLifeFramework.SecondThread;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -28,6 +29,49 @@ namespace RealLifeFramework.UserInterface
             createPlayerUI();
             player.Keyboard.KeyDown += seatBeltAction;
             isHidden = false;
+            calcInvMoney();
+
+            Player.Player.inventory.onInventoryAdded   += onInventoryAdded;
+            Player.Player.inventory.onInventoryRemoved += onInventoryRemoved;
+        }
+
+        public void onInventoryAdded(byte page, byte index, ItemJar jar)
+        {
+            if (Currency.Money.ContainsKey(jar.item.id))
+            {
+                WalletMoney += Currency.Money[jar.item.id];
+                UpdateComponent(HUDComponent.Wallet, formatMoney(WalletMoney.ToString()) );
+            }
+        }
+
+        public void onInventoryRemoved(byte page, byte index, ItemJar jar)
+        {
+            if (Currency.Money.ContainsKey(jar.item.id) && WalletMoney != 0)
+            {
+                WalletMoney -= Currency.Money[jar.item.id];
+                UpdateComponent(HUDComponent.Wallet, formatMoney(WalletMoney.ToString()) );
+            }
+        }
+
+        private void calcInvMoney()
+        {
+            SecondaryThread.Execute(() =>
+            {
+                foreach (var items in Player.Player.inventory.items)
+                {
+                    if (items == null) continue;
+
+                    foreach (var jar in items.items)
+                    {
+                        if (Currency.Money.ContainsKey(jar.item.id) && jar != null)
+                        {
+                            WalletMoney += Currency.Money[jar.item.id];
+                        }
+                    }
+                }
+
+                UpdateComponent(HUDComponent.Wallet, formatMoney(WalletMoney.ToString()));
+            });
         }
 
         public void HideHud()

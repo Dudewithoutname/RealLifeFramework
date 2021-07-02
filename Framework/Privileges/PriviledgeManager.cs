@@ -2,6 +2,7 @@
 using Rocket.API;
 using Rocket.Unturned.Player;
 using System;
+using System.Collections.Generic;
 
 namespace RealLifeFramework
 {
@@ -15,6 +16,7 @@ namespace RealLifeFramework
 
                 if (UnturnedPlayer.FromPlayer(player.Player).HasPermission(perm))
                 {
+                    player.Privileges = new List<EPrivilege>();
                     player.Privileges.Add((EPrivilege)Enum.Parse(typeof(EPrivilege), name, true));
                 }
             }
