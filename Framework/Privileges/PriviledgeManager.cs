@@ -16,8 +16,12 @@ namespace RealLifeFramework
 
                 if (UnturnedPlayer.FromPlayer(player.Player).HasPermission(perm))
                 {
-                    player.Privileges = new List<EPrivilege>();
-                    player.Privileges.Add((EPrivilege)Enum.Parse(typeof(EPrivilege), name, true));
+                    var privilege = (EPrivilege)Enum.Parse(typeof(EPrivilege), name, true);
+
+                    if (player.PrivilegeLevel < (byte)privilege)
+                    {
+                        player.PrivilegeLevel = (byte)privilege;
+                    }
                 }
             }
         }

@@ -21,7 +21,7 @@ namespace RealLifeFramework.RealPlayers
         public string IP { get; private set; }
         public ITransportConnection TransportConnection { get; private set; }
         public RealPlayerComponent Component { get; private set; }
-        public List<EPrivilege> Privileges { get; set; }
+        public byte PrivilegeLevel { get; set; } = 0;
 
         // * Character
         public string Name { get; set; }

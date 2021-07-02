@@ -22,7 +22,6 @@ namespace RealLifeFramework.Data.Models
 
         public SkillUserData skillUser { get; set; }
         public ProfileData profileData { get; set; }
-        public bool isAdmin { get; set; }
 
         public uint walletMoney { get; set; }
         public uint creditcardMoney { get; set; }
@@ -38,7 +37,6 @@ namespace RealLifeFramework.Data.Models
                 exp = player.Exp,
                 skillUser = (SkillUserData)player,
                 profileData = (ProfileData)player.ChatProfile,
-                isAdmin = player.IsAdmin,
                 walletMoney = player.WalletMoney,
                 creditcardMoney = player.CreditCardMoney,
             };

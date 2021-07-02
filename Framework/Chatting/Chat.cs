@@ -1,6 +1,8 @@
 ﻿using SDG.Unturned;
 using UnityEngine;
 using RealLifeFramework.RealPlayers;
+using Rocket.API;
+using Rocket.Unturned.Player;
 
 namespace RealLifeFramework.Chatting
 {
@@ -38,7 +40,7 @@ namespace RealLifeFramework.Chatting
 
         private static bool SendGlobalMessage(RealPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
-            string message = refactorMessage(text, player.IsAdmin);
+            string message = refactorMessage(text, player);
 
             if (isVisible)
             {
@@ -52,7 +54,7 @@ namespace RealLifeFramework.Chatting
 
         private static bool SendLocalMessage(RealPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
-            string message = refactorMessage(text, player.IsAdmin);
+            string message = refactorMessage(text, player);
 
             if(isVisible)
             {
@@ -66,7 +68,7 @@ namespace RealLifeFramework.Chatting
 
         private static bool SendGroupMessage(RealPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
-            string message = refactorMessage(text, player.IsAdmin);
+            string message = refactorMessage(text, player);
 
             if(isVisible)
             {
@@ -78,11 +80,11 @@ namespace RealLifeFramework.Chatting
             return false;
         }
 
-        private static string refactorMessage(string message, bool isAdmin)
+        private static string refactorMessage(string message, RealPlayer player)
         {
             string output = message;
 
-            if ((message.Contains("<") || message.Contains(">")) && !isAdmin)
+            if ((message.Contains("<") || message.Contains(">")) && player.PrivilegeLevel >= (byte)EPrivilege.MOD)
             {
                 output.Replace("<", "(");
                 output.Replace(">", ")");

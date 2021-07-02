@@ -129,7 +129,6 @@
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillUserData.cs" />
-    <Compile Include="Framework\Jobs\PrivilegeUser.cs" />
     <Compile Include="Framework\Privileges\PriviledgeManager.cs" />
     <Compile Include="Framework\Privileges\PrivilegeEx.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
@@ -143,7 +142,6 @@
     <Compile Include="Framework\Commands\Ultilities\Voice.cs" />
     <Compile Include="Framework\Events\EventHandler.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
-    <Compile Include="Framework\Events\RealEvents.cs" />
     <Compile Include="Framework\Chatting\Chat.cs" />
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
@@ -154,7 +152,7 @@
     <Compile Include="GameComponents\HUD\other\HUDComponent.cs" />
     <Compile Include="Framework\Items\MedicalItems.cs" />
     <Compile Include="Framework\Items\StartClothes.cs" />
-    <Compile Include="Framework\VehicleManager\VehicleCrash.cs" />
+    <Compile Include="GameComponents\Realism\Realism.cs" />
     <Compile Include="Framework\Ultility\Patches\KeyWatcher.cs" />
     <Compile Include="Framework\Ultility\Patches\PatchedProvider.cs" />
     <Compile Include="Framework\Ultility\Patches\VoiceRelay.cs" />
@@ -187,6 +185,8 @@
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Framework\Jobs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace RealLifeFramework
+﻿namespace RealLifeFramework
 {
     public enum EPrivilege : byte
     {
