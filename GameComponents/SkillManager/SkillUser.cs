@@ -65,7 +65,6 @@ namespace RealLifeFramework.Skills
             {
                 skill.Upgrade();
                 SkillManager.SendLevelUp(RealPlayer, id);
-
             }
 
         }

@@ -93,7 +93,7 @@ namespace RealLifeFramework
         {
             Provider.maxPlayers = 60;
             SteamGameServer.SetServerName("CZ/SK | DudeTurned Roleplay");
-            SteamGameServer.SetGameDescription("<color=#fb9d8f>tu budu ems a take picoviny</color>");
+            SteamGameServer.SetGameDescription("<color=#fb9d8f>| 0 Hracov | 0 EMS | 0 PD |</color>");
             SteamGameServer.SetMaxPlayerCount(24);
             SteamGameServer.SetBotPlayerCount(0);
             SteamGameServer.SetKeyValue("rocketplugins",

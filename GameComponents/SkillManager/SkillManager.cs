@@ -42,11 +42,13 @@ namespace RealLifeFramework.Skills
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
             var skill = player.SkillUser.Skills[skillId];
-            
+
             player.AddExp(5);
 
-            if (RealLife.Debugging)
-                Logger.Log($"Debug: levelUp {skill.Name} , {skill.Level} , {skill.Exp}");
+            if (skill.Level == skill.MaxLevel)
+                ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>MAX level</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
+            else
+                ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>level {skill.Level}</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
         }
 
         public static void HandleStatIncremented(Player player, EPlayerStat stat)

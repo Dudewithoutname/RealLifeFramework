@@ -21,6 +21,8 @@ namespace RealLifeFramework
         public short Shout;
         public string IP;
 
+        public string SkillIconURL;
+
         public void LoadDefaults()
         {
             DatabaseServer = "127.0.0.1";
@@ -36,6 +38,8 @@ namespace RealLifeFramework
             Normal = 30;
             Shout = 60;
             IP = "127.0.0.1";
+
+            SkillIconURL = "https://i.ibb.co/XYPQv2p/running.png";
         }
     }
 }

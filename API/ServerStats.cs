@@ -3,6 +3,7 @@ using RealLifeFramework.API.Models;
 using RealLifeFramework.Patches;
 using RealLifeFramework.UserInterface;
 using SDG.Unturned;
+using Steamworks;
 
 namespace RealLifeFramework
 {
@@ -47,6 +48,8 @@ namespace RealLifeFramework
                     night = getNight(),
                 }
             ));
+
+            SteamGameServer.SetGameDescription($"<color=#fb9d8f>| {playerCount} Hracov | {emsCount} EMS | {pdCount} PD |</color>");
         }
 
         private static void onShutDown()
