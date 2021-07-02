@@ -24,7 +24,6 @@ namespace RealLifeFramework.Realism
             var victim = parameters.player;
             var attacker = PlayerTool.getPlayer(parameters.killer);
             
-            if (parameters.cause != EDeathCause.GUN || parameters.cause != EDeathCause.MELEE) return;
 
             if (parameters.cause == EDeathCause.GRENADE)
             {
@@ -33,6 +32,8 @@ namespace RealLifeFramework.Realism
                 victim.stance.checkStance(EPlayerStance.CROUCH);
                 return;
             }
+
+            if (parameters.cause != EDeathCause.GUN || parameters.cause != EDeathCause.MELEE) return;
 
             if ((parameters.limb == ELimb.RIGHT_LEG || parameters.limb == ELimb.LEFT_LEG || parameters.limb == ELimb.LEFT_FOOT || parameters.limb == ELimb.RIGHT_FOOT) && attacker.clothing.pantsAsset.armor > 0.85f)
             {
