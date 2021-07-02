@@ -14,7 +14,9 @@ namespace RealLifeFramework.RealPlayers
 {
     [EventHandler]
     public class RealPlayerManager : IEventComponent
-    { 
+    {
+        public static onAmmoLowered OnAmmoLowered;
+
         public void HookEvents()
         {
             U.Events.OnPlayerConnected += onPlayerConnected;
@@ -24,7 +26,7 @@ namespace RealLifeFramework.RealPlayers
             EffectManager.onEffectTextCommitted += onEffectTextCommited;
         }
 
-        #region Events
+        #region Handling
         private static void onPlayerPreConnected(SteamPlayerID player)
         {
             RealPlayer pl = null; //DataManager.LoadPlayer(player.steamID);
@@ -154,5 +156,11 @@ namespace RealLifeFramework.RealPlayers
             EffectManager.sendUIEffect(UI.StartingTab, 100, player.Player.channel.GetOwnerTransportConnection(), true, topScreenText, "", "Vytvorit postavu");
             EffectManager.sendUIEffectImageURL(100, player.Player.channel.GetOwnerTransportConnection(), true, "steampfp", player.SteamProfile.AvatarMedium.ToString());
         }
+
+        #region Events | Delegates
+
+        public delegate void onAmmoLowered(RealPlayer player, byte currentAmmo);
+
+        #endregion
     }
 }

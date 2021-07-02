@@ -22,6 +22,7 @@ namespace RealLifeFramework.RealPlayers
         public CSteamID CSteamID { get; private set; }
         public string IP { get; private set; }
         public ITransportConnection TransportConnection { get; private set; }
+        public RealPlayerComponent Component { get; private set; }
 
         // * Character
         public string Name { get; set; }
@@ -51,7 +52,7 @@ namespace RealLifeFramework.RealPlayers
 
         // * Roleplay
         public SkillUser SkillUser { get; set; }
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } // remove this later
 
         // * Economy
         public uint WalletMoney { get; set; } = 0;
@@ -74,7 +75,7 @@ namespace RealLifeFramework.RealPlayers
             IP = TransportConnection.GetAddress().ToString();
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
-
+            
             Name = data.name;
             Age = data.age;
             Gender = data.gender;
@@ -83,6 +84,9 @@ namespace RealLifeFramework.RealPlayers
             Exp = data.exp;
 
             IsAdmin = player.IsAdmin;
+
+            Component = player.Player.gameObject.AddComponent<RealPlayerComponent>();
+            Component.Player = this;
 
             SkillUser = new SkillUser(this, data.skillUser);
 

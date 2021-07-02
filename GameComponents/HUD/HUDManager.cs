@@ -31,7 +31,7 @@ namespace RealLifeFramework.UserInterface
             VehicleManager.onExitVehicleRequested += onVehicleExitRequested;
             PlayerEquipment.OnUseableChanged_Global += (equipment) => onUsebleChanged(equipment);
             UseableGun.onChangeMagazineRequested += changeMagazine;
-            UseableGun.onBulletSpawned += onShooted;
+            RealPlayerManager.OnAmmoLowered += onShooted;
             ChangeFiremode.OnFiremodeChanged += onFiremodeChanged;
             PlayerSkills.OnExperienceChanged_Global += (instance, exp) => onExpUpdate(instance, exp);
         }
@@ -118,10 +118,9 @@ namespace RealLifeFramework.UserInterface
             }
         }
 
-        private static void onShooted(UseableGun gun, BulletInfo bullet)
+        private static void onShooted(RealPlayer player, byte ammo)
         {
-            var player = RealPlayer.From(gun.player);
-            player.HUD.UpdateComponent(HUDComponent.Ammo, gun.player.equipment.state[10].ToString());
+            player.HUD.UpdateComponent(HUDComponent.Ammo, ammo.ToString());
         }
 
         private static string getFiremode(EFiremode firemode)
