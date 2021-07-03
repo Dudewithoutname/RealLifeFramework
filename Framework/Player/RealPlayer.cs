@@ -19,7 +19,7 @@ namespace RealLifeFramework.RealPlayers
         public Player Player { get; private set; }
         public CSteamID CSteamID { get; private set; }
         public string IP { get; private set; }
-        public ITransportConnection TransportConnection { get; private set; }
+        public ITransportConnection TransportConnection => Player.channel.GetOwnerTransportConnection();
         public RealPlayerComponent Component { get; private set; }
         public byte PrivilegeLevel { get; set; } = 0;
 
@@ -70,7 +70,6 @@ namespace RealLifeFramework.RealPlayers
         {
             Player = player.Player;
             CSteamID = player.CSteamID;
-            TransportConnection = player.Player.channel.GetOwnerTransportConnection();
             IP = TransportConnection.GetAddress().ToString();
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
@@ -104,7 +103,6 @@ namespace RealLifeFramework.RealPlayers
         {
             Player = player.Player;
             CSteamID = player.CSteamID;
-            TransportConnection = player.Player.channel.GetOwnerTransportConnection();
             IP = TransportConnection.GetAddress().ToString();
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);

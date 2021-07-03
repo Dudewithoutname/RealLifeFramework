@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using SDG.Unturned;
+using RealLifeFramework.License;
 
 namespace RealLifeFramework.RealPlayers
 {
     public class RealPlayerComponent : MonoBehaviour
     {
         public RealPlayer Player;
+
+        public bool isHidden = true;
         private byte oldAmmo;
 
         private void FixedUpdate()
@@ -14,6 +17,19 @@ namespace RealLifeFramework.RealPlayers
             {
                 oldAmmo = Player.Player.equipment.state[10];
                 RealPlayerManager.OnAmmoLowered.Invoke(Player, oldAmmo);
+            }
+
+            var rayCastInfo = DamageTool.raycast(new Ray(Player.Player.look.aim.position, Player.Player.look.aim.forward), 25f, RayMasks.PLAYER | RayMasks.PLAYER_INTERACT);
+
+            if ((object)rayCastInfo.player != null && isHidden)
+            {
+                var target = RealPlayer.From(rayCastInfo.player);
+                CitizenId.Show(Player, target);
+            }
+
+            if (!isHidden)
+            {
+                CitizenId.Hide(Player);
             }
         }
     }

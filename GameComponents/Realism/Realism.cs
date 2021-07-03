@@ -23,7 +23,6 @@ namespace RealLifeFramework.Realism
 
             var victim = parameters.player;
             var attacker = PlayerTool.getPlayer(parameters.killer);
-            
 
             if (parameters.cause == EDeathCause.GRENADE)
             {
@@ -65,7 +64,7 @@ namespace RealLifeFramework.Realism
                         victim.stance.stance = EPlayerStance.CROUCH;
                         victim.stance.checkStance(EPlayerStance.CROUCH);
                     }
-                    if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 4) == 1) // 20 %
+                    if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 4) == 1) // 20%
                     {
                         victim.life.serverModifyHallucination(3f);
                     }
@@ -115,7 +114,7 @@ namespace RealLifeFramework.Realism
                     {
                         if (!player.HUD.HasSeatBelt)
                         {
-                            player.Player.life.askDamage((byte)UnityEngine.Random.Range(30, 45), Vector3.zero, EDeathCause.VEHICLE, ELimb.SKULL, CSteamID.Nil, out EPlayerKill kill, false, ERagdollEffect.NONE, Convert.ToBoolean(UnityEngine.Random.Range(0,1)));
+                            player.Player.life.askDamage((byte)UnityEngine.Random.Range(25, 45), Vector3.zero, EDeathCause.VEHICLE, ELimb.SKULL, CSteamID.Nil, out EPlayerKill kill, false, ERagdollEffect.NONE, Convert.ToBoolean(UnityEngine.Random.Range(0,1)));
                             VehicleManager.forceRemovePlayer(vehicle, passenger.player.playerID.steamID);
                             player.Player.life.serverModifyHallucination(5f);
                             player.Player.stance.stance = EPlayerStance.PRONE;

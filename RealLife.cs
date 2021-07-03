@@ -91,7 +91,7 @@ namespace RealLifeFramework
 
         private void onServerLoaded(int level)
         {
-            Provider.maxPlayers = 60;
+            Provider.maxPlayers = 74;
             SteamGameServer.SetServerName("CZ/SK | DudeTurned Roleplay");
             SteamGameServer.SetGameDescription("<color=#fb9d8f>| 0 Hracov | 0 EMS | 0 PD |</color>");
             SteamGameServer.SetMaxPlayerCount(24);

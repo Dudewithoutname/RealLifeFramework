@@ -146,6 +146,7 @@
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
+    <Compile Include="GameComponents\License\CitizenId.cs" />
     <Compile Include="GameComponents\HUD\Currency.cs" />
     <Compile Include="GameComponents\HUD\HUD.cs" />
     <Compile Include="GameComponents\HUD\HUDManager.cs" />
@@ -185,8 +186,6 @@
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Framework\Jobs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
