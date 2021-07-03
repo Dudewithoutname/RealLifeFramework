@@ -21,7 +21,7 @@ namespace RealLifeFramework.RealPlayers
 
             var rayCastInfo = DamageTool.raycast(new Ray(Player.Player.look.aim.position, Player.Player.look.aim.forward), 25f, RayMasks.PLAYER | RayMasks.PLAYER_INTERACT);
 
-            if ((object)rayCastInfo.player != null && isHidden)
+            if ((object)rayCastInfo.player != null && isHidden && rayCastInfo.player.equipment.asset.id == CitizenId.ItemId)
             {
                 var target = RealPlayer.From(rayCastInfo.player);
                 CitizenId.Show(Player, target);
