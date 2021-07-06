@@ -31,7 +31,7 @@ namespace RealLifeFramework
             DatabaseUsername = "root";
             DatabasePassword = "";
 
-            DiscordInvite = "https://discord.com/";
+            DiscordInvite = "https://discord.gg/zqF5PQYGpq";
             SteamGroupInvite = "https://store.steampowered.com/";
             StartingExp = 2500;
             Whisper = 5;

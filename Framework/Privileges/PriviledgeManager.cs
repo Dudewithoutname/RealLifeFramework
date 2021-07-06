@@ -2,7 +2,6 @@
 using Rocket.API;
 using Rocket.Unturned.Player;
 using System;
-using System.Collections.Generic;
 
 namespace RealLifeFramework
 {

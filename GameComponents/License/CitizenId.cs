@@ -16,6 +16,7 @@ namespace RealLifeFramework.License
         {
             var name = target.Name.Split(' ');
             instigator.Component.isHidden = false;
+
             EffectManager.sendUIEffect(uiId, 1041, instigator.TransportConnection, true);
             EffectManager.sendUIEffectText(1041, instigator.TransportConnection, true, "id_name", name[0]);
             EffectManager.sendUIEffectText(1041, instigator.TransportConnection, true, "id_surname", name[1]);

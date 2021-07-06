@@ -51,7 +51,6 @@ namespace RealLifeFramework.RealPlayers
 
         // * Roleplay
         public SkillUser SkillUser { get; set; }
-        public bool IsAdmin { get; set; } // remove this later
 
         // * Economy
         public uint WalletMoney { get; set; } = 0;
@@ -83,8 +82,6 @@ namespace RealLifeFramework.RealPlayers
             Level = data.level;
             Exp = data.exp;
 
-            IsAdmin = player.IsAdmin;
-
             Component = player.Player.gameObject.AddComponent<RealPlayerComponent>();
             Component.Player = this;
 
@@ -96,6 +93,14 @@ namespace RealLifeFramework.RealPlayers
             ChatProfile = new ChatProfile(this, data.profileData);
 
             VoiceChat.Subscribe(this);
+
+            // Later make Administration
+            if (PrivilegeLevel >= (byte)EPrivilege.HELPER)
+            {
+                Player.look.sendFreecamAllowed(true);
+                Player.look.sendSpecStatsAllowed(true);
+                Player.look.sendWorkzoneAllowed(true);
+            }
         }
 
         // New RealPlayer

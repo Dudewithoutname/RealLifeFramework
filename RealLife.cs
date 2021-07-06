@@ -17,7 +17,7 @@ namespace RealLifeFramework
     public class RealLife : RocketPlugin<RealConfig>
     {
         public static RealLife Instance;
-        public Dictionary<CSteamID,RealPlayer> RealPlayers;
+        public Dictionary<CSteamID, RealPlayer> RealPlayers;
         public static bool Debugging = false;
         public static DatabaseManager Database;
         private Harmony harmony;
@@ -76,7 +76,7 @@ namespace RealLifeFramework
 
         private void saveData()
         {
-            SecondaryThread.Execute(() =>
+            SecondaryThread.Execute( () =>
             {
                 Logger.Log("[Datamanager] Performing saving");
 

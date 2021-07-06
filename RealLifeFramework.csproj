@@ -116,6 +116,8 @@
     <Compile Include="API\Models\Stats.cs" />
     <Compile Include="API\Models\Tab.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
+    <Compile Include="Framework\Commands\RP\CmdDo.cs" />
+    <Compile Include="Framework\Commands\RP\CmdMe.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
     <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
+    <Compile Include="GameComponents\ATM\ATMManager.cs" />
     <Compile Include="GameComponents\License\CitizenId.cs" />
     <Compile Include="GameComponents\HUD\Currency.cs" />
     <Compile Include="GameComponents\HUD\HUD.cs" />
@@ -185,6 +188,7 @@
   <ItemGroup>
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
+    <Content Include="perms.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

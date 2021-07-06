@@ -1,0 +1,24 @@
+﻿
+
+| Classic
+privilege.player
+
+| VIP
+privilege.epic
+privilege.legend
+privilege.mythical
+
+| Team
+privilege.zkhelper
+privilege.helper
+privilege.mod
+privilege.admin
+privilege.owner
+
+| Jobs
+job.police
+job.ems
+
+| Special
+privilege.veteran
+
