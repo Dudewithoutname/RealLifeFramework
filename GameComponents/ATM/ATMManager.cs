@@ -64,6 +64,7 @@ namespace RealLifeFramework.ATM
                         break;
 
                     case "bank_btn_exit":
+                        CloseATM(player);
                         break;
                     
                     // * withdraw
@@ -82,10 +83,6 @@ namespace RealLifeFramework.ATM
 
                     case "bank_tran_btn_confirm":
                         TryConfirm(player, ATMCathegory.Transfare);
-                        break;
-
-                    case "bank_btn_exit":
-                        CloseATM(player);
                         break;
                 }
             }
