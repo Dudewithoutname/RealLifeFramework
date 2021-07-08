@@ -1,4 +1,4 @@
-﻿/*using SDG.Unturned;
+﻿using SDG.Unturned;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +11,15 @@ namespace RealLifeFramework.ATM
     {
         public Player Player;
         public string[] Data;
-        public ATMCathegory CurrentCathegory; 
+        public ATMCathegory CurrentCathegory;
+        public bool depositAllCycle;
 
         public ATMSession(Player player)
         {
             Player = player;
             Data = new string[4];
+            depositAllCycle = false;
             CurrentCathegory = ATMCathegory.Menu;
         }
     }
 }
-*/

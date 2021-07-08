@@ -14,6 +14,7 @@ namespace RealLifeFramework.UserInterface
             "https://i.ibb.co/51k6Cqt/blood.png",
             "https://i.ibb.co/jwVTsZ4/toxic.png",
             "https://i.ibb.co/zZYfRLP/xp.png",
+            "https://i.ibb.co/L87s8tR/locked.png",
         };
 
         public static string GetImage(EWidgetType wtype) => Icons[(int)wtype];
@@ -25,5 +26,6 @@ namespace RealLifeFramework.UserInterface
         Bleeding,
         LowVirus,
         DoubleExp,
+        Arrest,
     }
 }

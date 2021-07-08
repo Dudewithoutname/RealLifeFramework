@@ -46,6 +46,7 @@ namespace RealLifeFramework.UserInterface
             {
                 player.player.inventory.onInventoryAdded -= rp.HUD.onInventoryAdded;
                 player.player.inventory.onInventoryRemoved -= rp.HUD.onInventoryRemoved;
+                player.player.animator.onGestureUpdated -= rp.HUD.onGestureUpdated;
             }
         }
 

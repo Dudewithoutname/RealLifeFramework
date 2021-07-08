@@ -31,8 +31,24 @@ namespace RealLifeFramework.UserInterface
             isHidden = false;
             calcInvMoney();
 
-            Player.Player.inventory.onInventoryAdded   += onInventoryAdded;
+            Player.Player.inventory.onInventoryAdded += onInventoryAdded;
             Player.Player.inventory.onInventoryRemoved += onInventoryRemoved;
+            Player.Player.animator.onGestureUpdated += onGestureUpdated;
+        }
+
+
+        public void onGestureUpdated(EPlayerGesture gesture)
+        {
+            switch (gesture)
+            {
+                case EPlayerGesture.ARREST_START:
+                    SendWidget(EWidgetType.Arrest);
+                    break;
+
+                case EPlayerGesture.ARREST_STOP:
+                    RemoveWidget(EWidgetType.Arrest);
+                    break;
+            }
         }
 
         public void onInventoryAdded(byte page, byte index, ItemJar jar)
@@ -120,10 +136,7 @@ namespace RealLifeFramework.UserInterface
             }
         }
 
-        public void UpdateComponent(string component, bool value)
-        {
-            EffectManager.sendUIEffectVisibility(HudKey, Player.TransportConnection, true, component, value);
-        }
+        public void UpdateComponent(string component, bool value) => EffectManager.sendUIEffectVisibility(HudKey, Player.TransportConnection, true, component, value);
 
         public void UpdateComponent(string component)
         {
@@ -138,7 +151,7 @@ namespace RealLifeFramework.UserInterface
                     break;
 
                 case HUDComponent.Wallet:
-                    //EffectManager.sendUIEffectText(HudKey, RealPlayer.TransportConnection, true, component, ""); // tODO getFormatedMoney()
+                    EffectManager.sendUIEffectText(HudKey, Player.TransportConnection, true, component, Currency.FormatMoney(Player.WalletMoney.ToString()));
                     break;
 
                 case HUDComponent.Credit:

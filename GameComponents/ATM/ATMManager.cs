@@ -1,4 +1,4 @@
-﻿/*using RealLifeFramework.RealPlayers;
+﻿using RealLifeFramework.RealPlayers;
 using RealLifeFramework.SecondThread;
 using RealLifeFramework.UserInterface;
 using Rocket.Unturned.Player;
@@ -31,12 +31,16 @@ namespace RealLifeFramework.ATM
         #region events
         private void onPunch(Player player)
         {
-            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 5f, RayMasks.BARRICADE_INTERACT | RayMasks.BARRICADE))
+            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 20f, RayMasks.BARRICADE_INTERACT))
             {
-                if (hit.transform != null && BarricadeManager.tryGetInfo(hit.transform,out byte x, out byte y, out ushort plant, out ushort index, out BarricadeRegion region))
+                Logger.Log("lmao");
+                var ray = hit.transform;
+                if (BarricadeManager.tryGetInfo(ray, out byte x, out byte y, out ushort plant, out ushort index, out BarricadeRegion region, out BarricadeDrop drop) )
                 {
-                    if (region.barricades[index].barricade.id == idATM)
+                    Logger.Log("kokot blizko");
+                    if (drop.asset.id == idATM)
                     {
+                        Logger.Log("open");
                         OpenATM(player);
                     }
                 }
@@ -141,6 +145,7 @@ namespace RealLifeFramework.ATM
             var session = sessions[player.channel.owner.playerID.steamID];
 
             if (session.CurrentCathegory == cathegory) return;
+            if (session.depositAllCycle) session.depositAllCycle = false;
 
             EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_txt_money", (cathegory == ATMCathegory.Menu) ? "" : cathegory.ToString());
 
@@ -196,7 +201,7 @@ namespace RealLifeFramework.ATM
 
                 while (amount > 0)
                 {
-                    foreach (KeyValuePair<ushort, uint> note in Currency.Money)
+                    foreach (var note in Currency.Money)
                     {
                         if (amount >= note.Value)
                         {
@@ -218,54 +223,130 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            if (!uint.TryParse(session.Data[4], out uint noteValue))
+            if (session.Data[1] != "all" && !session.depositAllCycle)
             {
-                SendError(player, "Nespravna bankovka");
-                return;
-            }
-
-            if (!uint.TryParse(session.Data[1], out uint count))
-            {
-                SendError(player, "Nespravne mnozstvo");
-                return;
-            }
-
-            ushort noteId = 0;
-
-            foreach (KeyValuePair<ushort, uint> note in Currency.Money)
-            {
-                if(note.Value == noteValue)
+                if (!uint.TryParse(session.Data[4], out uint noteValue))
                 {
-                    noteId = note.Key;
-                    break;
-                }
-            }
-
-            if(noteId == 0)
-            {
-                SendError(player, "Nespravna bankovka");
-                return;
-            }
-
-
-            var search = player.inventory.search(noteId, true, true);
-
-            if (search != null)
-            {
-                if(search.Count < count)
-                {
-                    SendError(player, "Nedostatok bankoviek");
+                    SendError(player, "Nespravna bankovka");
                     return;
                 }
 
-                search[0].deleteAmount(player, count);
-                rp.CreditCardMoney += count;
-            }
-            else
-            {
-                SendError(player, "Nedostatok bankoviek");
-            }
+                if (!uint.TryParse(session.Data[1], out uint count))
+                {
+                    SendError(player, "Nespravne mnozstvo");
+                    return;
+                }
 
+                ushort noteId = 0;
+                // noteValue
+
+                foreach (var note in Currency.Money)
+                {
+                    if (note.Value == noteValue)
+                    {
+                        noteId = note.Key;
+                        break;
+                    }
+                }
+
+                if (noteId == 0)
+                {
+                    SendError(player, "Nespravna bankovka");
+                    return;
+                }
+
+                SecondaryThread.Execute(() =>
+                {
+                    uint amount = 0;
+                    bool finish = false;
+
+                    foreach (var item in player.inventory.items)
+                    {
+                        if (finish) break;
+                        if (item == null) continue;
+                        for (byte w = 0; w < item.width; w++)
+                        {
+                            for (byte h = 0; h < item.height; h++)
+                            {
+                                try
+                                {
+                                    byte index = item.getIndex(w, h);
+
+                                    if (index == 255) continue;
+
+                                    if (item.getItem(index).item.id == noteId)
+                                    {
+                                        if (!finish)
+                                        {
+                                            amount += noteValue;
+                                            item.removeItem(index);
+
+                                            if (count != 0 && amount == noteValue * count) finish = true;
+                                        }
+                                    }
+                                }
+                                catch { }
+                            }
+                        }
+                    }
+
+                    if (amount == 0)
+                    {
+                        SendError(player, "Nedostatok bankoviek");
+                    }
+                    else
+                    {
+                        SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())} $</color>");
+                        rp.CreditCardMoney += amount;
+                    }
+                });
+            }
+            else // ALL
+            {
+                SecondaryThread.Execute(() =>
+                {
+                    uint amount = 0;
+
+                    foreach(var note in Currency.Money)
+                    {
+                        foreach (var item in player.inventory.items)
+                        {
+                            if (item == null) continue;
+
+                            for (byte w = 0; w < item.width; w++)
+                            {
+                                for (byte h = 0; h < item.height; h++)
+                                {
+                                    try
+                                    {
+                                        byte index = item.getIndex(w, h);
+
+                                        if (index == 255) continue;
+
+                                        if (item.getItem(index).item.id == note.Key)
+                                        {
+                                            amount += note.Value;
+                                            item.removeItem(index);
+                                        }
+                                    }
+                                    catch { }
+                                }
+                            }
+                        }
+                    }
+
+                    if (amount == 0)
+                    {
+                        SendError(player, "Nemas ziadne peniaze");
+                    }
+                    else
+                    {
+                        SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())} $</color>");
+                        rp.CreditCardMoney += amount;
+                        session.depositAllCycle = true;
+                    }
+                });
+            }
         }
 
         private static void transfare(Player player)
@@ -289,4 +370,3 @@ namespace RealLifeFramework.ATM
         private static string getCatName(ATMCathegory cathegory) => $"bank_nav_{cathegory.ToString().ToLower()}";
     }
 }
--*/

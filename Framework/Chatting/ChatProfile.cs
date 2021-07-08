@@ -8,14 +8,13 @@ namespace RealLifeFramework.Chatting
         public RealPlayer RealPlayer { get; set; }
         public string NameColor { get; set; }
         public string Avatar { get; set; }
-        public EPlayerVoiceMode VoiceMode { get; set; }
+        public EPlayerVoiceMode VoiceMode { get; set; } = EPlayerVoiceMode.Normal;
 
         public ChatProfile(string ncolor, string avatar, EPlayerVoiceMode voicemode, RealPlayer realplayer)
         {
             NameColor = ncolor;
             Avatar = avatar;
             RealPlayer = realplayer;
-            VoiceMode = EPlayerVoiceMode.Normal;
             RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)voicemode]);
         }
 
@@ -24,7 +23,6 @@ namespace RealLifeFramework.Chatting
             NameColor = data.NameColor;
             Avatar = data.Avatar;
             RealPlayer = realplayer;
-            VoiceMode = EPlayerVoiceMode.Normal;
             RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)VoiceMode]);
         }
 

@@ -101,6 +101,7 @@ namespace RealLifeFramework.RealPlayers
                 Player.look.sendSpecStatsAllowed(true);
                 Player.look.sendWorkzoneAllowed(true);
             }
+            ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, VoiceChat.Icons[(int)EPlayerVoiceMode.Normal]);
         }
 
         // New RealPlayer
