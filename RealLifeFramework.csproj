@@ -148,9 +148,11 @@
     <Compile Include="Framework\Commands\test.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
+    <Compile Include="GameComponents\ATM\ATMCathegory.cs" />
     <Compile Include="GameComponents\ATM\ATMManager.cs" />
+    <Compile Include="GameComponents\ATM\ATMSession.cs" />
     <Compile Include="GameComponents\License\CitizenId.cs" />
-    <Compile Include="GameComponents\HUD\Currency.cs" />
+    <Compile Include="Framework\Items\Currency.cs" />
     <Compile Include="GameComponents\HUD\HUD.cs" />
     <Compile Include="GameComponents\HUD\HUDManager.cs" />
     <Compile Include="GameComponents\HUD\other\HUDComponent.cs" />
