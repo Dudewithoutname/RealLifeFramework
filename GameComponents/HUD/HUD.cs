@@ -7,7 +7,6 @@ using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
 using RealLifeFramework.Threadding;
-using RealLifeFramework.Threadding;
 
 namespace RealLifeFramework.UserInterface
 {

@@ -10,7 +10,6 @@ using RealLifeFramework.Items;
 using RealLifeFramework.Threadding;
 using Newtonsoft.Json;
 using RealLifeFramework.API.Models;
-using RealLifeFramework.Threadding;
 
 namespace RealLifeFramework.RealPlayers
 {
