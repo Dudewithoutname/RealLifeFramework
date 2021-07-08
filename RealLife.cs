@@ -9,7 +9,7 @@ using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Items;
 using HarmonyLib;
 using RealLifeFramework.Data;
-using RealLifeFramework.SecondThread;
+using RealLifeFramework.Threadding;
 using UnityEngine;
 
 namespace RealLifeFramework

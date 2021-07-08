@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.IO;
-using RealLifeFramework.SecondThread;
+using RealLifeFramework.Threadding;
 
 namespace RealLifeFramework
 {

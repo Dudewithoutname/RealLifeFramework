@@ -7,10 +7,10 @@ using SDG.NetTransport;
 using System.Linq;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Items;
-using RealLifeFramework.SecondThread;
+using RealLifeFramework.Threadding;
 using Newtonsoft.Json;
 using RealLifeFramework.API.Models;
-using RealLifeFramework.HelpThread;
+using RealLifeFramework.Threadding;
 
 namespace RealLifeFramework.RealPlayers
 {

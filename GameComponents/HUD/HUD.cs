@@ -6,8 +6,8 @@ using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
-using RealLifeFramework.SecondThread;
-using RealLifeFramework.HelpThread;
+using RealLifeFramework.Threadding;
+using RealLifeFramework.Threadding;
 
 namespace RealLifeFramework.UserInterface
 {
