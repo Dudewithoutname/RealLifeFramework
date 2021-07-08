@@ -15,7 +15,7 @@ namespace RealLifeFramework.ATM
     public class ATMManager : IEventComponent
     {
         private static Dictionary<CSteamID, ATMSession> sessions;
-        private const ushort idATM = 42568;
+        private const ushort idATM = 1070; //42568;
         private const ushort uiATM = 41866;
         private const short keyATM = 1138;
 
@@ -31,16 +31,14 @@ namespace RealLifeFramework.ATM
         #region events
         private void onPunch(Player player)
         {
-            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 20f, RayMasks.BARRICADE_INTERACT))
+            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 25f, RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT))
             {
-                Logger.Log("lmao");
-                var ray = hit.transform;
-                if (BarricadeManager.tryGetInfo(ray, out byte x, out byte y, out ushort plant, out ushort index, out BarricadeRegion region, out BarricadeDrop drop) )
+                if (BarricadeManager.tryGetInfo(hit.transform, out _, out _, out _, out var index, out var region))
                 {
-                    Logger.Log("kokot blizko");
-                    if (drop.asset.id == idATM)
+                    var barricade = region.barricades[index].barricade;
+
+                    if (barricade.id == idATM)
                     {
-                        Logger.Log("open");
                         OpenATM(player);
                     }
                 }
@@ -84,6 +82,10 @@ namespace RealLifeFramework.ATM
 
                     case "bank_tran_btn_confirm":
                         TryConfirm(player, ATMCathegory.Transfare);
+                        break;
+
+                    case "bank_btn_exit":
+                        CloseATM(player);
                         break;
                 }
             }
@@ -135,9 +137,33 @@ namespace RealLifeFramework.ATM
         {
             var rp = RealPlayer.From(player);
             sessions.Add(player.channel.owner.playerID.steamID, new ATMSession(player));
+            
+            player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);
+            player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, true);
 
             EffectManager.sendUIEffect(uiATM, keyATM, player.channel.GetOwnerTransportConnection(), true);
             EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_txt_money", Currency.FormatMoney(rp.CreditCardMoney.ToString()));
+        }
+
+        public static void CloseATM(Player player)
+        {
+            var session = sessions[player.channel.owner.playerID.steamID];
+
+            if (session == null) return;
+
+            if (session.CurrentCathegory == ATMCathegory.Menu)
+            {
+                player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
+                player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
+
+                EffectManager.askEffectClearByID(uiATM, player.channel.GetOwnerTransportConnection());
+
+                sessions.Remove(player.channel.owner.playerID.steamID);
+            }
+            else
+            {
+                OpenATMCathegory(player, ATMCathegory.Menu);
+            }
         }
 
         public static void OpenATMCathegory(Player player, ATMCathegory cathegory)
