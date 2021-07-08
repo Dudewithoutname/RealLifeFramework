@@ -10,6 +10,7 @@ using UnityEngine;
 using Rocket.Unturned;
 using System;
 using RealLifeFramework.SecondThread;
+using RealLifeFramework.HelpThread;
 
 namespace RealLifeFramework.Skills
 {
@@ -80,7 +81,7 @@ namespace RealLifeFramework.Skills
 
         private static void CheckRunning(UnturnedPlayer player)
         {
-            SecondaryThread.Execute(() =>
+            HelperThread.Execute(() =>
             {
                 if (player.Player.stance.stance == EPlayerStance.SPRINT) // 2
                 {

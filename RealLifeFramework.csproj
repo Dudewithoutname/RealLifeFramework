@@ -134,7 +134,8 @@
     <Compile Include="Framework\Privileges\PriviledgeManager.cs" />
     <Compile Include="Framework\Privileges\PrivilegeEx.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
-    <Compile Include="Framework\Ultility\Threadding\SecondaryThread.cs" />
+    <Compile Include="Framework\Ultility\Threadding\HelperThread.cs" />
+    <Compile Include="Framework\Ultility\Threadding\ManagementThread.cs" />
     <Compile Include="Framework\Commands\Ultilities\HideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerManager.cs" />

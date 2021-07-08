@@ -39,7 +39,7 @@ namespace RealLifeFramework
             Logger.Log("[Author] : Dudewithoutname#3129");
             
             Instance = this;
-            SecondaryThread.Start();
+            ManagementThread.Start();
 
             DataManager.Settup();
 
@@ -76,7 +76,7 @@ namespace RealLifeFramework
 
         private void saveData()
         {
-            SecondaryThread.Execute( () =>
+            ManagementThread.Execute( () =>
             {
                 Logger.Log("[Datamanager] Performing saving");
 

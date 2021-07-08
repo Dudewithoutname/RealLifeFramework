@@ -10,6 +10,7 @@ using RealLifeFramework.Items;
 using RealLifeFramework.SecondThread;
 using Newtonsoft.Json;
 using RealLifeFramework.API.Models;
+using RealLifeFramework.HelpThread;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -82,7 +83,7 @@ namespace RealLifeFramework.RealPlayers
 
         private static void giveStartingItems(Player player)
         {
-            SecondaryThread.Execute(() =>
+            HelperThread.Execute(() =>
             {
                 var uplayer = UnturnedPlayer.FromPlayer(player);
                 var realplayer = RealPlayer.From(player);

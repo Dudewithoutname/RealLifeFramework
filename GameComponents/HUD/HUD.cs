@@ -7,6 +7,7 @@ using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
 using RealLifeFramework.SecondThread;
+using RealLifeFramework.HelpThread;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -71,7 +72,7 @@ namespace RealLifeFramework.UserInterface
 
         private void calcInvMoney()
         {
-            SecondaryThread.Execute(() =>
+            HelperThread.Execute(() =>
             {
                 foreach (var items in Player.Player.inventory.items)
                 {

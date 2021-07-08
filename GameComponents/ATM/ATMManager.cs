@@ -1,4 +1,5 @@
-﻿using RealLifeFramework.RealPlayers;
+﻿using RealLifeFramework.HelpThread;
+using RealLifeFramework.RealPlayers;
 using RealLifeFramework.SecondThread;
 using RealLifeFramework.UserInterface;
 using Rocket.Unturned.Player;
@@ -159,7 +160,11 @@ namespace RealLifeFramework.ATM
             }
             else
             {
+
+                ClearError(player);
                 OpenATMCathegory(player, ATMCathegory.Menu);
+
+                EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_txt_money", Currency.FormatMoney(RealPlayer.From(player).CreditCardMoney.ToString()));
             }
         }
 
@@ -170,7 +175,7 @@ namespace RealLifeFramework.ATM
             if (session.CurrentCathegory == cathegory) return;
             if (session.depositAllCycle) session.depositAllCycle = false;
 
-            EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_txt_money", (cathegory == ATMCathegory.Menu) ? "" : cathegory.ToString());
+            EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_header", (cathegory == ATMCathegory.Menu) ? "" : getCatSlovakName(cathegory));
 
             EffectManager.sendUIEffectVisibility(keyATM, player.channel.GetOwnerTransportConnection(), true, getCatName(session.CurrentCathegory), false);
             EffectManager.sendUIEffectVisibility(keyATM, player.channel.GetOwnerTransportConnection(), true, getCatName(cathegory), true);
@@ -217,7 +222,7 @@ namespace RealLifeFramework.ATM
                 return;
             }
 
-            SecondaryThread.Execute(() =>
+            HelperThread.Execute(() =>
             {
                 uint amount = baseAmount;
                 rp.CreditCardMoney -= baseAmount;
@@ -278,7 +283,7 @@ namespace RealLifeFramework.ATM
                     return;
                 }
 
-                SecondaryThread.Execute(() =>
+                HelperThread.Execute(() =>
                 {
                     uint amount = 0;
                     bool finish = false;
@@ -326,7 +331,7 @@ namespace RealLifeFramework.ATM
             }
             else // ALL
             {
-                SecondaryThread.Execute(() =>
+                HelperThread.Execute(() =>
                 {
                     uint amount = 0;
 
@@ -384,12 +389,29 @@ namespace RealLifeFramework.ATM
             EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_error_text", text);
         }
 
-        public static void ClearError(Player player, string text)
+        public static void ClearError(Player player)
         {
             EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_error_text", "");
             EffectManager.sendUIEffectVisibility(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_error", false);
         }
 
         private static string getCatName(ATMCathegory cathegory) => $"bank_nav_{cathegory.ToString().ToLower()}";
+
+        private static string getCatSlovakName(ATMCathegory cathegory)
+        {
+            switch (cathegory)
+            {
+                case ATMCathegory.Withdraw:
+                    return "Vyber";
+
+                case ATMCathegory.Deposit:
+                    return "Vklad";
+
+                case ATMCathegory.Transfare:
+                    return "Prenos";
+            }
+
+            return "";
+        }
     }
 }

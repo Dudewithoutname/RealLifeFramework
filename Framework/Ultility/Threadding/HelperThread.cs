@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RealLifeFramework.SecondThread
+namespace RealLifeFramework.HelpThread
 {
-    public class SecondaryThread
+    public class HelperThread
     {
         public static Dictionary<string, ISaveable> Values = new Dictionary<string, ISaveable>();
 
