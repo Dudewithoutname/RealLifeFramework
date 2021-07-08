@@ -17,7 +17,7 @@ namespace RealLifeFramework.ATM
         public ATMSession(Player player)
         {
             Player = player;
-            Data = new string[4];
+            Data = new string[5];
             depositAllCycle = false;
             CurrentCathegory = ATMCathegory.Menu;
         }

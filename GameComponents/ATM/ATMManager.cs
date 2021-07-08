@@ -239,7 +239,7 @@ namespace RealLifeFramework.ATM
                     }
                 }
 
-                SendError(player, $"<color=#58CD7B>Vybranych {Currency.FormatMoney(baseAmount.ToString())} $</color>");
+                SendError(player, $"<color=#58CD7B>Vybranych {Currency.FormatMoney(baseAmount.ToString())}</color>");
             });
         }
 
@@ -323,7 +323,7 @@ namespace RealLifeFramework.ATM
                     }
                     else
                     {
-                        SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())} $</color>");
+                        SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>");
                         rp.CreditCardMoney += amount;
                     }
                 });
@@ -368,7 +368,7 @@ namespace RealLifeFramework.ATM
                     }
                     else
                     {
-                        SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())} $</color>");
+                        SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>");
                         rp.CreditCardMoney += amount;
                         session.depositAllCycle = true;
                     }

@@ -21,7 +21,7 @@ namespace RealLifeFramework.Threadding
         {
             thread = new Thread(UpdateThread);
             thread.Start();
-            Logger.Log("[SecondaryThread] : Started!");
+            Logger.Log("[HelperThread] : Started!");
 
         }
 
@@ -41,7 +41,7 @@ namespace RealLifeFramework.Threadding
         {
             if (action == null)
             {
-                Logger.Log("[SecondaryThread] : No action to execute on Secondary thread!");
+                Logger.Log("[HelperThread] : No action to execute on Secondary thread!");
                 return;
             }
 

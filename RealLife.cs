@@ -40,6 +40,7 @@ namespace RealLifeFramework
             
             Instance = this;
             ManagementThread.Start();
+            HelperThread.Start();
 
             DataManager.Settup();
 
