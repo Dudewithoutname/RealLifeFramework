@@ -38,34 +38,9 @@ namespace RealLifeFramework
 
         public static string FormatMoney(string money)
         {
-            string output = "";
-
-            if (money.Length > 3)
-            {
-                decimal x = Math.Floor(((decimal)money.Length / 3));
-                int remainder = Convert.ToInt32(money.Length - (x * 3));
-
-                if (Math.Round((decimal)money.Length / 3, 2) == (money.Length / 3))
-                {
-                    for (var i = 0; i < money.Length; i += 3)
-                        output += money.Substring(i, 3) + " ";
-
-                    return output + " $";
-                }
-                else
-                {
-                    output += money.Substring(0, remainder) + " ";
-
-                    for (var i = 0; i < (money.Length - remainder); i += 3)
-                        output += money.Substring(i, 3) + " ";
-
-                    return output + " $";
-                }
-            }
-            else
-            {
-                return money + " $";
-            }
+            string result = string.Format("{0:C}", uint.Parse(money));
+            result = result.Remove(result.Length - 5);
+            return result;
         }
 
     }
