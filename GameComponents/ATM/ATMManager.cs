@@ -31,7 +31,7 @@ namespace RealLifeFramework.ATM
         #region events
         private void onPunch(Player player)
         {
-            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 25f, RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT))
+            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 4f, RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT))
             {
                 if (BarricadeManager.tryGetInfo(hit.transform, out _, out _, out _, out var index, out var region))
                 {
@@ -207,22 +207,21 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            uint baseAmount = Convert.ToUInt32(session.Data[0]);
-
-            if(baseAmount == 0)
-            {
-                SendError(player, "Neplatna Hodnota");
-                return;
-            }
-
-            if(rp.CreditCardMoney < baseAmount)
-            {
-                SendError(player, "Nedostatok penazi na ucte");
-                return;
-            }
-
             HelperThread.Execute(() =>
             {
+
+                if (!uint.TryParse(session.Data[0], out uint baseAmount))
+                {
+                    SendError(player, "Neplatna Hodnota");
+                    return;
+                }
+
+                if (rp.CreditCardMoney < baseAmount)
+                {
+                    SendError(player, "Nedostatok penazi na ucte");
+                    return;
+                }
+
                 uint amount = baseAmount;
                 rp.CreditCardMoney -= baseAmount;
 
@@ -250,40 +249,41 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            if (session.Data[1] != "all" && !session.depositAllCycle)
+            if (!uint.TryParse(session.Data[4], out uint noteValue))
             {
-                if (!uint.TryParse(session.Data[4], out uint noteValue))
-                {
-                    SendError(player, "Nespravna bankovka");
-                    return;
-                }
+                SendError(player, "Nespravna bankovka");
+                return;
+            }
 
-                if (!uint.TryParse(session.Data[1], out uint count))
-                {
-                    SendError(player, "Nespravne mnozstvo");
-                    return;
-                }
+            if (!uint.TryParse(session.Data[1], out uint count))
+            {
+                SendError(player, "Nespravne mnozstvo");
+                return;
+            }
 
-                ushort noteId = 0;
-                // noteValue
 
-                foreach (var note in Currency.Money)
+            HelperThread.Execute(() =>
+            {
+                if (session.Data[1] != "all" && !session.depositAllCycle)
                 {
-                    if (note.Value == noteValue)
+                    ushort noteId = 0;
+                    // noteValue
+
+                    foreach (var note in Currency.Money)
                     {
-                        noteId = note.Key;
-                        break;
+                        if (note.Value == noteValue)
+                        {
+                            noteId = note.Key;
+                            break;
+                        }
                     }
-                }
 
-                if (noteId == 0)
-                {
-                    SendError(player, "Nespravna bankovka");
-                    return;
-                }
+                    if (noteId == 0)
+                    {
+                        SendError(player, "Nespravna bankovka");
+                        return;
+                    }
 
-                HelperThread.Execute(() =>
-                {
                     uint amount = 0;
                     bool finish = false;
 
@@ -326,15 +326,12 @@ namespace RealLifeFramework.ATM
                         SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>");
                         rp.CreditCardMoney += amount;
                     }
-                });
-            }
-            else // ALL
-            {
-                HelperThread.Execute(() =>
+                }
+                else // ALL
                 {
                     uint amount = 0;
 
-                    foreach(var note in Currency.Money)
+                    foreach (var note in Currency.Money)
                     {
                         foreach (var item in player.inventory.items)
                         {
@@ -372,8 +369,9 @@ namespace RealLifeFramework.ATM
                         rp.CreditCardMoney += amount;
                         session.depositAllCycle = true;
                     }
-                });
-            }
+                }
+            });
+
         }
 
         private static void transfare(Player player)

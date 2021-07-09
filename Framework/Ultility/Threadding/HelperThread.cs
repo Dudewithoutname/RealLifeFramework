@@ -67,11 +67,17 @@ namespace RealLifeFramework.Threadding
                         hasAction = false;
                     }
 
-                    for (int i = 0; i < copiedQueue.Count; i++)
+                    try
                     {
-                        copiedQueue[i]();
+                        for (int i = 0; i < copiedQueue.Count; i++)
+                        {
+                            copiedQueue[i]();
+                        }
                     }
-
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString());
+                    }
                 }
 
                 Thread.Sleep(0);

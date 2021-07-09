@@ -159,23 +159,29 @@ namespace RealLifeFramework.RealPlayers
         public void AddExp(uint exp)
         {
             Exp += exp;
+            tryLevelUp();
 
+            HUD.UpdateComponent(HUDComponent.Exp);
+        }
+
+        private void tryLevelUp()
+        {
             if (Exp >= MaxExp)
             {
                 Exp -= MaxExp;
                 levelUp();
             }
-
-            HUD.UpdateComponent(HUDComponent.Exp);
         }
 
         private void levelUp()
         {
             Level++;
+            SkillUser.AddEducationPoints(1);
 
             HUD.UpdateComponent(HUDComponent.Exp);
             HUD.UpdateComponent(HUDComponent.Level);
-
+            
+            tryLevelUp();
         }
         #endregion
 

@@ -40,7 +40,7 @@ namespace RealLifeFramework
         {
             string result = string.Format("{0:C}", uint.Parse(money));
             result = result.Remove(result.Length - 5);
-            return result;
+            return $"{result} $";
         }
 
     }

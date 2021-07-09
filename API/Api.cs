@@ -29,7 +29,7 @@ namespace RealLifeFramework
 
                     var response = webRequest.GetResponse();
                 }
-                catch (Exception ex)
+                catch 
                 {
                     //Logger.Log($"[API Error] : {ex}");
                 }

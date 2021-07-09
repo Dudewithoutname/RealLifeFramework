@@ -27,9 +27,13 @@ namespace RealLifeFramework.Skills
 
             U.Events.OnPlayerConnected += AddPrevPos;
             U.Events.OnPlayerDisconnected += RemovePrevPos;
+
             Player.onPlayerStatIncremented += HandleStatIncremented;
             DamageTool.damagePlayerRequested += IncrementEndurance;
             UseableConsumeable.onConsumePerformed += HandleConsume;
+
+            // Prevention
+            PlayerSkills.OnSkillUpgraded_Global += (player, speciality, index, level) => player.ServerSetSkillLevel(speciality, index, (level - 1));
         }
 
         private static void IncrementEndurance(ref DamagePlayerParameters parameters, ref bool shouldAllow)
@@ -39,6 +43,7 @@ namespace RealLifeFramework.Skills
                 RealPlayer.From(parameters.player).SkillUser.AddExp(Endurance.Id, 1);
             }
         }
+
         public static void SendLevelUp(RealPlayer player, int skillId)
         {
             var skill = player.SkillUser.Skills[skillId];
@@ -51,7 +56,7 @@ namespace RealLifeFramework.Skills
                 ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>level {skill.Level}</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
         }
 
-        public static void HandleStatIncremented(Player player, EPlayerStat stat)
+        private static void HandleStatIncremented(Player player, EPlayerStat stat)
         {
             var rp = RealPlayer.From(player);
 
@@ -69,7 +74,7 @@ namespace RealLifeFramework.Skills
             }
         }
 
-        public static void HandleConsume(Player player, ItemConsumeableAsset consumeableAsset)
+        private static void HandleConsume(Player player, ItemConsumeableAsset consumeableAsset)
         {
             var rp = RealPlayer.From(player);
 
