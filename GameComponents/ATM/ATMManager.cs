@@ -81,7 +81,7 @@ namespace RealLifeFramework.ATM
 
                     // * transfare
 
-                    case "bank_tran_btn_confirm":
+                    case "bank_trans_btn_confirm":
                         TryConfirm(player, ATMCathegory.Transfare);
                         break;
                 }
@@ -116,11 +116,11 @@ namespace RealLifeFramework.ATM
 
                     // * transfare
 
-                    case "bank_tran_inp_money":
+                    case "bank_trans_inp_money":
                         session.Data[2] = text;
                         break;
 
-                    case "bank_tran_inp_user":
+                    case "bank_trans_inp_user":
                         session.Data[3] = text;
                         break;
 
@@ -210,7 +210,7 @@ namespace RealLifeFramework.ATM
             HelperThread.Execute(() =>
             {
 
-                if (!uint.TryParse(session.Data[0], out uint baseAmount))
+                if (!uint.TryParse(session.Data[0], out uint baseAmount) || baseAmount == 0)
                 {
                     SendError(player, "Neplatna Hodnota");
                     return;
@@ -249,25 +249,24 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            if (!uint.TryParse(session.Data[4], out uint noteValue))
-            {
-                SendError(player, "Nespravna bankovka");
-                return;
-            }
-
-            if (!uint.TryParse(session.Data[1], out uint count))
-            {
-                SendError(player, "Nespravne mnozstvo");
-                return;
-            }
-
-
             HelperThread.Execute(() =>
             {
-                if (session.Data[1] != "all" && !session.depositAllCycle)
+                if ( (session.Data[1] != "all" || session.Data[1] != "vsetko") && !session.depositAllCycle )
                 {
                     ushort noteId = 0;
                     // noteValue
+
+                    if (!uint.TryParse(session.Data[4], out uint noteValue))
+                    {
+                        SendError(player, "Nespravna bankovka");
+                        return;
+                    }
+
+                    if (!uint.TryParse(session.Data[1], out uint count))
+                    {
+                        SendError(player, "Nespravne mnozstvo");
+                        return;
+                    }
 
                     foreach (var note in Currency.Money)
                     {
@@ -376,7 +375,48 @@ namespace RealLifeFramework.ATM
 
         private static void transfare(Player player)
         {
+            var session = sessions[player.channel.owner.playerID.steamID];
+            var rp = RealPlayer.From(player);
 
+            if (session == null) return;
+
+            HelperThread.Execute(() =>
+            {
+                if (!uint.TryParse(session.Data[2], out uint moneyToSend) || moneyToSend == 0)
+                {
+                    SendError(player, "Nespravna hodnota");
+                    return;
+                
+                }
+                
+                if (rp.CreditCardMoney < moneyToSend)
+                {
+                    SendError(player, "Nedostatok penazi");
+                    return;
+                }
+
+                RealPlayer target = null;
+
+                foreach (var tr in RealLife.Instance.RealPlayers)
+                {
+                    if (tr.Value == rp) continue;
+                    
+                    if (tr.Value.Name.Contains(session.Data[3]) || tr.Value.CSteamID.ToString() == session.Data[3])
+                    {
+                        target = tr.Value;
+                        break;
+                    }
+                }
+
+                if (target == null)
+                {
+                    SendError(player, "Osoba sa nenasla");
+                    return;
+                }
+
+                rp.CreditCardMoney -= moneyToSend;
+                target.CreditCardMoney += moneyToSend;
+            });
         }
 
 

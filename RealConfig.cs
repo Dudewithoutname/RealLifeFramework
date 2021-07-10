@@ -22,6 +22,7 @@ namespace RealLifeFramework
         public string IP;
 
         public string SkillIconURL;
+        public string DefaulUserURL;
 
         public void LoadDefaults()
         {
@@ -40,6 +41,7 @@ namespace RealLifeFramework
             IP = "127.0.0.1";
 
             SkillIconURL = "https://i.ibb.co/XYPQv2p/running.png";
+            DefaulUserURL = "https://i.ibb.co/r3T5CPw/ico.png";
         }
     }
 }

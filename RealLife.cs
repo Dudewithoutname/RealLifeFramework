@@ -41,6 +41,7 @@ namespace RealLifeFramework
             Instance = this;
             ManagementThread.Start();
             HelperThread.Start();
+            PlayerInventory_NetMethods
 
             DataManager.Settup();
 

@@ -10,6 +10,7 @@ using Rocket.API;
 using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
 using System.Collections.Generic;
+using Rocket.Core;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -21,6 +22,9 @@ namespace RealLifeFramework.RealPlayers
         public string IP { get; private set; }
         public ITransportConnection TransportConnection => Player.channel.GetOwnerTransportConnection();
         public RealPlayerComponent Component { get; private set; }
+
+        // * Privilige
+        public string PrivilegePrefix { get; set; }
         public byte PrivilegeLevel { get; set; } = 0;
 
         // * Character
@@ -65,6 +69,12 @@ namespace RealLifeFramework.RealPlayers
         public ChatProfile ChatProfile { get; set; }
         public UnturnedKeyWatcher Keyboard { get; set; }
 
+        // * Jobs
+        public string JobName { get; set; }
+        public bool IsEMS => UnturnedPlayer.FromCSteamID(CSteamID).HasPermission("job.ems");
+        public bool IsPolice => UnturnedPlayer.FromCSteamID(CSteamID).HasPermission("job.police");
+        public byte PoliceLevel { get; set; }
+
         public RealPlayer(UnturnedPlayer player, RealPlayerData data)
         {
             Player = player.Player;
@@ -94,14 +104,17 @@ namespace RealLifeFramework.RealPlayers
 
             VoiceChat.Subscribe(this);
 
-            // Later make Administration
             if (PrivilegeLevel >= (byte)EPrivilege.HELPER)
             {
                 Player.look.sendFreecamAllowed(true);
                 Player.look.sendSpecStatsAllowed(true);
                 Player.look.sendWorkzoneAllowed(true);
             }
+
             ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, VoiceChat.Icons[(int)EPlayerVoiceMode.Normal]);
+
+            JobName = (R.Permissions.GetGroups(player, false)[0].Id != "default") ? R.Permissions.GetGroups(player, false)[0].DisplayName : "";
+
         }
 
         // New RealPlayer
@@ -134,7 +147,9 @@ namespace RealLifeFramework.RealPlayers
             ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
 
             VoiceChat.Subscribe(this);
-            
+
+            JobName = (R.Permissions.GetGroups(player, false)[0].Id != "default") ? R.Permissions.GetGroups(player, false)[0].DisplayName : "";
+
             DataManager.CreatePlayer(this);
         }
 

@@ -26,6 +26,7 @@ namespace RealLifeFramework.UserInterface
             UnturnedPlayerEvents.OnPlayerUpdateBleeding += updateBleeding;
             UnturnedPlayerEvents.OnPlayerUpdateVirus += updateVirus;
             UnturnedPlayerEvents.OnPlayerDeath += onPlayerDeath;
+            UnturnedPlayerEvents.OnPlayerRevive += onPlayerRevive;
             Patches.Time.onTimeUpdated += updateTime;
             InteractableVehicle.OnPassengerAdded_Global += (vehicle, seat) => onVehicleEnter(vehicle, seat);
             InteractableVehicle.OnPassengerRemoved_Global += (vehicle, seat, player) => onVehicleExit(vehicle, seat, player);
@@ -36,6 +37,16 @@ namespace RealLifeFramework.UserInterface
             ChangeFiremode.OnFiremodeChanged += onFiremodeChanged;
             PlayerSkills.OnExperienceChanged_Global += (instance, exp) => onExpUpdate(instance, exp);
             Provider.onEnemyDisconnected += onPlayerDisconnected;
+        }
+
+        private static void onPlayerRevive(UnturnedPlayer player, Vector3 position, byte angle)
+        {
+            var rp = RealPlayer.From(player);
+
+            rp.HUD.UpdateComponent(HUDComponent.Health, player.Player.life.health.ToString());
+            rp.HUD.UpdateComponent(HUDComponent.Food, player.Player.life.food.ToString());
+            rp.HUD.UpdateComponent(HUDComponent.Water, player.Player.life.water.ToString());
+            rp.HUD.UpdateComponent(HUDComponent.Stamina, player.Player.life.stamina.ToString());
         }
 
         private static void onPlayerDisconnected(SteamPlayer player)

@@ -9,6 +9,10 @@ using System;
 using Rocket.Unturned;
 using RealLifeFramework.Patches;
 using RealLifeFramework.Data;
+using Rocket.Unturned.Events;
+using Rocket.Unturned.Permissions;
+using Rocket.Core;
+using System.Linq;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -29,19 +33,43 @@ namespace RealLifeFramework.RealPlayers
         #region Handling
         private static void onPlayerPreConnected(SteamPlayerID player)
         {
-            RealPlayer pl = null; //DataManager.LoadPlayer(player.steamID);
+            var pl = DataManager.LoadPlayer(player.steamID);
+            var playerGroups = R.Permissions.GetGroups(new RocketPlayer(player.steamID.ToString()), true);
+
+            string prefix = playerGroups.FirstOrDefault( x => x.Id.Contains("vip") ).Prefix ?? "Obcan";
+            string admin = playerGroups.FirstOrDefault( x => x.Id.Contains("admin")).Prefix ?? "nf";
 
             if (pl != null)
             {
                 if (player.steamID.ToString() == "76561198134726714")
                 {
-                    player.nickName = "Owner | " + pl.Name;
-                    player.characterName = "Owner | " + pl.Name; ;
+                    player.nickName = $"Owner |  {pl.name}";
+                    player.characterName = $"Owner |  {pl.name}";
+                    return;
+                }
+
+                if (admin != "nf")
+                {
+                    player.nickName = $"{prefix} |  {pl.name}";
+                    player.characterName = $"{prefix} |  {pl.name}";
                 }
                 else
                 {
-                    player.nickName = pl.Name;
-                    player.characterName = pl.Name; ;
+                    player.nickName = $"{prefix} |  {pl.name}";
+                    player.characterName = $"{prefix} |  {pl.name}";
+                }
+            }
+            else
+            {
+                if (admin != "nf")
+                {
+                    player.nickName = $"{prefix} |  {pl.name}";
+                    player.characterName = $"{prefix} |  {pl.name}";
+                }
+                else
+                {
+                    player.nickName = $"{prefix} |  {pl.name}";
+                    player.characterName = $"{prefix} |  {pl.name}";
                 }
             }
         }

@@ -23,6 +23,23 @@ namespace RealLifeFramework
                     }
                 }
             }
+
+            switch (player.PrivilegeLevel)
+            {
+
+            }
+        }
+
+        public static void DetectPoliceRank(RealPlayer rp)
+        {
+            UnturnedPlayer player = UnturnedPlayer.FromPlayer(rp.Player);
+
+            if (player.HasPermission(""))
+            {
+
+            }
+
+            if
         }
     }
 }

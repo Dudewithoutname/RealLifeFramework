@@ -116,6 +116,8 @@
     <Compile Include="API\Models\Stats.cs" />
     <Compile Include="API\Models\Tab.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
+    <Compile Include="Framework\Commands\Job\Vyplata.cs" />
+    <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdDo.cs" />
     <Compile Include="Framework\Commands\RP\CmdMe.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
@@ -132,7 +134,10 @@
     <Compile Include="Framework\Player\PlayerData\SkillData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillUserData.cs" />
     <Compile Include="Framework\Privileges\PriviledgeManager.cs" />
-    <Compile Include="Framework\Privileges\PrivilegeEx.cs" />
+    <Compile Include="Framework\Privileges\RankEx.cs" />
+    <Compile Include="Framework\Privileges\Rank.cs" />
+    <Compile Include="Framework\Privileges\RankManager.cs" />
+    <Compile Include="Framework\Privileges\RankUser.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
     <Compile Include="Framework\Ultility\Threadding\HelperThread.cs" />
     <Compile Include="Framework\Ultility\Threadding\ManagementThread.cs" />

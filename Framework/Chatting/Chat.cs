@@ -45,7 +45,7 @@ namespace RealLifeFramework.Chatting
             if (isVisible)
             {
                 ChatManager.serverSendMessage(
-                    $"<size=11><color=#de4dff>[{player.Level}]</color></size> <color={player.ChatProfile.NameColor}>{player.Name}</color> <color=#ffffff>: {message}</color>",
+                    $"<size=11><color=#de4dff>[{player.Level}]</color></size> <size=13>| {player.JobName} |</size> <color={player.ChatProfile.NameColor}>{player.Name}</color> <color=#ffffff>: {message}</color>",
                     Color.white, player.Player.channel.owner, null, EChatMode.GLOBAL, player.ChatProfile.Avatar, true);
             }
 
@@ -59,7 +59,7 @@ namespace RealLifeFramework.Chatting
             if(isVisible)
             {
                 ChatManager.serverSendMessage(
-                    $"<size=11><color=#b3babd>(local)</color> <color=#de4dff>[{player.Level}]</color></size> <color={player.ChatProfile.NameColor}>{player.Name}</color> <color=#ffffff>: {message}</color>",
+                    $"<size=11><color=#b3babd>(local)</color> <size=13>| {player.JobName} |</size> <color=#de4dff>[{player.Level}]</color></size> <color={player.ChatProfile.NameColor}>{player.Name}</color> <color=#ffffff>: {message}</color>",
                     Color.white, player.Player.channel.owner, null, EChatMode.LOCAL, player.ChatProfile.Avatar, true);
             }
 
@@ -73,7 +73,7 @@ namespace RealLifeFramework.Chatting
             if(isVisible)
             {
                 ChatManager.serverSendMessage(
-                    $"<size=11><color=#b3babd>(group)</color> <color=#de4dff>[{player.Level}]</color></size> <color={player.ChatProfile.NameColor}>{player.Name}</color> <color=#ffffff>: {message}</color>",
+                    $"<size=11><color=#b3babd>(group)</color> <size=13>| {player.JobName} |</size> <color=#de4dff>[{player.Level}]</color></size> <color={player.ChatProfile.NameColor}>{player.Name}</color> <color=#ffffff>: {message}</color>",
                     Color.white, player.Player.channel.owner, null, EChatMode.GROUP, player.ChatProfile.Avatar, true);
             }
 
@@ -91,6 +91,11 @@ namespace RealLifeFramework.Chatting
             }
 
             return output;
+        }
+
+        private static string adminLevel(RealPlayer player)
+        {
+
         }
     }
 }
