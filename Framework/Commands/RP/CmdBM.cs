@@ -1,4 +1,5 @@
-﻿using RealLifeFramework.RealPlayers;
+﻿using RealLifeFramework.Privileges;
+using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
@@ -18,7 +19,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>() { "blackmarket" };
 
-        public List<string> Permissions => new List<string> { EPrivilege.PLAYER.ToPermission() };
+        public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
         public void Execute(IRocketPlayer caller, string[] args)
         {
@@ -31,7 +32,7 @@ namespace RealLifeFramework.Commands
 
                 if (distance <= 450)
                 {
-                    if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission("job.police"))
+                    if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission))
                     {
                         ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > </b></color><color=#cfcfcf> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
                     }

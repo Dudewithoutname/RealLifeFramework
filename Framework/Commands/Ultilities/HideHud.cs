@@ -1,4 +1,5 @@
-﻿using RealLifeFramework.RealPlayers;
+﻿using RealLifeFramework.Privileges;
+using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace RealLifeFramework.Commands
 
         public string Syntax => "/hidehud";
 
-        public List<string> Aliases => new List<string>() { "hideui", "hudhide", "uihide", "skrytui", "skrythud"};
+        public List<string> Aliases => new List<string>() { "hideui", "skrytui", "skrythud"};
 
-        public List<string> Permissions => new List<string> { EPrivilege.PLAYER.ToPermission() };
+        public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {

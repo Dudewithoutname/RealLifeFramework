@@ -130,9 +130,10 @@ namespace RealLifeFramework.Realism
 
         private static void onDamageTireRequested(CSteamID instigatorSteamID, InteractableVehicle vehicle, int tireIndex, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {
+            var x = RealPlayer.From(instigatorSteamID);
             // Player Prevention
             if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || 
-                damageOrigin == EDamageOrigin.Useable_Melee && RealPlayer.From(instigatorSteamID).PrivilegeLevel < (byte)EPrivilege.HELPER)
+                damageOrigin == EDamageOrigin.Useable_Melee && x.RankUser.Admin == null && x.RankUser.Admin.Value.Level < 1)
                 shouldAllow = false;
         }
 

@@ -4,6 +4,7 @@ using Rocket.API;
 using System.Collections.Generic;
 using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
+using RealLifeFramework.Privileges;
 
 namespace RealLifeFramework.Commands
 {
@@ -19,7 +20,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>();
 
-        public List<string> Permissions => new List<string>() { EPrivilege.OWNER.ToPermission() };
+        public List<string> Permissions => new List<string>() { RankManager.Admins[4].PermIdentifier };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {

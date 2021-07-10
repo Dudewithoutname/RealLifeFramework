@@ -7,6 +7,7 @@ using RealLifeFramework.Skills;
 using Rocket.Unturned.Player;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
+using RealLifeFramework.Privileges;
 
 namespace RealLifeFramework.Commands
 {
@@ -22,7 +23,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>() { "vc", "changevoice" };
 
-        public List<string> Permissions => new List<string> { EPrivilege.PLAYER.ToPermission() };
+        public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {

@@ -1,5 +1,6 @@
 ﻿using RealLifeFramework.RealPlayers;
 using RealLifeFramework.UserInterface;
+using Rocket.Unturned.Player;
 
 namespace RealLifeFramework.Chatting
 {
@@ -10,20 +11,22 @@ namespace RealLifeFramework.Chatting
         public string Avatar { get; set; }
         public EPlayerVoiceMode VoiceMode { get; set; } = EPlayerVoiceMode.Normal;
 
-        public ChatProfile(string ncolor, string avatar, EPlayerVoiceMode voicemode, RealPlayer realplayer)
+        public ChatProfile(RealPlayer realplayer)
         {
-            NameColor = ncolor;
-            Avatar = avatar;
+            NameColor = "#ffffff";
+            Avatar = (realplayer.RankUser.DisplayIcon == "player")? UnturnedPlayer.FromCSteamID(realplayer.CSteamID).SteamProfile.AvatarFull.ToString() : realplayer.RankUser.DisplayIcon;
             RealPlayer = realplayer;
-            RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)voicemode]);
+
+            RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)EPlayerVoiceMode.Normal]);
         }
 
         public ChatProfile(RealPlayer realplayer, ProfileData data)
         {
             NameColor = data.NameColor;
-            Avatar = data.Avatar;
+            Avatar = (realplayer.RankUser.DisplayIcon == "player")? UnturnedPlayer.FromCSteamID(realplayer.CSteamID).SteamProfile.AvatarFull.ToString() : realplayer.RankUser.DisplayIcon;
             RealPlayer = realplayer;
-            RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)VoiceMode]);
+
+            RealPlayer.HUD.UpdateComponent(HUDComponent.Voice, VoiceChat.Icons[(int)EPlayerVoiceMode.Normal]);
         }
 
         public void ChangeVoicemode(EPlayerVoiceMode voicemode, string icon)

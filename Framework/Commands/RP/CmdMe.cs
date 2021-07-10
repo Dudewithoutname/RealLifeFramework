@@ -1,4 +1,5 @@
-﻿using RealLifeFramework.RealPlayers;
+﻿using RealLifeFramework.Privileges;
+using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
@@ -18,7 +19,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>();
 
-        public List<string> Permissions => new List<string> { EPrivilege.PLAYER.ToPermission() };
+        public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
         public void Execute(IRocketPlayer caller, string[] args)
         {

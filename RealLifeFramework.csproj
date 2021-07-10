@@ -129,11 +129,9 @@
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
     <Compile Include="Framework\Data\ISaveable.cs" />
     <Compile Include="Framework\Player\RealPlayerComponent.cs" />
-    <Compile Include="Framework\Privileges\EPrivilege.cs" />
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillData.cs" />
     <Compile Include="Framework\Player\PlayerData\SkillUserData.cs" />
-    <Compile Include="Framework\Privileges\PriviledgeManager.cs" />
     <Compile Include="Framework\Privileges\RankEx.cs" />
     <Compile Include="Framework\Privileges\Rank.cs" />
     <Compile Include="Framework\Privileges\RankManager.cs" />

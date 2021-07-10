@@ -3,6 +3,7 @@ using UnityEngine;
 using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using Rocket.Unturned.Player;
+using RealLifeFramework.Privileges;
 
 namespace RealLifeFramework.Chatting
 {
@@ -84,18 +85,13 @@ namespace RealLifeFramework.Chatting
         {
             string output = message;
 
-            if ((message.Contains("<") || message.Contains(">")) && player.PrivilegeLevel >= (byte)EPrivilege.MOD)
+            if ((message.Contains("<") || message.Contains(">")) && player.RankUser != null && player.RankUser.Admin.Value.Level >= RankManager.Admins[2].Level)
             {
                 output.Replace("<", "(");
                 output.Replace(">", ")");
             }
 
             return output;
-        }
-
-        private static string adminLevel(RealPlayer player)
-        {
-
         }
     }
 }

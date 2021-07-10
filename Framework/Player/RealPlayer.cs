@@ -11,6 +11,7 @@ using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
 using System.Collections.Generic;
 using Rocket.Core;
+using RealLifeFramework.Privileges;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -24,8 +25,7 @@ namespace RealLifeFramework.RealPlayers
         public RealPlayerComponent Component { get; private set; }
 
         // * Privilige
-        public string PrivilegePrefix { get; set; }
-        public byte PrivilegeLevel { get; set; } = 0;
+        public RankUser RankUser { get; private set; }
 
         // * Character
         public string Name { get; set; }
@@ -83,7 +83,7 @@ namespace RealLifeFramework.RealPlayers
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
-            PrivilegeManager.InitialiazePrivileges(this);
+            RankUser = new RankUser(this);
 
             Name = data.name;
             Age = data.age;
@@ -104,17 +104,21 @@ namespace RealLifeFramework.RealPlayers
 
             VoiceChat.Subscribe(this);
 
-            if (PrivilegeLevel >= (byte)EPrivilege.HELPER)
+            if (RankUser.Admin != null)
             {
-                Player.look.sendFreecamAllowed(true);
-                Player.look.sendSpecStatsAllowed(true);
-                Player.look.sendWorkzoneAllowed(true);
+                if (RankUser.Admin.Value.Level >= 1)
+                {
+                    Player.look.sendFreecamAllowed(true);
+                    Player.look.sendSpecStatsAllowed(true);
+                }
+
+                if (RankUser.Admin.Value.Level >= 2)
+                {
+                    Player.look.sendWorkzoneAllowed(true);
+                }
             }
 
             ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, VoiceChat.Icons[(int)EPlayerVoiceMode.Normal]);
-
-            JobName = (R.Permissions.GetGroups(player, false)[0].Id != "default") ? R.Permissions.GetGroups(player, false)[0].DisplayName : "";
-
         }
 
         // New RealPlayer
@@ -126,7 +130,7 @@ namespace RealLifeFramework.RealPlayers
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
-            PrivilegeManager.InitialiazePrivileges(this);
+            RankUser = new RankUser(this);
 
             Name = name;
             Age = age;
@@ -144,11 +148,25 @@ namespace RealLifeFramework.RealPlayers
 
             Keyboard = new UnturnedKeyWatcher(player.Player);
             HUD = new HUD(this);
-            ChatProfile = new ChatProfile("#ffffff", UnturnedPlayer.FromCSteamID(player.CSteamID).SteamProfile.AvatarIcon.ToString(), EPlayerVoiceMode.Normal, this);
+            ChatProfile = new ChatProfile(this);
 
             VoiceChat.Subscribe(this);
 
-            JobName = (R.Permissions.GetGroups(player, false)[0].Id != "default") ? R.Permissions.GetGroups(player, false)[0].DisplayName : "";
+            if (RankUser.Admin != null)
+            {
+                if(RankUser.Admin.Value.Level >= 1)
+                {
+                    Player.look.sendFreecamAllowed(true);
+                    Player.look.sendSpecStatsAllowed(true);
+                }
+
+                if (RankUser.Admin.Value.Level >= 2)
+                {
+                    Player.look.sendWorkzoneAllowed(true);
+                }
+            }
+
+            ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, VoiceChat.Icons[(int)EPlayerVoiceMode.Normal]);
 
             DataManager.CreatePlayer(this);
         }

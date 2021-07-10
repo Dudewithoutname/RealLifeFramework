@@ -1,11 +1,10 @@
-﻿using System;
-using SDG.Unturned;
+﻿using SDG.Unturned;
 using Rocket.API;
 using System.Collections.Generic;
 using RealLifeFramework.RealPlayers;
-using RealLifeFramework.Skills;
 using Rocket.Unturned.Player;
 using RealLifeFramework.UserInterface;
+using RealLifeFramework.Privileges;
 
 namespace RealLifeFramework.Commands
 {
@@ -21,7 +20,7 @@ namespace RealLifeFramework.Commands
 
         public List<string> Aliases => new List<string>() { "zapasat", "belt" };
 
-        public List<string> Permissions => new List<string> { EPrivilege.PLAYER.ToPermission() };
+        public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
