@@ -1,4 +1,7 @@
 ﻿using RealLifeFramework.RealPlayers;
+using Rocket.API.Serialisation;
+using Rocket.Core;
+using Rocket.Unturned.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +17,13 @@ namespace RealLifeFramework.Privileges
         public Rank Admin;
         public Rank Vip;
 
-        public Rank Police;
-        public Rank Job;
-
+        public RocketPermissionsGroup Job;
 
         public RankUser(RealPlayer player)
         {
-            ro
-            Admin = RankManager.VIPs[]
+
+            Job = R.Permissions.GetGroups(UnturnedPlayer.FromCSteamID(player.CSteamID), false)[0];
+            // switch for police job
         }
     }
 }
