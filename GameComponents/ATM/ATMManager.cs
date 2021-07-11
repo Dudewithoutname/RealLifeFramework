@@ -15,7 +15,7 @@ namespace RealLifeFramework.ATM
     public class ATMManager : IEventComponent
     {
         private static Dictionary<CSteamID, ATMSession> sessions;
-        private const ushort idATM = 1070; //42568;
+        private const ushort idATM = 37101;
         private const ushort uiATM = 41866;
         private const short keyATM = 1138;
 
@@ -251,7 +251,7 @@ namespace RealLifeFramework.ATM
 
             HelperThread.Execute(() =>
             {
-                if ( (session.Data[1] != "all" || session.Data[1] != "vsetko") && !session.depositAllCycle )
+                if (!session.Data[1].Contains("vsetko") && !session.Data[1].Contains("all") && !session.Data[1].Contains("vsechno"))
                 {
                     ushort noteId = 0;
                     // noteValue
@@ -328,6 +328,8 @@ namespace RealLifeFramework.ATM
                 }
                 else // ALL
                 {
+                    if (session.depositAllCycle) return;
+                    
                     uint amount = 0;
 
                     foreach (var note in Currency.Money)
