@@ -11,7 +11,7 @@ using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
 using System.Collections.Generic;
 using Rocket.Core;
-using RealLifeFramework.Privileges;
+using RealLifeFramework.Ranks;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -68,12 +68,6 @@ namespace RealLifeFramework.RealPlayers
         public HUD HUD { get; set; }
         public ChatProfile ChatProfile { get; set; }
         public UnturnedKeyWatcher Keyboard { get; set; }
-
-        // * Jobs
-        public string JobName { get; set; }
-        public bool IsEMS => UnturnedPlayer.FromCSteamID(CSteamID).HasPermission("job.ems");
-        public bool IsPolice => UnturnedPlayer.FromCSteamID(CSteamID).HasPermission("job.police");
-        public byte PoliceLevel { get; set; }
 
         public RealPlayer(UnturnedPlayer player, RealPlayerData data)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using RealLifeFramework.RealPlayers;
 using Rocket.Unturned.Player;
 using RealLifeFramework.UserInterface;
-using RealLifeFramework.Privileges;
+using RealLifeFramework.Ranks;
 
 namespace RealLifeFramework.Commands
 {

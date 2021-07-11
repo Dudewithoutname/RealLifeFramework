@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealLifeFramework.Privileges
+namespace RealLifeFramework.Ranks
 {
     public struct Rank
     {

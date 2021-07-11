@@ -1,4 +1,4 @@
-﻿using RealLifeFramework.Privileges;
+﻿using RealLifeFramework.Ranks;
 using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using Rocket.Unturned.Player;

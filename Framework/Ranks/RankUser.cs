@@ -9,29 +9,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealLifeFramework.Privileges
+namespace RealLifeFramework.Ranks
 {
     public class RankUser
     {
         public RealPlayer Player;
 
         public string DisplayIcon;
-        public string DisplayPrefix;
+        public string DisplayPrefix = string.Empty;
         public string DisplayRankName;
 
         public Rank? Admin;
         public Rank? Vip;
 
         public RocketPermissionsGroup Job;
+        public string JobPrefix = string.Empty;
+
+        public bool IsEMS => UnturnedPlayer.FromCSteamID(Player.CSteamID).HasPermission(RankManager.EMSPermission);
+        public bool IsPolice => UnturnedPlayer.FromCSteamID(Player.CSteamID).HasPermission(RankManager.PolicePermission);
 
         public RankUser(RealPlayer player)
         {
             Player = player;
-
+           
             var rocketp = UnturnedPlayer.FromCSteamID(player.CSteamID);
             int[] lvl = { -1, -1 };
 
+            var wasAdmin = rocketp.IsAdmin;
+
+            if(wasAdmin) rocketp.Admin(false);
+
             Job = R.Permissions.GetGroups(rocketp, false)[0];
+            
+            if (Job.Id != "unemployed")
+            {
+                JobPrefix = $" {Job.Prefix} ";
+            }
+
 
             foreach (var vip in RankManager.VIPs)
             {
@@ -68,6 +82,14 @@ namespace RealLifeFramework.Privileges
                 DisplayPrefix = ((Rank)Admin).Prefix;
                 DisplayRankName = ((Rank)Admin).Name;
             }
+
+            if (DisplayPrefix == string.Empty)
+            {
+                DisplayIcon = "";
+                DisplayPrefix = "<color=#ffdc96><b>Obcan</b></color>";
+                DisplayRankName = "Obcan";
+            }
+            if (wasAdmin) rocketp.Admin(true);
         }
     }
 }

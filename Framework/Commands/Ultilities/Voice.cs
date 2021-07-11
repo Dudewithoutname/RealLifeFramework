@@ -7,7 +7,7 @@ using RealLifeFramework.Skills;
 using Rocket.Unturned.Player;
 using RealLifeFramework.UserInterface;
 using RealLifeFramework.Chatting;
-using RealLifeFramework.Privileges;
+using RealLifeFramework.Ranks;
 
 namespace RealLifeFramework.Commands
 {
