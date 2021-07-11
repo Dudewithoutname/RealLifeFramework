@@ -40,12 +40,6 @@ namespace RealLifeFramework.Ranks
             if(wasAdmin) rocketp.Admin(false);
 
             Job = R.Permissions.GetGroups(rocketp, false)[0];
-            
-            if (Job.Id != "unemployed")
-            {
-                JobPrefix = $" {Job.Prefix} ";
-            }
-
 
             foreach (var vip in RankManager.VIPs)
             {
@@ -86,9 +80,26 @@ namespace RealLifeFramework.Ranks
             if (DisplayPrefix == string.Empty)
             {
                 DisplayIcon = "";
-                DisplayPrefix = "<color=#ffdc96><b>Obcan</b></color>";
-                DisplayRankName = "Obcan";
+
+                if (Job.Id == "unemployed")
+                {
+                    DisplayPrefix = "<color=#ffdc96>Obcan</color>";
+                    DisplayRankName = "Obcan";
+                }
+                else
+                {
+                    DisplayPrefix = Job.DisplayName;
+                    DisplayRankName = "Obcan";
+                }
             }
+            else
+            {
+                if (Job.Id != "unemployed")
+                {
+                    JobPrefix = $"[{Job.DisplayName}]";
+                }
+            }
+
             if (wasAdmin) rocketp.Admin(true);
         }
     }

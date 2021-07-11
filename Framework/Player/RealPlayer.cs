@@ -124,6 +124,7 @@ namespace RealLifeFramework.RealPlayers
             int ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
+            R.Permissions.AddPlayerToGroup("unemployed", player);
             RankUser = new RankUser(this);
 
             Name = name;

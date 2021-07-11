@@ -1,8 +1,7 @@
 ﻿// Job must have biggest priority
-// Vip must have prefixes
-// Vip ids must contain vip       so e.g.  epic_vip
-// Admin ids must contain admin   so e.g.  helper_admin
+// default job must be unemployed
 
+OLD
 | Classic
 privilege.player
 
