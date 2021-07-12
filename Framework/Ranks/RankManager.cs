@@ -18,7 +18,7 @@ namespace RealLifeFramework.Ranks
 
         public static readonly List<Rank> VIPs = new List<Rank>()
         {
-            new Rank(0, "dude.vip.veteran", "Veteran", string.Empty, "player"),
+            new Rank(0, "dude.vip.veteran", "Veteran", string.Empty, ""),
             new Rank(1, "dude.vip.epic", "Epic", "<color=#ad33ff>Epic</color>", "player"),
             new Rank(2, "dude.vip.legend", "Legend", "<color=#3dffc5>Legend</color>", "player"),
             new Rank(3, "dude.vip.mythical", "Mythical", "<color=#fff93d>Mythical</color>", "player")

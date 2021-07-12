@@ -12,6 +12,7 @@ namespace RealLifeFramework.Chatting
         {
             { "old_discord", new NameColor("#7289DA", 255) }, // Exclusive for veterans
 
+            { "default", new NameColor("#FFFFFF", 0) },
             { "lavender", new NameColor("#D8B4E2", 0) },
             { "pink_perl", new NameColor("#C989B8", 0) },
             { "wisteria", new NameColor("#BC96E6", 0) },

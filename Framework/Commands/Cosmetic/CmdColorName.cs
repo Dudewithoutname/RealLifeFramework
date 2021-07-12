@@ -27,7 +27,7 @@ namespace RealLifeFramework.Commands
         {
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
 
-            if (player.RankUser.Vip != null)
+            if (player.RankUser.Vip != null | player.Player.channel.owner.isAdmin)
             {
                 if (args.Length < 1)
                 {

@@ -13,7 +13,7 @@ namespace RealLifeFramework.Chatting
 
         public ChatProfile(RealPlayer realplayer)
         {
-            NameColor = "#ffffff";
+            NameColor = "#FFFFFF";
             Avatar = (realplayer.RankUser.DisplayIcon == "player")? UnturnedPlayer.FromCSteamID(realplayer.CSteamID).SteamProfile.AvatarFull.ToString() : realplayer.RankUser.DisplayIcon;
             RealPlayer = realplayer;
 

@@ -123,6 +123,7 @@
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdDo.cs" />
     <Compile Include="Framework\Commands\RP\CmdMe.cs" />
+    <Compile Include="Framework\Commands\Ultilities\CmdRefresh.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
     <Compile Include="Framework\DatabaseManager\TableAttribute.cs" />
