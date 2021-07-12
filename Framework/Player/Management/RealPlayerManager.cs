@@ -1,18 +1,12 @@
-﻿using Steamworks;
-using Rocket.Unturned.Player;
+﻿using Rocket.Unturned.Player;
 using Rocket.API;
 using SDG.Unturned;
 using RealLifeFramework.UserInterface;
-using System.Collections.Generic;
 using RealLifeFramework.Chatting;
-using System;
 using Rocket.Unturned;
 using RealLifeFramework.Patches;
 using RealLifeFramework.Data;
-using Rocket.Unturned.Events;
-using Rocket.Unturned.Permissions;
 using Rocket.Core;
-using System.Linq;
 using RealLifeFramework.Ranks;
 
 namespace RealLifeFramework.RealPlayers
@@ -66,6 +60,7 @@ namespace RealLifeFramework.RealPlayers
             {
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, DataManager.LoadPlayer(player.CSteamID)));
             }
+
             player.Player.inventory.ReceiveSize(0, 1, 1); // LATER CHANGE
 
         }

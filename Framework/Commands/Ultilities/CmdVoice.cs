@@ -29,7 +29,20 @@ namespace RealLifeFramework.Commands
         {
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
 
-            VoiceChat.GetNextVoiceMode(player);
+            if(command.Length < 1)
+            {
+                VoiceChat.GetNextVoiceMode(player);
+                return;
+            }
+
+            if (Enum.TryParse(command[0], out EPlayerVoiceMode result))
+            {
+                player.ChatProfile.ChangeVoicemode(result, VoiceChat.Icons[(int)result]);
+            }
+            else
+            {
+                ChatManager.say(player.CSteamID, "Zly nazov voice modu", Palette.COLOR_R, EChatMode.SAY, false);
+            }
         }
     }
 }

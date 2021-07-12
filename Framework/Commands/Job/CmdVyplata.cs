@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RealLifeFramework.Commands
 {
-    class Vyplata
+    class CommandVyplata
     {
     }
 }
