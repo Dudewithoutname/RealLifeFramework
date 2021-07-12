@@ -22,7 +22,8 @@ namespace RealLifeFramework.Chatting
 
         public ChatProfile(RealPlayer realplayer, ProfileData data)
         {
-            NameColor = data.NameColor;
+            NameColor = (realplayer.RankUser.Vip == null && !realplayer.Player.channel.owner.isAdmin)? "#FFFFFF" : data.NameColor;
+
             Avatar = (realplayer.RankUser.DisplayIcon == "player")? UnturnedPlayer.FromCSteamID(realplayer.CSteamID).SteamProfile.AvatarFull.ToString() : realplayer.RankUser.DisplayIcon;
             RealPlayer = realplayer;
 
