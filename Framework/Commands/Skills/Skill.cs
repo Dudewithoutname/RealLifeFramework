@@ -41,6 +41,8 @@ namespace RealLifeFramework.Commands
                 {
                     if((object)PlayerTool.getPlayer(command[0]) != null)
                     {
+                        var target = RealPlayer.From(PlayerTool.getPlayer(command[0]));
+
                         if (!uint.TryParse(command[4], out uint amount))
                         {
                             ChatManager.say(rp.CSteamID, "Nespravna hodnota!", Palette.COLOR_R, EChatMode.SAY, false);
@@ -49,24 +51,29 @@ namespace RealLifeFramework.Commands
 
                         if (command[1] == "skill")
                         {
-                            if (int.TryParse(command[2], out int id) && rp.SkillUser.Skills[id] != null)
+                            if (int.TryParse(command[2], out int id) && target.SkillUser.Skills[id] != null)
                             {
 
                                 switch (command[3].ToLower())
                                 {
                                     case "exp":
+                                        if (target.SkillUser.Skills[id].Level == target.SkillUser.Skills[id].MaxLevel) return;
 
-                                        rp.SkillUser.AddExp(id, amount);
+                                        target.SkillUser.AddExp(id, amount);
+                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} exp do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} exp do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
                                         break;
 
                                     case "lvl":
-                                        if (rp.SkillUser.Skills[id].Level == rp.SkillUser.Skills[id].MaxLevel) return;
+                                        if (target.SkillUser.Skills[id].Level == target.SkillUser.Skills[id].MaxLevel) return;
 
                                         for(int i = 0; i < amount; i++)
                                         {
-                                            if (rp.SkillUser.Skills[id].Level == rp.SkillUser.Skills[id].MaxLevel) break;
-                                            rp.SkillUser.ForceLevelUp(id);
+                                            if (target.SkillUser.Skills[id].Level == target.SkillUser.Skills[id].MaxLevel) break;
+                                            target.SkillUser.ForceLevelUp(id);
                                         }
+                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} levelov do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} levelov do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
                                         break;
 
                                     default:
@@ -82,18 +89,21 @@ namespace RealLifeFramework.Commands
                         }
                         else if (command[1] == "edu" | command[1] == "education")
                         {
-                            if (int.TryParse(command[2], out int id) && rp.SkillUser.Educations[id] != null)
+                            if (int.TryParse(command[2], out int id) && target.SkillUser.Educations[id] != null)
                             {
                                 switch (command[3].ToLower())
                                 {
                                     case "lvl":
-                                        if (rp.SkillUser.Educations[id].Level == rp.SkillUser.Educations[id].MaxLevel) return;
+                                        if (target.SkillUser.Educations[id].Level == target.SkillUser.Educations[id].MaxLevel) return;
 
                                         for (int i = 0; i < amount; i++)
                                         {
-                                            if (rp.SkillUser.Educations[id].Level == rp.SkillUser.Educations[id].MaxLevel) break;
-                                            rp.SkillUser.UpgradeEducation(id);
+                                            if (target.SkillUser.Educations[id].Level == target.SkillUser.Educations[id].MaxLevel) break;
+                                            target.SkillUser.UpgradeEducation(id);
                                         }
+                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} levelov do vylepsenia {target.SkillUser.Educations[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} levelov do vylepsenia {target.SkillUser.Educations[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+
                                         break;
 
                                     default:

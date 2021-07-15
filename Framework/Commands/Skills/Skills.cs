@@ -25,9 +25,6 @@ namespace RealLifeFramework.Commands
 
         public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
-        public void Execute(IRocketPlayer caller, string[] command)
-        {
-           SkillDisplay.SendOpenUI(RealPlayer.From((UnturnedPlayer)caller));
-        }
+        public void Execute(IRocketPlayer caller, string[] command) => SkillDisplay.SendOpenUI(RealPlayer.From((UnturnedPlayer)caller));
     }
 }
