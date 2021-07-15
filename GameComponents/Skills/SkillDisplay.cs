@@ -36,6 +36,7 @@ namespace RealLifeFramework.Skills
                     EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, "skills_txt_edupoints", player.SkillUser.EducationPoints.ToString());
                     EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, "skills_txt_lvl", player.Level.ToString());
                     EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, "skills_txt_exp", $"{HUD.FormatBigNums(player.Exp)}/{HUD.FormatBigNums(player.MaxExp)}");
+                    SendPage(player, 0);
                 });
             }
         }
@@ -57,6 +58,7 @@ namespace RealLifeFramework.Skills
                         {
                             loadSkill(player, (byte)i);
                         }
+                        pageIndex[player.CSteamID] = 0;
                         break;
                     case 1:
                         EffectManager.sendUIEffectVisibility(keyUI, player.TransportConnection, true, "skills_head", false);
@@ -67,6 +69,7 @@ namespace RealLifeFramework.Skills
                         {
                             loadEdu(player, (byte)i);
                         }
+                        pageIndex[player.CSteamID] = 1;
                         break;
                 }
             }
@@ -98,7 +101,7 @@ namespace RealLifeFramework.Skills
 
         private static void loadEdu(RealPlayer player, byte index)
         {
-            var edu = player.SkillUser.Skills[index];
+            var edu = player.SkillUser.Educations[index];
 
             EffectManager.sendUIEffectVisibility(keyUI, player.TransportConnection, true, $"edu[{index}]", true);
 
@@ -122,6 +125,8 @@ namespace RealLifeFramework.Skills
                     break;
 
                 case "skills_exit":
+                    rp.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, false);
+                    rp.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, false);
                     EffectManager.askEffectClearByID(idUI, player.channel.GetOwnerTransportConnection());
                     if (pageIndex.ContainsKey(rp.CSteamID)) pageIndex.Remove(rp.CSteamID);
                     break;

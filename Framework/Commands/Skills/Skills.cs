@@ -2,6 +2,7 @@
 using RealLifeFramework.RealPlayers;
 using RealLifeFramework.Skills;
 using Rocket.API;
+using Rocket.Unturned.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace RealLifeFramework.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-           SkillDisplay.SendOpenUI(RealPlayer.From(caller));
+           SkillDisplay.SendOpenUI(RealPlayer.From((UnturnedPlayer)caller));
         }
     }
 }
