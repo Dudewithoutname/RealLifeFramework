@@ -50,7 +50,7 @@ namespace RealLifeFramework.Commands
         {
             switch (jobId)
             {
-                //  PD
+                //  PD 
 
                 case "pd_kokot1":
                     return 6000;
@@ -64,7 +64,7 @@ namespace RealLifeFramework.Commands
                 case "pd_sef":
                     return 10000;
 
-                //  EMS
+                //  EMS 
 
                 case "ems_lekarnik":
                     return 4000;
