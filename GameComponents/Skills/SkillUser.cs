@@ -29,17 +29,8 @@ namespace RealLifeFramework.Skills
                 if (Educations[id].Level <= Educations[id].MaxLevel)
                 {
                     EducationPoints--;
-                    Educations[id].Upgrade(); // forced
-                    // TODO: Send Message About Upgrade
+                    Educations[id].Upgrade();
                 }
-                else
-                {
-                    // TOOD: Send message about max level
-                }
-            }
-            else
-            {
-                // TOOD: Send Message about low edu points
             }
         }
 
@@ -53,7 +44,6 @@ namespace RealLifeFramework.Skills
 
                 if(id != Agitily.Id)
                     RealPlayer.AddExp(2);
-
             }
         }
 

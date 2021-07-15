@@ -87,13 +87,13 @@ namespace RealLifeFramework.Skills
         {
             var skill = player.SkillUser.Skills[index];
 
-            EffectManager.sendUIEffectVisibility(keyUI, player.TransportConnection, true, $"skills[{index}]", true);
+            EffectManager.sendUIEffectVisibility(keyUI, player.TransportConnection, true, $"skill[{index}]", true);
 
-            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skills[{index}].name", $"<color={skill.Color}>{skill.Name}</color>");
-            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skills[{index}].lvlhead", $"<color={skill.Color}>LVL</color>");
-            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skills[{index}].lvl", $"{skill.Level}");
-            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skills[{index}].exphead", $"<color={skill.Color}>Exp</color>");
-            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skills[{index}].exp", $"{HUD.FormatBigNums(skill.Exp)}/{HUD.FormatBigNums(skill.GetExpToNextLevel())}");
+            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skill[{index}].name", $"<color={skill.Color}>{skill.Name}</color>");
+            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skill[{index}].lvlhead", $"<color={skill.Color}>LVL</color>");
+            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skill[{index}].lvl", (skill.Level == skill.MaxLevel) ? "MAX" : $"{skill.Level}");
+            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skill[{index}].exphead", $"<color={skill.Color}>Exp</color>");
+            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"skill[{index}].exp", $"{HUD.FormatBigNums(skill.Exp)}/{HUD.FormatBigNums(skill.GetExpToNextLevel())}");
         }
 
         private static void loadEdu(RealPlayer player, byte index)
@@ -104,7 +104,7 @@ namespace RealLifeFramework.Skills
 
             EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"edu[{index}].name", $"<color={edu.Color}>{edu.Name}</color>");
             EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"edu[{index}].lvlhead", $"<color={edu.Color}>LVL</color>");
-            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"edu[{index}].lvl", $"{edu.Level}");
+            EffectManager.sendUIEffectText(keyUI, player.TransportConnection, true, $"edu[{index}].lvl", (edu.Level == edu.MaxLevel)? "MAX" :$"{edu.Level}");
         }
 
         private static void onButtonClicked(Player player, string buttonName)
