@@ -144,12 +144,11 @@ namespace RealLifeFramework.Skills
                             exp = 50;
                             rp.SkillUser.AddExp(Agitily.Id, exp);
                         }
-                        if (distance > 30 && distance < 500)
+                        if (distance > 20 && distance < 500)
                         {
                             exp = (uint)Math.Floor((decimal)(distance / 10));
                             rp.SkillUser.AddExp(Agitily.Id, exp);
                         }
-
                     }
                 }
             });

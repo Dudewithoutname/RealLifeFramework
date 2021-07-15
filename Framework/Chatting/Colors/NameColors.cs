@@ -41,9 +41,9 @@ namespace RealLifeFramework.Chatting
             { "light_cyan", new NameColor("#CBF3F0", 0) },
             { "rajah", new NameColor("#F2A65A", 0) },
             { "wealth_sea", new NameColor("#08BDBD", 0) },
-            { "doctor_paradise", new NameColor("#f55f6f", 2) },
+            { "doctor_paradise", new NameColor("#f55f6f", 0) },
 
-            { "untuned_zombie", new NameColor("#13AD16", 0) },
+            { "untuned_zombie", new NameColor("#13AD16", 2) },
             { "dark_chef", new NameColor("#5E5E5E", 2) },
             { "diamond", new NameColor("#AOE1F5", 2) },
 
