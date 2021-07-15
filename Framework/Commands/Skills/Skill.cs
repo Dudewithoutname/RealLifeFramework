@@ -60,8 +60,8 @@ namespace RealLifeFramework.Commands
                                         if (target.SkillUser.Skills[id].Level == target.SkillUser.Skills[id].MaxLevel) return;
 
                                         target.SkillUser.AddExp(id, amount);
-                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} exp do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
-                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} exp do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} exp do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_G, EChatMode.SAY, false);
+                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} exp do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_G, EChatMode.SAY, false);
                                         break;
 
                                     case "lvl":
@@ -72,8 +72,8 @@ namespace RealLifeFramework.Commands
                                             if (target.SkillUser.Skills[id].Level == target.SkillUser.Skills[id].MaxLevel) break;
                                             target.SkillUser.ForceLevelUp(id);
                                         }
-                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} levelov do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
-                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} levelov do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} levelov do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_G, EChatMode.SAY, false);
+                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} levelov do zrucnosti {target.SkillUser.Skills[id].Name}!", Palette.COLOR_G, EChatMode.SAY, false);
                                         break;
 
                                     default:
@@ -101,8 +101,8 @@ namespace RealLifeFramework.Commands
                                             if (target.SkillUser.Educations[id].Level == target.SkillUser.Educations[id].MaxLevel) break;
                                             target.SkillUser.UpgradeEducation(id);
                                         }
-                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} levelov do vylepsenia {target.SkillUser.Educations[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
-                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} levelov do vylepsenia {target.SkillUser.Educations[id].Name}!", Palette.COLOR_R, EChatMode.SAY, false);
+                                        ChatManager.say(rp.CSteamID, $"Uspesne si pridal {target.Name} {amount} levelov do vylepsenia {target.SkillUser.Educations[id].Name}!", Palette.COLOR_G, EChatMode.SAY, false);
+                                        ChatManager.say(target.CSteamID, $"{rp.Name} ti dal {amount} levelov do vylepsenia {target.SkillUser.Educations[id].Name}!", Palette.COLOR_G, EChatMode.SAY, false);
 
                                         break;
 
