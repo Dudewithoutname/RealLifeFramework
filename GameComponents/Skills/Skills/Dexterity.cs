@@ -8,8 +8,9 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 4;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Dexterity);
+        public string Name => "Obratnost";
         public byte MaxLevel => 6;
+        public string Color => "#f28749";
 
         public byte Level { get; set; }
         public uint Exp { get; set; }
@@ -35,17 +36,17 @@ namespace RealLifeFramework.Skills
                 switch (NextLevel)
                 {
                     case 1:
-                        return 100;
+                        return 50;
                     case 2:
-                        return 400;
+                        return 100;
                     case 3:
-                        return 800;
+                        return 250;
                     case 4:
-                        return 1500;
+                        return 500;
                     case 5:
-                        return 2000;
+                        return 1000;
                     case 6:
-                        return 3000;
+                        return 2000;
                     default:
                         return 100;
                 }

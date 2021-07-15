@@ -7,8 +7,10 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 0;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Engineering);
+        public string Name => "Mechanik";
         public byte MaxLevel => 5;
+        public string Color => "#7f7aff";
+
         public byte Level { get; set; }
 
         public void Upgrade()

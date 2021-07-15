@@ -8,8 +8,10 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 3;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Agitily);
+        public string Name => "Agilita";
         public byte MaxLevel => 12;
+        public string Color => "#fffc3d";
+
 
         public byte Level { get; set; }
         public uint Exp { get; set; }
@@ -35,29 +37,29 @@ namespace RealLifeFramework.Skills
                 switch (NextLevel)
                 {
                     case 1:
-                        return 100;
+                        return 50;
                     case 2:
-                        return 250;
+                        return 100;
                     case 3:
-                        return 500;
+                        return 250;
                     case 4:
-                        return 1000;
+                        return 500;
                     case 5:
-                        return 1500;
+                        return 750;
                     case 6:
-                        return 2000;
+                        return 1000;
                     case 7:
-                        return 2500;
+                        return 1500;
                     case 8:
-                        return 3000;
+                        return 2000;
                     case 9:
-                        return 4000;
+                        return 2500;
                     case 10:
-                        return 5000;
+                        return 3000;
                     case 11:
-                        return 6000;
+                        return 4000;
                     case 12:
-                        return 7500;
+                        return 5000;
                     default:
                         return 0;
                 }

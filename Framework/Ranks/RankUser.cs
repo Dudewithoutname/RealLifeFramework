@@ -106,6 +106,9 @@ namespace RealLifeFramework.Ranks
 
         public void Refresh()
         {
+            DisplayIcon = "";
+            DisplayPrefix = string.Empty;
+
             var rocketp = UnturnedPlayer.FromCSteamID(Player.CSteamID);
             int[] lvl = { -1, -1 };
 
@@ -175,7 +178,7 @@ namespace RealLifeFramework.Ranks
             }
 
             Player.ChatProfile.Avatar = DisplayIcon;
-            
+
             if (Vip == null && !wasAdmin)
             {
                 Player.ChatProfile.NameColor = "#FFFFFF";

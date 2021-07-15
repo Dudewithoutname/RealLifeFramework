@@ -7,8 +7,10 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 2;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Crafting);
+        public string Name => "Remeselnik";
         public byte MaxLevel => 3;
+        public string Color => "#ffe24f";
+
         public byte Level { get; set; }
 
         public void Upgrade()

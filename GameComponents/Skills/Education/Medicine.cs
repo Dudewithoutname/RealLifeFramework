@@ -7,9 +7,10 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 3;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Medicine);
+        public string Name => "Doktor";
         public byte MaxLevel => 7;
         public byte Level { get; set; }
+        public string Color => "#ff3d54";
 
         public void Upgrade()
         {

@@ -7,8 +7,10 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 1;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Culinary);
+        public string Name => "Kuchar";
         public byte MaxLevel => 3;
+        public string Color => "#e38e4d";
+
         public byte Level { get; set; }
 
         public void Upgrade()

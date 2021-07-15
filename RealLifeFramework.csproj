@@ -123,6 +123,8 @@
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdDo.cs" />
     <Compile Include="Framework\Commands\RP\CmdMe.cs" />
+    <Compile Include="Framework\Commands\Skills\Skill.cs" />
+    <Compile Include="Framework\Commands\Skills\Skills.cs" />
     <Compile Include="Framework\Commands\Ultilities\CmdRefresh.cs" />
     <Compile Include="Framework\DatabaseManager\DatabaseManager.cs" />
     <Compile Include="Framework\DatabaseManager\ITable.cs" />
@@ -134,8 +136,8 @@
     <Compile Include="Framework\Data\ISaveable.cs" />
     <Compile Include="Framework\Player\RealPlayerComponent.cs" />
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
-    <Compile Include="Framework\Player\PlayerData\SkillData.cs" />
-    <Compile Include="Framework\Player\PlayerData\SkillUserData.cs" />
+    <Compile Include="GameComponents\Skills\Data\SkillData.cs" />
+    <Compile Include="GameComponents\Skills\Data\SkillUserData.cs" />
     <Compile Include="Framework\Ranks\Rank.cs" />
     <Compile Include="Framework\Ranks\RankManager.cs" />
     <Compile Include="Framework\Ranks\RankUser.cs" />
@@ -169,8 +171,9 @@
     <Compile Include="Framework\Ultility\Patches\KeyWatcher.cs" />
     <Compile Include="Framework\Ultility\Patches\PatchedProvider.cs" />
     <Compile Include="Framework\Ultility\Patches\VoiceRelay.cs" />
-    <Compile Include="GameComponents\SkillManager\SkillManager.cs" />
-    <Compile Include="GameComponents\SkillManager\Skills\Dexterity.cs" />
+    <Compile Include="GameComponents\Skills\SkillDisplay.cs" />
+    <Compile Include="GameComponents\Skills\SkillManager.cs" />
+    <Compile Include="GameComponents\Skills\Skills\Dexterity.cs" />
     <Compile Include="Framework\Ultility\Patches\Time.cs" />
     <Compile Include="GameComponents\HUD\other\WidgetInfo.cs" />
     <Compile Include="GameComponents\HUD\other\Widget.cs" />
@@ -180,19 +183,19 @@
     <Compile Include="RealConfig.cs" />
     <Compile Include="RealLife.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameComponents\SkillManager\Education\Defense.cs" />
-    <Compile Include="GameComponents\SkillManager\Education\Medicine.cs" />
-    <Compile Include="GameComponents\SkillManager\Education\Culinary.cs" />
-    <Compile Include="GameComponents\SkillManager\Education\Crafting.cs" />
-    <Compile Include="GameComponents\SkillManager\IEducation.cs" />
-    <Compile Include="GameComponents\SkillManager\Education\Engineering.cs" />
-    <Compile Include="GameComponents\SkillManager\ISkill.cs" />
-    <Compile Include="GameComponents\SkillManager\Skills\Agility.cs" />
-    <Compile Include="GameComponents\SkillManager\Skills\Endurance.cs" />
-    <Compile Include="GameComponents\SkillManager\Skills\Farming.cs" />
-    <Compile Include="GameComponents\SkillManager\Skills\Fishing.cs" />
-    <Compile Include="GameComponents\SkillManager\SkillUser.cs" />
-    <Compile Include="GameComponents\SkillManager\VanillaSkills.cs" />
+    <Compile Include="GameComponents\Skills\Skills\Defense.cs" />
+    <Compile Include="GameComponents\Skills\Education\Medicine.cs" />
+    <Compile Include="GameComponents\Skills\Education\Culinary.cs" />
+    <Compile Include="GameComponents\Skills\Education\Crafting.cs" />
+    <Compile Include="GameComponents\Skills\IEducation.cs" />
+    <Compile Include="GameComponents\Skills\Education\Engineering.cs" />
+    <Compile Include="GameComponents\Skills\ISkill.cs" />
+    <Compile Include="GameComponents\Skills\Skills\Agility.cs" />
+    <Compile Include="GameComponents\Skills\Skills\Endurance.cs" />
+    <Compile Include="GameComponents\Skills\Skills\Farming.cs" />
+    <Compile Include="GameComponents\Skills\Skills\Fishing.cs" />
+    <Compile Include="GameComponents\Skills\SkillUser.cs" />
+    <Compile Include="GameComponents\Skills\VanillaSkills.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aLibs\0Harmony.dll" />

@@ -22,14 +22,14 @@ namespace RealLifeFramework.Skills
             EducationPoints += amount;
         }
 
-        public void UpgradeEducation(IEducation education)
+        public void UpgradeEducation(int id)
         {
             if(EducationPoints >= 1)
             {
-                if (education.Level <= education.MaxLevel)
+                if (Educations[id].Level <= Educations[id].MaxLevel)
                 {
                     EducationPoints--;
-                    education.Upgrade(); // forced
+                    Educations[id].Upgrade(); // forced
                     // TODO: Send Message About Upgrade
                 }
                 else
@@ -82,6 +82,7 @@ namespace RealLifeFramework.Skills
                 new Fishing(RealPlayer, 0, 0),
                 new Agitily(RealPlayer, 0, 0),
                 new Dexterity(RealPlayer, 0, 0),
+                new Defense(RealPlayer, 0, 0),
             };
 
             Educations = new List<IEducation>()
@@ -90,7 +91,6 @@ namespace RealLifeFramework.Skills
                 new Culinary(RealPlayer, 0),
                 new Crafting(RealPlayer, 0),
                 new Medicine(RealPlayer, 0),
-                new Defense(RealPlayer, 0),
             };
         }
 
@@ -106,6 +106,7 @@ namespace RealLifeFramework.Skills
                 new Fishing(RealPlayer,   data.Skills[2].Level, data.Skills[2].Exp),
                 new Agitily(RealPlayer,   data.Skills[3].Level, data.Skills[3].Exp),
                 new Dexterity(RealPlayer, data.Skills[4].Level, data.Skills[4].Exp),
+                new Defense(RealPlayer,   data.Skills[5].Level, data.Skills[5].Exp),
             };
 
             Educations = new List<IEducation>()
@@ -114,7 +115,6 @@ namespace RealLifeFramework.Skills
                 new Culinary(RealPlayer,    (byte)data.Educations[1]),
                 new Crafting(RealPlayer,    (byte)data.Educations[2]),
                 new Medicine(RealPlayer,    (byte)data.Educations[3]),
-                new Defense(RealPlayer,     (byte)data.Educations[4]),
             };
         }
 

@@ -1,15 +1,64 @@
 ﻿using RealLifeFramework.RealPlayers;
+using System;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Defense : IEducation
+    public sealed class Defense : ISkill
     {
-        public static readonly byte Id = 4;
+        public static readonly byte Id = 5;
 
         public RealPlayer Player { get; set; }
-        public string Name => "Martial Art & Weapons";
+        public string Name => "Sila";
         public byte MaxLevel => 10;
+        public string Color => "#c847ff";
+
         public byte Level { get; set; }
+        public uint Exp { get; set; }
+
+        public void AddExp(uint exp)
+        {
+            Exp += exp;
+
+            if (Exp >= GetExpToNextLevel())
+            {
+                Exp -= GetExpToNextLevel();
+                Upgrade();
+            }
+        }
+
+        public uint GetExpToNextLevel()
+        {
+            byte NextLevel = Convert.ToByte(Level + 1);
+
+            if (NextLevel != (MaxLevel + 1))
+                switch (NextLevel)
+                {
+                    case 1:
+                        return 50;
+                    case 2:
+                        return 100;
+                    case 3:
+                        return 250;
+                    case 4:
+                        return 500;
+                    case 5:
+                        return 750;
+                    case 6:
+                        return 1000;
+                    case 7:
+                        return 1500;
+                    case 8:
+                        return 2000;
+                    case 9:
+                        return 2500;
+                    case 10:
+                        return 5000;
+                    default:
+                        return 100;
+                }
+            else
+                return 0;
+        }
 
         public void Upgrade()
         {
@@ -52,12 +101,14 @@ namespace RealLifeFramework.Skills
                     break;
             }
 
+            SkillManager.SendLevelUp(Player, Id);
         }
 
-        public Defense(RealPlayer playerRef, byte level)
+        public Defense(RealPlayer playerRef, byte level, uint exp)
         {
             Player = playerRef;
             Level = level;
+            Exp = exp;
         }
     }
 }

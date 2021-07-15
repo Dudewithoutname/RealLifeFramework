@@ -31,16 +31,27 @@ namespace RealLifeFramework.Skills
             Player.onPlayerStatIncremented += HandleStatIncremented;
             DamageTool.damagePlayerRequested += IncrementEndurance;
             UseableConsumeable.onConsumePerformed += HandleConsume;
-
+            UseableGun.onBulletSpawned += DefenseShooted;
+            
             // Prevention
             PlayerSkills.OnSkillUpgraded_Global += (player, speciality, index, level) => player.ServerSetSkillLevel(speciality, index, (level - 1));
         }
 
+        private static void DefenseShooted(UseableGun gun, BulletInfo bullet) => RealPlayer.From(gun.player).SkillUser.AddExp(Defense.Id, 1);
+
         private static void IncrementEndurance(ref DamagePlayerParameters parameters, ref bool shouldAllow)
         {
+            if ((object)parameters.killer != null)
+            {
+                if (parameters.cause == EDeathCause.MELEE | parameters.cause == EDeathCause.GUN)
+                {
+                    RealPlayer.From(parameters.killer).SkillUser.AddExp(Defense.Id, 2); // bonus for hit
+                }
+            }
+
             if (parameters.damage >= 10)
             {
-                RealPlayer.From(parameters.player).SkillUser.AddExp(Endurance.Id, 1);
+                RealPlayer.From(parameters.player).SkillUser.AddExp(Endurance.Id, 2);
             }
         }
 
@@ -48,12 +59,37 @@ namespace RealLifeFramework.Skills
         {
             var skill = player.SkillUser.Skills[skillId];
 
-            player.AddExp(5);
+            if (player.RankUser.Vip == null)
+            {
+                player.AddExp(5);
+            }
+            else
+            {
+                switch (player.RankUser.Vip.Value.Level)
+                {
+                    case 0:
+                        player.AddExp(7);
+                        break;
+                    case 1:
+                        player.AddExp(7);
+                        break;
+                    case 2:
+                        player.AddExp(10);
+                        break;
+                    case 3:
+                        player.AddExp(10);
+                        break;
+                }
+            }
 
             if (skill.Level == skill.MaxLevel)
+            {
                 ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>MAX level</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
+            }
             else
+            {
                 ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>level {skill.Level}</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
+            }
         }
 
         private static void HandleStatIncremented(Player player, EPlayerStat stat)

@@ -8,8 +8,9 @@ namespace RealLifeFramework.Skills
         public static readonly byte Id = 0;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Endurance);
+        public string Name => "Vydrz";
         public byte MaxLevel => 10;
+        public string Color => "#ff4747";
 
         public byte Level { get; set; }
         public uint Exp { get; set; }
@@ -34,25 +35,25 @@ namespace RealLifeFramework.Skills
                 switch (NextLevel)
                 {
                     case 1:
-                        return 100;
+                        return 50;
                     case 2:
-                        return 250;
+                        return 100;
                     case 3:
-                        return 500;
+                        return 250;
                     case 4:
-                        return 750;
+                        return 500;
                     case 5:
-                        return 1000;
+                        return 750;
                     case 6:
-                        return 1500;
+                        return 1000;
                     case 7:
-                        return 2000;
+                        return 1500;
                     case 8:
-                        return 2500;
+                        return 2000;
                     case 9:
-                        return 3000;
+                        return 2500;
                     case 10:
-                        return 4000;
+                        return 3000;
                     default:
                         return 0;
                 }

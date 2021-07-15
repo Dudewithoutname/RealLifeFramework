@@ -32,9 +32,9 @@ namespace RealLifeFramework.Realism
                 return;
             }
 
-            if (parameters.cause != EDeathCause.GUN || parameters.cause != EDeathCause.MELEE) return;
+            if (parameters.cause != EDeathCause.GUN | parameters.cause != EDeathCause.MELEE) return;
 
-            if ((parameters.limb == ELimb.RIGHT_LEG || parameters.limb == ELimb.LEFT_LEG || parameters.limb == ELimb.LEFT_FOOT || parameters.limb == ELimb.RIGHT_FOOT) && attacker.clothing.pantsAsset.armor > 0.85f)
+            if ((parameters.limb == ELimb.RIGHT_LEG | parameters.limb == ELimb.LEFT_LEG | parameters.limb == ELimb.LEFT_FOOT | parameters.limb == ELimb.RIGHT_FOOT) && attacker.clothing.pantsAsset.armor > 0.85f)
             {
                 if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 3) == 1) // 25%
                 {
@@ -71,25 +71,25 @@ namespace RealLifeFramework.Realism
                     break;
 
                 case ELimb.LEFT_HAND when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 4) == 1) && 
-                    (parameters.cause == EDeathCause.GUN || parameters.cause == EDeathCause.MELEE): // 20%
+                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE): // 20%
 
                     victim.equipment.dequip();
                     break;
 
                 case ELimb.RIGHT_HAND when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 4) == 1) && 
-                    (parameters.cause == EDeathCause.GUN || parameters.cause == EDeathCause.MELEE):// 20%
+                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 20%
 
                     victim.equipment.dequip();
                     break;
 
                 case ELimb.LEFT_ARM when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 5) == 1) && 
-                    (parameters.cause == EDeathCause.GUN || parameters.cause == EDeathCause.MELEE):// 17%
+                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 17%
 
                     victim.life.breakLegs();
                     break;
 
                 case ELimb.RIGHT_ARM when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 5) == 1) && 
-                    (parameters.cause == EDeathCause.GUN || parameters.cause == EDeathCause.MELEE):// 17%
+                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 17%
 
                     victim.life.breakLegs();
                     break;
@@ -132,7 +132,7 @@ namespace RealLifeFramework.Realism
         {
             var x = RealPlayer.From(instigatorSteamID);
             // Player Prevention
-            if (damageOrigin == EDamageOrigin.Bullet_Explosion || damageOrigin == EDamageOrigin.Punch || damageOrigin == EDamageOrigin.Useable_Gun || 
+            if (damageOrigin == EDamageOrigin.Bullet_Explosion | damageOrigin == EDamageOrigin.Punch | damageOrigin == EDamageOrigin.Useable_Gun | 
                 damageOrigin == EDamageOrigin.Useable_Melee && x.RankUser.Admin == null && x.RankUser.Admin.Value.Level < 1)
                 shouldAllow = false;
         }

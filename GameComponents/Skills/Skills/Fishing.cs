@@ -3,13 +3,14 @@ using RealLifeFramework.RealPlayers;
 
 namespace RealLifeFramework.Skills
 {
-    public sealed class Farming : ISkill
+    public sealed class Fishing : ISkill
     {
-        public static readonly byte Id = 1;
+        public static readonly byte Id = 2;
 
         public RealPlayer Player { get; set; }
-        public string Name => nameof(Farming);
-        public byte MaxLevel => 7;
+        public string Name => "Rybarenie";
+        public byte MaxLevel => 5;
+        public string Color => "#47e0ff";
 
         public byte Level { get; set; }
         public uint Exp { get; set; }
@@ -18,7 +19,7 @@ namespace RealLifeFramework.Skills
         public void AddExp(uint exp)
         {
             Exp += exp;
-
+            
             if (Exp >= GetExpToNextLevel())
             {
                 Exp -= GetExpToNextLevel();
@@ -35,19 +36,15 @@ namespace RealLifeFramework.Skills
                 switch (NextLevel)
                 {
                     case 1:
-                        return 100;
+                        return 50;
                     case 2:
-                        return 250;
+                        return 100;
                     case 3:
-                        return 500;
+                        return 250;
                     case 4:
-                        return 750;
+                        return 500;
                     case 5:
                         return 1000;
-                    case 6:
-                        return 1500;
-                    case 7:
-                        return 2000;
                     default:
                         return 0;
                 }
@@ -60,32 +57,26 @@ namespace RealLifeFramework.Skills
             switch (++Level)
             {
                 case 1:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 1);
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 1);
                     break;
                 case 2:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 2);
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 2);
                     break;
                 case 3:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 3);
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 3);
                     break;
                 case 4:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 4);
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 4);
                     break;
                 case 5:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 5);
-                    break;
-                case 6:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 6);
-                    break;
-                case 7:
-                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Agriculture[0], VanillaSkills.Agriculture[1], 7);
+                    Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Fishing[0], VanillaSkills.Fishing[1], 5);
                     break;
             }
 
             SkillManager.SendLevelUp(Player, Id);
         }
 
-        public Farming(RealPlayer playerref, byte level, uint exp)
+        public Fishing(RealPlayer playerref, byte level, uint exp)
         {
             Player = playerref;
             Level = level;
