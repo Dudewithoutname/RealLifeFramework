@@ -12,6 +12,7 @@ namespace RealLifeFramework.License
     {
         public static ushort ItemId = 43888;
         private static ushort uiId = 41839;
+
         public static void Show(RealPlayer instigator, RealPlayer target)
         {
             var name = target.Name.Split(' ');

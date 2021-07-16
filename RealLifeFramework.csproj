@@ -148,7 +148,6 @@
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerManager.cs" />
     <Compile Include="Framework\Player\RealPlayer.cs" />
-    <Compile Include="Framework\Commands\test2.cs" />
     <Compile Include="Framework\Commands\Ultilities\CmdSeatBelt.cs" />
     <Compile Include="Framework\Commands\Ultilities\CmdVoice.cs" />
     <Compile Include="Framework\Events\EventHandler.cs" />

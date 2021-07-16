@@ -295,14 +295,11 @@ namespace RealLifeFramework.UserInterface
                 return $"{hours}:{minutes}";
         }
 
-        private string formatLevel() => $"<color=#FC3A8C>LVL</color> <color=#FC8EBD>{Player.Level}</color>";
-        private string formatExp() => $"<color=#FC8EBD>{FormatBigNums(Player.Exp)} / {FormatBigNums(Player.MaxExp)}</color> <color=#FC3A8C>XP</color>";
-        
         public static string FormatBigNums(uint value)
         {
             string output = "";
 
-            if(value >= 1000)
+            if (value >= 1000)
             {
                 decimal k = (decimal)value / 20;
                 output = $"{Math.Round(k, 1)}K";
@@ -315,12 +312,9 @@ namespace RealLifeFramework.UserInterface
             return output;
         }
 
-        private string formatMoney(string money)
-        {
-            string result = string.Format("{0:C}", uint.Parse(money));
-            result = result.Remove(result.Length - 5);
-            return result;
-        }
+        private string formatLevel() => $"<color=#FC3A8C>LVL</color> <color=#FC8EBD>{Player.Level}</color>";
+        private string formatExp() => $"<color=#FC8EBD>{FormatBigNums(Player.Exp)} / {FormatBigNums(Player.MaxExp)}</color> <color=#FC3A8C>XP</color>";
+        private string formatMoney(string money) => Currency.FormatMoney(money);
 
         #endregion
     }

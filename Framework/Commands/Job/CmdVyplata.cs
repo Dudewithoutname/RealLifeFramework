@@ -35,13 +35,13 @@ namespace RealLifeFramework.Commands
 
             if (player.RankUser.Job.Id != "unemployed" && player.RankUser.Job != null) 
             {
-                var vyplataTyKokot = getSalary(player.RankUser.Job.Id);
+                var newSalary = getSalary(player.RankUser.Job.Id);
 
-                if (vyplataTyKokot > 0)
+                if (newSalary > 0)
                 {
-                    player.CreditCardMoney += vyplataTyKokot;
+                    player.CreditCardMoney += newSalary;
                     salary.Add(player.CSteamID, DateTime.Now);
-                    ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(vyplataTyKokot.ToString())} za {player.RankUser.Job.DisplayName}!", Palette.COLOR_W, EChatMode.SAY, true);
+                    ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(newSalary.ToString())} za {player.RankUser.Job.DisplayName}!", Palette.COLOR_W, EChatMode.SAY, true);
                 }
             }
         }
@@ -50,21 +50,30 @@ namespace RealLifeFramework.Commands
         {
             switch (jobId)
             {
-                //  PD 
+                //  PD
 
-                case "pd_kokot1":
-                    return 6000;
+                case "pd_kadet":
+                    return 4000;
 
-                case "pd_kokot2":
-                    return 8000;
+                case "pd_strazmajster":
+                    return 5000;
 
-                case "pd_kokot3":
-                    return 12000;
+                case "pd_nadstrazmajster":
+                    return 7500;
+
+                case "pd_praporcik":
+                    return 9500;
+
+                case "pd_porucik":
+                    return 12500;
+
+                case "pd_major":
+                    return 14000;
 
                 case "pd_sef":
-                    return 10000;
+                    return 15000;
 
-                //  EMS  
+                //  EMS
 
                 case "ems_lekarnik":
                     return 4000;
