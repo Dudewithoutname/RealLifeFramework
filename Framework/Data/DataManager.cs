@@ -16,7 +16,7 @@ namespace RealLifeFramework.Data
 {
     public class DataManager 
     {
-        private static readonly string dataPath = @"D:\SteamLibrary\steamapps\common\U3DS\Servers\Default\Dudeturned";
+        private static readonly string dataPath = $@"{Assembly.GetExecutingAssembly().Location.Replace("RealLifeFramework.dll", "DudeturnedData")}";
         private static readonly string[] storages = {"Players", "Server"};
 
         public static void Settup()

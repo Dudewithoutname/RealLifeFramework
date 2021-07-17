@@ -5,6 +5,7 @@ using Steamworks;
 using System;
 using System.Collections.Generic;
 using SDG.Unturned;
+using UnityEngine;
 
 namespace RealLifeFramework.Commands
 {
@@ -41,7 +42,7 @@ namespace RealLifeFramework.Commands
                 {
                     player.CreditCardMoney += newSalary;
                     salary.Add(player.CSteamID, DateTime.Now);
-                    ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(newSalary.ToString())} za {player.RankUser.Job.DisplayName}!", Palette.COLOR_W, EChatMode.SAY, true);
+                    ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(newSalary.ToString())} za {player.RankUser.Job.DisplayName}!", Color.white, EChatMode.SAY, true);
                 }
             }
         }

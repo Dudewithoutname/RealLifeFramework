@@ -84,11 +84,17 @@ namespace RealLifeFramework.Skills
 
             if (skill.Level == skill.MaxLevel)
             {
-                ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>MAX level</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
+                ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>MAX level</color> v <color=#FFD846>{skill.Name}</color>", Color.white, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
             }
             else
             {
-                ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>level {skill.Level}</color> v <color=#FFD846>{skill.Name}</color>", Palette.COLOR_W, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
+                ChatManager.serverSendMessage($"<b><color=#FFD846>Skills</color></b> | Dosiahol si <color=#FFD846>level {skill.Level}</color> v <color=#FFD846>{skill.Name}</color>", Color.white, null, player.Player.channel.owner, EChatMode.SAY, RealLife.Instance.Configuration.Instance.SkillIconURL, true);
+            }
+
+            if (skill.Exp >= skill.GetExpToNextLevel())
+            {
+                skill.Exp -= skill.GetExpToNextLevel();
+                skill.Upgrade();
             }
         }
 
