@@ -9,17 +9,17 @@ using UnityEngine;
 
 namespace RealLifeFramework.Commands
 {
-    public class CmdVyplata : IRocketCommand
+    public class CmdSalary : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
 
-        public string Name => "vyplata";
+        public string Name => "salary";
 
-        public string Help => "vyplata";
+        public string Help => "salary";
 
-        public string Syntax => "/vyplata";
+        public string Syntax => "/salary";
 
-        public List<string> Aliases => new List<string>();
+        public List<string> Aliases => new List<string>() { "vyplata" };
 
         public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
@@ -31,6 +31,7 @@ namespace RealLifeFramework.Commands
 
             if (salary.ContainsKey(player.CSteamID) && DateTime.Compare(salary[player.CSteamID], DateTime.Now) > -3600)
             {
+                ChatManager.say(player.CSteamID, $"Vyplatu si mozes davat kazdu 1h", Color.red, EChatMode.SAY, true);
                 return;
             }
 
@@ -44,6 +45,14 @@ namespace RealLifeFramework.Commands
                     salary.Add(player.CSteamID, DateTime.Now);
                     ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(newSalary.ToString())} za {player.RankUser.Job.DisplayName}!", Color.white, EChatMode.SAY, true);
                 }
+                else
+                {
+                    ChatManager.say(player.CSteamID, $"Praca {player.RankUser.Job.DisplayName}, nema ziadnu vyplatu", Color.red, EChatMode.SAY, true);
+                }
+            }
+            else
+            {
+                ChatManager.say(player.CSteamID, $"Nepracujes, jak chces dostat vyplatu?", Color.red, EChatMode.SAY, true);
             }
         }
 
@@ -76,13 +85,13 @@ namespace RealLifeFramework.Commands
 
                 //  EMS
 
-                case "ems_lekarnik":
+                case "ems_zachranar":
                     return 4000;
 
                 case "ems_zdravotnik":
                     return 6000;
 
-                case "ems_lekar":
+                case "ems_doktor":
                     return 8000;
 
                 case "ems_sef":
