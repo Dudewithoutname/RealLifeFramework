@@ -7,7 +7,7 @@ namespace RealLifeFramework
 {
     public class Api
     {
-        private static string domain => "http://localhost:3003";
+        private static string domain => "http://157.90.138.191:3003";
         private static string token => "2a8di9023!i0ou.r897%u9wqf";
 
         public static void Send(string route, string rawJson)

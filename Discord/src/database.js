@@ -1,4 +1,4 @@
-const mysql = require('mysql')
+/*const mysql = require('mysql')
 
 const pool = mysql.createPool(
     {
@@ -45,3 +45,4 @@ module.exports = {
     }
 }
 
+*/

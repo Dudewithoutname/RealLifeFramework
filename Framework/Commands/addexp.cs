@@ -8,15 +8,15 @@ using RealLifeFramework.Ranks;
 
 namespace RealLifeFramework.Commands
 {
-    public class test : IRocketCommand
+    public class addexp : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
 
-        public string Name => "test";
+        public string Name => "addexp";
 
-        public string Help => "test";
+        public string Help => "addexp";
 
-        public string Syntax => "/test";
+        public string Syntax => "/addexp";
 
         public List<string> Aliases => new List<string>();
 

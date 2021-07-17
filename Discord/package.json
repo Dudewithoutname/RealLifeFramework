@@ -4,7 +4,7 @@
   "description": "",
   "main": "node ./src/main.js",
   "scripts": {
-    "run": "node ./src/main.js",
+    "run": "npm i && node ./src/main.js",
     "start": "node ./src/main.js",
     "dev": "node ./src/main.js"
   },

@@ -24,7 +24,10 @@ namespace RealLifeFramework.Commands
         public void Execute(IRocketPlayer caller, string[] args)
         {
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
-            
+
+            if (args.Length < 1) return;
+            if (string.Join(" ", args).Length < 2) return;
+
             foreach (SteamPlayer steamPlayer in Provider.clients)
             {
                 var LoopPlayer = PlayerTool.getPlayer(steamPlayer.playerID.steamID);

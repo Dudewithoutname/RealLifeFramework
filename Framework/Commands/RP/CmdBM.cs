@@ -1,4 +1,5 @@
-﻿using RealLifeFramework.Ranks;
+﻿using HarmonyLib;
+using RealLifeFramework.Ranks;
 using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using Rocket.Unturned.Player;
@@ -24,18 +25,17 @@ namespace RealLifeFramework.Commands
         public void Execute(IRocketPlayer caller, string[] args)
         {
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
-            
+
+            if (args.Length < 1) return;
+            if (string.Join(" ", args).Length < 2) return;
+
             foreach (SteamPlayer steamPlayer in Provider.clients)
             {
                 var LoopPlayer = PlayerTool.getPlayer(steamPlayer.playerID.steamID);
-                float distance = (LoopPlayer.gameObject.transform.position - player.Player.gameObject.transform.position).sqrMagnitude;
 
-                if (distance <= 450)
+                if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission) && !LoopPlayer.channel.owner.isAdmin)
                 {
-                    if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission))
-                    {
-                        ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > </b></color><color=#cfcfcf> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
-                    }
+                    ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > </b></color><color=#cfcfcf> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
                 }
             }
         }

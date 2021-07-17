@@ -38,7 +38,7 @@ namespace RealLifeFramework
             Whisper = 5;
             Normal = 30;
             Shout = 60;
-            IP = "127.0.0.1";
+            IP = "157.90.138.191";
 
             SkillIconURL = "https://i.ibb.co/XYPQv2p/running.png";
             DefaulUserURL = "https://i.ibb.co/r3T5CPw/ico.png";

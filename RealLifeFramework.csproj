@@ -119,9 +119,10 @@
     <Compile Include="Framework\Chatting\Colors\NameColor.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
     <Compile Include="Framework\Commands\Cosmetic\CmdColorName.cs" />
-    <Compile Include="Framework\Commands\Job\CmdPromote.cs" />
     <Compile Include="Framework\Commands\Job\CmdSalary.cs" />
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
+    <Compile Include="Framework\Commands\RP\CmdSms.cs" />
+    <Compile Include="Framework\Commands\RP\CmdTweet.cs" />
     <Compile Include="Framework\Commands\RP\CmdDo.cs" />
     <Compile Include="Framework\Commands\RP\CmdMe.cs" />
     <Compile Include="Framework\Commands\Skills\Skill.cs" />
@@ -154,7 +155,7 @@
     <Compile Include="Framework\Events\EventHandler.cs" />
     <Compile Include="Framework\Events\IEventComponent.cs" />
     <Compile Include="Framework\Chatting\Chat.cs" />
-    <Compile Include="Framework\Commands\test.cs" />
+    <Compile Include="Framework\Commands\addexp.cs" />
     <Compile Include="Framework\Events\EventManager.cs" />
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
     <Compile Include="GameComponents\ATM\ATMCathegory.cs" />
