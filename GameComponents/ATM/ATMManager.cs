@@ -207,7 +207,7 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            HelperThread.Execute(() =>
+            Helper.Execute(() =>
             {
 
                 if (!uint.TryParse(session.Data[0], out uint baseAmount) || baseAmount == 0)
@@ -249,7 +249,7 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            HelperThread.Execute(() =>
+            Helper.Execute(() =>
             {
                 if (!session.Data[1].Contains("vsetko") && !session.Data[1].Contains("all") && !session.Data[1].Contains("vsechno"))
                 {
@@ -382,7 +382,7 @@ namespace RealLifeFramework.ATM
 
             if (session == null) return;
 
-            HelperThread.Execute(() =>
+            Helper.Execute(() =>
             {
                 if (!uint.TryParse(session.Data[2], out uint moneyToSend) || moneyToSend == 0)
                 {

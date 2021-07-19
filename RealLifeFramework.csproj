@@ -149,8 +149,7 @@
     <Compile Include="Framework\Ranks\RankManager.cs" />
     <Compile Include="Framework\Ranks\RankUser.cs" />
     <Compile Include="Framework\Security\Guard.cs" />
-    <Compile Include="Framework\Ultility\Threadding\HelperThread.cs" />
-    <Compile Include="Framework\Ultility\Threadding\ManagementThread.cs" />
+    <Compile Include="Framework\Ultility\Threadding\Helper.cs" />
     <Compile Include="Framework\Commands\Ultilities\CmdHideHud.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerCreation.cs" />
     <Compile Include="Framework\Player\Management\RealPlayerManager.cs" />

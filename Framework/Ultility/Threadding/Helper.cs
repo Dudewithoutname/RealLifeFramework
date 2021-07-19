@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RealLifeFramework.Threadding
 {
-    public class HelperThread
+    public class Helper
     {
         public static void Execute(Action action)
         {

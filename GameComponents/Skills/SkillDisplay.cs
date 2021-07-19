@@ -26,7 +26,7 @@ namespace RealLifeFramework.Skills
         {
             if (!pageIndex.ContainsKey(player.CSteamID))
             {
-                HelperThread.Execute(() =>
+                Helper.Execute(() =>
                 {
                     player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);
                     player.Player.setPluginWidgetFlag(EPluginWidgetFlags.Modal, true);

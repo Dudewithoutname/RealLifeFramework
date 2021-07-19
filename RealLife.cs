@@ -22,16 +22,7 @@ namespace RealLifeFramework
         public static DatabaseManager Database;
         private Harmony harmony;
 
-        /*
-            new JobRank("Novice", 1, 0),
-            new JobRank("Beginner", 2, 100),
-            new JobRank("Regular", 3, 300),
-            new JobRank("Intermediate", 4, 500),
-            new JobRank("Advanced", 5, 1000),
-            new JobRank("Expert", 6, 1500),
-            new JobRank("Professional", 7, 2500),
-            new JobRank("Master", 8, 5000),
-        */
+        // Novice, Beginner, Regular, Intermediate, Advanced, Expert, Professional, Master
 
         protected override void Load()
         {
@@ -39,18 +30,17 @@ namespace RealLifeFramework
             Logger.Log("[Author] : Dudewithoutname#3129");
             
             Instance = this;
-            ManagementThread.Start();
 
             DataManager.Settup();
 
-            /*Database = new DatabaseManager();
+            Database = new DatabaseManager();
             Database.Server = Configuration.Instance.DatabaseServer;
             Database.DatabaseName = Configuration.Instance.DatabaseName;
             Database.UserName = Configuration.Instance.DatabaseUsername;
             Database.Password = Configuration.Instance.DatabasePassword;
             Database.Port = Configuration.Instance.DatabasePort;
             Database.IsConnected();
-            Database.Setup();*/
+            Database.Setup();
 
 
             harmony = new Harmony("RLFUnturned");
@@ -76,7 +66,7 @@ namespace RealLifeFramework
 
         private void saveData()
         {
-            ManagementThread.Execute( () =>
+            Helper.Execute( () =>
             {
                 Logger.Log("[Datamanager] Performing saving");
 

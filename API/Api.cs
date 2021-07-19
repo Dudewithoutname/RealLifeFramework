@@ -13,7 +13,7 @@ namespace RealLifeFramework
         public static void Send(string route, string rawJson)
         {
             // async
-            ManagementThread.Execute(() =>
+            Helper.Execute(() =>
             {
                 string json = $"{{ \"token\" : \"{token}\", {rawJson.Remove(0, 1)}"; // WOW this is called pro programming :DDDDDDDDDDDD ano som moc jebly ze ?
                 try
