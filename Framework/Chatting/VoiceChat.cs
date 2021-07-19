@@ -5,6 +5,7 @@ using RealLifeFramework.Patches;
 using RealLifeFramework.RealPlayers;
 using Steamworks;
 using UnityEngine;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace RealLifeFramework.Chatting
 {
@@ -32,7 +33,9 @@ namespace RealLifeFramework.Chatting
         private static bool HandleVoiceRelay(PlayerVoice speaker, PlayerVoice listener)
         {
             var rplayer = RealPlayer.From(speaker.player);
-            
+
+            if (rplayer == null) return false;
+
             switch (rplayer.ChatProfile.VoiceMode)
             {
                 case EPlayerVoiceMode.Whisper:
@@ -64,7 +67,7 @@ namespace RealLifeFramework.Chatting
 
         private static void ChangeVoiceViaButton(Player player, UnturnedKey key)
         {
-            if (key == UnturnedKey.CodeHotkey1 && ((System.Object)player.movement.getVehicle()) == null)
+            if (key == UnturnedKey.CodeHotkey1 && ((object)player.movement.getVehicle()) == null)
             {
                 GetNextVoiceMode(RealPlayer.From(player));
             }
@@ -78,9 +81,11 @@ namespace RealLifeFramework.Chatting
                 case EPlayerVoiceMode.Whisper:
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[(int)EPlayerVoiceMode.Normal]);
                     break;
+
                 case EPlayerVoiceMode.Normal:
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout, Icons[(int)EPlayerVoiceMode.Shout]);
                     break;
+
                 case EPlayerVoiceMode.Shout:
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper, Icons[(int)EPlayerVoiceMode.Whisper]);
                     break;
@@ -95,9 +100,11 @@ namespace RealLifeFramework.Chatting
                 case EPlayerVoiceMode.Whisper:
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Whisper, Icons[(int)EPlayerVoiceMode.Whisper]);
                     break;
+
                 case EPlayerVoiceMode.Normal:
-                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[1]);
+                    player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Normal, Icons[(int)EPlayerVoiceMode.Normal]);
                     break;
+
                 case EPlayerVoiceMode.Shout:
                     player.ChatProfile.ChangeVoicemode(EPlayerVoiceMode.Shout, Icons[(int)EPlayerVoiceMode.Shout]);
                     break;

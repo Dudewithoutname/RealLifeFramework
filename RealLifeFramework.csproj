@@ -119,7 +119,7 @@
     <Compile Include="Framework\Chatting\Colors\NameColor.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
     <Compile Include="Framework\Commands\Cosmetic\CmdColorName.cs" />
-    <Compile Include="Framework\Commands\Job\CmdSalary.cs" />
+    <Compile Include="Framework\Commands\Money\CmdSalary.cs" />
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdSms.cs" />
     <Compile Include="Framework\Commands\RP\CmdTweet.cs" />

@@ -127,37 +127,34 @@ namespace RealLifeFramework.Skills
 
         private static void CheckRunning(UnturnedPlayer player)
         {
-            HelperThread.Execute(() =>
+            if (player.Player.stance.stance == EPlayerStance.SPRINT) // 2
             {
-                if (player.Player.stance.stance == EPlayerStance.SPRINT) // 2
+                prevPos[player.CSteamID] = player.Position;
+                wasSprinting[player.CSteamID] = true;
+            }
+            else
+            {
+                if (wasSprinting[player.CSteamID] == true)
                 {
-                    prevPos[player.CSteamID] = player.Position;
-                    wasSprinting[player.CSteamID] = true;
-                }
-                else
-                {
-                    if (wasSprinting[player.CSteamID] == true)
+                    wasSprinting[player.CSteamID] = false;
+
+                    var rp = RealPlayer.From(player);
+
+                    var distance = (int)Math.Round(Vector3.Distance(prevPos[player.CSteamID], player.Position));
+                    uint exp;
+
+                    if (distance > 500)
                     {
-                        wasSprinting[player.CSteamID] = false;
-
-                        var rp = RealPlayer.From(player);
-
-                        var distance = (int)Math.Round(Vector3.Distance(prevPos[player.CSteamID], player.Position));
-                        uint exp;
-
-                        if (distance > 500)
-                        {
-                            exp = 50;
-                            rp.SkillUser.AddExp(Agitily.Id, exp);
-                        }
-                        if (distance > 20 && distance < 500)
-                        {
-                            exp = (uint)Math.Floor((decimal)(distance / 10));
-                            rp.SkillUser.AddExp(Agitily.Id, exp);
-                        }
+                        exp = 50;
+                        rp.SkillUser.AddExp(Agitily.Id, exp);
+                    }
+                    if (distance > 20 && distance < 500)
+                    {
+                        exp = (uint)Math.Floor((decimal)(distance / 10));
+                        rp.SkillUser.AddExp(Agitily.Id, exp);
                     }
                 }
-            });
+            }
         }
 
         private static void AddPrevPos(UnturnedPlayer player)
@@ -172,6 +169,7 @@ namespace RealLifeFramework.Skills
             player.Player.stance.onStanceUpdated += () => CheckRunning(player);
 
         }
+
         private static void RemovePrevPos(UnturnedPlayer player)
         {
             if (prevPos.ContainsKey(player.CSteamID))
@@ -179,7 +177,6 @@ namespace RealLifeFramework.Skills
 
             if (wasSprinting.ContainsKey(player.CSteamID))
                 wasSprinting.Remove(player.CSteamID);
-
         }
     }
 }

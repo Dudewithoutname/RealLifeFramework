@@ -30,7 +30,7 @@ namespace RealLifeFramework.RealPlayers
             PrePlayers.Add(player.channel.owner.playerID.steamID, new PrePlayer());
 
             EffectManager.askEffectClearByID(UI.StartingTab, player.channel.GetOwnerTransportConnection());
-            EffectManager.sendUIEffect(UI.CreationTab, 101, true, "DudeTurned | Vytvor si svoju postavu", ""); // 2nd is error text
+            EffectManager.sendUIEffect(UI.CreationTab, 101, player.channel.GetOwnerTransportConnection(), true, "DudeTurned | Vytvor si svoju postavu", "") ; // 2nd is error text
         }
 
         public static void CreateCharacter(CSteamID steamId)
@@ -102,13 +102,13 @@ namespace RealLifeFramework.RealPlayers
             {
                 EffectManager.askEffectClearByID(UI.CreationF, player);
                 PrePlayers[steamId].Gender = 0;
-                EffectManager.sendUIEffect(UI.CreationM, 102, true);
+                EffectManager.sendUIEffect(UI.CreationM, 102, player, true);
             }
             else
             {
                 EffectManager.askEffectClearByID(UI.CreationM, player);
                 PrePlayers[steamId].Gender = 1;
-                EffectManager.sendUIEffect(UI.CreationF, 102, true);
+                EffectManager.sendUIEffect(UI.CreationF, 102, player, true);
             }
         }
 

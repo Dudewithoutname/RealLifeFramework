@@ -37,29 +37,29 @@ namespace RealLifeFramework.Skills
                 switch (NextLevel)
                 {
                     case 1:
-                        return 50;
-                    case 2:
                         return 100;
-                    case 3:
+                    case 2:
                         return 250;
-                    case 4:
+                    case 3:
                         return 500;
-                    case 5:
+                    case 4:
                         return 750;
-                    case 6:
+                    case 5:
                         return 1000;
-                    case 7:
+                    case 6:
                         return 1500;
-                    case 8:
+                    case 7:
                         return 2000;
-                    case 9:
+                    case 8:
                         return 2500;
-                    case 10:
+                    case 9:
                         return 3000;
-                    case 11:
+                    case 10:
                         return 4000;
-                    case 12:
+                    case 11:
                         return 5000;
+                    case 12:
+                        return 6000;
                     default:
                         return 0;
                 }

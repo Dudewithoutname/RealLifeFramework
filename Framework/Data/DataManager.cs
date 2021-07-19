@@ -25,13 +25,13 @@ namespace RealLifeFramework.Data
             {
                 Logger.Log("[DataManager] : Data not existing creating folders");
                 Directory.CreateDirectory(dataPath);
-                foreach(string storage in storages) { Directory.CreateDirectory($@"{dataPath}\{storage}"); };
+                foreach(string storage in storages) { Directory.CreateDirectory($@"{dataPath}/{storage}"); };
             }
             Logger.Log("[DataManager] : Loaded");
         }
 
         #region Data
-        public static bool ExistData(string storage, string key) => File.Exists($@"{dataPath}\{storage}\{key}.json");
+        public static bool ExistData(string storage, string key) => File.Exists($@"{dataPath}/{storage}/{key}.json");
 
         public static void CreateData(string storage, string key, object data)
         {
@@ -39,7 +39,7 @@ namespace RealLifeFramework.Data
             {
                 if (!ExistData(storage, key))
                 {
-                    var path = $@"{dataPath}\{storage}\{key}.json";
+                    var path = $@"{dataPath}/{storage}/{key}.json";
                     File.Create(path).Close();
                     writeJson(path, data);
                 }
@@ -50,7 +50,7 @@ namespace RealLifeFramework.Data
         {
             if (ExistData(storage, key))
             {
-                return JsonConvert.DeserializeObject<ISaveable>(File.ReadAllText($@"{dataPath}\{storage}\{key}.json"));
+                return JsonConvert.DeserializeObject<ISaveable>(File.ReadAllText($@"{dataPath}/{storage}/{key}.json"));
             }
 
             return default(ISaveable);
@@ -62,7 +62,7 @@ namespace RealLifeFramework.Data
             {
                 if (ExistData(storage, key))
                 {
-                    var path = $@"{dataPath}\{storage}\{data}.json";
+                    var path = $@"{dataPath}/{storage}/{data}.json";
                     writeJson(path, data);
                 }
             });
@@ -71,7 +71,7 @@ namespace RealLifeFramework.Data
 
         #region player Data 
          // am just lazy to rewrite code to normal data :P maybe in laaaaate future :D
-        public static bool ExistPlayer(CSteamID steamId) => File.Exists($@"{dataPath}\Players\{steamId}.json");
+        public static bool ExistPlayer(CSteamID steamId) => File.Exists($@"{dataPath}/Players/{steamId}.json");
 
         public static void CreatePlayer(RealPlayer player)
         {
@@ -79,7 +79,7 @@ namespace RealLifeFramework.Data
             {
                 if (!ExistPlayer(player.CSteamID))
                 {
-                    var path = $@"{dataPath}\Players\{player.CSteamID}.json";
+                    var path = $@"{dataPath}/Players/{player.CSteamID}.json";
                     File.Create(path).Close();
                     writeJson(path, (RealPlayerData)player);
                 }
@@ -92,7 +92,7 @@ namespace RealLifeFramework.Data
             {
                 if (!ExistPlayer(steamId))
                 {
-                    var path = $@"{dataPath}\Players\{steamId}.json";
+                    var path = $@"{dataPath}/Players/{steamId}.json";
                     File.Delete(path);
                 }
             });
@@ -104,7 +104,7 @@ namespace RealLifeFramework.Data
             
             if (ExistPlayer(steamId))
             {
-                player = JsonConvert.DeserializeObject<RealPlayerData>(File.ReadAllText($@"{dataPath}\Players\{steamId}.json"));
+                player = JsonConvert.DeserializeObject<RealPlayerData>(File.ReadAllText($@"{dataPath}/Players/{steamId}.json"));
             }
 
             return player;
@@ -116,7 +116,7 @@ namespace RealLifeFramework.Data
             {
                 if (ExistPlayer(player.CSteamID))
                 {
-                    var path = $@"{dataPath}\Players\{player.CSteamID}.json";
+                    var path = $@"{dataPath}/Players/{player.CSteamID}.json";
                     writeJson(path, (RealPlayerData)player);
                 }
             });

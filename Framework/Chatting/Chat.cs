@@ -18,7 +18,9 @@ namespace RealLifeFramework.Chatting
         private static void onPlayerChatted(SteamPlayer player, EChatMode mode, ref Color chatted, ref bool isRich, string text, ref bool isVisible)
         {
             RealPlayer RealPlayer = RealPlayer.From(player.player);
-            // TODO : Mute System , Administration system and this obviously
+
+            if (RealPlayer == null) return;
+
             if (text.StartsWith("/")) 
             {
                 isVisible = false;
@@ -61,7 +63,7 @@ namespace RealLifeFramework.Chatting
             {
                 ChatManager.serverSendMessage(
                     $"<size=11><color=#b3babd>(local)</color> <color=#de4dff>[{player.Level}]</color>{player.RankUser.JobPrefix}</size><color={player.ChatProfile.NameColor}> <b>|</b>{player.RankUser.DisplayPrefix}<b>| {player.Name}</b> </color>:<color=#d9d9d9> {message}</color>",
-                    Color.white, null, null, EChatMode.LOCAL, player.ChatProfile.Avatar, true);
+                    Color.white, player.Player.channel.owner, null, EChatMode.LOCAL, player.ChatProfile.Avatar, true);
             }
 
             return false;
@@ -75,7 +77,7 @@ namespace RealLifeFramework.Chatting
             {
                 ChatManager.serverSendMessage(
                     $"<size=11><color=#b3babd>(group)</color> <color=#de4dff>[{player.Level}]</color>{player.RankUser.JobPrefix}</size><color={player.ChatProfile.NameColor}> <b>|</b>{player.RankUser.DisplayPrefix}<b>| {player.Name}</b> </color>:<color=#d9d9d9> {message}</color>",
-                    Color.white, null, null, EChatMode.GROUP, player.ChatProfile.Avatar, true);
+                    Color.white, player.Player.channel.owner, null, EChatMode.GROUP, player.ChatProfile.Avatar, true);
             }
 
             return false;

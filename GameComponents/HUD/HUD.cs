@@ -167,12 +167,13 @@ namespace RealLifeFramework.UserInterface
             Player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowStatusIcons, false);
             Player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ShowUseableGunStatus, false);
 
-            EffectManager.sendUIEffect(UI.HudID, HudKey, true);
+            EffectManager.sendUIEffect(UI.HudID, HudKey, Player.TransportConnection, true);
 
             UpdateComponent(HUDComponent.Health, Player.Player.life.health.ToString());
             UpdateComponent(HUDComponent.Food, Player.Player.life.food.ToString());
             UpdateComponent(HUDComponent.Water, Player.Player.life.water.ToString());
             UpdateComponent(HUDComponent.Stamina, Player.Player.life.stamina.ToString());
+
             if (Player.Player.life.isBroken)
             {
                 SendWidget(EWidgetType.BrokenBone);

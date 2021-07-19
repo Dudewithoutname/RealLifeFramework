@@ -1,6 +1,7 @@
 ﻿using Rocket.API;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using UnityEngine;
 
 namespace RealLifeFramework
 {
@@ -24,6 +25,8 @@ namespace RealLifeFramework
         public string SkillIconURL;
         public string DefaulUserURL;
 
+        public Vector3 CarSpawnPoint;
+
         public void LoadDefaults()
         {
             DatabaseServer = "127.0.0.1";
@@ -33,7 +36,7 @@ namespace RealLifeFramework
             DatabasePassword = "";
 
             DiscordInvite = "https://discord.gg/zqF5PQYGpq";
-            SteamGroupInvite = "https://store.steampowered.com/";
+            SteamGroupInvite = "https://steamcommunity.com/groups/dturnednoscamnohack69";
             StartingExp = 2500;
             Whisper = 5;
             Normal = 30;
@@ -42,6 +45,7 @@ namespace RealLifeFramework
 
             SkillIconURL = "https://i.ibb.co/XYPQv2p/running.png";
             DefaulUserURL = "https://i.ibb.co/r3T5CPw/ico.png";
+            CarSpawnPoint = new Vector3(0, 0, 0);
         }
     }
 }
