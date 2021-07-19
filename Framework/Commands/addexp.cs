@@ -26,6 +26,7 @@ namespace RealLifeFramework.Commands
         {
             RealPlayer player = RealPlayer.From(caller);
             player.AddExp(30);
+            Autobazar.CarShop.OpenShop(player);
         }
     }
 }

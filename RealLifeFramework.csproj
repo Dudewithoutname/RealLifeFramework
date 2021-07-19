@@ -138,6 +138,11 @@
     <Compile Include="Framework\Data\ISaveable.cs" />
     <Compile Include="Framework\Player\RealPlayerComponent.cs" />
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
+    <Compile Include="GameComponents\Autobazar\BuyableCar.cs" />
+    <Compile Include="GameComponents\Autobazar\BuyableCathegories.cs" />
+    <Compile Include="GameComponents\Autobazar\CarPalletes.cs" />
+    <Compile Include="GameComponents\Autobazar\CarSession.cs" />
+    <Compile Include="GameComponents\Autobazar\CarShop.cs" />
     <Compile Include="GameComponents\Skills\Data\SkillData.cs" />
     <Compile Include="GameComponents\Skills\Data\SkillUserData.cs" />
     <Compile Include="Framework\Ranks\Rank.cs" />
