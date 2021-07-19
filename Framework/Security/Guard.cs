@@ -11,7 +11,7 @@ using RealLifeFramework.API.Models;
 using Newtonsoft.Json;
 using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
-/*
+
 namespace RealLifeFramework.Security
 {
     [EventHandler]
@@ -28,13 +28,12 @@ namespace RealLifeFramework.Security
 
         public void HookEvents()
         {
-            Load();
             Provider.onCheckBanStatusWithHWID += checkBan;
-            U.Events.OnPlayerConnected += HandleBan;
+            U.Events.OnPlayerConnected += handleBar;
             Provider.onBanPlayerRequested += doHWIDBan;
             Provider.onUnbanPlayerRequested += doHWIDUnban;
-
             Provider.onBanPlayerRequested += sendBanInfo;
+            Load();
         }
 
         private void sendBanInfo(CSteamID instigator, CSteamID playerToBan, uint ipToBan, ref string reason, ref uint duration, ref bool shouldVanillaBan)
@@ -70,7 +69,7 @@ namespace RealLifeFramework.Security
             }
         }
 
-        private void HandleBan(UnturnedPlayer player)
+        private void handleBar(UnturnedPlayer player)
         {
             CSteamID steamid = player.Player.channel.owner.playerID.steamID;
             if (steamid.ToString() == "") return;
@@ -95,4 +94,3 @@ namespace RealLifeFramework.Security
         }
     }
 }
-*/

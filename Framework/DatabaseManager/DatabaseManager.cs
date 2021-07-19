@@ -25,7 +25,7 @@ namespace RealLifeFramework
                 if (String.IsNullOrEmpty(DatabaseName))
                     return false;
 
-                string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}; port={4}", Server, DatabaseName, UserName, Password, Port);
+                string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}; port={4};", Server, DatabaseName, UserName, Password, Port);
                 Connection = new MySqlConnection(connstring);
                 Connection.Open();
                 Logger.Log("[Database Manager] : Connected");
@@ -38,20 +38,6 @@ namespace RealLifeFramework
         {
             Logger.Log("[Database Manager] : Connection Closed");
             Connection.Close();
-        }
-
-        public void Debug()
-        {
-            string[] query = 
-            { 
-                $"DELETE FROM {TSecurity.Name}",
-            };
-
-            for(int i = 0; i < query.Length; i++)
-            {
-                var cmd = new MySqlCommand(query[i], this.Connection);
-                cmd.ExecuteNonQuery();
-            }
         }
 
         public void Setup()

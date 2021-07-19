@@ -232,6 +232,8 @@ namespace RealLifeFramework.UserInterface
             if (rp == null)
                 return;
 
+            if (virus <= 45 && player.Stance == EPlayerStance.PRONE) return;
+
             if (virus <= 45)
                 rp.HUD.SendWidget(EWidgetType.LowVirus);
             else

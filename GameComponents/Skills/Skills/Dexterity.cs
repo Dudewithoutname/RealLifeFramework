@@ -81,8 +81,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Dexerity[0], VanillaSkills.Dexerity[1], 5);
                     break;
             }
-
-            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Dexterity(RealPlayer playerref, byte level, uint exp)

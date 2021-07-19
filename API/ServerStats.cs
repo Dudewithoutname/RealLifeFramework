@@ -69,6 +69,8 @@ namespace RealLifeFramework
                 else
                 {
                     var rp = RealPlayer.From(up);
+                    
+                    if (rp == null) continue;
 
                     if (rp.RankUser.Job.Id.Contains("ems"))
                     {

@@ -100,8 +100,6 @@ namespace RealLifeFramework.Skills
                     Player.Player.skills.ServerSetSkillLevel(VanillaSkills.Sharpshooter[0], VanillaSkills.Sharpshooter[1], 7);
                     break;
             }
-
-            SkillManager.SendLevelUp(Player, Id);
         }
 
         public Defense(RealPlayer playerRef, byte level, uint exp)

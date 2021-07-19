@@ -45,7 +45,10 @@ namespace RealLifeFramework.Skills
             {
                 if (parameters.cause == EDeathCause.MELEE | parameters.cause == EDeathCause.GUN)
                 {
-                    RealPlayer.From(parameters.killer).SkillUser.AddExp(Defense.Id, 2); // bonus for hit
+                    if (parameters.player.stance.stance != EPlayerStance.PRONE)
+                    {
+                        RealPlayer.From(parameters.killer).SkillUser.AddExp(Defense.Id, 2); // bonus for hit
+                    }
                 }
             }
 

@@ -34,7 +34,7 @@ namespace RealLifeFramework.Realism
 
             if (parameters.cause != EDeathCause.GUN | parameters.cause != EDeathCause.MELEE) return;
 
-            if ((parameters.limb == ELimb.RIGHT_LEG | parameters.limb == ELimb.LEFT_LEG | parameters.limb == ELimb.LEFT_FOOT | parameters.limb == ELimb.RIGHT_FOOT) && attacker.clothing.pantsAsset.armor > 0.85f)
+            if (parameters.limb == ELimb.RIGHT_LEG | parameters.limb == ELimb.LEFT_LEG | parameters.limb == ELimb.LEFT_FOOT | parameters.limb == ELimb.RIGHT_FOOT)
             {
                 if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 3) == 1) // 25%
                 {

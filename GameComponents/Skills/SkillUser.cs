@@ -43,7 +43,7 @@ namespace RealLifeFramework.Skills
                 skill.AddExp(amount);
 
                 if(id != Agitily.Id)
-                    RealPlayer.AddExp(2);
+                    RealPlayer.AddExp(1);
             }
         }
 

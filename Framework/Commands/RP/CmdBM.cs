@@ -33,7 +33,13 @@ namespace RealLifeFramework.Commands
             {
                 var LoopPlayer = PlayerTool.getPlayer(steamPlayer.playerID.steamID);
 
-                if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission) && !LoopPlayer.channel.owner.isAdmin)
+                if (LoopPlayer.channel.owner.isAdmin)
+                {
+                    ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > (<color=#6efdff>{player.Name}</color>)</b></color><color=#cfcfcf> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
+                    continue;
+                }
+
+                if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission))
                 {
                     ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > </b></color><color=#cfcfcf> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
                 }
