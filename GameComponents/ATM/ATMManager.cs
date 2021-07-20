@@ -133,6 +133,9 @@ namespace RealLifeFramework.ATM
         public static void OpenATM(Player player)
         {
             var rp = RealPlayer.From(player);
+            
+            if (sessions.ContainsKey(rp.CSteamID)) sessions.Remove(rp.CSteamID);
+
             sessions.Add(player.channel.owner.playerID.steamID, new ATMSession(player));
             
             player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);

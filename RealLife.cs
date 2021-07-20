@@ -11,6 +11,7 @@ using HarmonyLib;
 using RealLifeFramework.Data;
 using RealLifeFramework.Threadding;
 using UnityEngine;
+using System.Reflection;
 
 namespace RealLifeFramework
 {

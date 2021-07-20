@@ -226,6 +226,8 @@ namespace RealLifeFramework.Autobazar
 
         public static void OpenShop(RealPlayer player)
         {
+            if (sessions.ContainsKey(player.CSteamID)) sessions.Remove(player.CSteamID);
+
             sessions.Add(player.CSteamID, new CarSession());
 
             player.Player.setPluginWidgetFlag(EPluginWidgetFlags.ForceBlur, true);
@@ -372,7 +374,7 @@ namespace RealLifeFramework.Autobazar
                 if (car.Cost <= player.CreditCardMoney)
                 {
                     player.CreditCardMoney -= car.Cost;
-                    VehicleManager.spawnVehicleV2((ushort)(car.Id + session.ColorOffset), new Vector3(player.Player.transform.position.x + 10, player.Player.transform.position.y, player.Player.transform.position.z), Quaternion.identity);
+                    VehicleManager.spawnVehicleV2((ushort)(car.Id + session.ColorOffset), RealLife.Instance.Configuration.Instance.CarSpawnPoint, Quaternion.identity);
                     CloseShop(player);
                 }
             }
