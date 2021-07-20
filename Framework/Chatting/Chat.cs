@@ -59,11 +59,15 @@ namespace RealLifeFramework.Chatting
         {
             string message = refactorMessage(text, player);
 
-            if(isVisible)
+            if (isVisible)
             {
-                ChatManager.serverSendMessage(
-                    $"<size=11><color=#b3babd>(local)</color> <color=#de4dff>[{player.Level}]</color><color={player.ChatProfile.NameColor}>{player.RankUser.JobPrefix}</size> <b>|</b>{player.RankUser.DisplayPrefix}<b>| {player.Name}</b> </color>:<color=#d9d9d9> {message}</color>",
-                    Color.white, player.Player.channel.owner, null, EChatMode.LOCAL, player.ChatProfile.Avatar, true);
+                foreach (SteamPlayer client in Provider.clients)
+                {
+                    if (!((UnityEngine.Object)client.player == (UnityEngine.Object)null) && (double)(client.player.transform.position - player.Player.transform.position).sqrMagnitude < 16384f)
+                        ChatManager.serverSendMessage(
+                        $"<size=11><color=#58c45d><Area></color> <color=#de4dff>[{player.Level}]</color><color={player.ChatProfile.NameColor}>{player.RankUser.JobPrefix}</size> <b>|</b>{player.RankUser.DisplayPrefix}<b>| {player.Name}</b> </color>:<color=#d9d9d9> {message}</color>",
+                        Color.white, null, client, EChatMode.LOCAL, player.ChatProfile.Avatar, true);
+                }
             }
 
             return false;
@@ -73,11 +77,16 @@ namespace RealLifeFramework.Chatting
         {
             string message = refactorMessage(text, player);
 
-            if(isVisible)
+            if (isVisible)
             {
-                ChatManager.serverSendMessage(
-                    $"<size=11><color=#b3babd>(group)</color> <color=#de4dff>[{player.Level}]</color><color={player.ChatProfile.NameColor}>{player.RankUser.JobPrefix}</size> <b>|</b>{player.RankUser.DisplayPrefix}<b>| {player.Name}</b> </color>:<color=#d9d9d9> {message}</color>",
-                    Color.white, player.Player.channel.owner, null, EChatMode.GROUP, player.ChatProfile.Avatar, true);
+                foreach (SteamPlayer client in Provider.clients)
+                {
+                    if (!((UnityEngine.Object)client.player == (UnityEngine.Object)null) && client.player.quests.isMemberOfSameGroupAs(player.Player))
+                        ChatManager.serverSendMessage(
+                        $"<size=11><color=#58c45d><Group></color> <color=#de4dff>[{player.Level}]</color><color={player.ChatProfile.NameColor}>{player.RankUser.JobPrefix}</size> <b>|</b>{player.RankUser.DisplayPrefix}<b>| {player.Name}</b> </color>:<color=#d9d9d9> {message}</color>",
+                        Color.white, null, client, EChatMode.GROUP, player.ChatProfile.Avatar, true);
+
+                }
             }
 
             return false;

@@ -33,6 +33,25 @@ namespace RealLifeFramework.Ranks
             new Rank(4, "dude.admin.owner", "Owner", "<color=#fb9d8f>Owner</color>", "player")
         };
 
+        public static readonly List<string> PoliceRanks = new List<string>()
+        {
+            "pd_kadet",
+            "pd_strazmajster",
+            "pd_nadstrazmajster",
+            "pd_praporcik",
+            "pd_porucik",
+            "pd_major",
+            "pd_sef",
+        };
+
+        public static readonly List<string> EMSRanks = new List<string>()
+        {
+            "ems_zachranar",
+            "ems_zdravotnik",
+            "ems_doktor",
+            "ems_sef",
+        };
+
         public static string GetNameByGroups(List<RocketPermissionsGroup> playerGroups)
         {
             if (playerGroups == null) return "Obcan";

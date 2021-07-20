@@ -124,6 +124,7 @@
     <Compile Include="Framework\Commands\Debug\CmdGetInstanceId.cs" />
     <Compile Include="Framework\Commands\Money\CmdBonus.cs" />
     <Compile Include="Framework\Commands\Money\CmdSalary.cs" />
+    <Compile Include="Framework\Commands\RP\CmdPomoc.cs" />
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdSms.cs" />
     <Compile Include="Framework\Commands\RP\CmdTweet.cs" />

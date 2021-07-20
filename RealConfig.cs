@@ -10,7 +10,7 @@ namespace RealLifeFramework
         public string DiscordInvite;
         public string SteamGroupInvite;
         public uint StartingExp;
-        
+
         public short Whisper;
         public short Normal;
         public short Shout;
@@ -20,6 +20,7 @@ namespace RealLifeFramework
         public string DefaulUserURL;
 
         public Vector3 CarSpawnPoint;
+        public uint CarShopSignIID;
 
         public void LoadDefaults()
         {
@@ -33,7 +34,9 @@ namespace RealLifeFramework
 
             SkillIconURL = "https://i.ibb.co/XYPQv2p/running.png";
             DefaulUserURL = "https://i.ibb.co/r3T5CPw/ico.png";
+
             CarSpawnPoint = new Vector3(0, 0, 0);
+            CarShopSignIID = 1457;
         }
     }
 }

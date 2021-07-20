@@ -304,7 +304,7 @@ namespace RealLifeFramework.UserInterface
 
             if (value >= 1000)
             {
-                decimal k = (decimal)value / 20;
+                decimal k = (decimal)value / 1000;
                 output = $"{Math.Round(k, 1)}K";
             }
             else

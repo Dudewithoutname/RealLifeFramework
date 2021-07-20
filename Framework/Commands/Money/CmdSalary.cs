@@ -29,7 +29,7 @@ namespace RealLifeFramework.Commands
         {
             var player = RealPlayer.From(caller);
 
-            if (salary.ContainsKey(player.CSteamID) && DateTime.Compare(salary[player.CSteamID], DateTime.Now) > -3600)
+            if (salary.ContainsKey(player.CSteamID) && DateTime.Now < salary[player.CSteamID].AddHours(1))
             {
                 ChatManager.say(player.CSteamID, $"Vyplatu si mozes davat kazdu 1h", Color.red, EChatMode.SAY, true);
                 return;
@@ -41,8 +41,10 @@ namespace RealLifeFramework.Commands
 
                 if (newSalary > 0)
                 {
-                    player.CreditCardMoney += newSalary;
+                    if (salary.ContainsKey(player.CSteamID)) salary.Remove(player.CSteamID);
                     salary.Add(player.CSteamID, DateTime.Now);
+
+                    player.CreditCardMoney += newSalary;
                     ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(newSalary.ToString())} za {player.RankUser.Job.DisplayName}!", Color.white, EChatMode.SAY, true);
                 }
                 else
@@ -69,19 +71,19 @@ namespace RealLifeFramework.Commands
                     return 5000;
 
                 case "pd_nadstrazmajster":
-                    return 7500;
+                    return 6000;
 
                 case "pd_praporcik":
-                    return 9500;
+                    return 7500;
 
                 case "pd_porucik":
-                    return 12500;
+                    return 10000;
 
                 case "pd_major":
-                    return 14000;
+                    return 12000;
 
                 case "pd_sef":
-                    return 15000;
+                    return 13000;
 
                 //  EMS
 
@@ -98,6 +100,7 @@ namespace RealLifeFramework.Commands
                     return 10000;
 
                 // Custom
+
                 case "kebab":
                     return 1000;
 
@@ -111,5 +114,6 @@ namespace RealLifeFramework.Commands
                     return 0;
             }
         }
+       
     }
 }

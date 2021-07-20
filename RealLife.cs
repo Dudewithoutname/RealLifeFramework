@@ -43,7 +43,9 @@ namespace RealLifeFramework
             Level.onLevelLoaded += onServerLoaded;
             Provider.onCommenceShutdown += () => saveData();
             InvokeRepeating(nameof(saveData), 1800f, 1800f);
-            
+
+            CommandWindow.shouldLogJoinLeave = false;
+
             Logger.Log("[Finished]- - - - - - - * RealLife * - - - - - - -");
         }
 

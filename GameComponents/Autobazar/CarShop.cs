@@ -7,6 +7,7 @@ using SDG.Unturned;
 using Steamworks;
 using System.Linq;
 using RealLifeFramework.Threadding;
+using System.Configuration;
 
 namespace RealLifeFramework.Autobazar
 {
@@ -15,14 +16,12 @@ namespace RealLifeFramework.Autobazar
     {
         private static BuyableCathegories cathegories;
         private static Dictionary<CSteamID, CarSession> sessions;
-        private static int[] signs;
 
         private const ushort ui = 41868;
         private const short key = 1149;
 
         public void HookEvents()
         {
-            signs = new int[] { };
             sessions = new Dictionary<CSteamID, CarSession>();
 
             if (DataManager.ExistData("Server", "Cars"))
@@ -40,17 +39,7 @@ namespace RealLifeFramework.Autobazar
                     Trucks = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     Bikes = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     Special = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
-
                 });
-            }
-
-            if (DataManager.ExistData("Server", "Signs"))
-            {
-                signs = DataManager.LoadData<CarShopSigns>("Server", "Cars").InstanceIDs; 
-            }
-            else
-            {
-                DataManager.CreateData("Server", "Signs", new CarShopSigns() { InstanceIDs = new int[] { 1 } });
             }
 
             EffectManager.onEffectButtonClicked += onButtonClicked;
@@ -70,7 +59,7 @@ namespace RealLifeFramework.Autobazar
                     var barricade = region.barricades[index];
                     if (barricade == null) return;
 
-                    if (barricade.instanceID == 503)
+                    if (barricade.instanceID == RealLife.Instance.Configuration.Instance.CarShopSignIID)
                     {
                         OpenShop(RealPlayer.From(player));
                     }
@@ -100,15 +89,6 @@ namespace RealLifeFramework.Autobazar
                     Special = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
 
                 });
-            }
-
-            if (DataManager.ExistData("Server", "Signs"))
-            {
-                signs = DataManager.LoadData<CarShopSigns>("Server", "Cars").InstanceIDs;
-            }
-            else
-            {
-                DataManager.CreateData("Server", "Signs", new CarShopSigns() { InstanceIDs = new int[] { 1 } });
             }
         }
 
