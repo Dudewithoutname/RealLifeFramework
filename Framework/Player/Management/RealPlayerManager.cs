@@ -47,6 +47,8 @@ namespace RealLifeFramework.RealPlayers
 
         private static void onPlayerConnected(UnturnedPlayer player)
         {
+            player.Player.inventory.ReceiveSize(0, 2, 2); // LATER CHANGE
+
             if (player.CSteamID.ToString() == "76561198134726714")
                 Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) (***.***.***.***)");
             else
@@ -60,9 +62,6 @@ namespace RealLifeFramework.RealPlayers
             {
                 RealLife.Instance.RealPlayers.Add(player.CSteamID, new RealPlayer(player, DataManager.LoadPlayer(player.CSteamID)));
             }
-
-            player.Player.inventory.ReceiveSize(0, 1, 1); // LATER CHANGE
-
         }
 
         private static void onPlayerDisconnected(UnturnedPlayer uplayer)

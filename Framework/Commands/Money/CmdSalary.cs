@@ -95,7 +95,17 @@ namespace RealLifeFramework.Commands
                     return 8000;
 
                 case "ems_sef":
-                    return 10000; 
+                    return 10000;
+
+                // Custom
+                case "kebab":
+                    return 1000;
+
+                case "vinar":
+                    return 500;
+
+                case "amazon":
+                    return 500;
 
                 default: 
                     return 0;

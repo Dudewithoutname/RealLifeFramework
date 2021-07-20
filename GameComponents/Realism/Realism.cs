@@ -32,10 +32,9 @@ namespace RealLifeFramework.Realism
                 return;
             }
 
-            if (parameters.cause != EDeathCause.GUN | parameters.cause != EDeathCause.MELEE) return;
-
             if (parameters.limb == ELimb.RIGHT_LEG | parameters.limb == ELimb.LEFT_LEG | parameters.limb == ELimb.LEFT_FOOT | parameters.limb == ELimb.RIGHT_FOOT)
             {
+                Logger.Log("test");
                 if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 3) == 1) // 25%
                 {
                     victim.life.breakLegs();
@@ -55,44 +54,45 @@ namespace RealLifeFramework.Realism
                 return;
             }
 
-            switch (parameters.limb)
+            if (parameters.cause == EDeathCause.GUN || parameters.cause == EDeathCause.MELEE)
             {
-                case ELimb.SKULL: 
-                    if (parameters.cause == EDeathCause.MELEE && UnityEngine.Random.Range(0, 1) == 1)// 50%
-                    {
-                        victim.life.serverModifyHallucination(10f);
-                        victim.stance.stance = EPlayerStance.CROUCH;
-                        victim.stance.checkStance(EPlayerStance.CROUCH);
-                    }
-                    if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 4) == 1) // 20%
-                    {
-                        victim.life.serverModifyHallucination(3f);
-                    }
-                    break;
+                Logger.Log("test2");
 
-                case ELimb.LEFT_HAND when (UnityEngine.Random.Range(0, 4) == 1) && 
-                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE): // 20%
+                switch (parameters.limb)
+                {
+                    case ELimb.SKULL:
+                        if (parameters.cause == EDeathCause.MELEE && UnityEngine.Random.Range(0, 2) == 1)// 50%
+                        {
+                            victim.life.serverModifyHallucination(5f);
+                            victim.stance.stance = EPlayerStance.CROUCH;
+                            victim.stance.checkStance(EPlayerStance.CROUCH);
+                        }
+                        if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 4) == 1) // 20%
+                        {
+                            victim.life.serverModifyHallucination(3f);
+                        }
+                        break;
 
-                    victim.equipment.dequip();
-                    break;
+                    case ELimb.LEFT_HAND when (UnityEngine.Random.Range(0, 4) == 1): // 20%
 
-                case ELimb.RIGHT_HAND when (UnityEngine.Random.Range(0, 4) == 1) && 
-                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 20%
+                        victim.equipment.dequip();
+                        break;
 
-                    victim.equipment.dequip();
-                    break;
+                    case ELimb.RIGHT_HAND when (UnityEngine.Random.Range(0, 4) == 1):// 20%
 
-                case ELimb.LEFT_ARM when (UnityEngine.Random.Range(0, 5) == 1) && 
-                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 17%
+                        victim.equipment.dequip();
+                        break;
 
-                    victim.life.breakLegs();
-                    break;
+                    case ELimb.LEFT_ARM when (UnityEngine.Random.Range(0, 5) == 1):// 17%
 
-                case ELimb.RIGHT_ARM when (UnityEngine.Random.Range(0, 5) == 1) && 
-                    (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 17%
+                        victim.life.breakLegs();
+                        break;
 
-                    victim.life.breakLegs();
-                    break;
+                    case ELimb.RIGHT_ARM when (UnityEngine.Random.Range(0, 5) == 1):// 17%
+
+                        victim.life.breakLegs();
+                        break;
+                }
             }
         }
 

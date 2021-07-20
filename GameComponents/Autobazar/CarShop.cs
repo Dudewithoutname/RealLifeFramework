@@ -5,6 +5,8 @@ using RealLifeFramework.Data;
 using RealLifeFramework.RealPlayers;
 using SDG.Unturned;
 using Steamworks;
+using System.Linq;
+using RealLifeFramework.Threadding;
 
 namespace RealLifeFramework.Autobazar
 {
@@ -13,6 +15,7 @@ namespace RealLifeFramework.Autobazar
     {
         private static BuyableCathegories cathegories;
         private static Dictionary<CSteamID, CarSession> sessions;
+        private static CarShopSigns signs;
 
         private const ushort ui = 41868;
         private const short key = 1149;
@@ -21,13 +24,13 @@ namespace RealLifeFramework.Autobazar
         {
             sessions = new Dictionary<CSteamID, CarSession>();
 
-            if (DataManager.ExistData("server", "cars"))
+            if (DataManager.ExistData("Server", "Cars"))
             {
-                cathegories = DataManager.LoadData<BuyableCathegories>("server", "cars");
+                cathegories = DataManager.LoadData<BuyableCathegories>("Server", "Cars");
             }
             else
             {
-                DataManager.CreateData("server", "cars", new BuyableCathegories() { 
+                DataManager.CreateData("Server", "Cars", new BuyableCathegories() { 
                     Sports = new BuyableCar[]{ new BuyableCar() { Cost = 2, IconURL ="a", Id = 0, Name = "example", Pallete = "jpepe"} },
                     Hatchbacks = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     OffRoad = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
@@ -40,7 +43,39 @@ namespace RealLifeFramework.Autobazar
                 });
             }
 
+            if (DataManager.ExistData("Server", "Signs"))
+            {
+                signs = DataManager.LoadData<CarShopSigns>("Server", "Cars"); 
+            }
+            else
+            {
+                DataManager.CreateData("Server", "Signs", new CarShopSigns() { InstanceIDs = new int[] { 1 } });
+            }
+
             EffectManager.onEffectButtonClicked += onButtonClicked;
+            PlayerEquipment.OnPunch_Global += (equipment, punch) => onPunch(equipment.player);
+        }
+
+        private void onPunch(Player player)
+        {
+            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 3f, RayMasks.BARRICADE_INTERACT | RayMasks.BARRICADE))
+            {
+                Helper.Execute(() =>
+                {
+                    var transform = hit.transform;
+                    if ((object)transform == null) return;
+
+                    var sign = transform.GetComponent<InteractableSign>();
+                    if ((object)sign == null) return;
+
+                    Logger.Log(sign.GetInstanceID().ToString());
+
+                    if (signs.InstanceIDs.Contains(sign.GetInstanceID()))
+                    {
+                        OpenShop(RealPlayer.From(player));
+                    }
+                });
+            }
         }
 
         public static void ReloadCarShop()

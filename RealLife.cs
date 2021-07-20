@@ -19,7 +19,6 @@ namespace RealLifeFramework
         public static RealLife Instance;
         public Dictionary<CSteamID, RealPlayer> RealPlayers;
         public static bool Debugging = false;
-        public static DatabaseManager Database;
         private Harmony harmony;
 
         // Novice, Beginner, Regular, Intermediate, Advanced, Expert, Professional, Master
@@ -32,16 +31,6 @@ namespace RealLifeFramework
             Instance = this;
 
             DataManager.Settup();
-
-            /*Database = new DatabaseManager();
-            Database.Server = Configuration.Instance.DatabaseServer;
-            Database.DatabaseName = Configuration.Instance.DatabaseName;
-            Database.UserName = Configuration.Instance.DatabaseUsername;
-            Database.Password = Configuration.Instance.DatabasePassword;
-            Database.Port = Configuration.Instance.DatabasePort;
-            Database.IsConnected();
-            Database.Setup();*/
-
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();

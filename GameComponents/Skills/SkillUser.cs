@@ -42,8 +42,8 @@ namespace RealLifeFramework.Skills
             {
                 skill.AddExp(amount);
 
-                if(id != Agitily.Id)
-                    RealPlayer.AddExp(1);
+                if(id != Agitily.Id | id != Defense.Id)
+                    RealPlayer.AddExp(2);
             }
         }
 

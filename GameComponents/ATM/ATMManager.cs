@@ -31,7 +31,7 @@ namespace RealLifeFramework.ATM
         #region events
         private void onPunch(Player player)
         {
-            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 4f, RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT))
+            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 2.5f, RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT))
             {
                 if (BarricadeManager.tryGetInfo(hit.transform, out _, out _, out _, out var index, out var region))
                 {
@@ -418,6 +418,7 @@ namespace RealLifeFramework.ATM
 
                 rp.CreditCardMoney -= moneyToSend;
                 target.CreditCardMoney += moneyToSend;
+                SendError(player, $"<color=#58CD7B>Poslal si {Currency.FormatMoney(moneyToSend.ToString())} na ucet {target.Name}</color>");
             });
         }
 

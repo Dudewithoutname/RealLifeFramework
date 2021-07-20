@@ -138,6 +138,7 @@ namespace RealLifeFramework.Skills
                 {
                     rp.SkillUser.UpgradeEducation(index);
                     loadEdu(rp, index);
+                    EffectManager.sendUIEffectText(keyUI, rp.TransportConnection, true, "skills_txt_edupoints", rp.SkillUser.EducationPoints.ToString());
                 }
             }
         }
