@@ -15,13 +15,14 @@ namespace RealLifeFramework.Autobazar
     {
         private static BuyableCathegories cathegories;
         private static Dictionary<CSteamID, CarSession> sessions;
-        private static CarShopSigns signs;
+        private static int[] signs;
 
         private const ushort ui = 41868;
         private const short key = 1149;
 
         public void HookEvents()
         {
+            signs = new int[] { };
             sessions = new Dictionary<CSteamID, CarSession>();
 
             if (DataManager.ExistData("Server", "Cars"))
@@ -45,7 +46,7 @@ namespace RealLifeFramework.Autobazar
 
             if (DataManager.ExistData("Server", "Signs"))
             {
-                signs = DataManager.LoadData<CarShopSigns>("Server", "Cars"); 
+                signs = DataManager.LoadData<CarShopSigns>("Server", "Cars").InstanceIDs; 
             }
             else
             {
@@ -58,23 +59,22 @@ namespace RealLifeFramework.Autobazar
 
         private void onPunch(Player player)
         {
-            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 3f, RayMasks.BARRICADE_INTERACT | RayMasks.BARRICADE))
+            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 3, RayMasks.BARRICADE_INTERACT | RayMasks.BARRICADE))
             {
-                Helper.Execute(() =>
+                var transform = hit.transform;
+                if ((object)transform == null) return;
+
+                if (BarricadeManager.tryGetInfo(hit.transform, out _, out _, out _, out var index, out var region))
                 {
-                    var transform = hit.transform;
-                    if ((object)transform == null) return;
 
-                    var sign = transform.GetComponent<InteractableSign>();
-                    if ((object)sign == null) return;
+                    var barricade = region.barricades[index];
+                    if (barricade == null) return;
 
-                    Logger.Log(sign.GetInstanceID().ToString());
-
-                    if (signs.InstanceIDs.Contains(sign.GetInstanceID()))
+                    if (barricade.instanceID == 503)
                     {
                         OpenShop(RealPlayer.From(player));
                     }
-                });
+                }
             }
         }
 
@@ -100,6 +100,15 @@ namespace RealLifeFramework.Autobazar
                     Special = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
 
                 });
+            }
+
+            if (DataManager.ExistData("Server", "Signs"))
+            {
+                signs = DataManager.LoadData<CarShopSigns>("Server", "Cars").InstanceIDs;
+            }
+            else
+            {
+                DataManager.CreateData("Server", "Signs", new CarShopSigns() { InstanceIDs = new int[] { 1 } });
             }
         }
 

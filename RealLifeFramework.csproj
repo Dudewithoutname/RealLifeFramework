@@ -119,8 +119,10 @@
     <Compile Include="Framework\Chatting\Colors\NameColor.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
     <Compile Include="Framework\Commands\Cosmetic\CmdColorName.cs" />
+    <Compile Include="Framework\Commands\Debug\CmdReloadCarShop.cs" />
     <Compile Include="Framework\Commands\Debug\CmdGetVector.cs" />
     <Compile Include="Framework\Commands\Debug\CmdGetInstanceId.cs" />
+    <Compile Include="Framework\Commands\Money\CmdBonus.cs" />
     <Compile Include="Framework\Commands\Money\CmdSalary.cs" />
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdSms.cs" />

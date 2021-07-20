@@ -8,6 +8,8 @@ using RealLifeFramework.Patches;
 using RealLifeFramework.Data;
 using Rocket.Core;
 using RealLifeFramework.Ranks;
+using Rocket.Unturned.Permissions;
+using Steamworks;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -23,7 +25,38 @@ namespace RealLifeFramework.RealPlayers
             PatchedProvider.onPlayerPreConnected += onPlayerPreConnected;
             EffectManager.onEffectButtonClicked += onEffectButtonClicked;
             EffectManager.onEffectTextCommitted += onEffectTextCommited;
+            UnturnedPermissions.OnJoinRequested += new UnturnedPermissions.JoinRequested(OnPlayerConnect);
         }
+
+        public void OnPlayerConnect(CSteamID Player, ref ESteamRejection? rejection)
+        {
+            foreach (SteamPending Players in Provider.pending)
+            {
+                bool checkPlayer = Players.playerID.steamID == Player;
+
+                if (checkPlayer)
+                {
+                    Players.skinItems = new int[0];
+                    Players.packageSkins = new ulong[0];
+                    Players.packageHat = 0UL;
+                    Players.hatItem = 0;
+                    Players.maskItem = 0;
+                    Players.packageMask = 0UL;
+                    Players.packageGlasses = 0UL;
+                    Players.glassesItem = 0;
+                    Players.shirtItem = 0;
+                    Players.packageShirt = 0UL;
+                    Players.vestItem = 0;
+                    Players.packageVest = 0UL;
+                    Players.packageBackpack = 0UL;
+                    Players.backpackItem = 0;
+                    Players.pantsItem = 0;
+                    Players.packagePants = 0UL;
+                    break;
+                }
+            }
+        }
+
 
         #region Handling
         private static void onPlayerPreConnected(SteamPlayerID player)
