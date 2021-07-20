@@ -65,6 +65,8 @@ namespace RealLifeFramework.UserInterface
             if (Currency.Money.ContainsKey(jar.item.id) && WalletMoney != 0)
             {
                 WalletMoney -= Currency.Money[jar.item.id];
+                if (WalletMoney < 0) WalletMoney = 0;
+
                 UpdateComponent(HUDComponent.Wallet, formatMoney(WalletMoney.ToString()) );
             }
         }
