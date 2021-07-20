@@ -25,7 +25,7 @@ namespace RealLifeFramework
                 if (String.IsNullOrEmpty(DatabaseName))
                     return false;
 
-                string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}; port={4};", Server, DatabaseName, UserName, Password, Port);
+                string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}; port={4}; charset=utf8; pooling=false", Server, DatabaseName, UserName, Password, Port);
                 Connection = new MySqlConnection(connstring);
                 Connection.Open();
                 Logger.Log("[Database Manager] : Connected");

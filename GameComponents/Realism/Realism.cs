@@ -57,7 +57,7 @@ namespace RealLifeFramework.Realism
 
             switch (parameters.limb)
             {
-                case ELimb.SKULL when victim.clothing.hatAsset.armor > 0.85f: 
+                case ELimb.SKULL: 
                     if (parameters.cause == EDeathCause.MELEE && UnityEngine.Random.Range(0, 1) == 1)// 50%
                     {
                         victim.life.serverModifyHallucination(10f);
@@ -70,25 +70,25 @@ namespace RealLifeFramework.Realism
                     }
                     break;
 
-                case ELimb.LEFT_HAND when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 4) == 1) && 
+                case ELimb.LEFT_HAND when (UnityEngine.Random.Range(0, 4) == 1) && 
                     (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE): // 20%
 
                     victim.equipment.dequip();
                     break;
 
-                case ELimb.RIGHT_HAND when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 4) == 1) && 
+                case ELimb.RIGHT_HAND when (UnityEngine.Random.Range(0, 4) == 1) && 
                     (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 20%
 
                     victim.equipment.dequip();
                     break;
 
-                case ELimb.LEFT_ARM when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 5) == 1) && 
+                case ELimb.LEFT_ARM when (UnityEngine.Random.Range(0, 5) == 1) && 
                     (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 17%
 
                     victim.life.breakLegs();
                     break;
 
-                case ELimb.RIGHT_ARM when (victim.clothing.shirtAsset.armor > 0.90f && UnityEngine.Random.Range(0, 5) == 1) && 
+                case ELimb.RIGHT_ARM when (UnityEngine.Random.Range(0, 5) == 1) && 
                     (parameters.cause == EDeathCause.GUN | parameters.cause == EDeathCause.MELEE):// 17%
 
                     victim.life.breakLegs();

@@ -19,14 +19,24 @@ namespace RealLifeFramework.RealPlayers
                 RealPlayerManager.OnAmmoLowered.Invoke(Player, oldAmmo);
             }
 
-            var rayCastInfo = DamageTool.raycast(new Ray(Player.Player.look.aim.position, Player.Player.look.aim.forward), 25f, RayMasks.PLAYER);
+            var rayCastInfo = DamageTool.raycast(new Ray(Player.Player.look.aim.position, Player.Player.look.aim.forward), 5f, RayMasks.PLAYER | RayMasks.PLAYER_INTERACT);
 
             if ((object)rayCastInfo.player != null && isHidden)
             {
-                if (rayCastInfo.player.equipment.asset.id == CitizenId.ItemId)
+                if ((object)rayCastInfo.player.equipment.asset != null)
                 {
-                    var target = RealPlayer.From(rayCastInfo.player);
-                    CitizenId.Show(Player, target);
+                    if (rayCastInfo.player.equipment.asset.id == CitizenId.ItemId)
+                    {
+                        var target = RealPlayer.From(rayCastInfo.player);
+                        CitizenId.Show(Player, target);
+                    }
+                }
+                else
+                {
+                    if (!isHidden)
+                    {
+                        CitizenId.Hide(Player);
+                    }
                 }
             }
 

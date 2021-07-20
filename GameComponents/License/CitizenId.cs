@@ -1,4 +1,5 @@
 ﻿using RealLifeFramework.RealPlayers;
+using Rocket.Unturned.Player;
 using SDG.Unturned;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,11 @@ namespace RealLifeFramework.License
             var name = target.Name.Split(' ');
             instigator.Component.isHidden = false;
 
-            EffectManager.sendUIEffect(uiId, 1041, instigator.TransportConnection, true);
+            EffectManager.sendUIEffect(uiId, 1041, instigator.TransportConnection, true); 
             EffectManager.sendUIEffectText(1041, instigator.TransportConnection, true, "id_name", name[0]);
             EffectManager.sendUIEffectText(1041, instigator.TransportConnection, true, "id_surname", name[1]);
             EffectManager.sendUIEffectText(1041, instigator.TransportConnection, true, "id_age", target.Age.ToString());
+            EffectManager.sendUIEffectImageURL(1041, instigator.TransportConnection, true, "id_icon", UnturnedPlayer.FromPlayer(target.Player).SteamProfile.AvatarFull.ToString());
         }
 
         public static void Hide(RealPlayer player)

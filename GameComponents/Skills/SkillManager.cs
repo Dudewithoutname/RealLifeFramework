@@ -54,7 +54,10 @@ namespace RealLifeFramework.Skills
 
             if (parameters.damage >= 10)
             {
-                RealPlayer.From(parameters.player).SkillUser.AddExp(Endurance.Id, 2);
+                if (parameters.player.stance.stance != EPlayerStance.PRONE)
+                {
+                    RealPlayer.From(parameters.player).SkillUser.AddExp(Endurance.Id, 2);
+                }
             }
         }
 

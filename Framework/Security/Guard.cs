@@ -11,7 +11,7 @@ using RealLifeFramework.API.Models;
 using Newtonsoft.Json;
 using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
-
+/*
 namespace RealLifeFramework.Security
 {
     [EventHandler]
@@ -93,4 +93,4 @@ namespace RealLifeFramework.Security
                 TSecurity.RemoveHWIDBan(playerToUnban.ToString());
         }
     }
-}
+}*/

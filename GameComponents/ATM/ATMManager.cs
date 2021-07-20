@@ -403,7 +403,7 @@ namespace RealLifeFramework.ATM
                 {
                     if (tr.Value == rp) continue;
                     
-                    if (tr.Value.Name.Contains(session.Data[3]) || tr.Value.CSteamID.ToString() == session.Data[3])
+                    if (tr.Value.Name.Contains(session.Data[3]) | tr.Value.CSteamID.ToString() == session.Data[3])
                     {
                         target = tr.Value;
                         break;
