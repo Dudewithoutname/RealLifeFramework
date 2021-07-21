@@ -27,7 +27,10 @@ namespace RealLifeFramework.Commands
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
 
             if (args.Length < 1) return;
-            if (string.Join(" ", args).Length < 2) return;
+
+            var txt = string.Join(" ", args);
+            if (txt.Length < 2) return;
+            if (txt.Contains("<")) txt.Replace("<", "(");
 
             foreach (SteamPlayer steamPlayer in Provider.clients)
             {
@@ -41,7 +44,7 @@ namespace RealLifeFramework.Commands
 
                 if (!UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission))
                 {
-                    ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > </b></color><color=#cfcfcf> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
+                    ChatManager.say(steamPlayer.playerID.steamID, $"<color=#242424><b>Blackmarket > </b></color><color=#cfcfcf> {txt} </color>", Palette.COLOR_W, true);
                 }
             }
         }

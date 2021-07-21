@@ -27,9 +27,12 @@ namespace RealLifeFramework.Commands
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
 
             if (args.Length < 1) return;
-            if (string.Join(" ", args).Length < 2) return;
 
-            ChatManager.say(player.CSteamID, $"<color=#42f59e><b>Tiesnova Linka | <color=#bdffde>TY</color></b> :</color><color=#ffffff> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
+            var txt = string.Join(" ", args);
+            if (txt.Length < 2) return;
+            if (txt.Contains("<")) txt.Replace("<", "(");
+
+            ChatManager.say(player.CSteamID, $"<color=#42f59e><b>Tiesnova Linka | Odoslal si pomoc :</color><color=#ffffff> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
             foreach (SteamPlayer steamPlayer in Provider.clients)
             {
                 var LoopPlayer = PlayerTool.getPlayer(steamPlayer.playerID.steamID);
@@ -38,7 +41,9 @@ namespace RealLifeFramework.Commands
 
                 if (UnturnedPlayer.FromCSteamID(steamPlayer.playerID.steamID).HasPermission(RankManager.PolicePermission))
                 {
-                    ChatManager.say(player.CSteamID, $"<color=#ff595f><b>Tiesnova Linka |</b> Obcan <color=#ffa6a9>{player.Name}</color> Potrebuje Pomoc :</color><color=#ffa6a9> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
+                    steamPlayer.player.quests.sendSetMarker(true, player.Player.transform.position);
+                    ChatManager.say(player.CSteamID, $"<color=#ff595f><b>Tiesnova Linka |</b> Obcan <color=#ffa6a9>{player.Name}</color> potrebuje pomoc a je oznaceny na mape </color>", Palette.COLOR_W, true);
+                    ChatManager.say(player.CSteamID, $"<color=#ff595f><b>Tiesnova Linka |</b> Sprava : <color=#ffa6a9> {txt} </color>", Palette.COLOR_W, true);
                 }
             }
         }

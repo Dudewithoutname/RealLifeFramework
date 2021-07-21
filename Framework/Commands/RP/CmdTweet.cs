@@ -24,8 +24,13 @@ namespace RealLifeFramework.Commands
 
         public void Execute(IRocketPlayer caller, string[] args)
         {
+            var txt = string.Join(" ", args);
+            if (txt.Length < 2) return;
+            if (txt.Contains("<")) txt.Replace("<", "(");
+
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
-            ChatManager.serverSendMessage($"<color=#1DA1F2><b>Twitter</b> | {player.Name} : </color><color=#ffffff>{string.Join(" ", args)}</color>", Color.white, null, null, EChatMode.GLOBAL, "https://brexit.eu.sk/wp-content/uploads/2020/09/Twitter-Inc.-31.08.2020.png", true);
+
+            ChatManager.serverSendMessage($"<color=#1DA1F2><b>Twitter</b> | {player.Name} : </color><color=#ffffff>{txt}</color>", Color.white, null, null, EChatMode.GLOBAL, "https://brexit.eu.sk/wp-content/uploads/2020/09/Twitter-Inc.-31.08.2020.png", true);
         }
     }
 }

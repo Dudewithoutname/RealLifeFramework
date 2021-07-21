@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using SDG.Unturned;
 using UnityEngine;
-/*
+
 namespace RealLifeFramework.Commands
 {
     public class CmdBonus : IRocketCommand
@@ -23,57 +23,56 @@ namespace RealLifeFramework.Commands
 
         public List<string> Permissions => new List<string> { RankManager.PlayerPermission };
 
-        private Dictionary<CSteamID, DateTime> salary = new Dictionary<CSteamID, DateTime>();
+        private Dictionary<CSteamID, DateTime> bonus = new Dictionary<CSteamID, DateTime>();
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
             var player = RealPlayer.From(caller);
 
-            if (salary.ContainsKey(player.CSteamID) && DateTime.Compare(salary[player.CSteamID], DateTime.Now) > -3600)
+            if (bonus.ContainsKey(player.CSteamID) && DateTime.Now < bonus[player.CSteamID].AddHours(3))
             {
-                ChatManager.say(player.CSteamID, $"Vyplatu si mozes davat kazdu 1h", Color.red, EChatMode.SAY, true);
+                ChatManager.say(player.CSteamID, $"VIP Bonus si mozes dat 1x za 3h", Color.red, EChatMode.SAY, true);
                 return;
             }
 
-            if (player.RankUser.Job.Id != "unemployed" && player.RankUser.Job != null) 
+            if (player.RankUser.Vip != null)
             {
-                var newSalary = getSalary(player.RankUser.Job.Id);
+                var newBonus = getBonus(player.RankUser.Vip.Value.Level);
 
-                if (newSalary > 0)
+                if (newBonus > 0)
                 {
-                    player.CreditCardMoney += newSalary;
-                    salary.Add(player.CSteamID, DateTime.Now);
-                    ChatManager.say(player.CSteamID, $"Obdrzal si vyplatu {Currency.FormatMoney(newSalary.ToString())} za {player.RankUser.Job.DisplayName}!", Color.white, EChatMode.SAY, true);
+                    if (bonus.ContainsKey(player.CSteamID)) bonus.Remove(player.CSteamID);
+                    bonus.Add(player.CSteamID, DateTime.Now);
+
+                    player.CreditCardMoney += newBonus;
+                    ChatManager.say(player.CSteamID, $"Obdrzal si bonus {Currency.FormatMoney(newBonus.ToString())} za {player.RankUser.Vip.Value.Prefix}!", Color.white, EChatMode.SAY, true);
                 }
                 else
                 {
-                    ChatManager.say(player.CSteamID, $"Praca {player.RankUser.Job.DisplayName}, nema ziadnu vyplatu", Color.red, EChatMode.SAY, true);
+                    ChatManager.say(player.CSteamID, $"Pre tvoje vip nie je ziaden bonus", Color.red, EChatMode.SAY, true);
                 }
             }
             else
             {
-                ChatManager.say(player.CSteamID, $"Nepracujes, jak chces dostat vyplatu?", Color.red, EChatMode.SAY, true);
+                ChatManager.say(player.CSteamID, $"Nejsi VIP.", Color.red, EChatMode.SAY, true);
             }
         }
 
-        private static uint getSalary(byte jobId)
+        private static uint getBonus(byte level)
         {
-            switch ()
+            switch (level)
             {
-                //  PD
-
-                case "pd_kadet":
-                    return 4000;
-
-                case "pd_strazmajster":
+                case 1:
                     return 5000;
 
-                case "pd_nadstrazmajster":
-                    return 7500;
+                case 2:
+                    return 10000;
 
-                case "pd_praporcik":
-                    return 9500;
+                case 3:
+                    return 15000;
             }
+
+            return 0;
         }
     }
-}*/
+}

@@ -26,7 +26,10 @@ namespace RealLifeFramework.Commands
             var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
 
             if (args.Length < 1) return;
-            if (string.Join(" ", args).Length < 2) return;
+
+            var txt = string.Join(" ", args);
+            if (txt.Length < 2) return;
+            if (txt.Contains("<")) txt.Replace("<", "(");
 
             foreach (SteamPlayer steamPlayer in Provider.clients)
             {
@@ -35,7 +38,7 @@ namespace RealLifeFramework.Commands
 
                 if (distance <= 450)
                 {
-                    ChatManager.say(steamPlayer.playerID.steamID, $"<color=#69dba0><b>Me > {player.Name} |</b></color><color=#bce8d1> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
+                    ChatManager.say(steamPlayer.playerID.steamID, $"<color=#69dba0><b>Me > {player.Name} |</b></color><color=#bce8d1> {txt} </color>", Palette.COLOR_W, true);
                 }
             }
         }

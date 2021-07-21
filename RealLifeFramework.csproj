@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Models\Report.cs" />
     <Compile Include="API\ServerStats.cs" />
     <Compile Include="API\Models\Ban.cs" />
     <Compile Include="API\Models\Character.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Framework\Commands\Debug\CmdGetInstanceId.cs" />
     <Compile Include="Framework\Commands\Money\CmdBonus.cs" />
     <Compile Include="Framework\Commands\Money\CmdSalary.cs" />
+    <Compile Include="Framework\Commands\Help\CmdReport.cs" />
     <Compile Include="Framework\Commands\RP\CmdPomoc.cs" />
     <Compile Include="Framework\Commands\RP\CmdBM.cs" />
     <Compile Include="Framework\Commands\RP\CmdSms.cs" />

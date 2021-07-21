@@ -57,12 +57,35 @@ router.post('/logs/chat', async (req, res) => {
     channel.send(embed)
 })
 
+const reportLogId = '867206290467192863'
+
+/*
+    steamId - string 
+    name - string 
+    message - string 
+*/
+router.post('/logs/report', async (req, res) => {
+    const obj = req.body
+    res.end()
+    if(obj.message == null || obj.message == ' ') return
+
+    const channel = await main.disClient.guilds.cache.get(main.guild).channels.cache.get(reportLogId)
+    const player = await getSteamUser(obj.steamId)
+
+    const embed = new MessageEmbed()
+        .setColor("#ff0808")
+        .setAuthor(obj.name, player.avatar, `https://steamcommunity.com/profiles/${obj.steamId}`)
+        .setDescription(obj.message)
+
+    channel.send(embed)
+})
+
 // ano viem lenivy som 
 async function getSteamUser(steamId){
     const SteamUserURI = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${main.steamAPIKey}&steamids=${steamId}`
     const steamUser = await fetch(SteamUserURI).then( (body) => body.json())
 
-    return steamUser.response.players[0];
+    return steamUser.response.players[0]
 }
 
 module.exports = router
