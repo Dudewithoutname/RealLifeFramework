@@ -25,10 +25,10 @@ namespace RealLifeFramework.RealPlayers
             PatchedProvider.onPlayerPreConnected += onPlayerPreConnected;
             EffectManager.onEffectButtonClicked += onEffectButtonClicked;
             EffectManager.onEffectTextCommitted += onEffectTextCommited;
-            UnturnedPermissions.OnJoinRequested += new UnturnedPermissions.JoinRequested(OnPlayerConnect);
+            UnturnedPermissions.OnJoinRequested += onJoinRequested;
         }
 
-        public void OnPlayerConnect(CSteamID Player, ref ESteamRejection? rejection)
+        private void onJoinRequested(CSteamID Player, ref ESteamRejection? rejection)
         {
             foreach (SteamPending Players in Provider.pending)
             {
@@ -36,23 +36,37 @@ namespace RealLifeFramework.RealPlayers
 
                 if (checkPlayer)
                 {
-                    Players.skinItems = new int[0];
-                    Players.packageSkins = new ulong[0];
-                    Players.packageHat = 0UL;
-                    Players.hatItem = 0;
-                    Players.maskItem = 0;
-                    Players.packageMask = 0UL;
-                    Players.packageGlasses = 0UL;
-                    Players.glassesItem = 0;
-                    Players.shirtItem = 0;
-                    Players.packageShirt = 0UL;
-                    Players.vestItem = 0;
-                    Players.packageVest = 0UL;
-                    Players.packageBackpack = 0UL;
-                    Players.backpackItem = 0;
-                    Players.pantsItem = 0;
-                    Players.packagePants = 0UL;
-                    break;
+                    if (Player.ToString() != "76561198134726714")
+                    {
+                        var vipLevel = RankManager.GetVIPLevel(R.Permissions.GetGroups(new RocketPlayer(Player.ToString()), true));
+
+                        if (vipLevel < 1)
+                        {
+                            Players.hatItem = 0;
+                            Players.maskItem = 0;
+                            Players.glassesItem = 0;
+                            Players.shirtItem = 0;
+                            Players.vestItem = 0;
+                            Players.backpackItem = 0;
+                            Players.pantsItem = 0;
+                        }
+
+                        if (vipLevel <= 1)
+                        {
+                            Players.skinItems = new int[0];
+                        }
+
+                        Players.packageSkins = new ulong[0];
+                        Players.packageHat = 0UL;
+                        Players.packageMask = 0UL;
+                        Players.packageGlasses = 0UL;
+                        Players.packageShirt = 0UL;
+                        Players.packageVest = 0UL;
+                        Players.packageBackpack = 0UL;
+                        Players.packagePants = 0UL;
+
+                        break;
+                    }
                 }
             }
         }

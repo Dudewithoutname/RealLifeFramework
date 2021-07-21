@@ -105,5 +105,32 @@ namespace RealLifeFramework.Ranks
 
             return (result != string.Empty) ? result : "Obcan";
         }
+
+        public static int GetVIPLevel(List<RocketPermissionsGroup> playerGroups)
+        {
+            if (playerGroups == null) return -1;
+
+            int lvl = -1;
+
+            foreach (var group in playerGroups)
+            {
+                foreach (var perm in group.Permissions)
+                {
+                    if (perm.Name.StartsWith("dude.vip"))
+                    {
+                        foreach (var vip in VIPs)
+                        {
+                            if (vip.PermIdentifier == perm.Name && vip.Level > lvl)
+                            {
+                                lvl = vip.Level;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return lvl;
+        }
+
     }
 }
