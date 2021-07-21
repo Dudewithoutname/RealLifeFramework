@@ -208,7 +208,6 @@
   <ItemGroup>
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
-    <Content Include="perms.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
