@@ -50,10 +50,10 @@ namespace RealLifeFramework.Skills
                     case 7:
                         return 1500;
                     default:
-                        return 0;
+                        return UInt32.MaxValue;
                 }
             else
-                return 0;
+                return UInt32.MaxValue;
         }
 
         public void Upgrade()
