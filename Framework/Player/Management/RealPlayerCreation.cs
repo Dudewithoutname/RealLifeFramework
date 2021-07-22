@@ -23,6 +23,8 @@ namespace RealLifeFramework.RealPlayers
         {
             PrePlayers = new Dictionary<CSteamID, PrePlayer>();
             Logger.Log("[CreationManager] Loaded");
+
+            Provider.onEnemyDisconnected += onEnemyDisconnect;
         }
 
         public static void OpenCreation(Player player)
@@ -220,6 +222,11 @@ namespace RealLifeFramework.RealPlayers
             return false;
         }
 
+        private static void onEnemyDisconnect(SteamPlayer player)
+        {
+            if (PrePlayers.ContainsKey(player.playerID.steamID))
+                PrePlayers.Remove(player.playerID.steamID);
+        }
     }
 
     public class PrePlayer
