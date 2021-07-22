@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Rocket.Core.Utils;
 
 namespace RealLifeFramework.ATM
 {
@@ -300,6 +301,7 @@ namespace RealLifeFramework.ATM
                                 try
                                 {
                                     byte index = item.getIndex(w, h);
+                                    byte itemPage = item.page;
 
                                     if (index == 255) continue;
 
@@ -308,7 +310,7 @@ namespace RealLifeFramework.ATM
                                         if (!finish)
                                         {
                                             amount += noteValue;
-                                            item.removeItem(index);
+                                            TaskDispatcher.QueueOnMainThread(() => rp.Player.inventory.removeItem(itemPage, index));
 
                                             if (count != 0 && amount == noteValue * count) finish = true;
                                         }
@@ -348,13 +350,14 @@ namespace RealLifeFramework.ATM
                                     try
                                     {
                                         byte index = item.getIndex(w, h);
+                                        byte itemPage = item.page;
 
                                         if (index == 255) continue;
 
                                         if (item.getItem(index).item.id == note.Key)
                                         {
                                             amount += note.Value;
-                                            item.removeItem(index);
+                                            TaskDispatcher.QueueOnMainThread(() => rp.Player.inventory.removeItem(itemPage, index) );                                            
                                         }
                                     }
                                     catch { }
