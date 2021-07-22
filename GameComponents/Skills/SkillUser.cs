@@ -24,7 +24,7 @@ namespace RealLifeFramework.Skills
 
         public void UpgradeEducation(int id)
         {
-            if(EducationPoints >= 1)
+            if (EducationPoints >= 1)
             {
                 if (Educations[id].Level <= Educations[id].MaxLevel)
                 {
@@ -38,8 +38,10 @@ namespace RealLifeFramework.Skills
         {
             var skill = Skills[id];
 
-            if(skill != null)
+            if (skill != null)
             {
+                if (skill.Level >= skill.MaxLevel) return;
+
                 skill.AddExp(amount);
 
                 if(id != Agitily.Id | id != Defense.Id)
@@ -51,7 +53,7 @@ namespace RealLifeFramework.Skills
         {
             var skill = Skills[id];
 
-            if (skill != null && skill.Level >= skill.MaxLevel)
+            if (skill != null && skill.Level < skill.MaxLevel)
             {
                 skill.Upgrade();
                 SkillManager.SendLevelUp(RealPlayer, id);

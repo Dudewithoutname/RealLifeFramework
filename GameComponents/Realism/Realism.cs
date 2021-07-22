@@ -34,7 +34,6 @@ namespace RealLifeFramework.Realism
 
             if (parameters.limb == ELimb.RIGHT_LEG | parameters.limb == ELimb.LEFT_LEG | parameters.limb == ELimb.LEFT_FOOT | parameters.limb == ELimb.RIGHT_FOOT)
             {
-                Logger.Log("test");
                 if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 3) == 1) // 25%
                 {
                     victim.life.breakLegs();
@@ -56,40 +55,35 @@ namespace RealLifeFramework.Realism
 
             if (parameters.cause == EDeathCause.GUN || parameters.cause == EDeathCause.MELEE)
             {
-                Logger.Log("test2");
 
                 switch (parameters.limb)
                 {
                     case ELimb.SKULL:
-                        if (parameters.cause == EDeathCause.MELEE && UnityEngine.Random.Range(0, 2) == 1)// 50%
+                        if (parameters.cause == EDeathCause.MELEE && UnityEngine.Random.Range(0, 3) == 1)
                         {
                             victim.life.serverModifyHallucination(5f);
                             victim.stance.stance = EPlayerStance.CROUCH;
                             victim.stance.checkStance(EPlayerStance.CROUCH);
                         }
-                        if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 4) == 1) // 20%
+                        if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 4) == 1)
                         {
                             victim.life.serverModifyHallucination(3f);
                         }
                         break;
 
-                    case ELimb.LEFT_HAND when (UnityEngine.Random.Range(0, 4) == 1): // 20%
-
+                    case ELimb.LEFT_HAND when (UnityEngine.Random.Range(0, 3) == 1): 
                         victim.equipment.dequip();
                         break;
 
-                    case ELimb.RIGHT_HAND when (UnityEngine.Random.Range(0, 4) == 1):// 20%
-
+                    case ELimb.RIGHT_HAND when (UnityEngine.Random.Range(0, 3) == 1):
                         victim.equipment.dequip();
                         break;
 
-                    case ELimb.LEFT_ARM when (UnityEngine.Random.Range(0, 5) == 1):// 17%
-
+                    case ELimb.LEFT_ARM when (UnityEngine.Random.Range(0, 4) == 1):
                         victim.life.breakLegs();
                         break;
 
-                    case ELimb.RIGHT_ARM when (UnityEngine.Random.Range(0, 5) == 1):// 17%
-
+                    case ELimb.RIGHT_ARM when (UnityEngine.Random.Range(0, 4) == 1):
                         victim.life.breakLegs();
                         break;
                 }
@@ -98,6 +92,11 @@ namespace RealLifeFramework.Realism
 
         private void onDamageVehicle(CSteamID instigatorSteamID, InteractableVehicle vehicle, ref ushort pendingTotalDamage, ref bool canRepair, ref bool shouldAllow, EDamageOrigin damageOrigin)
         {
+            if (instigatorSteamID != CSteamID.Nil)
+            {
+                shouldAllow = false;
+            }
+
             if (pendingTotalDamage <= 2)
                 return;
 
@@ -108,22 +107,28 @@ namespace RealLifeFramework.Realism
                     if (passenger == null)
                         continue;
 
-                    var player = RealPlayer.From(passenger.player.playerID.steamID);
-
-                    if (vehicle.asset.engine == EEngine.CAR && player != null)
+                    try
                     {
-                        if (!player.HUD.HasSeatBelt)
+                        var player = RealPlayer.From(passenger.player.playerID.steamID);
+
+
+                        if (vehicle.asset.engine == EEngine.CAR && player != null)
                         {
-                            player.Player.life.askDamage((byte)UnityEngine.Random.Range(25, 45), Vector3.zero, EDeathCause.VEHICLE, ELimb.SKULL, CSteamID.Nil, out EPlayerKill kill, false, ERagdollEffect.NONE, Convert.ToBoolean(UnityEngine.Random.Range(0,1)));
-                            VehicleManager.forceRemovePlayer(vehicle, passenger.player.playerID.steamID);
-                            player.Player.life.serverModifyHallucination(5f);
-                            player.Player.stance.stance = EPlayerStance.PRONE;
-                            player.Player.stance.checkStance(EPlayerStance.PRONE);
-                            player.Player.life.breakLegs();
+                            if (!player.HUD.HasSeatBelt)
+                            {
+                                player.Player.life.askDamage((byte)UnityEngine.Random.Range(25, 45), Vector3.zero, EDeathCause.VEHICLE, ELimb.SKULL, CSteamID.Nil, out EPlayerKill kill, false, ERagdollEffect.NONE, Convert.ToBoolean(UnityEngine.Random.Range(0,1)));
+                                VehicleManager.forceRemovePlayer(vehicle, passenger.player.playerID.steamID);
+                                player.Player.life.serverModifyHallucination(5f);
+                                player.Player.stance.stance = EPlayerStance.PRONE;
+                                player.Player.stance.checkStance(EPlayerStance.PRONE);
+                                player.Player.life.breakLegs();
+                            }
                         }
                     }
-                    // for some reason this should fix that strange bug
-                    break;
+                    catch
+                    {
+                        continue;
+                    }
                 }
             }
         }
