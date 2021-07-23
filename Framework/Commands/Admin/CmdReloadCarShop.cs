@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace RealLifeFramework.Commands
 {
-    public class CmdReloadCar : IRocketCommand
+    public class CmdReloadCarShop : IRocketCommand
     {
         public AllowedCaller AllowedCaller => AllowedCaller.Player;
 

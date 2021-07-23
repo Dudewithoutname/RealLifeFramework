@@ -14,6 +14,8 @@ namespace RealLifeFramework.Autobazar
     [EventHandler]
     public class CarShop : IEventComponent
     {
+        public static uint InstanceId = 0;
+
         private static BuyableCathegories cathegories;
         private static Dictionary<CSteamID, CarSession> sessions;
 
@@ -22,6 +24,8 @@ namespace RealLifeFramework.Autobazar
 
         public void HookEvents()
         {
+            InstanceId = RealLife.Instance.Configuration.Instance.CarShopSignIID;
+
             sessions = new Dictionary<CSteamID, CarSession>();
 
             if (DataManager.ExistData("Server", "Cars"))
@@ -67,7 +71,7 @@ namespace RealLifeFramework.Autobazar
                     var barricade = region.barricades[index];
                     if (barricade == null) return;
 
-                    if (barricade.instanceID == RealLife.Instance.Configuration.Instance.CarShopSignIID)
+                    if (barricade.instanceID == InstanceId)
                     {
                         OpenShop(RealPlayer.From(player));
                     }

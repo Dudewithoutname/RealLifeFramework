@@ -119,6 +119,7 @@
     <Compile Include="Framework\Chatting\Colors\NameColors.cs" />
     <Compile Include="Framework\Chatting\Colors\NameColor.cs" />
     <Compile Include="Framework\Chatting\ProfileData\ProfileData.cs" />
+    <Compile Include="Framework\Commands\Admin\CmdSetCarShop.cs" />
     <Compile Include="Framework\Commands\Admin\CmdShowNames.cs" />
     <Compile Include="Framework\Commands\Cosmetic\CmdColorName.cs" />
     <Compile Include="Framework\Commands\Admin\CmdReloadCarShop.cs" />

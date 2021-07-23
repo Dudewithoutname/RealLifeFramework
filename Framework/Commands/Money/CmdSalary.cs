@@ -65,19 +65,19 @@ namespace RealLifeFramework.Commands
                 //  PD
 
                 case "pd_kadet":
-                    return 4000;
-
-                case "pd_strazmajster":
-                    return 5000;
-
-                case "pd_nadstrazmajster":
                     return 6000;
 
-                case "pd_praporcik":
+                case "pd_strazmajster":
                     return 7500;
 
+                case "pd_nadstrazmajster":
+                    return 8500;
+
+                case "pd_praporcik":
+                    return 9500;
+
                 case "pd_porucik":
-                    return 10000;
+                    return 11000;
 
                 case "pd_major":
                     return 12000;
