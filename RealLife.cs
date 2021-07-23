@@ -12,6 +12,7 @@ using RealLifeFramework.Data;
 using RealLifeFramework.Threadding;
 using UnityEngine;
 using System.Reflection;
+using RealLifeFramework.Taser;
 
 namespace RealLifeFramework
 {
@@ -39,6 +40,7 @@ namespace RealLifeFramework
 
             EventManager.Load();
             RealPlayerCreation.Load();
+
             Level.onLevelLoaded += onServerLoaded;
             Provider.onCommenceShutdown += () => saveData();
             InvokeRepeating(nameof(saveData), 1800f, 1800f);

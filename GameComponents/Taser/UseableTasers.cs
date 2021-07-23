@@ -8,8 +8,7 @@ using UnityEngine;
 
 namespace RealLifeFramework.Taser
 {
-    [EventHandler]
-    public class Taser : MonoBehaviour
+    public class UseableTasers : MonoBehaviour
     {
         private List<CSteamID> tasedPlayers;
         private uint taserId => RealLife.Instance.Configuration.Instance.TaserID;
@@ -19,6 +18,13 @@ namespace RealLifeFramework.Taser
         {
             tasedPlayers = new List<CSteamID>();
             DamageTool.damagePlayerRequested += onPlayerDamage;
+            Provider.onEnemyDisconnected += onDisconnected;
+        }
+
+        private void onDisconnected(SteamPlayer player)
+        {
+            if (tasedPlayers.Contains(player.playerID.steamID))
+                tasedPlayers.Remove(player.playerID.steamID);
         }
 
         private void onPlayerDamage(ref DamagePlayerParameters parameters, ref bool shouldAllow)
