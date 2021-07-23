@@ -18,8 +18,8 @@ namespace RealLifeFramework
     public class RealLife : RocketPlugin<RealConfig>
     {
         public static RealLife Instance;
-        public Dictionary<CSteamID, RealPlayer> RealPlayers;
         public static bool Debugging = false;
+        public Dictionary<CSteamID, RealPlayer> RealPlayers;
         private Harmony harmony;
 
         // Novice, Beginner, Regular, Intermediate, Advanced, Expert, Professional, Master
@@ -28,7 +28,6 @@ namespace RealLifeFramework
         {
             Logger.Log("[Starting]- - - - - - - * RealLife * - - - - - - -");
             Logger.Log("[Author] : Dudewithoutname#3129");
-            
             Instance = this;
 
             DataManager.Settup();

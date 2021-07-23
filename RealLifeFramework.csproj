@@ -189,6 +189,8 @@
     <Compile Include="Framework\Ultility\UI.cs" />
     <Compile Include="API\Api.cs" />
     <Compile Include="Framework\Ultility\Logger.cs" />
+    <Compile Include="GameComponents\Taser\Taser.cs" />
+    <Compile Include="GameComponents\Taser\TaserController.cs" />
     <Compile Include="RealConfig.cs" />
     <Compile Include="RealLife.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
