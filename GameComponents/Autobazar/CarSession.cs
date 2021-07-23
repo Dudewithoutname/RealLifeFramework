@@ -14,7 +14,7 @@ namespace RealLifeFramework.Autobazar
         public int ColorOffset;
         public bool IsFinalPage;
 
-        public int Offset => Page*7;
+        public int Offset => Page*8;
 
         public CarSession()
         {

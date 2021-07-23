@@ -157,7 +157,7 @@ namespace RealLifeFramework.UserInterface
                     break;
 
                 case HUDComponent.Credit:
-                    EffectManager.sendUIEffectText(HudKey, Player.TransportConnection, true, component, formatMoney(Player.CreditCardMoney.ToString())); 
+                    EffectManager.sendUIEffectText(HudKey, Player.TransportConnection, true, component, Currency.FormatMoney(Player.CreditCardMoney.ToString())); 
                     break;
             }
         }

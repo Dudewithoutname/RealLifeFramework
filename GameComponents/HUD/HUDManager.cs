@@ -53,7 +53,7 @@ namespace RealLifeFramework.UserInterface
         {
             var rp = RealPlayer.From(player);
 
-            if(rp != null)
+            if (rp != null)
             {
                 player.player.inventory.onInventoryAdded -= rp.HUD.onInventoryAdded;
                 player.player.inventory.onInventoryRemoved -= rp.HUD.onInventoryRemoved;
@@ -65,7 +65,17 @@ namespace RealLifeFramework.UserInterface
         {
             var rp = RealPlayer.From(skills.player);
 
-            rp.HUD.UpdateComponent(HUDComponent.Credit);
+            if (rp != null)
+            {
+                if (exp == 0)
+                {
+                    rp.HUD.UpdateComponent(HUDComponent.Credit, Currency.FormatMoney(rp.CreditCardMoney.ToString()));
+                }
+                else
+                {
+                    rp.HUD.UpdateComponent(HUDComponent.Credit);
+                }
+            }
         }
 
         private static void onPlayerDeath(UnturnedPlayer player, EDeathCause cause, ELimb limb, CSteamID murderer)

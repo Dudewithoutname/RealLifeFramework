@@ -30,17 +30,20 @@ namespace RealLifeFramework.Commands
             {
                 if (player.HUD.HasSeatBelt)
                 {
+                    player.HUD.HasSeatBelt = false;
                     EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, player.TransportConnection, false);
                     player.HUD.UpdateComponent(HUDComponent.Seatbelt[1], false);
                     player.HUD.UpdateComponent(HUDComponent.Seatbelt[0], true);
                 }
                 else
                 {
+                    player.HUD.HasSeatBelt = true;
                     EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, player.TransportConnection, false);
                     player.HUD.UpdateComponent(HUDComponent.Seatbelt[0], false);
                     player.HUD.UpdateComponent(HUDComponent.Seatbelt[1], true);
                 }
             }
+
         }
     }
 }

@@ -44,6 +44,14 @@ namespace RealLifeFramework.Autobazar
 
             EffectManager.onEffectButtonClicked += onButtonClicked;
             PlayerEquipment.OnPunch_Global += (equipment, punch) => onPunch(equipment.player);
+            Provider.onEnemyDisconnected += onDisconnected;
+        }
+
+
+        private void onDisconnected(SteamPlayer player)
+        {
+            if (sessions.ContainsKey(player.playerID.steamID))
+                sessions.Remove(player.playerID.steamID);
         }
 
         private void onPunch(Player player)
@@ -79,9 +87,9 @@ namespace RealLifeFramework.Autobazar
             {
                 DataManager.CreateData("server", "cars", new BuyableCathegories()
                 {
-                    Sports = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
+                    Sports = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "vanilla" } },
                     Hatchbacks = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
-                    OffRoad = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
+                    OffRoad = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "none" } },
                     Sedans = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     SUV = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     Trucks = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
@@ -199,7 +207,7 @@ namespace RealLifeFramework.Autobazar
             {
                 if (int.TryParse(buttonName[4].ToString(), out int result))
                 {
-                    SelectCar(rp, result);
+                    SelectCar(rp, getRightPosReverse(result));
                 }
             }
         }
@@ -259,7 +267,7 @@ namespace RealLifeFramework.Autobazar
             if (sessions[player.CSteamID].Page < 0) return;
 
             var cathegory = cathegories.GetCathegoryById(cathegoryId);
-            var offset = page * 7;
+            var offset = page * 8;
             sessions[player.CSteamID].Page = page;
 
             if (cathegory.Length > 8)
@@ -279,22 +287,77 @@ namespace RealLifeFramework.Autobazar
 
                 try
                 {
+                    var uiPos = getRightPos(i);
                     var car = cathegory[index];
-                    EffectManager.sendUIEffectVisibility(key, player.TransportConnection, true, $"car[{i}]", true);
-                    EffectManager.sendUIEffectText(key, player.TransportConnection, true, $"car[{i}].name", car.Name);
-                    EffectManager.sendUIEffectImageURL(key, player.TransportConnection, true, $"car[{i}].image", car.IconURL);
+
+                    EffectManager.sendUIEffectVisibility(key, player.TransportConnection, true, $"car[{uiPos}]", true);
+                    EffectManager.sendUIEffectText(key, player.TransportConnection, true, $"car[{uiPos}].name", car.Name);
+                    EffectManager.sendUIEffectImageURL(key, player.TransportConnection, true, $"car[{uiPos}].image", car.IconURL);
+
                 }
                 catch 
                 {
-                    EffectManager.sendUIEffectVisibility(key, player.TransportConnection, true, $"car[{i}]", false);
+                    var uiPos = getRightPos(i);
+
+                    EffectManager.sendUIEffectVisibility(key, player.TransportConnection, true, $"car[{uiPos}]", false);
+
                     if (i == 7) isLast = true;
                     continue;
                 }
             }
 
+            if (8 == cathegory.Length && offset == 0) isLast = true;
+
             sessions[player.CSteamID].IsFinalPage = isLast;
 
             return;
+        }
+
+        // Why Cuz I Am Fucking Dumb :) and i've wrongly named UI ....
+        private static int getRightPos(int index)
+        {
+            if (index >= 4)
+            {
+                switch (index)
+                {
+                    case 4:
+                        return 6;
+
+                    case 5:
+                        return 4;
+
+                    case 6:
+                        return 7;
+
+                    case 7:
+                        return 5;
+                }
+            }
+
+            return index;
+        }
+
+        private static int getRightPosReverse(int index)
+        {
+            if (index >= 4)
+            {
+                switch (index)
+                {
+                    case 6:
+                        return 4;
+
+                    case 4:
+                        return 5;
+
+                    case 7:
+                        return 6;
+
+                    case 5:
+                        return 7;
+                }
+            }
+
+            return index;
         }
 
         public static void SelectCar(RealPlayer player, int uiIndex)
@@ -320,12 +383,13 @@ namespace RealLifeFramework.Autobazar
             EffectManager.sendUIEffectText(key, player.TransportConnection, true, $"bazar_ins_fuel", (vehicle.fuelMax > 0) ? $": {vehicle.fuelMax / 10} l" : ": ");
             EffectManager.sendUIEffectText(key, player.TransportConnection, true, $"bazar_ins_cost", $": {Currency.FormatMoney(car.Cost.ToString())}");
 
-            if (session.SelectedCar.Pallete == "none" | CarPalletes.GetPallete(session.SelectedCar.Pallete) == null)
+            if (session.SelectedCar.Pallete == "none" || CarPalletes.GetPallete(session.SelectedCar.Pallete) == null)
             {
                 EffectManager.sendUIEffectVisibility(key, player.TransportConnection, true, $"bazar_ins_colors", false);
             }
             else
             {
+                EffectManager.sendUIEffectVisibility(key, player.TransportConnection, true, $"bazar_ins_colors", true);
                 EffectManager.sendUIEffectText(key, player.TransportConnection, true, $"bazar_ins_name", $"<color={CarPalletes.Hex["black"]}>{car.Name}</color>");
             }
 
