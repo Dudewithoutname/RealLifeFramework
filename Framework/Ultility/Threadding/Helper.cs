@@ -18,9 +18,9 @@ namespace RealLifeFramework.Threadding
                 {
                     action();
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    Logger.Log(ex.ToString());
                 }
             });
         }

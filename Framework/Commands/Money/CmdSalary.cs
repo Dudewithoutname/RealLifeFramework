@@ -108,10 +108,10 @@ namespace RealLifeFramework.Commands
                     return 500;
 
                 case "amazon":
-                    return 500;
+                    return 1000;
 
                 case "mechanik":
-                    return 3000;
+                    return 4000;
 
                 default: 
                     return 0;
