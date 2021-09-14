@@ -35,9 +35,9 @@ namespace RealLifeFramework
 
             DataManager.Settup();
 
-            /*DatabaseManager.Create();
+            DatabaseManager.Create();
             DatabaseManager.Singleton.Setup();
-            //DatabaseManager.Singleton.Clear(); */
+            //DatabaseManager.Singleton.Clear();
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
