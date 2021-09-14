@@ -13,6 +13,7 @@ using RealLifeFramework.Threadding;
 using UnityEngine;
 using System.Reflection;
 using RealLifeFramework.Taser;
+using RealLifeFramework.Database;
 
 namespace RealLifeFramework
 {
@@ -27,11 +28,16 @@ namespace RealLifeFramework
 
         protected override void Load()
         {
+            
             Logger.Log("[Starting]- - - - - - - * RealLife * - - - - - - -");
             Logger.Log("[Author] : Dudewithoutname#3129");
             Instance = this;
 
             DataManager.Settup();
+
+            /*DatabaseManager.Create();
+            DatabaseManager.Singleton.Setup();
+            //DatabaseManager.Singleton.Clear(); */
 
             harmony = new Harmony("RLFUnturned");
             harmony.PatchAll();
@@ -75,21 +81,19 @@ namespace RealLifeFramework
         private void onServerLoaded(int level)
         {
             Provider.maxPlayers = 74;
-            SteamGameServer.SetServerName("CZ/SK | DudeTurned Roleplay");
+            SteamGameServer.SetServerName("CZ/SK | DudeTurned Roleplay RP");
             SteamGameServer.SetGameDescription("<color=#fb9d8f>| 0 Hracov | 0 EMS | 0 PD |</color>");
             SteamGameServer.SetMaxPlayerCount(24);
             SteamGameServer.SetBotPlayerCount(0);
+            SteamGameServer.SetKeyValue("pf", "rm");
             SteamGameServer.SetKeyValue("rocketplugins",
-            " | * DudeTurned Roleplay," +
-            " | * Plugin: RealLifeFramework," +
-           $" | * Version: {Assembly.GetName().Version}," +
-            " | * Author: Dudewithoutname#3129" +
-            "");
+            "Dudewithoutname#3129" +
+            "hmm, potrebujes nieco ? :D");
 
             DiscordBotManager.Load();
-            InvokeRepeating(nameof(trashMethod), 20f, 20f);
+            InvokeRepeating(nameof(updateStats), 20f, 20f);
         }
 
-        private void trashMethod() => DiscordBotManager.UpdateServerStats();
+        private void updateStats() => DiscordBotManager.UpdateServerStats();
     }
 }

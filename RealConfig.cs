@@ -1,4 +1,5 @@
-﻿using Rocket.API;
+﻿using RealLifeFramework.Database;
+using Rocket.API;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace RealLifeFramework
 {
     public class RealConfig : IRocketPluginConfiguration
     {
+        public ConnectionString ConString;
         public string DiscordInvite;
         public string SteamGroupInvite;
         public uint StartingExp;
@@ -28,6 +30,15 @@ namespace RealLifeFramework
 
         public void LoadDefaults()
         {
+            ConString = new ConnectionString()
+            {
+                Server = "127.0.0.1",
+                Database = "unturned",
+                Username = "root",
+                Password = "",
+                Port = "3306",
+            };
+
             DiscordInvite = "https://discord.gg/zqF5PQYGpq";
             SteamGroupInvite = "https://steamcommunity.com/groups/dturnednoscamnohack69";
             StartingExp = 2500;

@@ -164,6 +164,9 @@
     <Compile Include="Framework\Commands\Skills\Skill.cs" />
     <Compile Include="Framework\Commands\Skills\Skills.cs" />
     <Compile Include="Framework\Commands\Ultilities\CmdRefresh.cs" />
+    <Compile Include="Framework\Database\Models\ConnectionString.cs" />
+    <Compile Include="Framework\Database\Database.cs" />
+    <Compile Include="Framework\Database\Models\ITable.cs" />
     <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />
@@ -240,10 +243,6 @@
   <ItemGroup>
     <Content Include="aLibs\0Harmony.dll" />
     <Content Include="aLibs\MySql.Data.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -20,7 +20,7 @@ namespace RealLifeFramework.Realism
         private void onPlayerDamage(ref DamagePlayerParameters parameters, ref bool shouldAllow)
         {
             if ((object)parameters.killer == (object)CSteamID.Nil) return;
-
+            
             var victim = parameters.player;
             var attacker = PlayerTool.getPlayer(parameters.killer);
 
