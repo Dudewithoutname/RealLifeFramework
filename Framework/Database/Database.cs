@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace RealLifeFramework.Database
 {
@@ -107,6 +108,41 @@ namespace RealLifeFramework.Database
             else
             {
                 return null;
+            }
+        }
+
+        public async Task<string> GetAsync(string table, string what, string name, string value)
+        {
+            string x = null;
+
+            if (IsConnect())
+            {
+
+                string query = $" SELECT {what} FROM {table} WHERE {name} = '{value}' ";
+                var cmd = new MySqlCommand(query, this.Connection);
+                var reader = await cmd.ExecuteReaderAsync();
+
+                while (reader.Read())
+                {
+                    x = reader[0].ToString();
+                }
+
+                reader.Close();
+                return x;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task SetAsync(string table, string playerId, string key, string value)
+        {
+            if (IsConnect())
+            {
+                string query = $" UPDATE {table} SET {key} = '{value}' WHERE steamid = {playerId} ";
+                var cmd = new MySqlCommand(query, this.Connection);
+                await cmd.ExecuteNonQueryAsync();
             }
         }
         #endregion

@@ -24,5 +24,20 @@ namespace RealLifeFramework.Threadding
                 }
             });
         }
+
+        public static void ExecuteAsync(Func<Task> task)
+        {
+            ThreadPool.QueueUserWorkItem(async (_) =>
+            {
+                try
+                {
+                    await task();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex.ToString());
+                }
+            });
+        }
     }
 }

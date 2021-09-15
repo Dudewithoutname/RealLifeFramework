@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TTTUnturned.Utils
+namespace RealLifeFramework.Threadding
 {
     public static class AsyncHelper
     {

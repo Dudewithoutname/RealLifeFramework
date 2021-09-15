@@ -173,7 +173,9 @@
     <Compile Include="Framework\Data\ISaveable.cs" />
     <Compile Include="Framework\Player\RealPlayerComponent.cs" />
     <Compile Include="Framework\Player\PlayerData\RealPlayerData.cs" />
-    <Compile Include="Framework\Ultility\AsyncHelper.cs" />
+    <Compile Include="Framework\Security\EGuardBanResult.cs" />
+    <Compile Include="Framework\Security\GuardTable.cs" />
+    <Compile Include="Framework\Ultility\Threadding\AsyncHelper.cs" />
     <Compile Include="GameComponents\Autobazar\Data\BuyableCar.cs" />
     <Compile Include="GameComponents\Autobazar\Data\BuyableCathegories.cs" />
     <Compile Include="GameComponents\Autobazar\CarPalletes.cs" />

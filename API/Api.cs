@@ -13,7 +13,7 @@ namespace RealLifeFramework
         public static void Send(string route, string rawJson)
         {
             // async
-            Helper.Execute(() =>
+            Helper.ExecuteAsync( async () =>
             {
                 string json = $"{{ \"token\" : \"{token}\", {rawJson.Remove(0, 1)}"; // WOW this is called pro programming :DDDDDDDDDDDD ano som moc jebly ze ?
                 try
@@ -22,16 +22,16 @@ namespace RealLifeFramework
                     webRequest.ContentType = "application/json";
                     webRequest.Method = "POST";
 
-                    using (var sw = new StreamWriter(webRequest.GetRequestStream()))
+                    using (var sw = new StreamWriter(await webRequest.GetRequestStreamAsync()))
                     {
                         sw.Write(json);
                     }
 
-                    var response = webRequest.GetResponse();
+                    var response = await webRequest.GetResponseAsync();
                 }
-                catch 
+                catch (Exception ex)
                 {
-                    //Logger.Log($"[API Error] : {ex}");
+                    Logger.Log($"[API Error] : {ex}");
                 }
             });
         }
