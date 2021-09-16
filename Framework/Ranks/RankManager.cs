@@ -10,7 +10,7 @@ namespace RealLifeFramework.Ranks
 {
     public static class RankManager
     {
-        // unemployed default job
+        // unemployed == default job
         public static readonly string PlayerPermission = "dude.player";
         public static readonly string PolicePermission = "dude.jobs.police";
         public static readonly string EMSPermission = "dude.jobs.ems";

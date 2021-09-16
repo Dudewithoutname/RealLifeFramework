@@ -165,8 +165,9 @@
     <Compile Include="Framework\Commands\Skills\Skills.cs" />
     <Compile Include="Framework\Commands\Ultilities\CmdRefresh.cs" />
     <Compile Include="Framework\Database\Models\ConnectionString.cs" />
-    <Compile Include="Framework\Database\Database.cs" />
+    <Compile Include="Framework\Database\DatabaseManager.cs" />
     <Compile Include="Framework\Database\Models\ITable.cs" />
+    <Compile Include="Framework\Database\Models\DatabaseTable.cs" />
     <Compile Include="Framework\Data\DataManager.cs" />
     <Compile Include="Framework\Chatting\ChatProfile.cs" />
     <Compile Include="Framework\Chatting\VoiceChat.cs" />

@@ -7,6 +7,7 @@ using Rocket.Unturned.Player;
 using RealLifeFramework.Chatting;
 using RealLifeFramework.Patches;
 using RealLifeFramework.Threadding;
+using Rocket.Core.Utils;
 
 namespace RealLifeFramework.UserInterface
 {
@@ -88,7 +89,7 @@ namespace RealLifeFramework.UserInterface
                     }
                 }
 
-                UpdateComponent(HUDComponent.Wallet, formatMoney(WalletMoney.ToString()));
+                TaskDispatcher.QueueOnMainThread( () => UpdateComponent(HUDComponent.Wallet, formatMoney(WalletMoney.ToString())) );
             });
         }
 
@@ -202,16 +203,23 @@ namespace RealLifeFramework.UserInterface
                     if (HasSeatBelt)
                     {
                         HasSeatBelt = false;
-                        EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, Player.TransportConnection, false);
-                        UpdateComponent(HUDComponent.Seatbelt[1], false);
-                        UpdateComponent(HUDComponent.Seatbelt[0], true);
+                        TaskDispatcher.QueueOnMainThread(() =>
+                        {
+                            EffectManager.sendUIEffect(HUDComponent.RemoveBelt, 956, Player.TransportConnection, true);
+                            UpdateComponent(HUDComponent.Seatbelt[1], false);
+                            UpdateComponent(HUDComponent.Seatbelt[0], true);
+                        });
                     }
                     else
                     {
-                        HasSeatBelt = true;
-                        EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, Player.TransportConnection, false);
-                        UpdateComponent(HUDComponent.Seatbelt[0], false);
-                        UpdateComponent(HUDComponent.Seatbelt[1], true);
+                        TaskDispatcher.QueueOnMainThread(() =>
+                        {
+
+                            HasSeatBelt = true;
+                            EffectManager.sendUIEffect(HUDComponent.UseBelt, 956, Player.TransportConnection, true);
+                            UpdateComponent(HUDComponent.Seatbelt[0], false);
+                            UpdateComponent(HUDComponent.Seatbelt[1], true);
+                        });
                     }
                 }
             }

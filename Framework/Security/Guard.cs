@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using SDG.Unturned;
 using Steamworks;
@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using RealLifeFramework.Data;
 using RealLifeFramework.Data.Models;
 using RealLifeFramework.Threadding;
+using RealLifeFramework.RealPlayers;
 
 namespace RealLifeFramework.Security
 {
@@ -22,13 +23,13 @@ namespace RealLifeFramework.Security
 
         public void HookEvents()
         {
-             
             playersToBan = new List<CSteamID>();
-            Provider.onEnemyConnected += onEnemyConnected;
+            U.Events.OnPlayerConnected += onPlayerConnected;
             Provider.onCheckBanStatusWithHWID += checkBan;
 
             Provider.onBanPlayerRequested += onPlayerBanned;
             Provider.onUnbanPlayerRequested += onPlayerUnbanned;
+            Logger.Log("[Guard] Yoo, started watching (҂-_-)︻デ═一!");
         }
 
         private void onPlayerBanned(CSteamID instigator, CSteamID playerToBan, uint ipToBan, ref string reason, ref uint duration, ref bool shouldVanillaBan)
@@ -56,12 +57,13 @@ namespace RealLifeFramework.Security
             Logger.Log($"[Guard] Successfuly unbaned player {playerToUnban}!");
         }
 
-        private void onEnemyConnected(SteamPlayer player)
+        private void onPlayerConnected(UnturnedPlayer player)
         {
-            if (playersToBan.Contains(player.playerID.steamID))
+            if (playersToBan.Contains(player.CSteamID))
             {
-                Provider.ban(player.playerID.steamID, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", 2678400);
-                playersToBan.Remove(player.playerID.steamID);
+                RealPlayerManager.NotAllowed.Add(player.CSteamID);
+                Provider.ban(player.CSteamID, $"[GUARD] HWID banned! for more info check discord {RealLife.Instance.Configuration.Instance.DiscordInvite}", 86400);
+                playersToBan.Remove(player.CSteamID);
             }
         }
 
@@ -86,4 +88,4 @@ namespace RealLifeFramework.Security
             });
         }
     }
-}
+}*/

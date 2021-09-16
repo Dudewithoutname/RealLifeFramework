@@ -36,7 +36,6 @@ namespace RealLifeFramework
             DataManager.Settup();
 
             DatabaseManager.Create();
-            DatabaseManager.Singleton.Setup();
             //DatabaseManager.Singleton.Clear();
 
             harmony = new Harmony("RLFUnturned");
@@ -88,7 +87,7 @@ namespace RealLifeFramework
             SteamGameServer.SetKeyValue("pf", "rm");
             SteamGameServer.SetKeyValue("rocketplugins",
             "Dudewithoutname#3129" +
-            "hmm, potrebujes nieco ? :D");
+            ",hmm, potrebujes nieco ? :D");
 
             DiscordBotManager.Load();
             InvokeRepeating(nameof(updateStats), 20f, 20f);

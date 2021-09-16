@@ -14,8 +14,7 @@ namespace RealLifeFramework
 
             GetEventComponents();
 
-            foreach (IEventComponent component in EventComponents)
-                component.HookEvents();
+            foreach (IEventComponent component in EventComponents) component.HookEvents();
 
             Logger.Log("[EventManager] EventComponents were loaded");
         }

@@ -31,7 +31,7 @@ namespace RealLifeFramework
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log($"[API Error] : {ex}");
+                    //Logger.Log($"[API Error] : {ex}");
                 }
             });
         }

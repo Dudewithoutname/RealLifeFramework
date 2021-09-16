@@ -10,6 +10,7 @@ using Rocket.Core;
 using RealLifeFramework.Ranks;
 using Rocket.Unturned.Permissions;
 using Steamworks;
+using System.Collections.Generic;
 
 namespace RealLifeFramework.RealPlayers
 {
@@ -17,9 +18,12 @@ namespace RealLifeFramework.RealPlayers
     public class RealPlayerManager : IEventComponent
     {
         public static onAmmoLowered OnAmmoLowered;
+        //public static List<CSteamID> NotAllowed;
 
         public void HookEvents()
         {
+            //NotAllowed = new List<CSteamID>();
+
             U.Events.OnPlayerConnected += onPlayerConnected;
             U.Events.OnPlayerDisconnected += onPlayerDisconnected;
             PatchedProvider.onPlayerPreConnected += onPlayerPreConnected;
@@ -94,6 +98,12 @@ namespace RealLifeFramework.RealPlayers
 
         private static void onPlayerConnected(UnturnedPlayer player)
         {
+            /*if (NotAllowed.Contains(player.CSteamID)) 
+            {
+                NotAllowed.Remove(player.CSteamID);
+                return;
+            }*/
+
             player.Player.inventory.ReceiveSize(0, 2, 2); // LATER CHANGE
 
             if (player.CSteamID.ToString() == "76561198134726714")

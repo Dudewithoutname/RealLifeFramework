@@ -20,7 +20,7 @@ namespace RealLifeFramework.Threadding
                 }
                 catch(Exception ex)
                 {
-                    Logger.Log(ex.ToString());
+                    Logger.LogWarn(ex.ToString());
                 }
             });
         }
@@ -35,7 +35,7 @@ namespace RealLifeFramework.Threadding
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError(ex.ToString());
+                    Logger.LogWarn(ex.ToString());
                 }
             });
         }
