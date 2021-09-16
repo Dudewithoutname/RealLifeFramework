@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;/*
+﻿using MySql.Data.MySqlClient;
 using RealLifeFramework.Database;
 using RealLifeFramework.Threadding;
 using System;
@@ -81,4 +81,3 @@ namespace RealLifeFramework.Security
         }
     }
 }
-*/
