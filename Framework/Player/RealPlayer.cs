@@ -215,50 +215,15 @@ namespace RealLifeFramework.RealPlayers
 
         #region GetRealPlayer
 
-        public static RealPlayer From(SteamPlayer player)
-        {
-            if (RealLife.Instance.RealPlayers.ContainsKey(player.playerID.steamID))
-                return RealLife.Instance.RealPlayers[player.playerID.steamID];
-            else
-                return null;
-        }
+        public static RealPlayer From(SteamPlayer player) => RealLife.Instance.RealPlayers.ContainsKey(player.playerID.steamID) ? RealLife.Instance.RealPlayers[player.playerID.steamID] : null;
 
-        public static RealPlayer From(CSteamID csteamid)
-        {
-            if (RealLife.Instance.RealPlayers.ContainsKey(csteamid))
-                return RealLife.Instance.RealPlayers[csteamid];
-            else
-                return null;
-        }
+        public static RealPlayer From(CSteamID csteamid) => RealLife.Instance.RealPlayers.ContainsKey(csteamid) ? RealLife.Instance.RealPlayers[csteamid] : null;
 
-        public static RealPlayer From(UnturnedPlayer player)
-        {
-            if (RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID))
-                return RealLife.Instance.RealPlayers[player.CSteamID];
-            else
-                return null;
-        }
+        public static RealPlayer From(UnturnedPlayer player) => RealLife.Instance.RealPlayers.ContainsKey(player.CSteamID) ? RealLife.Instance.RealPlayers[player.CSteamID] : null;
 
-        public static RealPlayer From(IRocketPlayer player)
-        {
-            var p = (UnturnedPlayer)player;
+        public static RealPlayer From(IRocketPlayer player) => RealLife.Instance.RealPlayers.ContainsKey(((UnturnedPlayer)player).CSteamID) ? RealLife.Instance.RealPlayers[((UnturnedPlayer)player).CSteamID] : null;
 
-            if (RealLife.Instance.RealPlayers.ContainsKey(p.CSteamID))
-                return RealLife.Instance.RealPlayers[p.CSteamID];
-            else
-                return null;
-
-        }
-
-        public static RealPlayer From(Player player)
-        {
-            CSteamID p = player.channel.owner.playerID.steamID;
-
-            if (RealLife.Instance.RealPlayers.ContainsKey(p))
-                return RealLife.Instance.RealPlayers[p];
-            else
-                return null;
-        }
+        public static RealPlayer From(Player player) => RealLife.Instance.RealPlayers.ContainsKey(player.channel.owner.playerID.steamID) ? RealLife.Instance.RealPlayers[player.channel.owner.playerID.steamID] : null;
 
         #endregion
     }

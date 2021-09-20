@@ -25,7 +25,7 @@ namespace RealLifeFramework.RealPlayers
             {
                 if (rayCastInfo.player.channel.owner.playerID.steamID.ToString() != Player.CSteamID.ToString())
                 {
-                    if ((object)rayCastInfo.player.equipment.asset != null)
+                    if (rayCastInfo.player.equipment.asset != null)
                     {
                         if (rayCastInfo.player.equipment.asset.id == CitizenId.ItemId)
                         {

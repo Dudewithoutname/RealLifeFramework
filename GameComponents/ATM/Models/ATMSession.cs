@@ -12,15 +12,15 @@ namespace RealLifeFramework.ATM
         public Player Player;
         public string[] Data;
         public ATMCathegory CurrentCathegory;
-        public bool depositAllCycle;
-        public bool isDoingWork;
+        public bool DepositAllCycle;
+        public bool IsDoingWork;
 
         public ATMSession(Player player)
         {
             Player = player;
             Data = new string[5];
-            depositAllCycle = false;
-            isDoingWork = false;
+            DepositAllCycle = false;
+            IsDoingWork = false;
             CurrentCathegory = ATMCathegory.Menu;
         }
     }

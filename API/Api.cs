@@ -15,7 +15,7 @@ namespace RealLifeFramework
             // async
             Helper.ExecuteAsync( async () =>
             {
-                string json = $"{{ \"token\" : \"{token}\", {rawJson.Remove(0, 1)}"; // WOW this is called pro programming :DDDDDDDDDDDD ano som moc jebly ze ?
+                var json = $"{{ \"token\" : \"{token}\", {rawJson.Remove(0, 1)}"; // WOW this is called pro programming :DDDDDDDDDDDD ano som moc jebly ze ?
                 try
                 {
                     var webRequest = WebRequest.Create($"{domain}{route}");
@@ -24,12 +24,12 @@ namespace RealLifeFramework
 
                     using (var sw = new StreamWriter(await webRequest.GetRequestStreamAsync()))
                     {
-                        sw.Write(json);
+                        await sw.WriteAsync(json);
                     }
 
                     var response = await webRequest.GetResponseAsync();
                 }
-                catch (Exception ex)
+                catch
                 {
                     //Logger.Log($"[API Error] : {ex}");
                 }

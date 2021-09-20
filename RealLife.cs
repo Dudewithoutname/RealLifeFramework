@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SDG.Unturned;
 using Rocket.Core.Plugins;
-using Rocket.Unturned;
-using Rocket.Unturned.Events;
 using Steamworks;
 using RealLifeFramework.RealPlayers;
-using RealLifeFramework.Items;
 using HarmonyLib;
 using RealLifeFramework.Data;
 using RealLifeFramework.Threadding;
-using UnityEngine;
-using System.Reflection;
-using RealLifeFramework.Taser;
 using RealLifeFramework.Database;
+
+// ReSharper disable InconsistentNaming
 
 namespace RealLifeFramework
 {
@@ -22,7 +17,7 @@ namespace RealLifeFramework
         public static RealLife Instance;
         public static bool Debugging = false;
         public Dictionary<CSteamID, RealPlayer> RealPlayers;
-        private Harmony harmony;
+        private Harmony _harmony;
 
         // Novice, Beginner, Regular, Intermediate, Advanced, Expert, Professional, Master
 
@@ -32,14 +27,14 @@ namespace RealLifeFramework
             Logger.Log("[Starting]- - - - - - - * RealLife * - - - - - - -");
             Logger.Log("[Author] : Dudewithoutname#3129");
             Instance = this;
-
+            
             DataManager.Settup();
 
             DatabaseManager.Create();
             //DatabaseManager.Singleton.Clear();
 
-            harmony = new Harmony("RLFUnturned");
-            harmony.PatchAll();
+            _harmony = new Harmony("RLFUnturned");
+            _harmony.PatchAll();
                         
             RealPlayers = new Dictionary<CSteamID, RealPlayer>();
 
@@ -47,7 +42,7 @@ namespace RealLifeFramework
             RealPlayerCreation.Load();
 
             Level.onLevelLoaded += onServerLoaded;
-            Provider.onCommenceShutdown += () => saveData();
+            Provider.onCommenceShutdown += saveData;
             InvokeRepeating(nameof(saveData), 1800f, 1800f);
 
             CommandWindow.shouldLogJoinLeave = false;
@@ -58,7 +53,7 @@ namespace RealLifeFramework
         protected override void Unload()
         {
             Logger.Log("Unloading is unsupported!");
-            harmony.UnpatchAll();
+            _harmony.UnpatchAll();
             Instance = null;
         }
 

@@ -177,6 +177,7 @@
     <Compile Include="Framework\Security\EGuardBanResult.cs" />
     <Compile Include="Framework\Security\GuardTable.cs" />
     <Compile Include="Framework\Ultility\Threadding\AsyncHelper.cs" />
+    <Compile Include="GameComponents\ATM\Models\ItemCords.cs" />
     <Compile Include="GameComponents\Autobazar\Data\BuyableCar.cs" />
     <Compile Include="GameComponents\Autobazar\Data\BuyableCathegories.cs" />
     <Compile Include="GameComponents\Autobazar\CarPalletes.cs" />
@@ -203,7 +204,7 @@
     <Compile Include="Framework\Ultility\Patches\ChangeFiremode.cs" />
     <Compile Include="GameComponents\ATM\ATMCathegory.cs" />
     <Compile Include="GameComponents\ATM\ATMManager.cs" />
-    <Compile Include="GameComponents\ATM\ATMSession.cs" />
+    <Compile Include="GameComponents\ATM\Models\ATMSession.cs" />
     <Compile Include="GameComponents\License\CitizenId.cs" />
     <Compile Include="Framework\Items\Currency.cs" />
     <Compile Include="GameComponents\HUD\HUD.cs" />

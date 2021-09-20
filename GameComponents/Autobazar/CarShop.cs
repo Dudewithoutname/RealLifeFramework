@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using RealLifeFramework.Data;
 using RealLifeFramework.RealPlayers;
 using SDG.Unturned;
 using Steamworks;
-using System.Linq;
-using RealLifeFramework.Threadding;
-using System.Configuration;
 
 namespace RealLifeFramework.Autobazar
 {
@@ -65,16 +61,11 @@ namespace RealLifeFramework.Autobazar
                 var transform = hit.transform;
                 if ((object)transform == null) return;
 
-                if (BarricadeManager.tryGetInfo(hit.transform, out _, out _, out _, out var index, out var region))
+                var barricade = BarricadeManager.FindBarricadeByRootTransform(transform);
+
+                if (barricade != null && barricade.instanceID == InstanceId)
                 {
-
-                    var barricade = region.barricades[index];
-                    if (barricade == null) return;
-
-                    if (barricade.instanceID == InstanceId)
-                    {
-                        OpenShop(RealPlayer.From(player));
-                    }
+                    OpenShop(RealPlayer.From(player));
                 }
             }
         }
@@ -99,7 +90,6 @@ namespace RealLifeFramework.Autobazar
                     Trucks = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     Bikes = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
                     Special = new BuyableCar[] { new BuyableCar() { Cost = 2, IconURL = "a", Id = 0, Name = "example", Pallete = "jpepe" } },
-
                 });
             }
         }

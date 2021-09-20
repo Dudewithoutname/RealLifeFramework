@@ -32,19 +32,18 @@ namespace RealLifeFramework.ATM
         #region events
         private void onPunch(Player player)
         {
-            if (Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 2.5f, RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT))
+            if (!Physics.Raycast(player.look.aim.position, player.look.aim.forward, out RaycastHit hit, 2.5f,
+                RayMasks.BARRICADE | RayMasks.BARRICADE_INTERACT)) return;
+            
+            var drop = BarricadeManager.FindBarricadeByRootTransform(hit.transform);
+
+            if (drop == null) return;
+                
+            var barricade = drop.asset;
+
+            if (barricade.id == idATM)
             {
-                var drop = BarricadeManager.FindBarricadeByRootTransform(hit.transform);
-
-                if (drop != null)
-                {
-                    var barricade = drop.asset;
-
-                    if (barricade.id == idATM)
-                    {
-                        OpenATM(player);
-                    }
-                }
+                openAtm(player);
             }
         }
 
@@ -133,7 +132,7 @@ namespace RealLifeFramework.ATM
 
         #endregion
 
-        public static void OpenATM(Player player)
+        private static void openAtm(Player player)
         {
             var rp = RealPlayer.From(player);
             
@@ -146,7 +145,8 @@ namespace RealLifeFramework.ATM
 
             EffectManager.sendUIEffect(uiATM, keyATM, player.channel.GetOwnerTransportConnection(), true);
             EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_txt_money", Currency.FormatMoney(rp.CreditCardMoney.ToString()));
-            // maybe in update
+            
+            // maybe in later update
             EffectManager.sendUIEffectVisibility(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_btn_crypto", false);
             EffectManager.sendUIEffectVisibility(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_btn_stocks", false);
         }
@@ -176,12 +176,12 @@ namespace RealLifeFramework.ATM
             }
         }
 
-        public static void OpenATMCathegory(Player player, ATMCathegory cathegory)
+        private static void OpenATMCathegory(Player player, ATMCathegory cathegory)
         {
             var session = sessions[player.channel.owner.playerID.steamID];
 
             if (session.CurrentCathegory == cathegory) return;
-            if (session.depositAllCycle) session.depositAllCycle = false;
+            if (session.DepositAllCycle) session.DepositAllCycle = false;
 
             EffectManager.sendUIEffectText(keyATM, player.channel.GetOwnerTransportConnection(), true, "bank_header", (cathegory == ATMCathegory.Menu) ? "" : getCatSlovakName(cathegory));
 
@@ -191,16 +191,16 @@ namespace RealLifeFramework.ATM
             session.CurrentCathegory = cathegory;
         }
 
-        public static void TryConfirm(Player player, ATMCathegory cathegory)
+        private static void TryConfirm(Player player, ATMCathegory cathegory)
         {
             switch (cathegory)
             {
                 case ATMCathegory.Withdraw:
-                    withdraw(player);
+                    Withdraw(player);
                     break;
 
                 case ATMCathegory.Deposit:
-                    deposit(player);
+                    Deposit(player);
                     break;
 
                 case ATMCathegory.Transfare:
@@ -209,60 +209,59 @@ namespace RealLifeFramework.ATM
             }
         }
 
-        private static void withdraw(Player player)
+        private static void Withdraw(Player player)
         {
             var session = sessions[player.channel.owner.playerID.steamID];
             var rp = RealPlayer.From(player);
 
-            if (session == null || session.isDoingWork) return;
+            if (session == null || session.IsDoingWork) return;
 
-            session.isDoingWork = true;
+            session.IsDoingWork = true;
 
             Helper.Execute(() =>
             {
                 if (!uint.TryParse(session.Data[0], out uint baseAmount) || baseAmount == 0)
                 {
                     TaskDispatcher.QueueOnMainThread( () => SendError(player, "Neplatna Hodnota"));
-                    session.isDoingWork = false;
+                    session.IsDoingWork = false;
                     return;
                 }
 
                 if (rp.CreditCardMoney < baseAmount)
                 {
                     TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nedostatok penazi na ucte"));
-                    session.isDoingWork = false;
+                    session.IsDoingWork = false;
                     return;
                 }
 
-                uint amount = baseAmount;
+                var amount = baseAmount;
                 TaskDispatcher.QueueOnMainThread(() => rp.CreditCardMoney -= baseAmount);
 
                 while (amount > 0)
                 {
                     foreach (var note in Currency.Money)
                     {
-                        if (amount >= note.Value)
-                        {
-                            TaskDispatcher.QueueOnMainThread( () => UnturnedPlayer.FromPlayer(player).GiveItem(note.Key, 1));
-                            amount -= note.Value;
-                            break;
-                        }
+                        if (amount < note.Value) continue;
+                        
+                        TaskDispatcher.QueueOnMainThread( () => UnturnedPlayer.FromPlayer(player).GiveItem(note.Key, 1));
+                        amount -= note.Value;
+                        break;
                     }
                 }
 
                 TaskDispatcher.QueueOnMainThread( () => SendError(player, $"<color=#58CD7B>Vybranych {Currency.FormatMoney(baseAmount.ToString())}</color>") );
-                session.isDoingWork = false;
+                session.IsDoingWork = false;
             });
         }
 
-        private static void deposit(Player player)
+        private static void Deposit(Player player)
         {
             var session = sessions[player.channel.owner.playerID.steamID];
             var rp = RealPlayer.From(player);
 
-            if (session == null || session.isDoingWork) return;
+            if (session == null || session.IsDoingWork) return;
 
-            session.isDoingWork = true;
+            session.IsDoingWork = true;
 
             Helper.Execute(() =>
             {
@@ -274,14 +273,14 @@ namespace RealLifeFramework.ATM
                     if (!uint.TryParse(session.Data[4], out uint noteValue))
                     {
                         TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nespravna bankovka") );
-                        session.isDoingWork = false;
+                        session.IsDoingWork = false;
                         return;
                     }
 
                     if (!uint.TryParse(session.Data[1], out uint count))
                     {
                         TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nespravne mnozstvo") );
-                        session.isDoingWork = false;
+                        session.IsDoingWork = false;
                         return;
                     }
 
@@ -301,13 +300,9 @@ namespace RealLifeFramework.ATM
                     }
 
                     uint amount = 0;
-                    bool finish = false;
-                    
-
-                    /*
-                        ISSUE: Not removing items properly
-                     */
-                    
+                    var finish = false;
+                    var noteItems = new List<ItemCords>();
+                                        
                     foreach (var item in player.inventory.items)
                     {
                         if (finish) break;
@@ -318,45 +313,57 @@ namespace RealLifeFramework.ATM
                             {
                                 try
                                 {
-                                    byte index = item.getIndex(w, h);
-                                    byte itemPage = item.page;
+                                    var index = item.getIndex(w, h);
+                                    var itemPage = item.page;
 
                                     if (index == 255) continue;
 
-                                    if (item.getItem(index).item.id == noteId)
-                                    {
-                                        if (!finish)
-                                        {
-                                            TaskDispatcher.QueueOnMainThread(() => rp.Player.inventory.removeItem(itemPage, index));
-                                            amount += noteValue;
-                                            CommandWindow.Log($"amount: {amount}");
-                                            CommandWindow.Log($"plus: {noteValue}");
-                                            if (amount == noteValue * count) finish = true;
+                                    if (item.getItem(index).item.id != noteId) continue;
+                                    if (amount >= count) finish = true;
 
-                                            if (amount > noteValue * count) amount = noteValue * count;
-                                        }
-                                    }
+                                    amount++;
+
+                                    noteItems.Add(new ItemCords(index, itemPage));
                                 }
-                                catch { }
+                                catch
+                                {
+                                    // ignored
+                                }
                             }
                         }
                     }
 
+                    if (noteItems.Count < count)
+                    {
+                        TaskDispatcher.QueueOnMainThread(() => SendError(player, "Nedostatok bankoviek"));
+                        session.IsDoingWork = false;
+                        return;
+                    }
+
+                    TaskDispatcher.QueueOnMainThread(() => 
+                    {
+                        foreach(var cord in noteItems)
+                        {
+                            rp.Player.inventory.removeItem(cord.Page, cord.Index);
+                            amount += noteValue;
+                        }
+                    });
+
                     if (amount == 0)
                     {
-                        TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nedostatok bankoviek") );
-                        session.isDoingWork = false;
+                        TaskDispatcher.QueueOnMainThread(() => SendError(player, "Nedostatok bankoviek"));
+                        session.IsDoingWork = false;
                     }
                     else
                     {
-                        TaskDispatcher.QueueOnMainThread( () => SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>") );
-                        TaskDispatcher.QueueOnMainThread( () => rp.CreditCardMoney += amount );
-                        session.isDoingWork = false;
+                        TaskDispatcher.QueueOnMainThread(() => SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>") );
+                        TaskDispatcher.QueueOnMainThread(() => rp.CreditCardMoney += amount );
+                        session.IsDoingWork = false;
                     }
                 }
                 else // ALL
                 {
-                    if (session.depositAllCycle) return;
+                    if (session.DepositAllCycle) return;
                     
                     uint amount = 0;
 
@@ -372,18 +379,19 @@ namespace RealLifeFramework.ATM
                                 {
                                     try
                                     {
-                                        byte index = item.getIndex(w, h);
-                                        byte itemPage = item.page;
+                                        var index = item.getIndex(w, h);
+                                        var itemPage = item.page;
 
                                         if (index == 255) continue;
-
-                                        if (item.getItem(index).item.id == note.Key)
-                                        {
-                                            amount += note.Value;
-                                            TaskDispatcher.QueueOnMainThread(() => rp.Player.inventory.removeItem(itemPage, index) );                                            
-                                        }
+                                        if (item.getItem(index).item.id != note.Key) continue;
+                                        
+                                        amount += note.Value;
+                                        TaskDispatcher.QueueOnMainThread(() => rp.Player.inventory.removeItem(itemPage, index));
                                     }
-                                    catch { }
+                                    catch
+                                    {
+                                        // ignored
+                                    }
                                 }
                             }
                         }
@@ -391,15 +399,15 @@ namespace RealLifeFramework.ATM
 
                     if (amount == 0)
                     {
-                        TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nemas ziadne peniaze") );
-                        session.isDoingWork = false;
+                        TaskDispatcher.QueueOnMainThread(() => SendError(player, "Nemas ziadne peniaze"));
+                        session.IsDoingWork = false;
                     }
                     else
                     {
-                        TaskDispatcher.QueueOnMainThread( () => SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>") );
-                        TaskDispatcher.QueueOnMainThread( () => rp.CreditCardMoney += amount);
-                        session.depositAllCycle = true;
-                        session.isDoingWork = false;
+                        TaskDispatcher.QueueOnMainThread(() => SendError(player, $"<color=#58CD7B>Vlozil si {Currency.FormatMoney(amount.ToString())}</color>"));
+                        TaskDispatcher.QueueOnMainThread(() => rp.CreditCardMoney += amount);
+                        session.DepositAllCycle = true;
+                        session.IsDoingWork = false;
                     }
                 }
             });
@@ -411,23 +419,23 @@ namespace RealLifeFramework.ATM
             var session = sessions[player.channel.owner.playerID.steamID];
             var rp = RealPlayer.From(player);
 
-            if (session == null || session.isDoingWork) return;
+            if (session == null || session.IsDoingWork) return;
 
-            session.isDoingWork = true;
+            session.IsDoingWork = true;
 
             Helper.Execute(() =>
             {
                 if (!uint.TryParse(session.Data[2], out uint moneyToSend) || moneyToSend == 0)
                 {
-                    TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nespravna hodnota") );
-                    session.isDoingWork = false;
+                    TaskDispatcher.QueueOnMainThread(() => SendError(player, "Nespravna hodnota"));
+                    session.IsDoingWork = false;
                     return;
                 }
                 
                 if (rp.CreditCardMoney < moneyToSend)
                 {
-                    TaskDispatcher.QueueOnMainThread( () => SendError(player, "Nedostatok penazi") );
-                    session.isDoingWork = false;
+                    TaskDispatcher.QueueOnMainThread(() => SendError(player, "Nedostatok penazi"));
+                    session.IsDoingWork = false;
                     return;
                 }
 
@@ -446,15 +454,15 @@ namespace RealLifeFramework.ATM
 
                 if (target == null)
                 {
-                    TaskDispatcher.QueueOnMainThread( () => SendError(player, "Osoba sa nenasla") );
-                    session.isDoingWork = false;
+                    TaskDispatcher.QueueOnMainThread(() => SendError(player, "Osoba sa nenasla"));
+                    session.IsDoingWork = false;
                     return;
                 }
 
-                TaskDispatcher.QueueOnMainThread( () => rp.CreditCardMoney -= moneyToSend);
-                TaskDispatcher.QueueOnMainThread( () => target.CreditCardMoney += moneyToSend);
-                TaskDispatcher.QueueOnMainThread( () => SendError(player, $"<color=#58CD7B>Poslal si {Currency.FormatMoney(moneyToSend.ToString())} na ucet {target.Name}</color>"));
-                session.isDoingWork = false;
+                TaskDispatcher.QueueOnMainThread(() => rp.CreditCardMoney -= moneyToSend);
+                TaskDispatcher.QueueOnMainThread(() => target.CreditCardMoney += moneyToSend);
+                TaskDispatcher.QueueOnMainThread(() => SendError(player, $"<color=#58CD7B>Poslal si {Currency.FormatMoney(moneyToSend.ToString())} na ucet {target.Name}</color>"));
+                session.IsDoingWork = false;
             });
         }
 
