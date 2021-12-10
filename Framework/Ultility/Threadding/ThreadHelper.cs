@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RealLifeFramework.Threadding
 {
-    public class Helper
+    public class ThreadHelper
     {
         public static void Execute(Action action)
         {
-            ThreadPool.QueueUserWorkItem( (_) =>
+            ThreadPool.QueueUserWorkItem( _ =>
             {
                 try
                 {
@@ -27,7 +27,7 @@ namespace RealLifeFramework.Threadding
 
         public static void ExecuteAsync(Func<Task> task)
         {
-            ThreadPool.QueueUserWorkItem(async (_) =>
+            ThreadPool.QueueUserWorkItem(async _ =>
             {
                 try
                 {

@@ -35,7 +35,7 @@ namespace RealLifeFramework.Data
 
         public static void CreateData(string storage, string key, object data)
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (!ExistData(storage, key))
                 {
@@ -58,7 +58,7 @@ namespace RealLifeFramework.Data
 
         public static void SaveData(string storage, string key, object data)
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (ExistData(storage, key))
                 {
@@ -75,7 +75,7 @@ namespace RealLifeFramework.Data
 
         public static void CreatePlayer(RealPlayer player)
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (!ExistPlayer(player.CSteamID))
                 {
@@ -88,7 +88,7 @@ namespace RealLifeFramework.Data
 
         public static void DeletePlayer(CSteamID steamId)
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (!ExistPlayer(steamId))
                 {
@@ -112,7 +112,7 @@ namespace RealLifeFramework.Data
 
         public static void SavePlayer(RealPlayer player)
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (ExistPlayer(player.CSteamID))
                 {

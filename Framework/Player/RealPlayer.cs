@@ -38,18 +38,18 @@ namespace RealLifeFramework.RealPlayers
         
         public uint MaxExp 
         { 
-            get 
+            get
             {
                 if (Level < 10)
                     return (uint)(100 * Level);
-                else if (Level < 20)
-                    return (uint)(150 * Level); 
-                else if(Level < 30)
+                if (Level < 20)
+                    return (uint)(150 * Level);
+                if (Level < 30)
                     return (uint)(175 * Level);
-                else if(Level < 40)
+                if (Level < 40)
                     return (uint)(200 * Level);
-                else
-                    return (uint)(250 * Level);
+                
+                return (uint)(250 * Level);
             } 
         }
 
@@ -74,7 +74,7 @@ namespace RealLifeFramework.RealPlayers
             Player = player.Player;
             CSteamID = player.CSteamID;
             IP = TransportConnection.GetAddress().ToString();
-            int ipEnd = IP.LastIndexOf(':') + 1;
+            var ipEnd = IP.LastIndexOf(':') + 1;
             IP = IP.Substring(ipEnd, IP.Length - ipEnd);
 
             RankUser = new RankUser(this);

@@ -218,7 +218,7 @@ namespace RealLifeFramework.ATM
 
             session.IsDoingWork = true;
 
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (!uint.TryParse(session.Data[0], out uint baseAmount) || baseAmount == 0)
                 {
@@ -263,7 +263,7 @@ namespace RealLifeFramework.ATM
 
             session.IsDoingWork = true;
 
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (!session.Data[1].Contains("vsetko") && !session.Data[1].Contains("all") && !session.Data[1].Contains("vsechno"))
                 {
@@ -423,7 +423,7 @@ namespace RealLifeFramework.ATM
 
             session.IsDoingWork = true;
 
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 if (!uint.TryParse(session.Data[2], out uint moneyToSend) || moneyToSend == 0)
                 {
@@ -459,9 +459,12 @@ namespace RealLifeFramework.ATM
                     return;
                 }
 
-                TaskDispatcher.QueueOnMainThread(() => rp.CreditCardMoney -= moneyToSend);
-                TaskDispatcher.QueueOnMainThread(() => target.CreditCardMoney += moneyToSend);
-                TaskDispatcher.QueueOnMainThread(() => SendError(player, $"<color=#58CD7B>Poslal si {Currency.FormatMoney(moneyToSend.ToString())} na ucet {target.Name}</color>"));
+                TaskDispatcher.QueueOnMainThread( () =>
+                {
+                    rp.CreditCardMoney -= moneyToSend;
+                    target.CreditCardMoney += moneyToSend;
+                    SendError(player, $"<color=#58CD7B>Poslal si {Currency.FormatMoney(moneyToSend.ToString())} na ucet {target.Name}</color>");
+                });
                 session.IsDoingWork = false;
             });
         }

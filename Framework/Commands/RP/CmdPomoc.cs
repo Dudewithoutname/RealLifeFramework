@@ -33,7 +33,7 @@ namespace RealLifeFramework.Commands
             if (txt.Contains("<")) txt.Replace("<", "(");
 
             ChatManager.say(player.CSteamID, $"<color=#42f59e><b>Tiesnova Linka | Odoslal si pomoc :</color><color=#ffffff> {string.Join(" ", args)} </color>", Palette.COLOR_W, true);
-            foreach (SteamPlayer steamPlayer in Provider.clients)
+            foreach (var steamPlayer in Provider.clients)
             {
                 var LoopPlayer = PlayerTool.getPlayer(steamPlayer.playerID.steamID);
 

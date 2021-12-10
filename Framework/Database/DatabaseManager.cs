@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MySql.Data.MySqlClient;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -49,9 +50,8 @@ namespace RealLifeFramework.Database
 
         public void Clear()
         {
-            for (int i = 0; i < tables.Count; i++)
+            foreach (var cmd in tables.Select(t => new MySqlCommand($"DELETE FROM {t.Name}", this.Connection)))
             {
-                var cmd = new MySqlCommand($"DELETE FROM {tables[i].Name}", this.Connection);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -62,11 +62,13 @@ namespace RealLifeFramework.Database
             {
                 tables = new List<ITable>();
 
-                foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+                var types = Assembly.GetExecutingAssembly().GetTypes();
+                
+                foreach (var type in types)
                 {
                     if (type.GetCustomAttributes(typeof(DatabaseTable), true).Length > 0)
                     {
-                        var table = (ITable)Activator.CreateInstance(type);
+                        var table = (ITable) Activator.CreateInstance(type);
                         tables.Add(table);
 
                         table.StartCommand().ExecuteNonQuery();
@@ -80,7 +82,7 @@ namespace RealLifeFramework.Database
         {
             if (IsConnect())
             {
-                string query = $" UPDATE {table} SET {key} = '{value}' WHERE steamid = {playerId} ";
+                var query = $" UPDATE {table} SET {key} = '{value}' WHERE steamid = {playerId} ";
                 var cmd = new MySqlCommand(query, this.Connection);
                 cmd.ExecuteNonQuery();
             }
@@ -93,9 +95,9 @@ namespace RealLifeFramework.Database
             if (IsConnect())
             {
 
-                string query = $" SELECT {what} FROM {table} WHERE {name} = '{value}' ";
+                var query = $" SELECT {what} FROM {table} WHERE {name} = '{value}' ";
                 var cmd = new MySqlCommand(query, this.Connection);
-                MySqlDataReader reader = cmd.ExecuteReader();
+                var reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -118,11 +120,11 @@ namespace RealLifeFramework.Database
             if (IsConnect())
             {
 
-                string query = $" SELECT {what} FROM {table} WHERE {name} = '{value}' ";
+                var query = $" SELECT {what} FROM {table} WHERE {name} = '{value}' ";
                 var cmd = new MySqlCommand(query, this.Connection);
                 var reader = await cmd.ExecuteReaderAsync();
 
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     x = reader[0].ToString();
                 }

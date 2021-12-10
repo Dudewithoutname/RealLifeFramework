@@ -74,7 +74,7 @@ namespace RealLifeFramework.UserInterface
 
         private void calcInvMoney()
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 foreach (var items in Player.Player.inventory.items)
                 {

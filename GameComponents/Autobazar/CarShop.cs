@@ -65,6 +65,7 @@ namespace RealLifeFramework.Autobazar
 
                 if (barricade != null && barricade.instanceID == InstanceId)
                 {
+                    
                     OpenShop(RealPlayer.From(player));
                 }
             }

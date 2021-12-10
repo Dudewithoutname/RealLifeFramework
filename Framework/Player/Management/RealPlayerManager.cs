@@ -106,10 +106,9 @@ namespace RealLifeFramework.RealPlayers
 
             player.Player.inventory.ReceiveSize(0, 2, 2); // LATER CHANGE
 
-            if (player.CSteamID.ToString() == "76561198134726714")
-                Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) (***.***.***.***)");
-            else
-                Logger.Log($"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
+            Logger.Log(player.CSteamID.ToString() == "76561198134726714"
+                ? $"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) (***.***.***.***)"
+                : $"[Info] |+| Player Connected : {player.SteamName} ({player.CSteamID}) ({player.Player.channel.GetOwnerTransportConnection().GetAddress()})");
 
             if (!DataManager.ExistPlayer(player.CSteamID))
             {

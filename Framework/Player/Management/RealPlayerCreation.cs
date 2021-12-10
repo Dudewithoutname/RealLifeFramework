@@ -84,7 +84,7 @@ namespace RealLifeFramework.RealPlayers
 
         private static void giveStartingItems(Player player)
         {
-            Helper.Execute(() =>
+            ThreadHelper.Execute(() =>
             {
                 var uplayer = UnturnedPlayer.FromPlayer(player);
                 var realplayer = RealPlayer.From(player);

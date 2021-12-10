@@ -7,8 +7,7 @@ using HarmonyLib;
 using RealLifeFramework.Data;
 using RealLifeFramework.Threadding;
 using RealLifeFramework.Database;
-
-// ReSharper disable InconsistentNaming
+using RealLifeFramework.Pointmap;
 
 namespace RealLifeFramework
 {
@@ -40,6 +39,7 @@ namespace RealLifeFramework
 
             EventManager.Load();
             RealPlayerCreation.Load();
+            gameObject.AddComponent<PointmapManager>();
 
             Level.onLevelLoaded += onServerLoaded;
             Provider.onCommenceShutdown += saveData;
@@ -59,7 +59,7 @@ namespace RealLifeFramework
 
         private void saveData()
         {
-            Helper.Execute( () =>
+            ThreadHelper.Execute( () =>
             {
                 Logger.Log("[Datamanager] Performing saving");
 

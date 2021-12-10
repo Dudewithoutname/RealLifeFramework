@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using RealLifeFramework.Ranks;
+﻿using RealLifeFramework.Ranks;
 using RealLifeFramework.RealPlayers;
 using Rocket.API;
 using Rocket.Unturned.Player;
@@ -24,7 +23,7 @@ namespace RealLifeFramework.Commands
 
         public void Execute(IRocketPlayer caller, string[] args)
         {
-            var player = RealPlayer.From(((UnturnedPlayer)caller).CSteamID);
+            var player = RealPlayer.From((UnturnedPlayer)caller);
 
             if (args.Length < 1) return;
 
