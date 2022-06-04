@@ -32,7 +32,7 @@ namespace RealLifeFramework.Realism
                 victim.stance.checkStance(EPlayerStance.CROUCH);
                 return;
             }
-
+            // KURVA CO TU ROBIA TIE BITWISE OPERATORY - uf dufam ze sa to tak vola :DDDDDD
             if (parameters.limb == ELimb.RIGHT_LEG | parameters.limb == ELimb.LEFT_LEG | parameters.limb == ELimb.LEFT_FOOT | parameters.limb == ELimb.RIGHT_FOOT)
             {
                 if (parameters.cause == EDeathCause.GUN && UnityEngine.Random.Range(0, 3) == 1) // 25%
