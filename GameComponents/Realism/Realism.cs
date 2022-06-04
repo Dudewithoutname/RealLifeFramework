@@ -10,6 +10,7 @@ namespace RealLifeFramework.Realism
     [EventHandler]
     public class Realism : IEventComponent
     {
+    // tu sa ani nepozeraj toto je taka sracka ze az no hanbím sa za to xddd
         public void HookEvents()
         {
             DamageTool.damagePlayerRequested += onPlayerDamage;
