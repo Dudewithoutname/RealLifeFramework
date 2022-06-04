@@ -21,6 +21,8 @@ client.commands = new Collection();
 
 // express 
 app.use(express.json())
+// ik best security but i was stupid AF when i was making this .... :P and i didn't realize that you can check request's IP...
+// yah adventures of 15 y.o me 
 app.use( (req, res, next) => { (req.body.token != process.env.APITOKEN) ? res.end('Invalid token ty kokot! :)') : next() } )
 app.get('/', async (req, res) => res.end() )
 
