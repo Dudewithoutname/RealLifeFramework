@@ -54,6 +54,8 @@ namespace RealLifeFramework.Chatting
         {
             switch (mode)
             {
+                // thx to uncle Mike <3 
+                // for the when switch operato
                 case EPlayerVoiceMode.Whisper when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[(int)EPlayerVoiceMode.Whisper]:
                     return true;
                 case EPlayerVoiceMode.Normal when Vector3.Distance(speaker.player.gameObject.transform.position, listener.player.gameObject.transform.position) <= Distance[(int)EPlayerVoiceMode.Normal]:
