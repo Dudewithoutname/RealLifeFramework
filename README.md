@@ -8,3 +8,4 @@
 - javascript ani nepozeraj to sa rovno mozem ist odstrelit
 ## EN
 - Horrifying code please don't use it :/ was doing dat with 4 months of C# experience ....
+- shitty main plugin from my unturned RP
